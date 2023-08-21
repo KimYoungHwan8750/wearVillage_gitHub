@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="/css/logins_css.css">
+    <link rel="stylesheet" href="/css/color.css">
+    <link rel="stylesheet" href="/css/font.css">
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>옷빌리지</title>
+    <link
+            rel="icon"
+            type="image/x-icon"
+            href="img/index/옷빌리지빨강 수정.png"
+    />
+    <script
+            type="text/javascript"
+            src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
+            charset="utf-8"
+    ></script>
+<!--    외부api-->
+    <script type="text/javascript" src="" charset="utf-8"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src='https://developers.kakao.com/sdk/js/kakao.js'></script>
+    <script>Kakao.init('52ee13015bf846ec2f304035ae2de500');</script>
+
+    <style>
+        /*옷빌리지 로고 크기 조정*/
+
+        * {
+            justify-content: center;
+        }
+
+        #logo {
+            width: 200px;
+            height: 200px;
+        }
+
+        .logos {
+            display: grid;
+            justify-content: center;
+        }
+
+        .loginbanner {
+            display: grid;
+            justify-content: center;
+        }
+
+        input {
+            border: none;
+            height: 25px;
+            width: 400px;
+            font-size: 20px;
+        }
+
+        /*텍스트 박스 테두리 제거*/
+        input:focus {
+            outline: none;
+        }
+
+        #login_btn {
+            font-style: unset;
+            font-size: 25px;
+            outline: 1px solid white;
+            font-weight: bold;
+            height: 35px;
+            width: 400px;
+            background-color: #f00;
+            color: white;
+            text-align: center;
+            line-height: 10px;
+        }
+        .checkboxes {
+            display: flex;
+        }
+        .ID_text {
+            display: grid;
+            justify-content: center;
+        }
+        .PW_text {
+            display: grid;
+            justify-content: center;
+        }
+        .checkboxes input[type='checkbox'] {
+            width: 14px;
+            height: 14px;
+        }
+        .login_btn_info {
+            display: grid;
+            justify-content: center;
+        }
+        .find {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            justify-content: center;
+        }
+        .api_login{
+            display:flex;
+            justify-content:center;
+        }
+        .kakao_login{
+            width:183px;
+            height:45px;
+        }
+        .naver_login{
+            width:183px;
+            height:45px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="logos">
+    <img id="logo" src="img/index/옷빌리지빨강 복사2.png" alt="" />
+</div>
+<div class="loginbanner">
+    <h1><span class="noto_bold">로그인</span></h1>
+    <h3><span class="noto_medium">로그인창입니다</span></h3>
+</div>
+<form class="id_info" action="/" method="post">
+    <div class="ID_text">
+        <label><span class="noto_medium"><h1>아이디</h1></span></label>
+        <input  id="userID"
+                style="border-bottom: solid 2px var(--color-wear_gray)"
+                type="text"
+                name="userID"
+                placeholder="아이디를 입력해주세요."
+        >
+        
+    </div>
+    <div class="PW_text">
+        <label><span class="noto_medium"><h1>비밀번호</h1></span></label>
+        <input
+                id="userPassword"
+                style="border-bottom: solid 2px var(--color-wear_gray)"
+                type="password"
+                name="userPassword"
+                placeholder="비밀번호를 입력해주세요."
+        >
+        <p id="login_text"></p>
+
+    </div>
+    <p class="checkboxes">
+        <label class="a1">
+            <input
+            type="checkbox"
+            name="id_save"
+            value="id_saves">
+            <span class="noto_medium">아이디저장</span>
+        </label>
+        <label class="a2">
+            <input
+            type="checkbox"
+            name="auto_save"
+            value="auto_save">
+            <span class="noto_medium">자동로그인</span>
+        </label>
+    </p>
+    <div class="login_btn_info">
+    <button
+        id="login_btn"
+        type="button"
+        style="background-color: var(--color-wear_red);"
+        onclick="login_check()">
+        <span class="noto_bold">로그인</span>
+    </button>
+    </div>
+</form>
+<div class="find">
+
+    <a href="#" class="find_id">
+        <span class="noto_medium">아이디찾기&nbsp;</span>
+    </a>
+
+    <a href="#" class="find_pw">
+        <span class="noto_medium">비밀번호찾기&nbsp;</span>
+    </a>
+
+    <a href="/createUser" class="createUser">
+        <span class="noto_medium">회원가입</span>
+    </a>
+
+</div>
+
+    <div class="api_login">
+    <!--카카오톡 로그인 버튼-->
+    <img class="kakao_login" src="img/index/카카오로그인.png" alt="카카오 로그인" onclick="kakaoLogin();" style="cursor:pointer; margin:20px;"><br>
+    <!--네이버 로그인 버튼-->
+    <div id="naverLogin"> <img class="naver_login" src="img/index/네이버로그인.png" alt="네이버 로그인" style="cursor:pointer; margin:20px;"></div><br>
+    </div>
+    <!--네이버 로그인 데이터 저장되는 <div id="naverIdLogin"></div> 태그. 지울시 정상 작동 안 함-->
+    <div id="naverIdLogin" style="display: none"></div>
+
+    <!--네이버 로그인 버튼에 기능 부여-->
+
+    <script>
+    $(document).on("click", "#naverLogin", function(){ 
+        var btnNaverLogin = document.getElementById("naverIdLogin").firstChild;
+        btnNaverLogin.click();
+        naverLogin.getLoginStatus(function (status) {
+        if (status) {
+            const naverEmail=naverLogin.user.email;
+            const naverProfile=naverLogin.user.profile_image;
+            const naverJson = {email:naverEmail,
+            profile_img:naverProfile};
+            $.ajax({
+                type: "POST",
+                url: "/use_api",
+                data: {email:naverEmail},
+                dataType: "text",
+                success: function (response) {
+                    if (response=="true") {
+                        sessionStorage.setItem("login", naverEmail); // 이미 있는 이메일인 경우 로그인 상태 지정
+                        window.location.href = "/";
+                    } else if (response=="false") {
+                        sendPost("/createUser", naverJson)
+                    } else {
+                        alert("서버에서 알 수 없는 응답을 받았습니다.");
+                    }
+                },
+                error: function (request, status, error) {
+                    alert("서버에 오류가 발생했습니다.");
+                }
+            });
+        }
+      });
+    });
+    </script>
+
+
+    <!--카카오톡 로그인 API-->
+
+    <script>
+        function kakaoLogin() {
+        Kakao.Auth.login({
+        success: function (response) {
+        Kakao.API.request({
+            url: '/v2/user/me',
+            success: function (response) {
+                const kakaoEmail = response["kakao_account"]["email"];
+                const kakao_profile_img = response["properties"]["profile_image"];
+                kakaoJson = {email:kakaoEmail,profile_img:kakao_profile_img};
+                $.ajax({
+                    type: "POST",
+                    url: "/use_api",
+                    data: {email:kakaoEmail},
+                    dataType: "text",
+                    success: function (response) {
+                        if (response=="true") {
+                            sessionStorage.setItem("login", kakaoEmail); // 이미 있는 이메일인 경우 로그인 상태 지정
+                            window.location.href = "/";
+                        } else if (response=="false") {
+                            sendPost("/createUser", kakaoJson);
+                        } else {
+                            alert("서버에서 알 수 없는 응답을 받았습니다.");
+                        }
+                    },
+                    error: function (request, status, error) {
+                        alert("서버에 오류가 발생했습니다.");
+                    }
+                })
+              },
+              fail: function (error) {
+                console.log(error)
+              },
+            })
+          },
+        fail: function (error) {
+          console.log(error)
+          },
+        })
+      }
+    </script>
+
+    <!--네이버 로그인 API-->
+
+    <script>
+    const naverLogin = new naver.LoginWithNaverId(
+      {
+       clientId: "3Wx6ZUggUTx1VZXfbMO9",
+       callbackUrl: "http://localhost:8090/login",
+       loginButton: {color: "green", type: 2, height: 45}
+       }
+    );
+    naverLogin.init();
+    </script>
+
+    <!--포스트 방식 URL,파라미터 전달-->
+    <!--action에 URL지정, params에 JSON 데이터 지정-->
+
+    <script>
+    function sendPost(action, params) {
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', action);
+    document.charset = "utf-8";
+    for ( var key in params) {
+        var hiddenField = document.createElement('input');
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('name', key);
+        hiddenField.setAttribute('value', params[key]);
+        form.appendChild(hiddenField);
+        }
+    document.body.appendChild(form);
+    form.submit();
+    }
+    </script>
+
+    <!--아이디 비밀번호 데이터 베이스 체크-->
+    <script>
+        function login_check(){
+        var id = $('#userID').val();
+        var password = $('#userPassword').val();
+        $.ajax({
+            url: "/Dologin",                        // 클라이언트가 요청을 보낼 서버의 URL 주소
+            data: {id:id,
+                   password:password},                  // HTTP 요청과 함께 서버로 보낼 데이터
+            type: "post",                           // HTTP 요청 방식(GET, POST)
+            dataType: "json",                       // 서버에서 보내줄 데이터의 타입
+            success:function(result){
+                if(result==true){
+                    location.href="/";
+                    sessionStorage.setItem("login",id);
+                } else {
+                    document.getElementById("login_text").innerText = "다시 입력해주세요."
+                    document.getElementById("login_text").style.color = "red";
+                }
+            },
+            error:function(error){
+                alert(error);
+            }
+        });
+    }
+    </script>
+</body>
+</html>
+</html>

@@ -1,0 +1,79 @@
+* {
+    justify-content: center;
+}
+
+#logo {
+    width: 200px;
+    height: 200px;
+}
+
+.logos {
+    display: grid;
+    justify-content: center;
+}
+
+.loginbanner {
+    display: grid;
+    justify-content: center;
+}
+
+input {
+    border: none;
+    height: 25px;
+    width: 400px;
+    font-size: 20px;
+}
+
+input:focus {
+    outline: none;
+}
+
+#login_btn {
+    font-style: unset;
+    font-size: 25px;
+    outline: 1px solid white;
+    font-weight: bold;
+    height: 35px;
+    width: 400px;
+    background-color: var(--color-wear_red);
+    color: white;
+    text-align: center;
+    line-height: 10px;
+}
+.checkboxes {
+    display: flex;
+}
+.ID_text {
+    display: grid;
+    justify-content: center;
+}
+.PW_text {
+    display: grid;
+    justify-content: center;
+}
+.checkboxes input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+}
+.login_btn_info {
+    display: grid;
+    justify-content: center;
+}
+.find {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+.api_login{
+    display:flex;
+    justify-content:center;
+}
+.kakao_login{
+    width:183px;
+    height:45px;
+}
+.naver_login{
+    width:183px;
+    height:45px;
+}

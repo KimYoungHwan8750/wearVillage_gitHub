@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<div layout:fragment="content">
+    
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main_css.css">
+    <!-- 폰트스크립트 -->
+    <script
+            src="https://kit.fontawesome.com/af69a3abe6.js"
+            crossorigin="anonymous"
+    ></script>
+</head>
+<!-- 바디 -->
+<body>
+<span class="noto_medium">
+<div class="container">
+
+    <div class="gnb">
+        <ul class="menu">
+            <li class="item">
+                <a href="#">카테고리</a>
+                <div class="category">
+                    <ul class="categories">
+                        &nbsp;카테고리
+                    </ul>
+
+                    <div class="under_category">
+                        <ul class="상의">
+                            <a href="#">&nbsp;<i class="fa-solid fa-shirt"></i>상의</a>
+                            <div class="category_items_상의">
+                                <ul>
+                                    <a class="긴소매티셔츠" href=""
+                                    >&nbsp긴소매 티셔츠&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="반소매티셔츠" href=""
+                                    >&nbsp반소매 티셔츠&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="셔츠블라우스" href=""
+                                    >&nbsp셔츠/블라우스&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="후드티셔츠" href="">&nbsp후드 티셔츠&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="맨투맨" href="">&nbsp맨투맨&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="니트스웨터" href="">&nbsp니트/스웨터&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="기타상의" href="">&nbsp기타 상의&nbsp</a>
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="하의">
+                            <a href="#"
+                            >&nbsp;<img
+                                    class="trousers"
+                                    src="img/index/trousers.png"
+                                    alt=""
+                            />하의</a
+                            >
+                            <div class="category_items_하의">
+                                <ul>
+                                    <a class="데님팬츠" href="">&nbsp데님 팬츠&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="코튼팬츠" href="">&nbsp코튼 팬츠&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="슈트팬츠" href="">&nbsp슈트 팬츠&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="트레이닝조거팬츠" href=""
+                                    >&nbsp트레이닝/조거 팬츠&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="숏팬츠" href="">&nbsp숏 팬츠&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="기타하의" href="">&nbsp기타 하의&nbsp</a>
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="아우터">
+                            <a href="#"
+                            >&nbsp;<img
+                                    class="coat"
+                                    src="img/index/coat.png"
+                                    alt=""
+                            />아우터</a
+                            >
+                            <div class="category_items_아우터">
+                                <ul>
+                                    <a class="후드집업" href="">&nbsp후드 집업&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="레더라이더스재킷" href=""
+                                    >&nbsp레더/라이더스 재킷&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="트러커재킷" href="">&nbsp트러커 재킷&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="슈트블레이저재킷" href=""
+                                    >&nbsp슈트/블레이저 재킷&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="카디건" href="">&nbsp카디건&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="아노락재킷" href="">&nbsp아노락 재킷&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="플리스" href="">&nbsp플리스&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="패딩" href="">&nbsp패딩&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="기타아우터" href="">&nbsp기타 아우터&nbsp</a>
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="원피스">
+                            <a href="#"
+                            >&nbsp;<img
+                                    class="woman"
+                                    src="img/index/woman.png"
+                                    alt=""
+                            />원피스</a
+                            >
+                            <div class="category_items_원피스">
+                                <ul>
+                                    <a class="미니원피스" href="">&nbsp미니 원피스&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="미디원피스" href="">&nbsp미디 원피스&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="맥시원피스" href="">&nbsp맥시 원피스&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="기타원피스" href="">&nbsp기타 원피스&nbsp</a>
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="비치웨어">
+                            <a href="#"
+                            >&nbsp;<img
+                                    class="bikini"
+                                    src="img/index/bikini.png"
+                                    alt=""
+                            />비치웨어</a
+                            >
+                            <div class="category_items_비치웨어">
+                                <ul>
+                                    <a class="남성비치웨어" href=""
+                                    >&nbsp남성 비치웨어&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="여성비치웨어" href=""
+                                    >&nbsp여성 비치웨어&nbsp</a
+                                    >
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="스포츠">
+                            <a href="#"
+                            >&nbsp;<img
+                                    class="outfit"
+                                    src="img/index/outfit.png"
+                                    alt=""
+                            />스포츠</a
+                            >
+                            <div class="category_items_스포츠">
+                                <ul>
+                                    <a class="스포츠상의" href="">&nbsp스포츠 상의&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="스포츠하의" href="">&nbsp스포츠 하의&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="트레이닝재킷" href=""
+                                    >&nbsp트레이닝 재킷&nbsp</a
+                                    >
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="모자">
+                            <a href="#"
+                            >&nbsp;<img
+                                    class="cap"
+                                    src="img/index/cap.png"
+                                    alt=""
+                            />모자</a
+                            >
+                            <div class="category_items_모자">
+                                <ul>
+                                    <a class="캡야구모자" href="">&nbsp캡/야구모자&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="버킷사파리햇" href=""
+                                    >&nbsp버킷/사파리햇&nbsp</a
+                                    >
+                                </ul>
+                                <ul>
+                                    <a class="비니" href="">&nbsp비니&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="기타모자" href="">&nbsp기타 모자&nbsp</a>
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="신발">
+                            <a href="#"
+                            >&nbsp;<img
+                                    class="boot"
+                                    src="img/index/boot.png"
+                                    alt=""
+                            />신발</a
+                            >
+                            <div class="category_items_신발">
+                                <ul>
+                                    <a class="구두" href="">&nbsp구두&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="로퍼" href="">&nbsp로퍼&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="힐펌프스" href="">&nbsp힐/펌프스&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="샌들" href="">&nbsp샌들&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="슬리퍼" href="">&nbsp슬리퍼&nbsp</a>
+                                </ul>
+                                <ul>
+                                    <a class="부츠" href="">&nbsp부츠&nbsp</a>
+                                </ul>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="item"><a href="#">가격 높은순</a></li>
+            <li class="item"><a href="#">가격 낮은순</a></li>
+            <li class="item"><a href="#">인기순</a></li>
+            <li class="item"><a href="#">가까운순</a></li>
+        </ul>
+    </div>
+    <div class="main">
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+        <div class="item">
+            <div class="gubun">판매/대여</div>
+            <div class="pic">
+                <img
+                        src="/img/index/1.jpg"
+                        alt=""
+                />
+            </div>
+            <div class="desc">설명</div>
+        </div>
+    </div>
+
+
+</div>
+    </span>
+</div>
+</body>
+</html>

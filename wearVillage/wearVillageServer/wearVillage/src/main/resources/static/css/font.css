@@ -1,0 +1,31 @@
+
+span {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.noto_medium {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+}
+
+.noto_bold {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+}
+
+.poppins_regular{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.poppins_medium{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.poppins_bold{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
