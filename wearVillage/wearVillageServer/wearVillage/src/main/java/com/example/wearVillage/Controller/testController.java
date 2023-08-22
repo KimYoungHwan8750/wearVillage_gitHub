@@ -12,6 +12,7 @@ import static com.example.wearVillage.dataContoller.LoginCheck.login_check;
 import static com.example.wearVillage.dataContoller.check_email.check_email;
 import static com.example.wearVillage.dataContoller.check_id.check_id;
 import static com.example.wearVillage.dataContoller.createUserToOracle.dataToOracle;
+import static com.example.wearVillage.dataContoller.selectBoardQuery.selectBoardQuery;
 
 
 @Controller
@@ -19,7 +20,7 @@ public class testController {
     // 메인화면으로 이동
     @RequestMapping(value = "/")
     public String home(){
-            return "main.html";
+            return "test.html";
     }
 
     //로그인 방식에 따라 회원가입 양식을 자동으로 채워주는 API
@@ -72,6 +73,14 @@ public class testController {
     @RequestMapping(value ="/login")
     public String login(){
         return "logins";
+    }
+
+
+    //selectBoardQuery 테스트
+    @PostMapping(value="/create_board")
+    public String data_to_oracle_board(@RequestParam String POST_ID, @RequestParam String POST_TITLE){
+        selectBoardQuery(POST_ID,POST_TITLE);
+        return "test.html";
     }
 
 
