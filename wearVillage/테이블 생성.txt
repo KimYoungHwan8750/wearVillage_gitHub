@@ -1,4 +1,4 @@
-/*계정 생성*/
+/*계정 생성*/dudghs
 DROP USER c##wearVillage CASCADE;
 CREATE USER c##wearVillage IDENTIFIED BY wearVillage DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp PROFILE DEFAULT;
 GRANT CONNECT, RESOURCE TO c##wearVillage;
