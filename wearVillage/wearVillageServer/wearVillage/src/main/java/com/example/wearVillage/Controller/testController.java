@@ -49,7 +49,7 @@ public class testController {
 
     //회원가입시 메인화면으로 이동하기 위한 코드 (아직 구현 중)
     @PostMapping(value = "/")
-    public String finished_create_user(@RequestParam(required = false,value = "userId") String userId,@RequestParam(required = false,value = "userPassword") String userPassword, @RequestParam(required = false, value = "userEmail") String email) {
+    public String finished_create_user(@RequestParam String userId,@RequestParam String userPassword, @RequestParam String email) {
             dataToOracle(email, userId, userPassword);
             return "main.html";
     }
