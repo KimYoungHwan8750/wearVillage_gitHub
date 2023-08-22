@@ -8,11 +8,35 @@
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 </head>
 <body>
-  <form action="/create_board" method="POST">
-    <input class="POST_ID" type="text" name="input_id">
-    <input class="POST_TITLE" type="text" name="input_title">
-    <button>포스트 보내기</button>
+  <form action="/test" method="POST">
+    <input id="POST_ID" type="text" name="POST_ID">
+    <input id="POST_TITLE" type="text" name="POST_TITLE">
+    <button id="post_btn" type="button">포스트 보내기</button>
   </form>
- 
+ <script>
+    var POST_ID_VALUE = $("#POST_ID").val();
+    var POST_TITLE_VALUE = $("#POST_TITLE").val();
+    var post_btn = document.getElementById("post_btn");
+    post_btn.addEventListener('click', lunch_ajax);
+    function lunch_ajax(){
+  $.ajax({
+    data:{POST_ID:POST_ID_VALUE,
+          POST_TITLE:POST_TITLE_VALUE},
+    url:"/create_board",
+    dataType:"text",
+    type: "post",
+    success:function(test){
+        if(test=='성공'){
+            location.href="/"
+        }
+    },
+    error:function(test2){
+        console.log("에러가 떴어요");
+        console.log(test2);
+    }
+  })
+}
+
+</script>
 </body>
 </html>

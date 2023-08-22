@@ -77,10 +77,11 @@ public class testController {
 
 
     //selectBoardQuery 테스트
+    @ResponseBody
     @PostMapping(value="/create_board")
     public String data_to_oracle_board(@RequestParam String POST_ID, @RequestParam String POST_TITLE){
         selectBoardQuery(POST_ID,POST_TITLE);
-        return "test.html";
+        return "main.html";
     }
 
 
