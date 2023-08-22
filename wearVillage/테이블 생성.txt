@@ -1,4 +1,4 @@
-/*계정 생성*/수정하기
+/*계정 생성*/실험입니다
 DROP USER c##wearVillage CASCADE;
 CREATE USER c##wearVillage IDENTIFIED BY wearVillage DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp PROFILE DEFAULT;
 GRANT CONNECT, RESOURCE TO c##wearVillage;
