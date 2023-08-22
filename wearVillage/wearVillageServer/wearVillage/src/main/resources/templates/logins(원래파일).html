@@ -305,29 +305,61 @@
 
     <!--아이디 비밀번호 데이터 베이스 체크-->
     <script>
+        const login_text=document.getElementById("login_text");
         function login_check(){
         var id = $('#userID').val();
         var password = $('#userPassword').val();
-        $.ajax({
-            url: "/Dologin",                        // 클라이언트가 요청을 보낼 서버의 URL 주소
-            data: {id:id,
-                   password:password},                  // HTTP 요청과 함께 서버로 보낼 데이터
-            type: "post",                           // HTTP 요청 방식(GET, POST)
-            dataType: "json",                       // 서버에서 보내줄 데이터의 타입
-            success:function(result){
-                if(result==true){
-                    location.href="/";
-                    sessionStorage.setItem("login",id);
-                } else {
-                    document.getElementById("login_text").innerText = "다시 입력해주세요."
-                    document.getElementById("login_text").style.color = "red";
-                }
-            },
-            error:function(error){
-                alert(error);
-            }
-        });
+    $.ajax({
+    url: "/Dologin",                        // 클라이언트가 요청을 보낼 서버의 URL 주소
+    data: {id:id,
+           password:password},                  // HTTP 요청과 함께 서버로 보낼 데이터
+    type: "post",                           // HTTP 요청 방식(GET, POST)
+    dataType: "json",                       // 서버에서 보내줄 데이터의 타입
+    success:function(result){
+    if(result==true){
+        location.href="/";
+        sessionStorage.setItem("login",id);
+        }else if(!id){
+        document.getElementById("userID").focus();
+        login_text.innerText = "아이디를 입력해주세요."
+        login_text.style.color = "red";
+        }else if(!password){
+        document.getElementById("userPassword").focus();
+        login_text.innerText = "비밀번호를 입력해주세요."
+        login_text.style.color = "red";
+        }else {
+        $('#userPassword').val('');
+        login_text.innerText = "비밀번호를 확인해주세요."
+        login_text.style.color = "red";
+        }
+    },
+    error:function(error){
+    alert(error);
     }
+    });
+}
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#userID").on("keydown", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    login_check();
+                    $("#pw_box").focus
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#userPassword").on("keydown", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    login_check();
+                }
+            });
+        });
     </script>
 </body>
 </html>

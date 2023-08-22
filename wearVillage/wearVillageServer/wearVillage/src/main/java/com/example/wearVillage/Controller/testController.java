@@ -14,6 +14,7 @@ import static com.example.wearVillage.dataContoller.check_id.check_id;
 import static com.example.wearVillage.dataContoller.createUserToOracle.dataToOracle;
 
 
+
 @Controller
 public class testController {
     // 메인화면으로 이동

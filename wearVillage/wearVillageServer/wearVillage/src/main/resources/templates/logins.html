@@ -332,6 +332,28 @@
         });
     }
     </script>
+    
+    <script>
+        $(document).ready(function() {
+            $("#userID").on("keydown", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    login_check();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#userPassword").on("keydown", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    login_check();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 </html>
