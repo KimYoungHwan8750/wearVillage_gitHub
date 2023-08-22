@@ -1,3 +1,4 @@
+/테스트용 주석/
 /*계정 생성*/
 DROP USER c##wearVillage CASCADE;
 CREATE USER c##wearVillage IDENTIFIED BY wearVillage DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp PROFILE DEFAULT;
