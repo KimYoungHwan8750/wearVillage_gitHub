@@ -5,7 +5,7 @@ span {
 }
 
 
-.noto_medium {
+.noto_regular {
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 400;
 }
@@ -15,12 +15,12 @@ span {
     font-weight: 700;
 }
 
-.poppins_regular{
+.poppins_light{
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
 }
 
-.poppins_medium{
+.poppins_regular{
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
 }

@@ -1,6 +1,4 @@
-@import url(reset.css);
-@import url(font.css);
-@import url(color.css);
+@import url(common.css);
 
 * {
     margin: 0px;
@@ -153,18 +151,6 @@ body {
     height: 40px;
     line-height: 40px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 #logo {
     width: 200px;
