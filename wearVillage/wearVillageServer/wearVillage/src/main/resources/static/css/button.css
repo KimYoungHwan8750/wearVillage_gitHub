@@ -4,31 +4,58 @@
 /*    300사이즈 : 로그인 / 회원가입 */
 
 .button_100_wear_red{
-    color: var(--color-wear_red_background);
+    background-color: var(--color-wear_red_background);
+    color:white;
     width:100px;
+    height:30px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size:15px;
 }
 
 .button_200_wear_red{
-    color: var(--color-wear_red_background);
+    background-color: var(--color-wear_red_background);
+    color:white;
     width:200px;
+    height:50px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size:17px;
 }
 
 .button_300_wear_red{
-    color: var(--color-wear_red_background);
+    background-color: var(--color-wear_red_background);
+    color:white;
     width:300px;
+    height:60px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size:19px;
 }
 
-.button_100_wear_gray{
-    color: var(--color-wear_gray_background);
+.button_100_wear_whitegray{
+    background-color: var(--color-wear_whitegray_background);
     width:100px;
+    height:30px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size:15px;
 }
 
-.button_200_wear_gray{
-    color: var(--color-wear_gray_background);
+.button_200_wear_whitegray{
+    background-color: var(--color-wear_whitegray_background);
     width:200px;
+    height:50px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size:17px;
 }
 
-.button_300_wear_gray{
-    color: var(--color-wear_gray_background);
-    width:200px;
+.button_300_wear_whitegray{
+    background-color: var(--color-wear_whitegray_background);
+    width:300px;
+    height:60px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    font-size:19px;
 }
