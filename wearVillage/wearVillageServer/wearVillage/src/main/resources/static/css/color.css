@@ -1,4 +1,12 @@
 :root{
-    --color-wear_red : #dc4141;
-    --color-wear_gray: #b2b2b2;
+    /*배경색*/
+    --color-wear_red_background : #dc4141;
+    --color-wear_gray_background: #b2b2b2;
+    --color-wear-pink_background: #EEA2CD;
+
+    /*전경색*/
+    --color-wear_red_foreground : #dc4141;
+    --color-wear_gray_foreground : #b2b2b2;
+    --color-wear-pink_foreground: #EEA2CD;
+
 }
