@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .layout {
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+
+        .layout>input,
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 10px;
+            height: 300px;
+
+        }
+        .title{
+            width: 400px;
+            height: 30px;
+            font-size: large;
+        }
+        /* .layout > textarea{
+        width: 100%;
+        
+        margin-top: 50px;
+        min-height: 300px;
+        } */
+        /* * {
+            outline: 1px solid red;
+        } */
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* 리스트 전체 */
+        .container textarea {
+            display: flex;
+            justify-content: start;
+            width: 768px;
+            height: 500px;
+            font-weight: 400;
+            font-size: 1rem;
+            outline: 3px solid rgb(204, 204, 204);
+        }
+        .end_btn{
+            display: flex;
+            justify-content: space-between;
+        }
+        .mail{
+            display: flex;
+            justify-content: space-between;
+        }
+        .end{
+            height: 50px;
+            width: 80px;
+        }
+        /* ---------왼쪽 공백 리모컨 css--------*/
+
+        /* 리모컨 위치 변경 */
+        .container .gap .btn {
+            margin-top: 100px;
+            margin-right: 50px;
+        }
+
+        /* 리모컨 고객센터 타이틀 */
+        .container .gap .usercenter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 170px;
+            height: 40px;
+            margin: 0px;
+            font-weight: 600;
+            outline: 1px solid black;
+        }
+
+        /* 고객센터 리모컨 */
+        .container .gap .btn {
+            outline: 2px solid black;
+        }
+
+        /* 리모컨 탭2개 */
+        .container .gap .btn .sub {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0px;
+            font-weight: 500;
+            outline: 1px solid black;
+        }
+
+        /* 리모컨 지금 화면 버튼 표시 */
+        .container .gap .btn .now {
+            background-color: rgb(231, 76, 60);
+            color: white;
+        }
+
+        .head_title {
+            font-weight: bold;
+            font-size: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="gap">
+            <!-- 왼쪽 공백 리모컨 -->
+            <!-- <div class="btn">
+                <b class="usercenter">고객센터</b>
+                <b class="sub"><a href="">자주 묻는 질문(FAQ)</a></b>
+                <b class="sub now"><a class="now" href="">1:1문의(Q&A)</a></b>
+            </div> -->
+        </div>
+        <div class="head_title">
+            <div class="container">
+                <form action="/board/new" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="galleryName" id="galleryName" value="comic" />
+                    <input type="hidden" name="galleryId" id="galleryId" value=1 />
+                    <br>
+                    문의 유형 <input type="text" name="문의유형">
+                    <br>
+                    <br>
+                    제목 <input class="title" type="text" name="title" placeholder="제목을 입력해주세요">
+                    이미지 파일<input type="file" multiple="multiple" name="imageFiles">
+                    <br>
+                    <br>
+                    문의내용
+                    <textarea name="content" placeholder="내용을 입력해주세요"></textarea>
+                    <br>
+                    <br>
+                    <div class="mail">
+                    <p>이메일 주소 <input type="text" class="e_mail"></p>
+                    <p>개인정보 수집 동의<input type="checkbox"></p>
+                </div>
+                    <br>
+                    <br>
+                    <div class="end_btn">
+                        <p>휴대폰 번호 <input type="number" class="p_num"></p>
+                     <input class="end" value="문의하기" type="submit" />  
+                    </div class="end_btn">
+                </form>
+            </div> <!-- /container -->
+        </div class="head_title">
+        <div class="gap"></div>
+    </div>
+</body>
+
+</html>
