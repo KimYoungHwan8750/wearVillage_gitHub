@@ -1,0 +1,34 @@
+
+/*    100사이즈 : 확인 / 취소 */
+/*    200사이즈 : 확인 / 취소 */
+/*    300사이즈 : 로그인 / 회원가입 */
+
+.button_100_wear_red{
+    color: var(--color-wear_red_background);
+    width:100px;
+}
+
+.button_200_wear_red{
+    color: var(--color-wear_red_background);
+    width:200px;
+}
+
+.button_300_wear_red{
+    color: var(--color-wear_red_background);
+    width:300px;
+}
+
+.button_100_wear_gray{
+    color: var(--color-wear_gray_background);
+    width:100px;
+}
+
+.button_200_wear_gray{
+    color: var(--color-wear_gray_background);
+    width:200px;
+}
+
+.button_300_wear_gray{
+    color: var(--color-wear_gray_background);
+    width:200px;
+}
