@@ -103,38 +103,70 @@
             font-weight: bold;
             font-size: 3rem;
         }
+        /* 임시 메인 */
+        *{
+            margin: 0;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100px;
+            margin-bottom: 100px;
+            outline: 1px solid black;
+        }
+        /* 임시 푸터 */
+        .footer{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100px;
+            margin-top: 50px;
+            outline: 1px solid black;
+        }
     </style>
 </head>
 
 <body>
+    <!-- 메인 -->
+    <div class="main">main</div>
     <div class="container">
+        <!-- gap = 공백 -->
         <div class="gap">
             <!-- 왼쪽 공백 리모컨 -->
             <!-- <div class="btn">
                 <b class="usercenter">고객센터</b>
-                <b class="sub"><a href="">자주 묻는 질문(FAQ)</a></b>
-                <b class="sub now"><a class="now" href="">1:1문의(Q&A)</a></b>
+                <b class="sub now"><a class="now" href="">자주 묻는 질문(FAQ)</a></b>
+                <b class="sub "><a  href="">1:1문의(Q&A)</a></b>
             </div> -->
         </div>
-        <div class="head_title">
-            OOO님의 1:1 문의 목록
             <div class="all_list">
                 <div class="num">
                     <span class="line num_title">번호</span>
                     <span class="line">1</span>
                     <span class="line">2</span>
-                    
+                    <span class="line">3</span>
+                    <span class="line">4</span>
+                    <span class="line">5</span>
+                    <span class="line">6</span>
                 </div>
                 <div class="list">
                     <span class="line title">제목</span>
-                    <span class="line"><a href="#">거래자가 제 옷을 들고 잠적했어요</a></span>
-                    <span class="line"><a href="#">거래자의 옷 상태가 이상해요</a></span>
+                    <span class="line"><a href="#">상대방이 제 옷을 안돌려줘요</a></span>
+                    <span class="line"><a href="#">상대방이 약속장소에 나타나지 않아요</a></span>
+                    <span class="line"><a href="#">상대방이 응답이 없어요</a></span>
+                    <span class="line"><a href="#"></a></span>
+                    <span class="line"><a href="#"></a></span>
+                    <span class="line"><a href="#"></a></span>
                    
                 </div>
             </div>
         </div class="head_title">
+        <!-- gap = 공백 -->
         <div class="gap"></div>
     </div>
+    <!-- 푸터 -->
+    <div class="footer">footer</div>
 </body>
 
 </html>
