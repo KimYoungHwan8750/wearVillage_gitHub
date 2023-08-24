@@ -10,21 +10,25 @@
 ></script>
 <link rel="stylesheet" href="./font.css">
     <style>
+
         *{
             outline: solid 1px red;
             
         }
+
         .header_container{
             display:grid;
             grid-template-columns: 1fr 768px 1fr;
         }
 
-        .item.item1{
-        
+        .header_logo{
+            font-size: 16px;
         }
+
         h1{
             display: inline-flex
         }
+
         #logo{
             position: relative;
             width: 50px;
@@ -32,17 +36,20 @@
             vertical-align: middle;
             bottom: 8px;
         }
+
         .left_contents{
         text-align: right;           
         }
+
         .center_contents{
             align-self: center;
         }
+
         .center_contents_grid{
             display:grid;
             text-align: center;
             align-content: center;
-            grid-template-columns: repeat(6,1fr);
+            grid-template-columns: repeat(4,1fr);
         }
         
         @media screen and (max-width:768px) {
@@ -64,20 +71,19 @@
     <div class="header_container">
 
         <div class="left_contents">
-            <div class="item item1">
+            <div class="header_logo noto_regular_black">
                 <img id="logo" src="./옷빌리지빨강 수정.png" alt="">
                 <h1>옷 빌리지</h1>
             </div>
         </div>
 
         <div class="center_contents">
-            <div class="center_contents_grid noto_regular_black">
-                <h3></h3>
-                <h3 class="item item2">구매/대여</h3>
-                <h3 class="item item3">판매/대여</h3>
-                <h3 class="item item4">마이페이지</h3>
-                <h3 class="item item5">고객센터</h3>
-                <h3></h3>
+            <div class="center_contents_grid noto_regular_graywhite">
+                <p class="item item1">구매/대여</p>
+                <p class="item item3">판매/대여</p>
+                <p class="item item4">마이페이지</p>
+                <p class="item item5">고객센터</p>
+                
             </div>
         </div>
         <div class="right_contents"></div>
