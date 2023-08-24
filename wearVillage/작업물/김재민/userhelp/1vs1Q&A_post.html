@@ -6,37 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        /* .layout {
-            width: 500px;
-            margin: 0 auto;
-            margin-top: 40px;
-        }
-
-        .layout>input,
-        textarea {
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 10px;
-            height: 300px;
-
-        }
-
-        .title {
-            width: 400px;
-            height: 30px;
-            font-size: large;
-        } */
-
-        /* .layout > textarea{
-        width: 100%;
-        
-        margin-top: 50px;
-        min-height: 300px;
-        } */
-        /* * {
-            outline: 1px solid red;
-        } */
-
         a {
             text-decoration: none;
             color: black;
@@ -47,36 +16,47 @@
             justify-content: center;
         }
 
-        /* 문의 내용 */
-        .container textarea {
-            display: flex;
-            justify-content: start;
-            width: 768px;
-            height: 500px;
-        }
         /* 제목 and 이미지첨부 */
         .container .title_and_file {
             display: flex;
             justify-content: space-between;
+        }
+        /* 제목입력칸 */
+        .container .title_post{
+            width: 300px;
+            height: 20px;
+        }
+        /* 문의 내용 */
+        .container textarea {
+            display: flex;
+            justify-content: start;
+            width: 750px;
+            height: 300px;
         }
         /* 문의하기 번튼 and 폰번호 정렬 */
         .container .end_btn {
             display: flex;
             justify-content: space-between;
         }
-         /* 이메일 and 체크박스 */
+         /* 이메일 and 체크박스 정렬*/
         .container .mail_checkbox {
             display: flex;
             justify-content: space-between;
         }
+        /* 체크박스 크기 */
+        .container .checkbox{
+            height: 18px;
+            width: 18px;
+        }
         /* 문의하기 버튼 크기 */
         .container .end {
             height: 50px;
-            width: 80px;
+            width: 100px;
         }
         /* 문의 유형 제목등 */
         .container .head_title {
             font-weight: bold;
+            font-size: 18px
         }
 
         /* ---------왼쪽 공백 리모컨 css--------*/
@@ -129,7 +109,7 @@
             justify-content: center;
             align-items: flex-end;
             height: 100px;
-            margin-bottom: 100px;
+            margin-bottom: 50px;
             outline: 1px solid black;
         }
         /* 임시 푸터 */
@@ -145,8 +125,10 @@
 </head>
 
 <body>
+    <!-- 메인 -->
     <div class="main">main</div>
     <div class="container">
+        <!-- gap = 공백 -->
         <div class="gap">
             <!-- 왼쪽 공백 리모컨 -->
             <!-- <div class="btn">
@@ -158,7 +140,7 @@
         <!-- 문의유형 -->
         <div class="head_title">
             <form action="#">
-                <label for="lang">문의 유형</label>
+                <label for="lang">문의유형</label>
                 <select class="ask_type">
                     <option value="select">선택해주세요</option>
                     <option value="select">결제 문의</option>
@@ -175,7 +157,7 @@
                     <br>
                     <!-- 제목 사진첨부 -->
                     <div class="title_and_file">
-                        <p>제목 <input type="text" placeholder="제목을 입력해주세요"></p>
+                        <p>제목 <input class="title_post" type="text" placeholder="제목을 입력해주세요"></p>
                         <p>사진첨부 <input type="file" multiple="multiple" name="imageFiles"></p>
                     </div>
                     <br>
@@ -186,7 +168,7 @@
                     <!-- 이메일 동의체크박스 -->
                     <div class="mail_checkbox">
                         <p>이메일 주소 <input type="text" class="e_mail"></p>
-                        <p>개인정보 수집 동의<input type="checkbox"></p>
+                        <p>(필수)개인정보 수집 동의<input class="checkbox" type="checkbox"></p>
                     </div>
                     <br>
                     <!-- 폰번호 문의버튼 -->
@@ -199,8 +181,10 @@
                 </form>
             </div> <!-- /container -->
         </div>
+        <!-- gap = 공백 -->
         <div class="gap"></div>
     </div>
+    <!-- 푸터 -->
     <div class="footer">footer</div>
     <script>
         // 전화번호 하이폰 자동생성
