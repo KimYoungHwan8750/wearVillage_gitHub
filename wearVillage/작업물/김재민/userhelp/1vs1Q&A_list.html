@@ -13,7 +13,7 @@
         /* 000님의 문의 목록 */
         .head_title{
             font-weight: bold;
-            font-size: 3rem;
+            font-size: 2rem;
         }
         
         .container {
@@ -26,7 +26,6 @@
         .container .all_list {
             display: flex;
             justify-content: start;
-            
             width: 768px;
             height: 800px;
             font-weight: 400;
@@ -105,7 +104,7 @@
             color: white;
         }
         
-        /* 임시 메인 */
+        /* 임시 헤더 */
         *{
             margin: 0;
         }
@@ -126,12 +125,17 @@
             margin-top: 50px;
             outline: 1px solid black;
         }
+        .display{
+            display: flex;
+            justify-content: space-evenly;
+        }
     </style>
 </head>
 
 <body>
     <!-- 헤더 -->
     <div class="header">header</div>
+    <div class="display">
     <!-- gap = 공백 -->
     <div class="gap">
         <!-- 왼쪽 공백 리모컨 -->
@@ -162,6 +166,7 @@
     </div>
         <!-- gap = 공백 -->
         <div class="gap"></div>
+    </div>
     <!-- 푸터 -->
     <div class="footer">footer</div>
 </body>

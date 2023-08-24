@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 본문정렬 */
+        .display{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .container {
+            width: 768px;
+            height: 300px;
+        }
+        /* 자주묻는질문 */
+        .head_title {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+        /* 질문 */
+        .container .qna .Q{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        /* 답변 */
+        .container .qna .A {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 임시 헤더*/
+        * {
+            margin: 0;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100px;
+            margin-bottom: 50px;
+            outline: 1px solid black;
+        }
+
+        /* 임시 푸터 */
+        .footer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100px;
+            margin-top: 50px;
+            outline: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">header</div>
+    <div class="display">
+        <div class="gap"></div>
+        <div class="container">
+            <div class="main">
+            <div class="head_title">
+                자주 묻는 질문(FAQ)
+            </div>
+            <div class="qna">
+                <div class="Q">Q : '상대방이 제 옷을 안돌려줘요'</div>
+                <div class="A">A : 경찰에 신고하세요</div>
+            </div>
+            </div>
+            <div class="sub_main">
+                
+            </div>
+        </div>
+
+        <div class="gap"></div>
+    </div>
+    <div class="footer">footer</div>
+</body>
+
+</html>

@@ -7,10 +7,14 @@
     <title>Document</title>
     <style>
         a {
-            text-decoration: none;
             color: black;
+            text-decoration: none;
         }
-
+        /* 000님의 문의 목록 */
+        .head_title{
+            font-weight: bold;
+            font-size: 2rem;
+        }
         .container {
             display: flex;
             align-items: flex-start;
@@ -22,7 +26,6 @@
         .container .all_list {
             display: flex;
             justify-content: start;
-
             width: 768px;
             height: 800px;
             font-weight: 400;
@@ -111,12 +114,7 @@
             color: white;
         }
 
-        .head_title {
-            font-weight: bold;
-            font-size: 3rem;
-        }
-
-        /* 임시 메인 */
+        /* 임시 헤더*/
         * {
             margin: 0;
         }
@@ -139,12 +137,17 @@
             margin-top: 50px;
             outline: 1px solid black;
         }
+        .display{
+            display: flex;
+            justify-content: space-evenly;
+        }
     </style>
 </head>
 
 <body>
     <!-- 헤더 -->
     <div class="header">header</div>
+    <div class="display">
     <!-- gap = 공백 -->
     <div class="gap">
     <!-- 왼쪽 공백 리모컨 -->
@@ -155,6 +158,8 @@
             </div> -->
         </div>
     <div class="container">
+        <div class="head_title">
+            자주 묻는 질문(FAQ)
         <div class="all_list">
             <div class="num">
                 <span class="line num_title">번호</span>
@@ -167,7 +172,7 @@
             </div>
             <div class="list">
                 <span class="line title">제목</span>
-                <span class="line"><a href="#">상대방이 제 옷을 안돌려줘요</a></span>
+                <span class="line"><a href="/many_Q&A_detail.html">상대방이 제 옷을 안돌려줘요</a></span>
                 <span class="line"><a href="#">상대방이 약속장소에 나타나지 않아요</a></span>
                 <span class="line"><a href="#">상대방이 응답이 없어요</a></span>
                 <span class="line"><a href="#"></a></span>
@@ -177,8 +182,10 @@
             </div>
         </div>
     </div>
+    </div>
     <!-- gap = 공백 -->
     <div class="gap"></div>
+</div>
     <!-- 푸터 -->
     <div class="footer">footer</div>
 </body>
