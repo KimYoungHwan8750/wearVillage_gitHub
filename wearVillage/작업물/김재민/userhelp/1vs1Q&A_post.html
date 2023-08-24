@@ -14,7 +14,11 @@
         .container {
             display: flex;
             justify-content: center;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 18px
         }
+
         /* 문의유형 */
         .ask_type {
             width: 120px;
@@ -37,7 +41,7 @@
         .container textarea {
             display: flex;
             justify-content: start;
-            width: 700px;
+            width: 750px;
             height: 300px;
         }
 
@@ -55,22 +59,14 @@
 
         /* 체크박스 크기 */
         .container .checkbox {
-            height: 18px;
-            width: 18px;
+            height: 19px;
+            width: 19px;
         }
 
         /* 문의하기 버튼 크기 */
         .container .end_btn {
             height: 50px;
             width: 100px;
-        }
-
-        /* 문의 유형 제목등 */
-        .container .head_title {
-            display: flex;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px
         }
 
         /* ---------왼쪽 공백 리모컨 css--------*/
@@ -143,62 +139,63 @@
 <body>
     <!-- 헤더 -->
     <div class="header">header</div>
-    <div class="container">
-        <!-- gap = 공백 -->
-        <div class="gap">
-            <!-- 왼쪽 공백 리모컨 -->
-            <!-- <div class="btn">
+    <!-- gap = 공백 -->
+    <div class="gap">
+        <!-- 왼쪽 공백 리모컨 -->
+        <!-- <div class="btn">
                 <b class="usercenter">고객센터</b>
                 <b class="sub"><a href="">자주 묻는 질문(FAQ)</a></b>
                 <b class="sub now"><a class="now" href="">1:1문의(Q&A)</a></b>
             </div> -->
-        </div>
-        
-        <div class="head_title">
-            <div class="container">
-                <div class="line">
-                    <!-- 문의유형 -->
-                    <form action="#">
-                        <label>문의유형</label>
-                        <select class="ask_type">
-                            <option value="select">선택해주세요</option>
-                            <option value="select">결제 문의</option>
-                            <option value="javascript">일반 문의</option>
-                            <option value="php">버그 신고</option>
-                            <option value="java">유저 신고</option>
-                            <option value="golang">기타 피드백</option>
-                            <option value="python">기능 추가 요청</option>
-                        </select>
-                    </form>
-                    <br>
-                    <!-- 제목 사진첨부 -->
-                    <div class="title_and_file">
-                        <p>제목 <input class="title_post" type="text" placeholder="제목을 입력해주세요"></p>
-                        <p>사진첨부 <input type="file" multiple="multiple" name="imageFiles"></p>
-                    </div>
-                    <br>
-                    <!-- 본문 -->
-                    <p>문의내용</p>
-                    <textarea placeholder="내용을 입력해주세요"></textarea>
-                    <br>
-                    <!-- 이메일 동의체크박스 -->
-                    <div class="mail_checkbox">
-                        <p>이메일 주소 <input type="text" class="e_mail"></p>
-                        <p>(필수)개인정보 수집 동의<input class="checkbox" type="checkbox"></p>
-                    </div>
-                    <br>
-                    <!-- 폰번호 문의버튼 -->
-                    <!-- ##버튼색 정해야함 -->
-                    <div class="end">
-                        <p>휴대폰 번호 <input placeholder="010-1234-5678" type="text" oninput="hypenTel(this)" maxlength="13"></p>
-                        <!-- <p>휴대폰 번호 <input class="p_num" placeholder="010-1234-5678" type="number" ></p> -->
-                        <a href=""><input class="end_btn" value="문의하기" type="button" /></a>
-                    </div class="end">
+    </div>
+
+    <div class="head_title">
+        <div class="container">
+            <div class="line">
+                <!-- 문의유형 -->
+                <form action="#">
+                    <label>문의유형</label>
+                    <select class="ask_type">
+                        <option value="select">선택해주세요</option>
+                        <option value="select">결제 문의</option>
+                        <option value="javascript">일반 문의</option>
+                        <option value="php">버그 신고</option>
+                        <option value="java">유저 신고</option>
+                        <option value="golang">기타 피드백</option>
+                        <option value="python">기능 추가 요청</option>
+                    </select>
+                </form>
+                <br>
+                <!-- 제목 사진첨부 -->
+                <div class="title_and_file">
+                    <p>제목 <input class="title_post" type="text" placeholder="제목을 입력해주세요"></p>
+                    <p>사진첨부 <input type="file" multiple="multiple"></p>
                 </div>
-            </div> <!-- /container -->
+                <br>
+                <!-- 본문 -->
+                <p>문의내용</p>
+                <textarea placeholder="내용을 입력해주세요"></textarea>
+                <br>
+                <!-- 이메일 동의체크박스 -->
+                <div class="mail_checkbox">
+                    <p>이메일 주소 <input placeholder="example@gmail.com" type="text" class="e_mail"></p>
+                    <p>(필수)개인정보 수집 동의<input class="checkbox" type="checkbox"></p>
+                </div>
+                <br>
+                <!-- 폰번호 문의버튼 -->
+                <!-- ##버튼색 정해야함 -->
+                <div class="end">
+                    <p>휴대폰 번호 <input placeholder="010-1234-5678" type="text" oninput="hypenTel(this)" maxlength="13">
+                    </p>
+                    <!-- <p>휴대폰 번호 <input class="p_num" placeholder="010-1234-5678" type="number" ></p> -->
+                    <a href=""><input class="end_btn" value="문의하기" type="button" /></a>
+                </div>
+            </div>
         </div>
-        <!-- gap = 공백 -->
-        <div class="gap"></div>
+    </div> <!-- /container -->
+    </div>
+    <!-- gap = 공백 -->
+    <div class="gap"></div>
     </div>
     <!-- 푸터 -->
     <div class="footer">footer</div>

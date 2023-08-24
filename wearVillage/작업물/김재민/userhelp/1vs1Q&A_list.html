@@ -10,6 +10,11 @@
             text-decoration: none;
             color: black;
         }
+        /* 000님의 문의 목록 */
+        .head_title{
+            font-weight: bold;
+            font-size: 3rem;
+        }
         
         .container {
             display: flex;
@@ -66,12 +71,12 @@
         /* ---------왼쪽 공백 리모컨 css--------*/
 
         /* 리모컨 위치 변경 */
-        .container .gap .btn {
+        .gap .btn {
             margin-top: 100px;
             margin-right: 50px;
         }
         /* 리모컨 고객센터 타이틀 */
-        .container .gap .usercenter {
+        .gap .usercenter {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -82,11 +87,11 @@
             outline: 1px solid black;
         }
         /* 고객센터 리모컨 */
-        .container .gap .btn {
+        .gap .btn {
             outline: 2px solid black;
         }
         /* 리모컨 탭2개 */
-        .container .gap .btn .sub {
+        .gap .btn .sub {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -95,14 +100,11 @@
             outline: 1px solid black;
         }
         /* 리모컨 지금 화면 버튼 표시 */
-        .container .gap .btn .now {
+        .gap .btn .now {
             background-color: rgb(231, 76, 60);
             color: white;
         }
-        .head_title{
-            font-weight: bold;
-            font-size: 3rem;
-        }
+        
         /* 임시 메인 */
         *{
             margin: 0;
@@ -130,16 +132,16 @@
 <body>
     <!-- 헤더 -->
     <div class="header">header</div>
+    <!-- gap = 공백 -->
+    <div class="gap">
+        <!-- 왼쪽 공백 리모컨 -->
+        <!-- <div class="btn">
+            <b class="usercenter">고객센터</b>
+            <b class="sub"><a href="">자주 묻는 질문(FAQ)</a></b>
+            <b class="sub now"><a class="now" href="">1:1문의(Q&A)</a></b>
+        </div> -->
+    </div>
     <div class="container">
-        <!-- gap = 공백 -->
-        <div class="gap">
-            <!-- 왼쪽 공백 리모컨 -->
-            <!-- <div class="btn">
-                <b class="usercenter">고객센터</b>
-                <b class="sub"><a href="">자주 묻는 질문(FAQ)</a></b>
-                <b class="sub now"><a class="now" href="">1:1문의(Q&A)</a></b>
-            </div> -->
-        </div>
         <div class="head_title">
             OOO님의 1:1 문의 목록
             <div class="all_list">
@@ -156,10 +158,10 @@
                    
                 </div>
             </div>
-        </div class="head_title">
+        </div>
+    </div>
         <!-- gap = 공백 -->
         <div class="gap"></div>
-    </div>
     <!-- 푸터 -->
     <div class="footer">footer</div>
 </body>
