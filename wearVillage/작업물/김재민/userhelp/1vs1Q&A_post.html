@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .layout {
+        /* .layout {
             width: 500px;
             margin: 0 auto;
             margin-top: 40px;
@@ -25,7 +25,7 @@
             width: 400px;
             height: 30px;
             font-size: large;
-        }
+        } */
 
         /* .layout > textarea{
         width: 100%;
@@ -44,40 +44,39 @@
 
         .container {
             display: flex;
-            align-items: flex-start;
             justify-content: center;
-            font-size: 1rem;
         }
 
-        /* 리스트 전체 */
+        /* 문의 내용 */
         .container textarea {
             display: flex;
             justify-content: start;
             width: 768px;
             height: 500px;
-            font-weight: 400;
-            font-size: 1rem;
-            /* outline: 3px solid rgb(204, 204, 204); */
         }
-
-        .title_and_file {
+        /* 제목 and 이미지첨부 */
+        .container .title_and_file {
             display: flex;
             justify-content: space-between;
         }
-
-        .end_btn {
+        /* 문의하기 번튼 and 폰번호 정렬 */
+        .container .end_btn {
             display: flex;
             justify-content: space-between;
         }
-
-        .mail {
+         /* 이메일 and 체크박스 */
+        .container .mail_checkbox {
             display: flex;
             justify-content: space-between;
         }
-
-        .end {
+        /* 문의하기 버튼 크기 */
+        .container .end {
             height: 50px;
             width: 80px;
+        }
+        /* 문의 유형 제목등 */
+        .container .head_title {
+            font-weight: bold;
         }
 
         /* ---------왼쪽 공백 리모컨 css--------*/
@@ -121,13 +120,32 @@
             color: white;
         }
 
-        .head_title {
-            font-weight: bold;
+        /* 임시 메인 */
+        *{
+            margin: 0;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100px;
+            margin-bottom: 100px;
+            outline: 1px solid black;
+        }
+        /* 임시 푸터 */
+        .footer{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100px;
+            margin-top: 50px;
+            outline: 1px solid black;
         }
     </style>
 </head>
 
 <body>
+    <div class="main">main</div>
     <div class="container">
         <div class="gap">
             <!-- 왼쪽 공백 리모컨 -->
@@ -154,8 +172,6 @@
             <div class="container">
                 <!-- 게시글 기능 -->
                 <form action="/board/new" method="post" enctype="multipart/form-data">
-                    <input type="hidden" value="comic" />
-                    <input type="hidden" value=1 />
                     <br>
                     <!-- 제목 사진첨부 -->
                     <div class="title_and_file">
@@ -163,29 +179,38 @@
                         <p>사진첨부 <input type="file" multiple="multiple" name="imageFiles"></p>
                     </div>
                     <br>
-                    <br>
                     <!-- 본문 -->
                     문의내용
-                    <textarea name="content" placeholder="내용을 입력해주세요"></textarea>
-                    <br>
+                    <textarea placeholder="내용을 입력해주세요"></textarea>
                     <br>
                     <!-- 이메일 동의체크박스 -->
-                    <div class="mail">
+                    <div class="mail_checkbox">
                         <p>이메일 주소 <input type="text" class="e_mail"></p>
                         <p>개인정보 수집 동의<input type="checkbox"></p>
                     </div>
                     <br>
-                    <br>
                     <!-- 폰번호 문의버튼 -->
+                    <!-- ##버튼색 정해야함 -->
                     <div class="end_btn">
-                        <p>휴대폰 번호 <input type="number" class="p_num"></p>
-                        <input class="end" value="문의하기" type="submit" />
+                        <p>휴대폰 번호 <input type="text" oninput="hypenTel(this)" maxlength="13"></p>
+                        <!-- <p>휴대폰 번호 <input class="p_num" placeholder="010-1234-5678" type="number" ></p> -->
+                        <a href=""><input class="end" value="문의하기" type="button" /></a>
                     </div class="end_btn">
                 </form>
             </div> <!-- /container -->
         </div>
         <div class="gap"></div>
     </div>
+    <div class="footer">footer</div>
+    <script>
+        // 전화번호 하이폰 자동생성
+        const hypenTel = (target) => {
+       target.value = target.value
+         .replace(/[^0-9]/g, '')
+         .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+      }
+      
+      </script>
 </body>
 
 </html>
