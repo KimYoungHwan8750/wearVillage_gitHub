@@ -2,11 +2,13 @@
     /*배경색*/
     --color-wear_red_background : #dc4141;
     --color-wear_gray_background: #b2b2b2;
-    --color-wear-pink_background: #EEA2CD;
+    --color-wear_pink_background: #EEA2CD;
+    --color-wear_whitegray_background : #EEEEEE;
 
     /*전경색*/
     --color-wear_red_foreground : #dc4141;
     --color-wear_gray_foreground : #b2b2b2;
-    --color-wear-pink_foreground: #EEA2CD;
+    --color-wear_pink_foreground: #EEA2CD;
+    --color-wear_whitegray_foreground : #EEEEEE;
 
 }
