@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        
+        .container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        /* 리스트 전체 */
+        .container .all_list {
+            display: flex;
+            justify-content: start;
+            
+            width: 768px;
+            height: 800px;
+            font-weight: 400;
+            font-size: 1rem;
+            outline: 3px solid rgb(204, 204, 204);
+        }
+        /* 리스트 사이의 라인 */
+        .all_list .line {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            outline: 1px solid rgb(204, 204, 204);
+        }
+        /* 리스트 번호 */
+        .all_list .num {
+            display: flex;
+            flex-direction: column;
+            width: 50px;
+            font-weight: bold;
+            background-color: rgb(234, 234, 234);
+        }
+        /* 리스트 */
+        .all_list .list {
+            display: flex;
+            flex-direction: column;
+            width: 718px;
+        }
+        /* 리스트 제목탭 */
+        .container .all_list .title {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            font-weight: bold;
+            background-color: rgb(234, 234, 234);
+        }
+        /* 리스트 번호탭 */
+        .container .all_list .num_title {
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+        /* ---------왼쪽 공백 리모컨 css--------*/
+
+        /* 리모컨 위치 변경 */
+        .container .gap .btn {
+            margin-top: 100px;
+            margin-right: 50px;
+        }
+        /* 리모컨 고객센터 타이틀 */
+        .container .gap .usercenter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 170px;
+            height: 40px;
+            margin: 0px;
+            font-weight: 600;
+            outline: 1px solid black;
+        }
+        /* 고객센터 리모컨 */
+        .container .gap .btn {
+            outline: 2px solid black;
+        }
+        /* 리모컨 탭2개 */
+        .container .gap .btn .sub {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0px;
+            font-weight: 500;
+            outline: 1px solid black;
+        }
+        /* 리모컨 지금 화면 버튼 표시 */
+        .container .gap .btn .now {
+            background-color: rgb(231, 76, 60);
+            color: white;
+        }
+        .head_title{
+            font-weight: bold;
+            font-size: 3rem;
+        }
+        /* 임시 메인 */
+        *{
+            margin: 0;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100px;
+            margin-bottom: 100px;
+            outline: 1px solid black;
+        }
+        /* 임시 푸터 */
+        .footer{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100px;
+            margin-top: 50px;
+            outline: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">main</div>
+    <div class="container">
+        <div class="gap">
+            <!-- 왼쪽 공백 리모컨 -->
+            <!-- <div class="btn">
+                <b class="usercenter">고객센터</b>
+                <b class="sub"><a href="">자주 묻는 질문(FAQ)</a></b>
+                <b class="sub now"><a class="now" href="">1:1문의(Q&A)</a></b>
+            </div> -->
+        </div>
+        <div class="head_title">
+            OOO님의 1:1 문의 목록
+            <div class="all_list">
+                <div class="num">
+                    <span class="line num_title">번호</span>
+                    <span class="line">1</span>
+                    <span class="line">2</span>
+                    
+                </div>
+                <div class="list">
+                    <span class="line title">제목</span>
+                    <span class="line"><a href="#">거래자가 제 옷을 들고 잠적했어요</a></span>
+                    <span class="line"><a href="#">거래자의 옷 상태가 이상해요</a></span>
+                   
+                </div>
+            </div>
+        </div class="head_title">
+        <div class="gap"></div>
+    </div>
+    <div class="footer">footer</div>
+</body>
+
+</html>
