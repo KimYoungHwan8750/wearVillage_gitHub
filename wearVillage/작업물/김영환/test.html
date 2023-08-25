@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+
+    </style>
 </head>
 <body>
-    <script>
-        function test(){
-            alert("감사")
-        }
-        setInterval(test,10000);
-    </script>
+<section class="test"></section>
+<script>
+    let test = document.getElementsByClassName('test');
+    let test1 = test.item(0);
+    test1.innerText='hi!';
+</script>
 </body>
 </html>

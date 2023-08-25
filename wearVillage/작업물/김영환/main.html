@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
     <style>
         *{
             /* outline: solid 1px red; */
@@ -23,6 +25,8 @@
         }
         .center_item1{
             background-color: rgb(255,223,223);
+            width: 1000px;
+            overflow:hidden;
         }
         .item1_btn{
             display: flex;
@@ -143,6 +147,16 @@
             opacity: 50%;
             cursor: pointer;
         }
+        .slide2{
+
+        }
+        .section_container{
+            position: absolute;
+            display: grid;
+            grid-template-columns: 55% 45%;
+        }
+
+
 
     </style>
 </head>
@@ -160,12 +174,13 @@
             <!--nav_circle와 본문 사이의 공백-->
             <div></div>
             <!--가운데 콘텐츠 영역 첫번째 줄-->
-            <section class="center_item center_item1">
+            <section class="center_item center_item1 slide">
                 <div class="next_previous">
-                    <div class="next_previous_btn">《</div>
+                    <div class="next_previous_btn previous_btn">《</div>
                     <div ></div>
-                    <div class="next_previous_btn">》</div>
+                    <div class="next_previous_btn next_btn">》</div>
                 </div>
+                <!--슬라이드1-->
                 <!--첫번째 줄 왼쪽 섹션-->
 
                 <section class="center_item_section section1">
@@ -184,7 +199,11 @@
                     <img id="starbucks_cup" src="./pngwing.com.png" alt="">
                     
                 </section>
+                <!--슬라이드 배너 두 번째-->
+
+
             </section>
+
             <!--가운데 콘텐츠 영역 두번째 줄-->
 
             <section class="center_item center_item2">
@@ -227,5 +246,9 @@
     </div>
 
 </section>
+
+<script>
+
+</script>
 </body>
 </html>
