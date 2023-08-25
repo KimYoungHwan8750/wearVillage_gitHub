@@ -1,0 +1,177 @@
+* {
+    list-style: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main {
+    width: 980px;
+    height: 1300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(201px, max-content));
+    grid-template-rows: repeat(auto-fill, minmax(308px, max-content));
+    padding-top: 50px;
+    gap: 10px;
+    text-align: center;
+    margin: auto;
+    justify-content: center;
+}
+
+.item {
+    display: flex;
+    justify-content: center;
+}
+
+.mini_container {
+    width: 201px;
+    height: 308px;
+}
+
+a{
+    text-decoration-line: none;
+}
+
+/* 카테고리 스타일 */
+
+.category {
+    display: flex;
+    width: 1200px;
+    height: 50px;
+    white-space: nowrap;
+    text-align: center;
+    z-index: 1;
+}
+
+.mcategory {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    line-height: 30px;
+}
+
+
+
+
+/* 호버 스타일 */
+
+.cloth_top {
+    cursor: pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.cloth_top_under {
+    display: none;
+    background-color: #fff;
+    position:absolute;
+    padding:0;
+    margin-left:-40px;
+}
+
+
+.cloth_bot {
+    cursor: pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.cloth_bot_under {
+    display: none;
+    position:absolute;
+    padding:0;
+    margin-left:-55px;
+}
+
+.cloth_outer {
+    cursor: pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.cloth_outer_under {
+    display: none;
+    position:absolute;
+    padding:0;
+    margin-left:-55px;
+}
+.cloth_dress {
+    cursor: pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+.cloth_dress_under {
+    display:none;
+    position:absolute;
+    padding:0;
+    margin-left:-20px;
+}
+
+.cloth_beach{
+    cursor:pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.cloth_beach_under {
+    display: none;
+    position:absolute;
+    padding:0;
+    margin-left:-20px;
+}
+.cloth_sports {
+    cursor: pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.cloth_sports_under {
+    display: none;
+    position: absolute;
+    padding:0;
+    margin-left:-30px;
+}
+.cloth_hat {
+    cursor: pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.cloth_hat_under {
+    display: none;
+    position:absolute;
+    padding:0;
+    margin-left:-43px;
+}
+.cloth_shoes {
+    cursor: pointer;
+    position:relative;
+    padding-bottom:10px;
+}
+
+.cloth_shoes_under {
+    display: none;
+    position:absolute;
+    padding:0;
+    margin-left:-27px;
+}
+
+/* 카테고리 서브 스타일 */
+.category_sub_ulist{
+    width:980px;
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.category_main{
+    padding-top:1px;
+    padding-bottom:20px;
+}

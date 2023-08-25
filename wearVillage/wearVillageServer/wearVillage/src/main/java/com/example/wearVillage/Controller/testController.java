@@ -75,5 +75,8 @@ public class testController {
         return "login";
     }
 
-
+    @RequestMapping(value = "/items_buy")
+    public String items_buy(){
+        return "items_buy.html";
+    }
 }
