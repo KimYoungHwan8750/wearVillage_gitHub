@@ -5,107 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        * {
-            margin: 0;
-        }
-
-        a {
-            text-decoration: none;
-            color: black;
-        }
-
-        .container {
-            display: grid;
-            grid-template-areas: ". main .";
-            grid-template-columns: 1fr 768px 1fr;
-            font-weight: bold;
-            font-size: 18px
-        }
-
-        .main {
-            grid-area: main;
-        }
-
-        /* 문의유형 */
-        .ask_type {
-            width: 120px;
-            height: 25px;
-        }
-
-        /* 제목 and 이미지첨부 */
-        .container .title_and_file {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* 제목입력칸 */
-        .container .title_post {
-            width: 300px;
-            height: 20px;
-        }
-
-        /* 문의 내용 */
-        .container textarea {
-            display: flex;
-            justify-content: start;
-            width: 768px;
-            height: 300px;
-        }
-
-        /* 문의하기 번튼 and 폰번호 정렬 */
-        .container .end_line {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* 이메일 and 체크박스 정렬*/
-        .container .mail_checkbox {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .container .yes {
-            font-size: 13px;
-        }
-
-        /* 체크박스 크기 */
-        .container .checkbox {
-            height: 13px;
-            width: 13px;
-        }
-
-        /* 문의하기 버튼 크기 */
-        .container .ask_btn {
-            height: 50px;
-            width: 100px;
-        }
-
-        /* 임시 헤더 */
-        .header {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 100px;
-            margin-bottom: 50px;
-            outline: 1px solid black;
-        }
-
-        /* 임시 푸터 */
-        .footer {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100px;
-            margin-top: 50px;
-            outline: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/1vs1ask_post_css.css">
 </head>
 
 <body>
+    <!-- 왼쪽 공백 -->
+    <div class="l_gap"></div>
     <!-- 임시 헤더 -->
     <div class="header">header</div>
+    <!-- 메인 -->
     <div class="container">
         <div class="main">
             <h1>1:1 문의하기</h1>
@@ -142,12 +50,14 @@
             <br>
             <!-- 폰번호, 문의버튼 -->
             <div class="end_line">
-                <p>휴대폰 번호 <input placeholder="010-1234-5678" type="text" oninput="hypenTel(this)" maxlength="13"></p>
+                <p>휴대폰 번호 <input placeholder="01012345678" type="text" oninput="hypenTel(this)" maxlength="13"></p>
                 <!--##버튼 색깔 정해야함-->
-                <a href="./1vs1ask_list.html"><input class="ask_btn" value="문의하기" type="button" /></a>
+                <a href="#"><input class="ask_btn" value="문의하기" type="button" /></a>
             </div>
         </div>
     </div><!-- /container -->
+    <!-- 오른쪽 공백 -->
+    <div class="r_gap"></div>
     <!-- 임시 푸터 -->
     <div class="footer">footer</div>
     <script>
