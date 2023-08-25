@@ -18,13 +18,56 @@
             font-size:20px;
             font-weight: 400;
         }
-        .item1_title{
+        /*슬라이드1 텍스트*/
+        .item1_title_slide1{
             font-weight: bold;
             color:rgb(255, 123, 123);
         }
-        .item1_text{
+        .item1_text_slide2{
         
             color:rgb(255, 123, 123);
+        }
+        .item1_btn{
+            display: flex;
+            height: 50px;
+            width: 280px;
+            border-radius: 5px;
+            align-items: center;
+            margin-top: 30px;
+            margin-left: 80px;
+            cursor: pointer;
+
+        }
+        .item1_btn_text{
+        font-size:32px;
+        margin: auto;
+        color: white;
+        font-weight: 500;
+        }
+
+        .slide1_btn{
+            background-color: rgb(255, 124, 124);
+        }
+        .slide2_btn{
+            background-color: rgb(10, 170, 138);
+        }
+        /*슬라이드2 텍스트*/
+        .item1_title_slide2{
+            font-weight: bold;
+            color:rgb(0,137,110);
+        }
+        .item1_text_slide2{
+        
+            color:rgb(0,137,110);
+        }
+        /*슬라이드3 텍스트*/
+        .item1_title_slide3{
+            font-weight: bold;
+            color:rgb(0,137,110);
+        }
+        .item1_text_slide3{
+        
+            color:rgb(0,137,110);
         }
         .item2_title{
             font-weight: bold;
@@ -101,7 +144,7 @@
             display: grid;
             grid-template-columns: 900px 900px 900px;
             /*화면 애니메이션 효과 적용해야하는 부분*/
-            right:500px;
+            right:900px;
         }
         .slide1{
             width: 900px;
@@ -135,6 +178,11 @@
             width: 900px;
             object-fit:fill;
         }
+        #img_greenCampaign{
+            position: relative;
+            width: 280px;
+            height: 240px;
+        }
         /*아이템1 슬라이드 구간 양식*/
         .item_details{
             position: absolute;
@@ -158,24 +206,7 @@
             text-align: right;
         }
 
-        .item1_btn{
-            display: flex;
-            height: 50px;
-            width: 280px;
-            border-radius: 5px;
-            align-items: center;
-            margin-top: 30px;
-            margin-left: 80px;
-            background-color: rgb(255, 124, 124);
-            cursor: pointer;
 
-        }
-        .item1_btn_text{
-        font-size:32px;
-        margin: auto;
-        color: white;
-        font-weight: 500;
-        }
 
 
 
@@ -205,16 +236,16 @@
 
                     <div class="item_details">
                         <div class="section1">
-                            <span class="item1_title title noto_regular_black">
+                            <span class="item1_title_slide1 title noto_regular_black">
                                 이벤트
                             </span>
-                            <p class="item1_text text noto_regular_black">
+                            <p class="item1_text_slide1 text noto_regular_black">
                                 (선착순 100명)<br>
                                 옷빌리지가 오픈 기념!<br>
                                 판매 · 대여하는 글 작성하고<br>
                                 아메리카노를 받아가세요!
                             </p>
-                            <div class="item1_btn">
+                            <div class="item1_btn slide1_btn">
                                 <span class="item1_btn_text">자세히 보기</span>
                             </div>
                         </div>
@@ -227,21 +258,21 @@
                 <div class="slide2">
                     <div class="item_details">
                         <div class="section1">
-                            <span class="item1_title title noto_regular_black">
+                            <span class="item1_title_slide2 title noto_regular_black">
                                 사회 환원
                             </span>
-                            <p class="item1_text text noto_regular_black">
+                            <p class="item1_text_slide2 text noto_regular_black">
                                 (선착순 100명)<br>
                                 옷빌리지가 오픈 기념!<br>
                                 판매 · 대여하는 글 작성하고<br>
                                 아메리카노를 받아가세요!
                             </p>
-                            <div class="item1_btn">
+                            <div class="item1_btn slide2_btn">
                                 <span class="item1_btn_text">자세히 보기</span>
                             </div>
                         </div>
                         <div class="section2">
-                            <img id="img_starbucksCupShadows"src="./img_starbucksCupShadows.png" alt="">
+                            <img id="img_greenCampaign"src="./img_greenCampaign.png" alt="">
                         </div>
                     </div>
 
