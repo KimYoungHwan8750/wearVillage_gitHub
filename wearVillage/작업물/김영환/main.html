@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <style>
+        *{
+            /* outline: solid 1px red; */
+        }
+        .main_container{
+            display:grid;
+            grid-template-columns: 1fr 1000px 1fr ;
+        }
+        .main_container_center{
+            display: grid;
+            grid-template-rows: 15px 15px 380px 380px 380px;
+        }
+        .center_item{
+            display: grid;
+            height: 380px;
+            grid-template-columns: 55% 45%;
+        }
+        .center_item1{
+            background-color: rgb(255,223,223);
+            width: 1000px;
+            overflow:hidden;
+        }
+        .item1_btn{
+            display: flex;
+            height: 67px;
+            width: 351px;
+            border-radius: 3px;
+            align-items: center;
+            margin: auto;
+            background-color: rgb(255, 124, 124);
+            cursor: pointer;
+
+        }
+        .section1{
+            padding-top: 40px;
+            padding-left: 70px;
+            
+        }
+        .section2{
+            padding-top: 40px;
+            padding-right:35px;
+            text-align: right;
+        }
+        #starbucks_cup{
+            height: 95%;
+            padding-right: 30px;
+
+        }
+        .item1_text_title{
+            display: inline;
+            font-size: 50px;
+            font-weight: bold;
+            color:rgb(255, 123, 123)
+        }
+        .item1_text{
+            font-size: 17px;
+            color:rgb(255, 123, 123);
+            font-weight: bold;
+
+        }
+        .center_item2 img{
+            width: 1000px;
+            height: 380px;
+        }
+        .center_item2{
+            overflow: hidden;
+
+        }
+        .item2_text_title{
+            display:inline;
+            font-size:50px;
+            font-weight: bold;
+            color:white;
+        }
+        .item2_text{
+            color:white;
+            font-size:17px;
+            font-weight: bold;
+        }
+        .item1_btn_text{
+        font-size:32px;
+        margin: auto;
+        color: white;
+        font-weight: 500;
+        }
+        .center_item3{
+            background-color: rgb(255, 238, 194);
+        }
+        #chicken{
+            height: 300px;
+            
+        }
+        .item3_text_title{
+            display: inline;
+            font-size: 50px;
+            font-weight:bold;
+            color:rgb(243,156,18);
+        }
+        .item3_text{
+            font-size: 17px;
+            color:rgb(243,156,18);
+            font-weight: bold;
+        }
+        .item2_text.section2{
+            padding-top:0px;
+        }
+        .item3_text.section2{
+            padding-top:0px;
+        }
+        .nav_circle{
+            display: flex;
+            align-items: center;
+            margin: auto;
+            padding-bottom: 10px;
+        }
+        .nav_create_circle{
+            background-color: gray;
+            display: inline-block;
+            margin: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+        }
+        .nav_create_circle.one{
+            background-color: red;
+        }
+        .next_previous{
+            position: absolute;
+            height: 380px;
+            width: 1000px;
+            display: grid;
+            grid-template-columns: 50px 900px 50px;
+        }
+        .next_previous_btn{
+            margin: auto;
+            font-size: 70px;
+            font-weight: 700;
+            color: rgb(150,150,150);
+            opacity: 50%;
+            cursor: pointer;
+        }
+        .slide2{
+
+        }
+        .section_container{
+            position: absolute;
+            display: grid;
+            grid-template-columns: 55% 45%;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="main_container">
+        
+        <div class="main_container_left"></div>
+        <div class="main_container_center">
+            <div class="nav_circle">
+                <div class="nav_create_circle one"></div>
+                <div class="nav_create_circle two"></div>
+                <div class="nav_create_circle three"></div>
+                <div class="nav_create_circle four"></div>
+            </div>
+            <!--nav_circle와 본문 사이의 공백-->
+            <div></div>
+            <!--가운데 콘텐츠 영역 첫번째 줄-->
+            <section class="center_item center_item1 slide">
+                <div class="next_previous">
+                    <div class="next_previous_btn previous_btn">《</div>
+                    <div ></div>
+                    <div class="next_previous_btn next_btn">》</div>
+                </div>
+                <!--슬라이드1-->
+                <!--첫번째 줄 왼쪽 섹션-->
+
+                <section class="center_item_section section1">
+                    
+                    <p class="item1_text_title noto_regular_graywhite">이벤트</p>
+                    <p class="item1_text">
+                    (선착순 100명)<br>
+                    옷빌리지가 새로 오픈했습니다!<br>
+                    판매 · 대여하는 글을 작성하고 아메리카노를 받아가세요!
+                    </p><br>
+                    <div class="item1_btn"><span class="item1_btn_text">자세히 보기</span></div>
+                </section>
+                <!--첫번째 줄 오른쪽 섹션-->
+
+                <section class="center_item_section section2">
+                    <img id="starbucks_cup" src="./pngwing.com.png" alt="">
+                    
+                </section>
+                <!--슬라이드 배너 두 번째-->
+
+
+            </section>
+
+            <!--가운데 콘텐츠 영역 두번째 줄-->
+
+            <section class="center_item center_item2">
+                <img src="./wardrobe-with-clothes-on-hangers.jpg" alt="">
+                <!--두번째 줄 오른쪽 섹션-->
+                
+                <section class="center_item_section section2">
+                <p class="item2_text_title section2">나의 옷장</p>
+                <p class="item2_text section2">
+                    옷을 판매하고 대여하세요.<br>
+                    저렴한 가격에 다양한 옷을 이용하세요.
+                </p>
+            </section>
+        </section>
+
+            <!--가운데 콘텐츠 영역 세번째 줄-->
+            
+            <section class="center_item center_item3">
+                <!--세번째 줄 왼쪽 섹션-->
+            <section class="center_item_section section1">
+                <img id="chicken" src="./chicken-6127516_1280.png" alt="">
+            </section>
+                <!--세번째 줄 오른쪽 섹션-->
+
+            <section class="center_item_section section2">
+            <p class="item3_text_title section2">심플</p>
+            <p class="item3_text section2">
+                사이트 이용이 복잡하셨나요?<br>
+                판매 · 구매 및 대여에 특화되어 심플한<br>
+                옷빌리지를 이용해보세요.<br>
+                초보자도 쉽게 이용할 수 있습니다!
+            </p>
+
+            </section>
+            </section>
+            
+        </div>
+        <div class="main_container_right"></div>
+
+    </div>
+
+</section>
+
+<script>
+
+</script>
+</body>
+</html>

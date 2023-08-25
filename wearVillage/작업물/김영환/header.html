@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+    src="https://kit.fontawesome.com/af69a3abe6.js"
+    crossorigin="anonymous"
+></script>
+<link rel="stylesheet" href="./font.css">
+    <style>
+
+        *{
+            outline: solid 1px red;
+            
+        }
+        .searchbar {
+    box-sizing: border-box;
+    width: 450px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 15px;
+    outline: none;
+    border: solid #dc4141;
+    caret-color: transparent;
+    text-indent: 10px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+        .header_container{
+            display:grid;
+            grid-template-columns: 1fr 768px 1fr;
+        }
+
+        .logo_text{
+            font-size: 36px;
+            margin-right:15px;
+        }
+
+        h1{
+            display: inline-flex
+        }
+
+        #logo_img{
+            position: relative;
+            width: 60px;
+            height: 60px;
+            vertical-align: middle;
+            bottom: 8px;
+        }
+
+        .left_contents{
+        text-align: right;           
+        }
+
+        .center_contents{
+            align-self: center;
+        }
+
+        .center_contents_grid{
+            display:grid;
+            text-align: center;
+            align-content: center;
+            grid-template-columns: repeat(4,1fr);
+        }
+        
+        @media screen and (max-width:768px) {
+
+        
+        }
+
+        @media screen and (min-width:769px) and (max-width:1023px){
+
+        }
+
+        @media screen and (min-width:1024px) {
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header_container">
+
+        <div class="left_contents">
+            <div class="header_logo noto_regular_black">
+                <img id="logo_img" src="./옷빌리지빨강 수정.png" alt="">
+                <h1 class="logo_text" >옷빌리지</h1>
+            </div>
+        </div>
+
+        <div class="center_contents">
+            <div class="center_contents_grid noto_regular_graywhite">
+                <p class="item item1">구매/대여</p>
+                <p class="item item3">판매/대여</p>
+                <p class="item item4">마이페이지</p>
+                <p class="item item5">고객센터</p>
+                
+            </div>
+        </div>
+        <div class="right_contents"></div>
+
+    </div>
+</body>
+</html>

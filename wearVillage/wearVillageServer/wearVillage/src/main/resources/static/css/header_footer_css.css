@@ -85,6 +85,8 @@ body {
     font-size: 20px;
 }
 
+/* 푸터 영역 */
+
 .footer {
     display:grid;
     justify-content:center;
