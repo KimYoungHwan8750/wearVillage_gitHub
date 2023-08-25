@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./font.css">
+    <link rel="stylesheet" href="../css/font.css">
     <style>
         *{
             /* outline: solid 1px red; */
@@ -112,13 +112,29 @@
             border-radius: 100%;
             overflow:hidden;
         }
-        .circle{
+        .circle1{
             position: relative;
-            background-color: red;;
+            background-color: red;
             width: 15px;
             height: 15px;
             border-radius: 100%;
-            right: 0px;
+            left: 0px;
+            animation-name: circle1;
+            animation-duration: 6s;
+            animation-delay: 4s;
+            animation-fill-mode: both;
+        }
+        .circle2{
+            position: relative;
+            background-color: red;
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            right: 15px;
+            animation-name: circle2;
+            animation-duration: 6s;
+            animation-delay: 4s;
+            animation-fill-mode: both;
         }
         /*아이템 구간*/
         .item1{
@@ -145,6 +161,10 @@
             grid-template-columns: 900px 900px 900px;
             /*화면 애니메이션 효과 적용해야하는 부분*/
             right:900px;
+            animation-name: slide_banner;
+            animation-duration: 6s;
+            animation-delay: 5s;
+            animation-fill-mode: both;
         }
         .slide1{
             width: 900px;
@@ -208,8 +228,35 @@
 
 
 
+        @-webkit-keyframes slide_banner{
+            0% {
+                right:0px;
+            }
+            100% {
+                right:900px;
+            }
+        }
 
-
+        @-webkit-keyframes circle1{
+            0% 
+            {
+                left:0px;
+            }
+            100% 
+            {
+                left:15px;
+            }
+        }
+        @-webkit-keyframes circle2{
+            0% 
+            {
+                right:15px;
+            }
+            100% 
+            {
+                right:0px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -219,9 +266,11 @@
     <div class="main_center">
         <div class="banner_circle">
             <div class="banner_circle_create one">
-                <div class="circle"></div>
+                <div class="circle1"></div>
             </div>
-            <div class="banner_circle_create two"></div>
+            <div class="banner_circle_create two">
+                <div class="circle2"></div>
+            </div>
             <div class="banner_circle_create three"></div>
             <div class="banner_circle_create four"></div>
         </div>
@@ -250,7 +299,7 @@
                             </div>
                         </div>
                         <div class="section2">
-                            <img id="img_starbucksCupShadows"src="./img_starbucksCupShadows.png" alt="">
+                            <img id="img_starbucksCupShadows"src="../img/img_starbucksCupShadows.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -272,7 +321,7 @@
                             </div>
                         </div>
                         <div class="section2">
-                            <img id="img_greenCampaign"src="./img_greenCampaign.png" alt="">
+                            <img id="img_greenCampaign"src="../img/img_greenCampaign.png" alt="">
                         </div>
                     </div>
 
@@ -283,7 +332,7 @@
         </section>
         <!--두번째 줄-->
         <section class="item2">
-            <img class="background_img"src="./wardrobe-with-clothes-on-hangers.jpg" alt="">
+            <img class="background_img"src="../img/wardrobe-with-clothes-on-hangers.jpg" alt="">
             <div class="item_details">
                 <div class="section2">
                     <span class="item2_title title noto_regular_black">
@@ -300,7 +349,7 @@
         <section class="item3">
             <div class="item_details">
                 <div class="section1">
-                    <img id="img_chicken"src="./chicken-6127516_640.png" alt="">
+                    <img id="img_chicken"src="../img/chicken-6127516_640.png" alt="">
                 </div>
                 <div class="section2">
                     <span class="item3_title title noto_regular_black">
@@ -320,6 +369,9 @@
     </div>
     <div class="main_right"></div>
 </div>
-
+<script>
+ const request = XMLHttpRequest;
+    if (request.XMLHttpRequest==XMLHttpRequest.DONE&&)
+</script>
 </body>
 </html>
