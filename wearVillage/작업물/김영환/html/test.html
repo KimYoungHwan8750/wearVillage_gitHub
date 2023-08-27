@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <style>
+        .test{
+            width: 150px;
+            height: 100px;
+            background-color: blue;
+            transition: all 2s;
+        }
+        .test:hover{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <button id="test_btn" onclick="testMethod()"></button>
+    <div class="test"></div>
+    <script>
+        var test_width;
+        var test;
+
+        function testMethod(){
+            test_width = $('.test').css('width');
+            test = test_width.replace(/[^0-9]/g,"");
+            $('.test').css('width',(parseInt(test)+100)+'px');
+
+        }
+    </script>
+</body>
+</html>
