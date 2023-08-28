@@ -45,17 +45,21 @@
     <button onclick="start();">시작</button>
 
     <button onclick="stop();">멈춤</button>
+    <input type="text" id="test">
     <script>
-       var test =setTimeout(()=>{if(flag=true){alert("hi")}},5000);
-       var flag = true;
-    function stop(){
-        clearTimeout(test);
-        flag=false;
+       function request(){
+
+       var xmlrequest = new XMLHttpRequest;
+       xmlrequest.onreadystatechange=function(){
+        if(xmlrequest.status==200&&xmlrequest.readyState==XMLHttpRequest.DONE){
+            console.log($('#text').val());
+        }
+        
+       }
+       xmlrequest.open("GET",encodeURI("http://192.168.0.65:5500/%EC%9E%91%EC%97%85%EB%AC%BC/%EA%B9%80%EC%98%81%ED%99%98/html/get"));
+       xmlrequest.send();
     }
-    function start(){
-        test =setTimeout(()=>{if(flag=true){alert("hi")}},5000);
-        flag=true;
-    }
+    setInterval("request()",500);
 
 </script>
 </body>
