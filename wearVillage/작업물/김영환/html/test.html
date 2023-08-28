@@ -7,30 +7,69 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <style>
-        .test{
+        .wrap{
+            width: 100vh;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box1{
+            height: 150px;
             width: 150px;
-            height: 100px;
-            background-color: blue;
-            transition: all 2s;
-        }
-        .test:hover{
             background-color: red;
+            justify-content: center;
+            display: flex;
+            align-items: center;
         }
+        .box2{
+            height: 100px;
+            width: 100px;
+            background-color: green;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .box3{
+            height: 50px;
+            width: 50px;
+            background-color: blue;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
-    <button id="test_btn" onclick="testMethod()"></button>
-    <div class="test"></div>
-    <script>
-        var test_width;
-        var test;
+    <div class="wrap">
+    <div class="box1">
+        <div class="box2">
+            <div class="box3">
+                contents
+            </div>
+        </div>
+    </div>
+</div>
 
-        function testMethod(){
-            test_width = $('.test').css('width');
-            test = test_width.replace(/[^0-9]/g,"");
-            $('.test').css('width',(parseInt(test)+100)+'px');
+<script>
+    document.querySelector('.box1')
+            .addEventListener('click',e=>{
+                console.log('캡처링단계:box1');
+            },true);
+    document.querySelector('.box1')
+            .addEventListener('click',e=>{
+                console.log('버블링단계:box1');
+            },false)        
+    document.querySelector('.box2')
+            .addEventListener('click',e=>{
+                console.log('캡처링단계:box2');
+            },true)    
+    document.querySelector('.box2')
+            .addEventListener('click',e=>{
+                console.log('버블링단계:box2');
+            },false)   
 
-        }
-    </script>
+</script>
 </body>
 </html>

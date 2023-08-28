@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
     <title>Document</title>
     <link rel="stylesheet" href="../css/font.css">
     <style>
@@ -47,9 +49,11 @@
 
         .slide1_btn{
             background-color: rgb(255, 124, 124);
+            cursor: pointer;
         }
         .slide2_btn{
             background-color: rgb(10, 170, 138);
+            cursor: pointer;
         }
         /*슬라이드2 텍스트*/
         .item1_title_slide2{
@@ -63,11 +67,11 @@
         /*슬라이드3 텍스트*/
         .item1_title_slide3{
             font-weight: bold;
-            color:rgb(0,137,110);
+            color:rgb(228, 228, 228);
         }
         .item1_text_slide3{
         
-            color:rgb(0,137,110);
+            color:rgb(228, 228, 228);
         }
         .item2_title{
             font-weight: bold;
@@ -114,7 +118,7 @@
         }
         .circle1{
             position: relative;
-            background-color: gray;
+            background-color: red;
             width: 15px;
             height: 15px;
             border-radius: 100%;
@@ -126,6 +130,14 @@
             height: 15px;
             border-radius: 100%;
         }
+        .circle3{
+            position: relative;
+            background-color: gray;
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+        }
+
         /*아이템 구간*/
         .item1{
             width: 900px;
@@ -148,23 +160,36 @@
         .item1_slide{
             position: relative;
             display: grid;
-            grid-template-columns: 900px 900px 900px;
+            grid-template-columns: 900px 900px 900px 900px 900px;
+            right:900px;
             /*화면 애니메이션 효과 적용해야하는 부분*/
         }
         .slide1{
-            width: 900px;
+            will-change: 900px;
             height: 360px;
-            background-color: rgb(255,223,223);
+            background-color:rgb(221, 221, 221);
+            overflow: hidden;
         }
         .slide2{
             width: 900px;
             height: 360px;
-            background-color: rgb(132, 195, 190)
+            background-color: rgb(255,223,223);
         }
         .slide3{
+            width: 900px;
+            height: 360px;
+            background-color: rgb(132, 195, 190)
+        }
+        .slide4{
             will-change: 900px;
             height: 360px;
-            background-color:rgb(255, 238, 194);
+            background-color:rgb(221, 221, 221);
+            overflow: hidden;
+        }
+        .slide5{
+            width: 900px;
+            height: 360px;
+            background-color: rgb(255,223,223);
         }
         /* 슬라이드 구간 */
         /*아이템 1 2 3 이미지 크기 조절*/
@@ -188,6 +213,9 @@
             width: 280px;
             height: 240px;
         }
+        #img_slide3_background{
+            position: absolute;
+        }
         /*아이템1 슬라이드 구간 양식*/
         .item_details{
             position: absolute;
@@ -210,6 +238,7 @@
             height: 260px;
             text-align: right;
         }
+        /* 슬라이드 리모트 버튼 영역*/
         .slide_grid{
             position: absolute;
             display: grid;
@@ -227,11 +256,12 @@
             margin: auto;
             opacity: 0.3;
             cursor: pointer;
+            user-select: none;
         }
 
 
 
-        @-webkit-keyframes slide_banner{
+        @keyframes slide_banner{
             0% {
                 right:0px;
             }
@@ -240,7 +270,7 @@
             }
         }
 
-        @-webkit-keyframes circle1{
+        @keyframes circle1{
             0% 
             {
                 left:0px;
@@ -250,7 +280,7 @@
                 left:15px;
             }
         }
-        @-webkit-keyframes circle2{
+        @keyframes circle2{
             0% 
             {
                 right:15px;
@@ -274,8 +304,10 @@
             <div class="banner_circle_create two">
                 <div class="circle2"></div>
             </div>
-            <div class="banner_circle_create three"></div>
-            <div class="banner_circle_create four"></div>
+            <div class="banner_circle_create three">
+                <div class="circle3"></div>
+
+            </div>
         </div>
         <!--첫번째 줄-->
         <section class="item1">
@@ -288,7 +320,92 @@
                 <div class="slide1">
 
                 <!--슬라이드1-->
+                <img id="img_slide3_background" src="../img/img_slide3_background.jpg" alt="">
 
+                <div class="item_details">
+
+                    <div class="section1">
+                        
+                    </div>
+                    <div class="section2">
+                        <span class="item1_title_slide3 title noto_regular_black">
+                            심통난 고먐미
+                        </span>
+                        <p class="item1_text_slide3 text noto_regular_black">
+                            이런, 고양이는 옷 입는 걸 안 좋아한다네요!<br>
+                            옷빌리지는 고양이님의 의견을 존중해<br>
+                            고양이 옷은 판매하지 않기로 결정했습니다.
+                    </div>
+                </div>
+                    
+                    
+                </div>
+                <!--슬라이드2-->
+                <div class="slide2">
+                    <div class="item_details">
+                        <div class="section1">
+                            <span class="item1_title_slide1 title noto_regular_black">
+                                이벤트
+                            </span>
+                            <p class="item1_text_slide1 text noto_regular_black">
+                                (선착순 100명)<br>
+                                옷빌리지가 오픈 기념!<br>
+                                판매 · 대여하는 글 작성하고<br>
+                                아메리카노를 받아가세요!
+                            </p>
+                            <div class="item1_btn slide1_btn">
+                                <button>gg</button>
+                                <span class="item1_btn_text">자세히 보기</span>
+                            </div>
+                        </div>
+                        <div class="section2">
+                            <img id="img_starbucksCupShadows"src="../img/img_starbucksCupShadows.png" alt="">
+                        </div>
+                    </div>
+
+                </div>
+                <!--슬라이드3-->
+                <div class="slide3">
+                    <div class="item_details">
+                        <div class="section1">
+                            <span class="item1_title_slide2 title noto_regular_black">
+                                사회 환원
+                            </span>
+                            <p class="item1_text_slide2 text noto_regular_black">
+                                버려지는 옷으로 인해 연간 300억의 손실이 발생합니다.<br>
+                                옷빌리지는 이러한 손실을 줄이기 위해 노력하고<br>
+                                또한 3000조를 기부해 지구 환경에 기여했습니다.<br>
+                                &MediumSpace;
+                            </p>
+                            <div class="item1_btn slide2_btn">
+                                <span class="item1_btn_text">자세히 보기</span>
+                            </div>
+                        </div>
+                        <div class="section2">
+                            <img id="img_greenCampaign"src="../img/img_greenCampaign.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="slide4">
+                    <img id="img_slide3_background" src="../img/img_slide3_background.jpg" alt="">
+
+                    <div class="item_details">
+
+                        <div class="section1">
+                            
+                        </div>
+                        <div class="section2">
+                            <span class="item1_title_slide3 title noto_regular_black">
+                                심통난 고먐미
+                            </span>
+                            <p class="item1_text_slide3 text noto_regular_black">
+                                이런, 고양이는 옷 입는 걸 안 좋아한다네요!<br>
+                                옷빌리지는 고양이님의 의견을 존중해<br>
+                                고양이 옷은 판매하지 않기로 결정했습니다.
+                        </div>
+                    </div>
+                </div>
+                <div class="slide5">
                     <div class="item_details">
                         <div class="section1">
                             <span class="item1_title_slide1 title noto_regular_black">
@@ -308,32 +425,7 @@
                             <img id="img_starbucksCupShadows"src="../img/img_starbucksCupShadows.png" alt="">
                         </div>
                     </div>
-                    
                 </div>
-                <!--슬라이드2-->
-                <div class="slide2">
-                    <div class="item_details">
-                        <div class="section1">
-                            <span class="item1_title_slide2 title noto_regular_black">
-                                사회 환원
-                            </span>
-                            <p class="item1_text_slide2 text noto_regular_black">
-                                버려지는 옷으로 인해 연간 300억의 손실이 발생합니다.<br>
-                                옷빌리지는 이러한 손실을 줄이기 위해 노력하고<br>
-                                또한 3000조를 기부해 지구 환경에 기여했습니다.
-                            </p>
-                            <div class="item1_btn slide2_btn">
-                                <span class="item1_btn_text">자세히 보기</span>
-                            </div>
-                        </div>
-                        <div class="section2">
-                            <img id="img_greenCampaign"src="../img/img_greenCampaign.png" alt="">
-                        </div>
-                    </div>
-
-                </div>
-                <!--슬라이드3-->
-                <div class="slide3"></div>
 
             </div>
 
@@ -378,13 +470,113 @@
     <div class="main_right"></div>
 </div>
 <script>
-        const slide_btn = document.querySelector('.slide_btn')
-        slide_btn.forEach((ob) => {
-            ob.addEventListner('click',()=>{
-                alert("성공");
-            })
+        const slide_btn = document.querySelectorAll('.slide_btn');
+        let slide_right;
+        let right;
+        let right_Int;
+        let move_status=false;
+
+        //forEach 시작
+
+        //forEach 끝
+        const slide_next_btn = document.querySelector('.btn_next');
+        const slide_previous_btn = document.querySelector('.btn_previous');
+
+        slide_next_btn.addEventListener('click',()=>{
+            if($('.item1_slide').css('right')=='3600px'){
+                console.log("ok");
+                $('.item1_slide').css('transition','');
+                $('.item1_slide').css('right','900px');
+            }
+            if(move_status==false){
+            next();
+            move_status=true;
+            }
             
         });
+
+        slide_previous_btn.addEventListener('click',()=>{
+            if($('.item1_slide').css('right')=='0px'){
+                console.log("ok");
+                $('.item1_slide').css('transition','');
+                $('.item1_slide').css('right','2700px');
+            }
+            if(move_status==false){
+            previous();
+            move_status=true;
+            }
+            
+        });
+
+        function next(){
+            slide_right = ($('.item1_slide').css('right')).match(/[0-9]/g);
+            right='';
+            slide_right.forEach(element => {
+                    right+=element;
+                });
+            right_Int=parseInt(right);
+            $('.item1_slide').css('right',(right_Int+900)+'px');
+            $('.item1_slide').css('transition','all 2s');
+            setTimeout(()=>{move_status=false},2000);
+
+            if(right==900){
+                $('.circle1').css('backgroundColor','gray');
+                $('.circle2').css('backgroundColor','red');
+                $('.circle3').css('backgroundColor','gray');
+            } else if(right==1800){
+                $('.circle1').css('backgroundColor','gray');
+                $('.circle2').css('backgroundColor','gray');
+                $('.circle3').css('backgroundColor','red');
+            } else if(right==2700){
+                $('.circle1').css('backgroundColor','red');
+                $('.circle2').css('backgroundColor','gray');
+                $('.circle3').css('backgroundColor','gray');
+            }
+        }
+
+        function previous(){
+            slide_right = ($('.item1_slide').css('right')).match(/[0-9]/g);
+            right='';
+            slide_right.forEach(element => {
+                    right+=element;
+                });
+            right_Int=parseInt(right);
+            $('.item1_slide').css('right',(right_Int-900)+'px');
+            $('.item1_slide').css('transition','all 2s');
+            setTimeout(()=>{move_status=false},2000);
+            if(right==900){
+                $('.circle1').css('backgroundColor','gray');
+                $('.circle2').css('backgroundColor','gray');
+                $('.circle3').css('backgroundColor','red');
+            } else if(right==1800){
+                $('.circle1').css('backgroundColor','red');
+                $('.circle2').css('backgroundColor','gray');
+                $('.circle3').css('backgroundColor','gray');
+            } else if(right==2700){
+                $('.circle1').css('backgroundColor','gray');
+                $('.circle2').css('backgroundColor','red');
+                $('.circle3').css('backgroundColor','gray');
+            } else if(right==0){
+                $('.circle1').css('backgroundColor','gray');
+                $('.circle2').css('backgroundColor','gray');
+                $('.circle3').css('backgroundColor','red');
+            }
+        }
+        window.setInterval(()=>{
+            if($('.item1_slide').css('right')=='3600px'){
+                console.log("ok");
+                $('.item1_slide').css('transition','');
+                $('.item1_slide').css('right','900px');
+            }
+            if(move_status==false){
+            next();
+            move_status=true;
+            }
+        },7500)
+
+        $('.slide1_btn').addEventListener("click",()=>{
+            alert("성공")
+        })
 </script>
 </body>
 </html>
