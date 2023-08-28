@@ -532,6 +532,21 @@
                 $('.circle2').css('backgroundColor','gray');
                 $('.circle3').css('backgroundColor','gray');
             }
+            window.setInterval(()=>{
+            if($('.item1_slide').css('right')=='3600px'){
+                console.log("ok");
+                $('.item1_slide').css('transition','');
+                $('.item1_slide').css('right','900px');
+            }
+            if(move_status==false){
+            next();
+            move_status=true;
+            }
+        },7500)
+
+        $('.slide1_btn').addEventListener("click",()=>{
+            alert("성공")
+        })
         }
 
         function previous(){
