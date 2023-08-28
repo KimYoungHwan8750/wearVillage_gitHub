@@ -72,8 +72,11 @@ public class testController {
     //로그인 화면으로 이동
     @RequestMapping(value ="/login")
     public String login(){
-        return "logins";
+        return "login";
     }
 
-
+    @RequestMapping(value = "/items_buy")
+    public String items_buy(){
+        return "items_buy.html";
+    }
 }
