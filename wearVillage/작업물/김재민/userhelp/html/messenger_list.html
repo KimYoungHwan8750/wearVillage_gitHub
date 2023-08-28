@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        /* outline: 1px solid red; */
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .ch {
+        display: flex;
+        align-items: center;
+        width: 478px;
+        height: 70px;
+    }
+
+    .container {
+        display: grid;
+        grid-template-areas: "l_gap main r_gap";
+        grid-template-columns: 1fr 768px 1fr;
+    }
+
+    .l_gap {
+        grid-area: l_gap;
+    }
+
+    .r_gap {
+        grid-area: r_gap;
+    }
+
+    .main {
+        grid-area: main;
+        /* outline: 3px solid gray; */
+    }
+
+    .profile_bar {
+        display: flex;
+        /* outline: 2px solid gray; */
+    }
+
+    .name {
+        display: flex;
+        align-items: center;
+        /* background-color: rgb(255, 255, 255); */
+    }
+
+    .img_my_profile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 250px;
+        height: 70px;
+        /* outline: 2px solid gray; */
+
+    }
+
+    .container .img_my_profile .my_img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        height: 70px;
+    }
+
+    .messenger {
+        display: flex;
+    }
+
+    .us {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        width: 180px;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        width: 180px;
+        height: 35px;
+    }
+
+    .ti_us {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user {
+        display: flex;
+        width: 250px;
+        height: 70px;
+        /* outline: 1px solid gray; */
+    }
+
+    .pic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        height: 70px;
+    }
+
+    .chat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 478px;
+        height: 70px;
+        /* outline: 1px solid gray; */
+    }
+
+    /* 임시 헤더 */
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 100px;
+        margin-bottom: 100px;
+        outline: 1px solid black;
+    }
+
+    /* 임시 푸터 */
+    .footer {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 100px;
+        margin-top: 50px;
+        outline: 1px solid black;
+    }
+
+    .line {
+        outline: 1px solid gray;
+        width: 180px;
+    }
+
+    .line2 {
+        outline: 1px solid gray;
+        width: 518px;
+    }
+</style>
+
+<body>
+    <!-- 헤더 -->
+    <div class="header">header</div>
+    <div class="l_gap"></div>
+    <div class="container">
+        <div class="main">
+            <div class="profile_bar">
+                <div class="img_my_profile">
+                    <div class="my_img">내사진</div>
+                </div>
+                <div class="name">채팅 목록</div>
+            </div>
+            <div class="messenger">
+                <div class="title_and_user">
+                    <div class="users">
+                        <div class="line"></div>
+                        <div class="user user1">
+                            <div class="pic">프사</div>
+                            <div class="ti_us">
+                                <div class="line"></div>
+                                <a href="">
+                                    <div class="title">바지팝니다</div>
+                                </a>
+                                <a href="">
+                                    <div class="us">유저1</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="user user2">
+                            <div class="pic">프사</div>
+                            <div class="ti_us">
+                                <div class="line"></div>
+                                <a href="">
+                                    <div class="title">명품대여</div>
+                                </a>
+                                <a href="">
+                                    <div class="us">유저2</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="user user3">
+                            <div class="pic">프사</div>
+                            <div class="ti_us">
+                                <div class="line"></div>
+                                <a href="">
+                                    <div class="title">반팔 대여해요</div>
+                                </a>
+                                <a href="">
+                                    <div class="us">유저3</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="user user4">
+                            <div class="pic">프사</div>
+                            <div class="ti_us">
+                                <div class="line"></div>
+                                <a href="">
+                                    <div class="title">신발 삽니다</div>
+                                </a>
+                                <a href="">
+                                    <div class="us">유저4</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="user user5">
+                            <div class="pic">프사</div>
+                            <div class="ti_us">
+                                <div class="line"></div>
+                                <a href="">
+                                    <div class="title">상의 팝니다</div>
+                                </a>
+                                <a href="">
+                                    <div class="us">유저5</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chats">
+
+                    <div class="line2"></div>
+                    <div class="chat chat1">
+                        <a href="">
+                            <div class="ch">언제 가능할까요?</div>
+                        </a>
+                        <div class="time">14:11</div>
+                    </div>
+
+
+                    <div class="line2"></div>
+                    <div class="chat chat2">
+                        <a href="">
+                            <div class="ch"> 명품 대여할게요</div>
+                        </a>
+                        <div class="time">13:30</div>
+                    </div>
+
+
+                    <div class="line2"></div>
+                    <div class="chat chat3">
+                        <a href="">
+                            <div class="ch">대여해요</div>
+                        </a>
+                        <div class="time">12:00</div>
+                    </div>
+
+
+                    <div class="line2"></div>
+                    <div class="chat chat4">
+                        <a href="">
+                            <div class="ch">얼마에요?</div>
+                        </a>
+                        <div class="time">11:12</div>
+                    </div>
+
+
+                    <div class="line2"></div>
+                    <div class="chat chat5">
+                        <a href="">
+                            <div class="ch">거래가능해요?</div>
+                        </a>
+                        <div class="time">10:10</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="r_gap"></div>
+    <!-- 푸터 -->
+    <div class="footer">footer</div>
+</body>
+
+</html>
