@@ -42,34 +42,9 @@
     </style>
 </head>
 <body>
-    <div class="wrap">
-    <div class="box1">
-        <div class="box2">
-            <div class="box3">
-                contents
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.querySelector('.box1')
-            .addEventListener('click',e=>{
-                console.log('캡처링단계:box1');
-            },true);
-    document.querySelector('.box1')
-            .addEventListener('click',e=>{
-                console.log('버블링단계:box1');
-            },false)        
-    document.querySelector('.box2')
-            .addEventListener('click',e=>{
-                console.log('캡처링단계:box2');
-            },true)    
-    document.querySelector('.box2')
-            .addEventListener('click',e=>{
-                console.log('버블링단계:box2');
-            },false)   
-
+    <div id="test"></div>
+    <script>
+        document.getElementById('#test').innerText="hi";
 </script>
 </body>
 </html>
