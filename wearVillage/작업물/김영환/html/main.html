@@ -23,7 +23,7 @@
             font-weight: bold;
             color:rgb(255, 123, 123);
         }
-        .item1_text_slide2{
+        .item1_text_slide1{
         
             color:rgb(255, 123, 123);
         }
@@ -114,27 +114,17 @@
         }
         .circle1{
             position: relative;
-            background-color: red;
+            background-color: gray;
             width: 15px;
             height: 15px;
             border-radius: 100%;
-            left: 0px;
-            animation-name: circle1;
-            animation-duration: 6s;
-            animation-delay: 4s;
-            animation-fill-mode: both;
         }
         .circle2{
             position: relative;
-            background-color: red;
+            background-color: gray;
             width: 15px;
             height: 15px;
             border-radius: 100%;
-            right: 15px;
-            animation-name: circle2;
-            animation-duration: 6s;
-            animation-delay: 4s;
-            animation-fill-mode: both;
         }
         /*아이템 구간*/
         .item1{
@@ -160,11 +150,6 @@
             display: grid;
             grid-template-columns: 900px 900px 900px;
             /*화면 애니메이션 효과 적용해야하는 부분*/
-            right:900px;
-            animation-name: slide_banner;
-            animation-duration: 6s;
-            animation-delay: 5s;
-            animation-fill-mode: both;
         }
         .slide1{
             width: 900px;
@@ -225,6 +210,24 @@
             height: 260px;
             text-align: right;
         }
+        .slide_grid{
+            position: absolute;
+            display: grid;
+            grid-template-areas: "btn_previous . btn_next";
+            grid-template-columns: 70px 760px 70px;
+            height: 360px;
+            width: 900px;
+            z-index: 2;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .slide_btn{
+            font-size: 50px;
+            font-weight: bold;
+            margin: auto;
+            opacity: 0.3;
+            cursor: pointer;
+        }
 
 
 
@@ -276,9 +279,12 @@
         </div>
         <!--첫번째 줄-->
         <section class="item1">
-
+            <div class="slide_grid">
+                <div class="slide_btn btn_previous">《</div>
+                <div></div>
+                <div class="slide_btn btn_next">》</div>
+            </div>
             <div class="item1_slide">
-                
                 <div class="slide1">
 
                 <!--슬라이드1-->
@@ -302,6 +308,7 @@
                             <img id="img_starbucksCupShadows"src="../img/img_starbucksCupShadows.png" alt="">
                         </div>
                     </div>
+                    
                 </div>
                 <!--슬라이드2-->
                 <div class="slide2">
@@ -311,10 +318,9 @@
                                 사회 환원
                             </span>
                             <p class="item1_text_slide2 text noto_regular_black">
-                                (선착순 100명)<br>
-                                옷빌리지가 오픈 기념!<br>
-                                판매 · 대여하는 글 작성하고<br>
-                                아메리카노를 받아가세요!
+                                버려지는 옷으로 인해 연간 300억의 손실이 발생합니다.<br>
+                                옷빌리지는 이러한 손실을 줄이기 위해 노력하고<br>
+                                또한 3000조를 기부해 지구 환경에 기여했습니다.
                             </p>
                             <div class="item1_btn slide2_btn">
                                 <span class="item1_btn_text">자세히 보기</span>
@@ -328,7 +334,9 @@
                 </div>
                 <!--슬라이드3-->
                 <div class="slide3"></div>
+
             </div>
+
         </section>
         <!--두번째 줄-->
         <section class="item2">
@@ -370,8 +378,13 @@
     <div class="main_right"></div>
 </div>
 <script>
- const request = XMLHttpRequest;
-    if (request.XMLHttpRequest==XMLHttpRequest.DONE&&)
+        const slide_btn = document.querySelector('.slide_btn')
+        slide_btn.forEach((ob) => {
+            ob.addEventListner('click',()=>{
+                alert("성공");
+            })
+            
+        });
 </script>
 </body>
 </html>
