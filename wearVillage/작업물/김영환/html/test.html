@@ -42,33 +42,20 @@
     </style>
 </head>
 <body>
-    <div class="wrap">
-    <div class="box1">
-        <div class="box2">
-            <div class="box3">
-                contents
-            </div>
-        </div>
-    </div>
-</div>
+    <button onclick="start();">시작</button>
 
-<script>
-    document.querySelector('.box1')
-            .addEventListener('click',e=>{
-                console.log('캡처링단계:box1');
-            },true);
-    document.querySelector('.box1')
-            .addEventListener('click',e=>{
-                console.log('버블링단계:box1');
-            },false)        
-    document.querySelector('.box2')
-            .addEventListener('click',e=>{
-                console.log('캡처링단계:box2');
-            },true)    
-    document.querySelector('.box2')
-            .addEventListener('click',e=>{
-                console.log('버블링단계:box2');
-            },false)   
+    <button onclick="stop();">멈춤</button>
+    <script>
+       var test =setTimeout(()=>{if(flag=true){alert("hi")}},5000);
+       var flag = true;
+    function stop(){
+        clearTimeout(test);
+        flag=false;
+    }
+    function start(){
+        test =setTimeout(()=>{if(flag=true){alert("hi")}},5000);
+        flag=true;
+    }
 
 </script>
 </body>
