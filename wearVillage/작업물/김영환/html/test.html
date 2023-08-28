@@ -42,9 +42,21 @@
     </style>
 </head>
 <body>
-    <div id="test"></div>
+    <button onclick="start();">시작</button>
+
+    <button onclick="stop();">멈춤</button>
     <script>
-        document.getElementById('#test').innerText="hi";
+       var test =setTimeout(()=>{if(flag=true){alert("hi")}},5000);
+       var flag = true;
+    function stop(){
+        clearTimeout(test);
+        flag=false;
+    }
+    function start(){
+        test =setTimeout(()=>{if(flag=true){alert("hi")}},5000);
+        flag=true;
+    }
+
 </script>
 </body>
 </html>
