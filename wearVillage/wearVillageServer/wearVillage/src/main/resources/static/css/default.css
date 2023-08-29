@@ -25,34 +25,8 @@ width: 120px;
 height: 120px;
 }
 
-.search {
-display: inline-block;
-line-height: 100px;
-margin: 0px 40px;
-}
 
-.searchbar {
-    box-sizing: border-box;
-    width: 450px;
-    height: 50px;
-    font-size: 18px;
-    border-radius: 15px;
-    outline: none;
-    border: var(--color-wear_red) 1px;
-    caret-color: transparent;
-    text-indent: 10px;
-    vertical-align: middle;
-    font-weight: bold;
-}
-.searchbtn {
-    top: 112px;
-    left: 880px;
-    background-color: white;
-    border: none;
-    color: var(--color-wear_red) 1px;
-    font-size: 20px;
-    margin-left: -40px;
-}
+
 
 ul {
     list-style: none;

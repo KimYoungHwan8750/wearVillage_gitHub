@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+    src="https://kit.fontawesome.com/af69a3abe6.js"
+    crossorigin="anonymous"
+></script>
+<link rel="stylesheet" href="../css/font.css">
+    <style>
+
+        *{
+            /* outline: solid 1px red; */
+            
+        }
+
+        
+        @media screen and (max-width:767px) {
+
+                    /*검색창 관련*/
+                    .searchbar {
+            box-sizing: border-box;
+            width: 350px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+
+            }
+        .searchbar_container{
+            display: flex;
+            width: 100%;
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:35px;
+            }
+        .searchbtn {
+            position: relative;
+            top:2px;
+            right:5px;
+
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+
+
+
+ 
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 70px;
+            height:70px;
+            vertical-align: middle;
+        }
+        .logo_text{
+            position: relative;
+            top:9px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .hidden{
+            display: none;
+        }
+    }
+
+
+    
+        @media screen and (min-width:768px) and (max-width:849px){
+                     /*검색창 관련*/
+        .searchbar {
+            box-sizing: border-box;
+            width: 350px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+            }
+        .searchbar_container{
+            display: block;
+            width: 100%;
+            margin: auto;      
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:0px;
+            text-align: center;
+            }
+        .searchbtn {
+            position: relative;
+            top:2px;
+            right:5px;
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+        .center_contents_grid{
+            text-align: center;
+        }
+
+
+
+ 
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 70px;
+            height:70px;
+            vertical-align: middle;
+        }
+        .logo_text{
+            position: relative;
+            top:9px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .tablet{
+            display: none;
+        }
+        .menu{
+            position: absolute;
+            background-color: red;
+            width: 45px;
+            height: 45px;
+        }
+        }
+        @media screen and (min-width:850px) and (max-width:1340px) {
+                       /*검색창 관련*/
+        .searchbar {
+            box-sizing: border-box;
+            width: 250px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+            }
+        .searchbar_container{
+            display: flex;
+            width: 100%;
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:35px;
+            }
+        .searchbtn {
+            position: relative;
+            top:2px;
+            right:5px;
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+        .header_container{
+            display:grid;
+            grid-template-columns: 0.1fr 4fr 1fr;
+            text-align: center;
+        }
+
+
+        .center_contents{
+            align-self: center;
+            text-align: center;
+        }
+        .left_contents{
+            min-width: none;
+        }  
+        .right_contents{
+            vertical-align: middle;
+            text-align: right;
+        }
+
+        .center_contents_grid{
+            display:grid;
+            text-align: center;
+            align-content: center;
+            grid-template-columns:245px repeat(4,1fr);
+            
+        }
+        .item{
+            min-width: 160px;
+        }
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 60px;
+            height:60px;
+            vertical-align: middle;
+            top:15px;
+        }
+        .logo_text{
+            position: relative;
+            top:17px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        .img_sign{
+            width: 20px;
+            height: 20px;
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .desktop{
+            display: none;
+        }
+        .sign_in{
+            display: block;
+        }
+        .login_text{
+            position: relative;
+            bottom: 4px;
+            font-size: 16px;
+        }
+        .sign_container{
+            display: block;
+            width: 100%;
+            text-align: right;
+        }
+        .tablet_desktop{
+            display: none;
+        }
+        .item{
+            font-size: 28px;
+        }
+        .logo_text{
+            font-size:30px;
+        }
+        }
+        @media screen and (min-width:1341px) {
+            /*검색창 관련*/
+        .searchbar {
+            box-sizing: border-box;
+            width: 350px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+            }
+        .searchbar_container{
+            display: flex;
+            width: 100%;
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:35px;
+            }
+        .searchbtn {
+            position: relative;
+            top:2px;
+            right:5px;
+
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+        .header_container{
+            display:grid;
+            grid-template-columns: 0.3fr 4fr 1fr;
+            text-align: center;
+            background-color: #f8f8f8;
+        }
+        /* .item1{
+        background-color: red;
+height: 100%;
+        } */
+
+
+        .center_contents{
+        }
+        .left_contents{
+            min-width: 70px;
+
+        }
+        .right_contents{
+            position: relative;
+            text-align: right;
+            right:20px;
+        }
+
+        .center_contents_grid{
+            display:grid;
+            grid-template-columns:300px repeat(4,1fr);
+            
+        }
+        
+        .item{
+            margin:color red;
+            min-width: 160px;
+        }
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 70px;
+            height:70px;
+            vertical-align: middle;
+        }
+        .logo_text{
+            position: relative;
+            top:9px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        .img_sign{
+            width: 20px;
+            height: 20px;
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .desktop{
+            display: none;
+        }
+        .sign_in{
+            display: inline-block;
+            padding-top: 5px;
+            padding-right: 100px;
+        }
+        .login_text{
+            position: relative;
+            bottom: 4px;
+            font-size: 16px;
+        }
+        .sign_container{
+            position: absolute;
+            display: block;
+            width: 100%;
+            text-align: right;
+        }
+        .item{
+            font-size: 32px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="menu desktop"></div>
+    <div class="sign_container">
+    <div class="sign_in mobile tablet">
+        <img class ="img_sign" src="../img/img_login.PNG" alt="">
+        <span class="login_text noto_regular_graywhite">로그인</span>
+    </div>
+    </div>
+    <div class="header_container">
+
+        <div class="left_contents">
+
+        </div>
+
+        <div class="center_contents">
+            <div class="center_contents_grid noto_regular_graywhite">
+                <div class="item header_logo noto_regular_black">
+                    <img id="logo_img" src="../img/옷빌리지빨강 수정.png" alt="">
+                    <h1 class=" logo_text" >옷빌리지</h1>
+                </div>
+                <p class="item item1 hidden tablet">구매/대여</p>
+                <p class="item item3 hidden tablet">판매/대여</p>
+                <p class="item item4 hidden tablet">마이페이지</p>
+                <p class="item item5 hidden tablet">고객센터</p>
+
+                
+            </div>
+        </div>
+        <div class="right_contents">
+            
+            <div class="searchbar_container ">
+                <div class="search tablet_desktop">
+                    <input
+                            class="searchbar hidden"
+                            type="text"
+                            name="query"
+                            value=""
+                            spellcheck="false"
+                            placeholder="물품을 검색해보세요."
+                    />
+                    <button class="searchbtn" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <button class="searchbtn mobile tablet desktop" type="submit">dd
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

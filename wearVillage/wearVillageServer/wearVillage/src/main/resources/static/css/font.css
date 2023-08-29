@@ -85,3 +85,11 @@ span {
     font-size: 17px;
     color: white;
   }
+
+  /*임시*/
+  .noto_regular_graywhite {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    font-size:32px;
+    color:rgb(51, 51, 51);
+}

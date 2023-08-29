@@ -1,87 +1,477 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/css/header_footer_css.css">
-    
+<html class="html_test" lang="en">
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+    src="https://kit.fontawesome.com/af69a3abe6.js"
+    crossorigin="anonymous"
+></script>
 <div th:fragment="header">
 
+<link rel="stylesheet" href="css/font.css">
+    <style>
+        .html_test{padding-top: 20px;margin-top: 20px;}
+        *{
+            /* outline: solid 1px red; */
+            
+        }
 
-    <div class="top">
-        <div class="menus">
-            <span class="noto_bold"><a id="login_status">로그인</a></span>
-            <a href="#" th:href="@{/createUser}" class="create-User-btn"><span class="noto_bold">회원가입</span></a>
-            <a href="#" th:href="@{/center}" class="center_btn" ><span class="noto_bold">고객센터</span></a>
-            <a href='#' th:href="@{/mypage}" class="mypage_btn" ><span class="noto_bold">마이페이지</span></a>
+        
+        @media screen and (max-width:767px) {
+
+                    /*검색창 관련*/
+                    .searchbar {
+            box-sizing: border-box;
+            width: 350px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+
+            }
+        .searchbar_container{
+            display: flex;
+            width: 100%;
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:35px;
+            }
+        .searchbtn {
+            position: relative;
+            top:2px;
+            right:5px;
+
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+
+
+
+ 
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 70px;
+            height:70px;
+            vertical-align: middle;
+        }
+        .logo_text{
+            position: relative;
+            top:9px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .hidden{
+            display: none;
+        }
+    }
+
+
+    
+        @media screen and (min-width:768px) and (max-width:849px){
+                     /*검색창 관련*/
+        .searchbar {
+            box-sizing: border-box;
+            width: 350px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+            }
+        .searchbar_container{
+            display: block;
+            width: 100%;
+            margin: auto;      
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:0px;
+            text-align: center;
+            }
+        .searchbtn {
+            position: relative;
+            top:2px;
+            right:5px;
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+        .center_contents_grid{
+            text-align: center;
+        }
+
+
+
+ 
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 70px;
+            height:70px;
+            vertical-align: middle;
+        }
+        .logo_text{
+            position: relative;
+            top:9px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .tablet{
+            display: none;
+        }
+        .header_menu{
+            position: absolute;
+            background-color: red;
+            width: 45px;
+            height: 45px;
+        }
+        }
+        @media screen and (min-width:850px) and (max-width:1340px) {
+                       /*검색창 관련*/
+        .searchbar {
+            box-sizing: border-box;
+            width: 250px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+            }
+        .searchbar_container{
+            display: flex;
+            width: 100%;
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:35px;
+            }
+        .searchbtn {
+            position: relative;
+            top:2px;
+            right:5px;
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+        .header_container{
+            display:grid;
+            grid-template-columns: 0.1fr 4fr 1fr;
+            text-align: center;
+        }
+
+
+        .center_contents{
+            align-self: center;
+            text-align: center;
+        }
+        .left_contents{
+            min-width: none;
+        }  
+        .right_contents{
+            vertical-align: middle;
+            text-align: right;
+        }
+
+        .center_contents_grid{
+            display:grid;
+            text-align: center;
+            align-content: center;
+            grid-template-columns:245px repeat(4,1fr);
+            
+        }
+        .header_item{
+            min-width: 160px;
+        }
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 60px;
+            height:60px;
+            vertical-align: middle;
+            top:15px;
+        }
+        .logo_text{
+            position: relative;
+            top:17px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        .img_sign{
+            width: 20px;
+            height: 20px;
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .desktop{
+            display: none;
+        }
+        .sign_in{
+            display: block;
+        }
+        .login_text{
+            position: relative;
+            bottom: 4px;
+            font-size: 16px;
+        }
+        .sign_container{
+            display: block;
+            width: 100%;
+            text-align: right;
+        }
+        .tablet_desktop{
+            display: none;
+        }
+        .header_item{
+            font-size: 28px;
+        }
+        .logo_text{
+            font-size:30px;
+        }
+        }
+        @media screen and (min-width:1341px) {
+            /*검색창 관련*/
+        .searchbar {
+            box-sizing: border-box;
+            width: 350px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 15px;
+            outline: none;
+            border: solid #dc4141;
+            caret-color: transparent;
+            text-indent: 10px;
+            vertical-align: middle;
+            font-weight: normal;                
+            }
+        .searchbar_container{
+            display: flex;
+            width: 100%;
+        }
+        .search {
+            position: relative;
+            display: block;
+            margin-top:35px;
+            }
+        .searchbtn {
+            position: absolute;
+            top:2px;
+            right:5px;
+
+            background-color: white;
+            border: none;
+            color: var(--color-wear_red);
+            font-size: 20px;
+            margin-left: -40px;
+        }
+        /* 검색창 관련 끝*/
+
+        /* 그리드 틀*/
+        .header_container{
+            display:grid;
+            grid-template-columns: 0.3fr 4fr 1fr;
+            text-align: center;
+        }
+        /* .item1{
+        background-color: red;
+height: 100%;
+        } */
+
+
+        .center_contents{
+        }
+        .left_contents{
+            min-width: 70px;
+
+        }
+        .right_contents{
+            position: relative;
+            text-align: right;
+            right:20px;
+            bottom:30px;
+        }
+
+        .center_contents_grid{
+            display:grid;
+            grid-template-columns:300px repeat(4,1fr);
+            
+        }
+        
+        .header_item{
+            margin:color red;
+            min-width: 160px;
+        }
+        /*그리드 틀 끝*/
+
+
+        /* 배너 로고컨텐츠*/
+        #logo_img{
+            position: relative;
+            width: 70px;
+            height:70px;
+            vertical-align: middle;
+        }
+        .logo_text{
+            position: relative;
+            top:9px;
+            left:5px;
+            font-size: 42px;
+
+        }
+        .header_logo{
+            position: relative;
+            bottom:13px;
+        }
+        h1{
+            display: inline-flex
+        }
+        .img_sign{
+            width: 20px;
+            height: 20px;
+        }
+        /* 배너 로고컨텐츠 끝*/
+        .desktop{
+            display: none;
+        }
+        .sign_in{
+            display: inline-block;
+            padding-top: 5px;
+            padding-right: 100px;
+        }
+        .sign_container{
+            position: absolute;
+            display: block;
+            width: 100%;
+            text-align: right;
+        }
+        .login_text{
+            position: relative;
+            bottom: 4px;
+            font-size: 16px;
+        }
+
+        .header_item{
+            font-size: 32px;
+        }
+
+        }
+    </style>
+
+
+    <div class="header_menu desktop"></div>
+
+    <div class="header_container">
+
+        <div class="left_contents">
+
         </div>
-        <div class="sns">
-            <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+
+        <div class="center_contents">
+            <div class="center_contents_grid noto_regular_graywhite">
+                <div class="header_item header_logo noto_regular_black">
+                    <img id="logo_img" src="img/index/옷빌리지빨강 수정.png" alt="">
+                    <h1 class=" logo_text" >옷빌리지</h1>
+                </div>
+                <p class="header_item header_item1 hidden tablet">구매/대여</p>
+                <p class="header_item header_item3 hidden tablet">판매/대여</p>
+                <p class="header_item header_item4 hidden tablet">마이페이지</p>
+                <p class="header_item header_item5 hidden tablet">고객센터</p>
+
+                
+            </div>
         </div>
-        <div class="wearviliage">
-            <span class="noto_bold" style="font-size: 40px;"><h1>옷빌리지</h1></span>
-        </div>
-    </div>
-    <div class="banner">
-        <img
-                class="bannerlogo"
-                src="img/index/옷빌리지빨강 복사2.png"
-                alt=""
-        />
-        <section>
-            <form action="localhost:8090/search">
-                <div class="search">
+        <div class="right_contents">
+            
+            <div class="searchbar_container ">
+                <div class="search tablet_desktop">
                     <input
-                            class="searchbar"
+                            class="searchbar hidden"
                             type="text"
                             name="query"
                             value=""
                             spellcheck="false"
+                            placeholder="물품을 검색해보세요."
                     />
                     <button class="searchbtn" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
-            </form>
-        </section>
+                <button class="searchbtn mobile tablet desktop" type="submit">dd
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+
     </div>
 
 
-<script>
-
-
-if(sessionStorage.getItem("login")!=null){
-        const login_status = document.getElementById("login_status");
-        login_status.innerText = "로그아웃";
-        login_status.setAttribute('onclick','logout()');
-        login_status.setAttribute('style','cursor:pointer;')
-        document.querySelector(".create-User-btn").style.display = "none";
-        document.querySelector(".center_btn").style.display = "inline";
-        document.querySelector(".mypage_btn").style.display = "inline";
-    } else {
-        login_status.innerText = "로그인";
-        login_status.setAttribute('href', '/login')
-        document.querySelector(".create-User-btn").style.display = "inline";
-        document.querySelector(".center_btn").style.display = "none";
-        document.querySelector(".mypage_btn").style.display = "none";
-    }
-    function mypage(){
-        if(sessionStorage.getItem("login")==null){
-            alert("마이페이지는 로그인 후 사용하실수 있습니다.");
-            location.href="/login";
-        }else{
-            location.href='/mypage';
-        }
-    }
-    function logout(){
-        sessionStorage.removeItem("login");
-        location.reload(true);
-    }
-
-</script>
-
-</div>
 </html>
