@@ -8,32 +8,32 @@ a {
     color: black;
 }
 
-.container {
+.FAQlist_container {
     display: grid;
-    grid-template-areas: "l_gap main r_gap";
+    grid-template-areas: "FAQlist_l_gap FAQlist_main FAQlist_r_gap";
     grid-template-columns: 1fr 768px 1fr;
 }
 
-.l_gap {
-    grid-area: l_gap;
+.FAQlist_l_gap {
+    grid-area: FAQlist_l_gap;
 }
 
-.r_gap {
-    grid-area: r_gap;
+.FAQlist_r_gap {
+    grid-area: FAQlist_r_gap;
 }
 
-.main {
-    grid-area: main;
+.FAQlist_main {
+    grid-area: FAQlist_main;
 }
 
 /* 리스트 전체 */
-.container .all_list {
+.FAQlist_container .FAQlist_all_list {
     display: flex;
     outline: 3px solid rgb(204, 204, 204);
 }
 
 /* 리스트 사이의 라인 */
-.all_list .line {
+.FAQlist_all_list .FAQlist_line {
     display: flex;
     align-items: center;
     height: 40px;
@@ -41,7 +41,7 @@ a {
 }
 
 /* 리스트 번호 */
-.all_list .num {
+.FAQlist_all_list .FAQlist_num {
     width: 50px;
     font-weight: bold;
     outline: 1px solid rgb(204, 204, 204);
@@ -49,14 +49,14 @@ a {
 }
 
 /* 리스트 */
-.all_list .list {
+.FAQlist_all_list .FAQlist_list {
     width: 718px;
     background-color: rgb(255, 255, 255);
     outline: 2px solid rgb(204, 204, 204);
 }
 
 /* 번호, 제목, 상태 */
-.all_list .title {
+.FAQlist_all_list .FAQlist_title {
     display: flex;
     font-weight: bold;
     outline: 1px solid rgb(204, 204, 204);

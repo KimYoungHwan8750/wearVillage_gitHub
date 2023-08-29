@@ -17,10 +17,11 @@
         color: black;
     }
 
+    /* 채팅 클릭범위 */
     .ch {
         display: flex;
         align-items: center;
-        width: 478px;
+        width: 400px;
         height: 70px;
     }
 
@@ -40,49 +41,44 @@
 
     .main {
         grid-area: main;
-        /* outline: 3px solid gray; */
     }
 
+    /* 내사진 채팅목록 */
     .profile_bar {
         display: flex;
-        /* outline: 2px solid gray; */
     }
 
-    .name {
+    /* 채팅목록 */
+    .messenger_bar {
         display: flex;
         align-items: center;
-        /* background-color: rgb(255, 255, 255); */
+        font-size: 20px;
+        font-weight: bold;
     }
 
+    /* 내사진 */
     .img_my_profile {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 250px;
         height: 70px;
-        /* outline: 2px solid gray; */
-
     }
 
-    .container .img_my_profile .my_img {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 70px;
-        height: 70px;
-    }
-
+    /* 메신저전체 */
     .messenger {
         display: flex;
     }
 
-    .us {
+    /* 상대 닉네임 */
+    .name {
         display: flex;
         align-items: center;
         height: 35px;
         width: 180px;
     }
 
+    /* 게시물 제목 */
     .title {
         display: flex;
         align-items: center;
@@ -90,19 +86,16 @@
         height: 35px;
     }
 
-    .ti_us {
-        display: flex;
-        flex-direction: column;
-    }
-
+    /* 채팅 상대 목록 */
     .user {
         display: flex;
         width: 250px;
         height: 70px;
-        /* outline: 1px solid gray; */
+        padding: 10px;
     }
 
-    .pic {
+    /* 상대 프사 */
+    .user_img {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -110,13 +103,41 @@
         height: 70px;
     }
 
+    /* 채팅목록 라인 */
     .chat {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 478px;
         height: 70px;
-        /* outline: 1px solid gray; */
+        padding: 10px;
+    }
+
+    /* 채팅온 시간 */
+    .time {
+        line-height: 40px;
+    }
+
+    /* 채팅 알림온 갯수 */
+    .notify {
+        display: flex;
+        justify-content: center;
+        margin-left: 15px;
+        border-radius: 100px;
+        width: 20px;
+        color: white;
+        background-color: RGB(255, 43, 43);
+    }
+
+    /* 위아래 라인 */
+    .line {
+        outline: 1px solid rgb(202,202,202);
+        width: 268px;
+    }
+
+    .line2 {
+        outline: 1px solid rgb(202,202,202);
+        width: 518px;
     }
 
     /* 임시 헤더 */
@@ -138,151 +159,146 @@
         margin-top: 50px;
         outline: 1px solid black;
     }
-
-    .line {
-        outline: 1px solid gray;
-        width: 180px;
-    }
-
-    .line2 {
-        outline: 1px solid gray;
-        width: 518px;
-    }
 </style>
 
 <body>
     <!-- 헤더 -->
     <div class="header">header</div>
+    <!-- 왼쪽공백 -->
     <div class="l_gap"></div>
+    <!-- 컨테이너 -->
     <div class="container">
+        <!-- 메인 -->
         <div class="main">
-            <div class="profile_bar">
+            <div class="profile_bar"> <!-- 내사진,채팅목록 바 -->
                 <div class="img_my_profile">
                     <div class="my_img">내사진</div>
                 </div>
-                <div class="name">채팅 목록</div>
+                <div class="messenger_bar">채팅 목록</div>
             </div>
+            <!-- 메신저 전체 -->
             <div class="messenger">
-                <div class="title_and_user">
-                    <div class="users">
-                        <div class="line"></div>
-                        <div class="user user1">
-                            <div class="pic">프사</div>
-                            <div class="ti_us">
-                                <div class="line"></div>
-                                <a href="">
-                                    <div class="title">바지팝니다</div>
-                                </a>
-                                <a href="">
-                                    <div class="us">유저1</div>
-                                </a>
-                            </div>
+                <div class="title_and_user"> <!-- 닉네임, 게시글 제목 -->
+                    <!-- 채팅 유저1 -->
+                    <div class="line"></div><!-- 위 아래 라인 -->
+                    <div class="user user1"> 
+                        <div class="user_img">프사</div>
+                        <div class="title_and_name"> <!-- 제목과 닉네임 -->
+                            <a href="">
+                                <div class="title">바지팝니다</div>
+                            </a>
+                            <a href="">
+                                <div class="name">유저1</div>
+                            </a>
                         </div>
+                    </div>
+                    <!-- /채팅 유저1 -->
                         <div class="line"></div>
-                        <div class="user user2">
-                            <div class="pic">프사</div>
-                            <div class="ti_us">
-                                <div class="line"></div>
-                                <a href="">
-                                    <div class="title">명품대여</div>
-                                </a>
-                                <a href="">
-                                    <div class="us">유저2</div>
-                                </a>
-                            </div>
+                    <div class="user user2">
+                        <div class="user_img">프사</div>
+                        <div class="title_and_name">
+                            <a href="">
+                                <div class="title">명품대여</div>
+                            </a>
+                            <a href="">
+                                <div class="name">유저2</div>
+                            </a>
                         </div>
-                        <div class="line"></div>
-                        <div class="user user3">
-                            <div class="pic">프사</div>
-                            <div class="ti_us">
-                                <div class="line"></div>
-                                <a href="">
-                                    <div class="title">반팔 대여해요</div>
-                                </a>
-                                <a href="">
-                                    <div class="us">유저3</div>
-                                </a>
-                            </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="user user3">
+                        <div class="user_img">프사</div>
+                        <div class="title_and_name">
+                            <a href="">
+                                <div class="title">반팔 대여해요</div>
+                            </a>
+                            <a href="">
+                                <div class="name">유저3</div>
+                            </a>
                         </div>
-                        <div class="line"></div>
-                        <div class="user user4">
-                            <div class="pic">프사</div>
-                            <div class="ti_us">
-                                <div class="line"></div>
-                                <a href="">
-                                    <div class="title">신발 삽니다</div>
-                                </a>
-                                <a href="">
-                                    <div class="us">유저4</div>
-                                </a>
-                            </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="user user4">
+                        <div class="user_img">프사</div>
+                        <div class="title_and_name">
+                            <a href="">
+                                <div class="title">신발 삽니다</div>
+                            </a>
+                            <a href="">
+                                <div class="name">유저4</div>
+                            </a>
                         </div>
-                        <div class="line"></div>
-                        <div class="user user5">
-                            <div class="pic">프사</div>
-                            <div class="ti_us">
-                                <div class="line"></div>
-                                <a href="">
-                                    <div class="title">상의 팝니다</div>
-                                </a>
-                                <a href="">
-                                    <div class="us">유저5</div>
-                                </a>
-                            </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="user user5">
+                        <div class="user_img">프사</div>
+                        <div class="title_and_name">
+                            <a href="">
+                                <div class="title">상의 팝니다</div>
+                            </a>
+                            <a href="">
+                                <div class="name">유저5</div>
+                            </a>
                         </div>
                     </div>
                 </div>
+                <!-- 채팅목록 라인 -->
                 <div class="chats">
-
                     <div class="line2"></div>
-                    <div class="chat chat1">
+                    <div class="chat chat1"> <!-- 채팅라인1 -->
                         <a href="">
-                            <div class="ch">언제 가능할까요?</div>
+                            <div class="ch">언제 가능할까요?</div><!-- 최근채팅내용 -->
                         </a>
-                        <div class="time">14:11</div>
+                        <div class="time_notify">
+                            <div class="time">14:11</div><!-- 채팅타임라인 -->
+                            <div class="notify">1</div><!-- 채팅알림갯수 -->
+                        </div>
                     </div>
-
-
                     <div class="line2"></div>
                     <div class="chat chat2">
                         <a href="">
                             <div class="ch"> 명품 대여할게요</div>
                         </a>
-                        <div class="time">13:30</div>
+                        <div class="time_notify">
+                            <div class="time">13:30</div>
+                            <div class="notify">4</div>
+                        </div>
                     </div>
-
-
                     <div class="line2"></div>
                     <div class="chat chat3">
                         <a href="">
                             <div class="ch">대여해요</div>
                         </a>
-                        <div class="time">12:00</div>
+                        <div class="time_notify">
+                            <div class="time">12:00</div>
+                            <div class="notify">8</div>
+                        </div>
                     </div>
-
-
                     <div class="line2"></div>
                     <div class="chat chat4">
                         <a href="">
                             <div class="ch">얼마에요?</div>
                         </a>
-                        <div class="time">11:12</div>
+                        <div class="time_notify">
+                            <div class="time">11:12</div>
+                            <div class="notify">2</div>
+                        </div>
                     </div>
-
-
                     <div class="line2"></div>
                     <div class="chat chat5">
                         <a href="">
                             <div class="ch">거래가능해요?</div>
                         </a>
-                        <div class="time">10:10</div>
+                        <div class="time_notify">
+                            <div class="time">10:10</div>
+                            <div class="notify">1</div>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
+    <!-- 오른쪽 공백 -->
     <div class="r_gap"></div>
     <!-- 푸터 -->
     <div class="footer">footer</div>
