@@ -7,46 +7,46 @@ a {
     color: black;
 }
 
-.container {
+.askpost_container {
     display: grid;
-    grid-template-areas: "l_gap main r_gap";
+    grid-template-areas: "askpost_l_gap askpost_main askpost_r_gap";
     grid-template-columns: 1fr 768px 1fr;
     font-weight: bold;
     font-size: 18px
 }
 
-.l_gap {
-    grid-area: l_gap;
+.askpost_l_gap {
+    grid-area: askpost_l_gap;
 }
 
-.r_gap {
-    grid-area: r_gap;
+.askpost_r_gap {
+    grid-area: askpost_r_gap;
 }
 
-.main {
-    grid-area: main;
+.askpost_main {
+    grid-area: askpost_main;
 }
 
 /* 문의유형 */
-.ask_type {
+.askpost_ask_type {
     width: 120px;
     height: 25px;
 }
 
 /* 제목 and 이미지첨부 */
-.container .title_and_file {
+.askpost_container .askpost_title_and_file {
     display: flex;
     justify-content: space-between;
 }
 
 /* 제목입력칸 */
-.container .title_post {
+.askpost_container .askpost_title_post {
     width: 300px;
     height: 20px;
 }
 
 /* 문의 내용 */
-.container textarea {
+.askpost_container textarea {
     display: flex;
     justify-content: start;
     width: 768px;
@@ -54,29 +54,29 @@ a {
 }
 
 /* 문의하기 번튼 and 폰번호 정렬 */
-.container .end_line {
+.askpost_container .askpost_end_line {
     display: flex;
     justify-content: space-between;
 }
 
 /* 이메일 and 체크박스 정렬*/
-.container .mail_checkbox {
+.askpost_container .askpost_mail_checkbox {
     display: flex;
     justify-content: space-between;
 }
 
-.container .yes {
+.askpost_container .askpost_yes {
     font-size: 13px;
 }
 
 /* 체크박스 크기 */
-.container .checkbox {
+.askpost_container .askpost_checkbox {
     height: 13px;
     width: 13px;
 }
 
 /* 문의하기 버튼 크기 */
-.container .ask_btn {
+.askpost_container .askpost_ask_btn {
     height: 50px;
     width: 100px;
 }

@@ -11,18 +11,18 @@
 
 <body>
     <!-- 왼쪽 공백 -->
-    <div class="l_gap"></div>
+    <div class="askpost_l_gap"></div>
     <!-- 임시 헤더 -->
     <div class="header">header</div>
     <!-- 메인 -->
-    <div class="container">
-        <div class="main">
+    <div class="askpost_container">
+        <div class="askpost_main">
             <h1>1:1 문의하기</h1>
             <br>
             <!-- 문의유형 -->
             <form action="#">
                 <label>문의유형</label>
-                <select class="ask_type">
+                <select class="askpost_ask_type">
                     <option value="select">선택해주세요</option>
                     <option value="account">결제 문의</option>
                     <option value="mormal">일반 문의</option>
@@ -34,8 +34,8 @@
             </form>
             <br>
             <!-- 제목, 사진첨부 -->
-            <div class="title_and_file">
-                <p>제목 <input class="title_post" type="text" placeholder="제목을 입력해주세요"></p>
+            <div class="askpost_title_and_file">
+                <p>제목 <input class="askpost_title_post" type="text" placeholder="제목을 입력해주세요"></p>
                 <p>사진첨부 <input type="file" multiple="multiple"></p>
             </div>
             <br>
@@ -44,13 +44,13 @@
             <textarea placeholder="내용을 입력해주세요"></textarea>
             <br>
             <!-- 이메일주소, 동의체크박스 -->
-            <div class="mail_checkbox">
+            <div class="askpost_mail_checkbox">
                 <p>이메일 주소 <input placeholder="example@gmail.com" type="text" class="e_mail"></p>
-                <p><span class="yes">(필수)개인정보 수집 동의</span><input class="checkbox" type="checkbox"></p>
+                <p><span class="askpost_yes">(필수)개인정보 수집 동의</span><input class="askpost_checkbox" type="checkbox"></p>
             </div>
             <br>
             <!-- 폰번호, 문의버튼 -->
-            <div class="end_line">
+            <div class="askpost_end_line">
                 <p>휴대폰 번호 <input placeholder="01012345678" type="text" oninput="hypenTel(this)" maxlength="13"></p>
                 <!--##버튼 색깔 정해야함-->
                 <a href="#"><input class="ask_btn" value="문의하기" type="button" /></a>
@@ -58,7 +58,7 @@
         </div>
     </div><!-- /container -->
     <!-- 오른쪽 공백 -->
-    <div class="r_gap"></div>
+    <div class="askpost_r_gap"></div>
     <!-- 임시 푸터 -->
     <div class="footer">footer</div>
     <script>
