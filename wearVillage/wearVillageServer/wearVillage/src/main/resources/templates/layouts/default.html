@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="/static/css/font.css" rel="stylesheet">
-    <link href="/static/css/color.css" rel="stylesheet">
+    <link href="css/font.css" rel="stylesheet">
+    <link href="css/color.css" rel="stylesheet">
     <link rel="stylesheet" href="css/common.css">
     <style>
         .sign_in{
@@ -37,12 +39,8 @@
     </th:block>
 </head>
 <body>    
-    <div class="sign_container">
-    <div class="sign_in mobile tablet">
-        <img class ="img_sign" src="img/index/img_login.png" alt="">
-        <span class="login_text noto_regular_graywhite" style="font-size: 16px;">로그인</span>
-    </div>
-</div>
+            <img class ="img_sign" src="img/index/img_login.png" alt="">
+        <a href="/login" class="login_text noto_regular_graywhite" style="font-size: 16px;"><span id = 'login_status'>로그인</span></a>
     <div style="width: 100%;height: 30px;"></div>
 
         
@@ -51,6 +49,13 @@
 <div layout:fragment="content" class="content"></div>
 
 <div th:replace="~{fragments/footer::footer}"></div>
-
+<script>
+    if(sessionStorage.getItem("login")!=null){
+        const login_status = document.getElementById("login_status");
+        login_status.innerText = "로그아웃";
+    } else {
+        login_status.innerText = "로그인";
+    }
+</script>
 </body>
 </html>

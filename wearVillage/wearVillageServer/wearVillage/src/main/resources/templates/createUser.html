@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http//www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org">
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>옷빌리지</title>
     <link rel="icon" type="image/x-icon" href="img/index/옷빌리지빨강 수정.png">
-    <link rel="stylesheet" href="/css/color.css">
+    <link rel="stylesheet" href="css/color.css">
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <style>
         /*옷빌리지 로고 크기 조정*/
@@ -69,7 +70,7 @@
 
     <!--아이템 1-->
     <div class="item item1">
-        <img id="logo" src="/img/index/옷빌리지빨강 수정.png" alt="">
+        <img id="logo" src="img/index/옷빌리지빨강 수정.png" alt="">
     </div>
     <!--왼쪽 공백 조절용 아이템 2-->
     <div class="item item2"></div>
@@ -100,7 +101,7 @@
     <br>
     <!--이메일 설정 텍스트 칸-->
     <h1>이메일:</h1>
-    <input id="email_box" onblur="email_check()" th:style="${testStyle}" type="text" name="userEmail" placeholder="이메일을 입력해주세요." th:readonly="${email_readonly}">
+    <input id="email_box" onblur="email_check()" th:style="${testStyle}" type="text" name="userEmail" placeholder="이메일을 입력해주세요." th:value = "${user_email}" th:readonly="${email_readonly}">
     <p class="info" id="email_text" style="color:red"></p>
     <br>
     <!--폼에 입력된 데이터 전송-->
@@ -158,6 +159,7 @@
             sendPost("/",user_info_json)
         }
     }
+
 </script>
 
 <script>
