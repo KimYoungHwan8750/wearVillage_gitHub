@@ -3,15 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=2.0,minimum-scale=0.5,user-scalable=no">
+    <link rel="stylesheet" href="../css/new_header.css">
+    <link rel="stylesheet" href="../css/font.css">
     <title>옷빌리지</title>
-    <style>
-        html{
-            font-size: 30px;
-        }
+
+
     </style>
 </head>
-<body style="text-align: center;">
-    <h1 style="font-size: 2rem;">안녕하세요</h1>
-    <div style="background-color: red;width: 900px;height: 300px; margin: auto;"></div>
+<body class="noto_regular_graywhite">
+    <section class="sign_section">
+        <a href="login"><img 
+        style="position:relative;
+               top:1px;
+               left:3px;
+               width: 12px;
+               height: 12px;"
+        src="../img/img_login.PNG"
+        alt="">
+        로그인
+    </a>
+    </section>
+    <section class="headerContainer">
+        <div class="headerItem1"></div>
+        <div class="headerItem2 pc">
+            <div class="header_menu header_logo">
+                <img 
+                style="width: 60px;
+                       height: 60px;
+                       overflow: visible;
+                       "
+                src="../img/옷빌리지빨강 수정.png" alt="">
+                <span id ="header_logo_id" style="font-size: 35px;">옷빌리지</span>
+            </div>
+            <div class="header_menu"><a href="#">구매/대여</a></div>
+            <div class="header_menu"><a href="#">판매/대여</a></div>
+            <div class="header_menu"><a href="#">마이페이지</a></div>
+            <div class="header_menu"><a href="#">고객센터</a></div>
+
+            </div>
+
+        </div>
+        <div class="headerItem3"></div>
+    </section>
+    <div class="header_searchArea">
+        <input class="header_searchText" type="text" placeholder="검색어를 입력해주세요" >
+    </div>
+    <!--JS 임포트-->
+    <script src="../js/new_header.js"></script>
+
 </body>
 </html>
