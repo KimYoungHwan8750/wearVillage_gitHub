@@ -1,9 +1,6 @@
 @import url(common.css);
 
-* {
-    margin: 0px;
-    padding: 0px;
-}
+
 #testMsg{
     color: var(--color-wear_red);
 }
@@ -24,27 +21,13 @@ height: 120px;
 
 
 
-ul {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-body {
-    margin: 0px;
-}
 
 .top {
     grid-area: top;
     display: inline;
     position: relative;
 }
-.menus {
-    text-align: right;
-}
+
 .top .sns {
     position: absolute;
     top: 30px;
@@ -127,15 +110,7 @@ body {
     line-height: 40px;
 }
 
-#logo {
-    width: 200px;
-    height: 200px;
-}
 
-.logos {
-    display: grid;
-    justify-content: center;
-}
 
 .loginbanner {
     display: grid;

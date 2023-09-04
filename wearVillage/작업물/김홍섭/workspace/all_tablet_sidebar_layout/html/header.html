@@ -112,6 +112,7 @@
 
             /* 사이드바 메뉴 본문 */
             .menu {
+
                 width: 250px;
                 height: 100%;
                 background-color: rgba(255, 220, 220, 0.900);
@@ -551,25 +552,6 @@ height: 100%;
             </li>
         </ul>
     </div>
-<!-- 사이드바 javascript -->
-    <script>
-        // DOM 요소를 가져옵니다.
-        const rectangle = document.getElementById('rectangle');
-        const menu = document.getElementById('menu');
-
-        // .rectangle 요소에 클릭 이벤트 리스너를 추가합니다.
-        rectangle.addEventListener('click', () => {
-            menu.style.right = menu.style.right === '0' ? '-250px' : '0';
-        });
-
-        // 문서의 다른 영역을 클릭했을 때 메뉴를 닫는 이벤트 리스너를 추가합니다.
-        document.addEventListener('click', (e) => {
-            if (!menu.contains(e.target) && e.target !== rectangle) {
-                menu.style.right = '-250px';
-            }
-        });
-    </script>
-
 
 
 
@@ -617,6 +599,25 @@ height: 100%;
         </div>
 
     </div>
+
+<!-- 사이드바 javascript -->
+<script>
+    // DOM 요소를 가져옵니다.
+    const rectangle = document.querySelector('.rectangle');
+    const menu = document.querySelector('.menu');
+
+    // .rectangle 요소에 클릭 이벤트 리스너를 추가합니다.
+    rectangle.addEventListener('click', () => {
+        menu.style.right = menu.style.right === '0' ? '-250px' : '0';
+    });
+
+    // 문서의 다른 영역을 클릭했을 때 메뉴를 닫는 이벤트 리스너를 추가합니다.
+    document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && e.target !== rectangle) {
+            menu.style.right = '-250px';
+        }
+    });
+</script>
 
 
 </body>

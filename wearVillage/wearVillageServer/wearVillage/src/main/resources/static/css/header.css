@@ -5,6 +5,9 @@
     --search_bar_width:200px;
     --search_var_height:40px;
 }
+.header_mobileSearch{
+    display: none;
+}
 .header_menus{
     display: none;
 }
@@ -57,20 +60,30 @@ a{
     min-width: 130px;
     overflow: visible;
     user-select: none;
+    align-items: center;
 }
-#header_logo_id{
+.header_logo>img{
+    width: 60px;
+    height: 60px;
+    overflow: visible;   
+}
+
+
+.header_logo_id{
     overflow: visible;
     word-break: keep-all;
+    font-size: 35px;
 }
 
 .header_searchArea{
+    display: flex;
+    align-items: center;
     border: 2px solid red;
     width: var(--search_bar_width);
     height: var(--search_var_height);
     margin-top: 10px;
     border-radius: 13px;
     line-height: var(--search_var_height);
-    text-indent: 10px;
     color: black;
     margin-left: auto;
     margin-right: auto;
@@ -81,16 +94,17 @@ a{
 .header_searchText{
     background-color: rgba(255, 255, 255, 0);
     font-size: 14px;
-    width: calc(var(--search_bar_width) - 25px);
+    width: calc(var(--search_bar_width) - 15px);
     text-align: center;
     line-height: var(--search_var_height);
     border: none;
+    text-indent: 10px;
 }
 
 .header_searchText:focus{
     outline: none;
 }
-@media screen and (max-width:1230px) {
+@media (max-width:1230px) {
 
     .headerItem2{
         flex-wrap: wrap;
@@ -99,13 +113,11 @@ a{
         justify-content: center;
         width: 100%;
     }
-    .header_search{
-        display: none;
-    }
+
     
 }
 
-@media screen and (max-width:850px) {
+@media (max-width:850px) {
 
 .header_menu>a{
     display: none;
@@ -119,9 +131,6 @@ a{
 
 }
 
-.test{
-
-}
 
 
 .header_rectangle {
@@ -134,21 +143,21 @@ a{
     top: 55px;
     transform: translate(-50%, -50%);
     cursor: pointer;
-    z-index: 1;
-    background-image: url('../img/img_header_tablet_menu_icon.png');
-    background-size: cover;
+    z-index: 10000;
+
 }
             /* 사이드바 메뉴 본문 */
             .header_menus {
                 display: inline;
+                border-left: 1px solid red;
                 width: 250px;
                 height: 100%;
-                background-color: rgba(255, 220, 220, 0.900);
+                background-color: rgba(255, 220, 220, 0.950);
                 position: fixed;
                 right: -250px;
                 top: 0;
-                transition: right 0.3s ease-in-out;
-                z-index: 2;
+                transition: all 0.3s ease-in-out;
+                z-index: 10001;
                 overflow-y: auto;
             }
 
@@ -161,8 +170,8 @@ a{
 
             /* .menu ul li 레이아웃 */
             .header_menus ul li {
-                padding: 10px;
-                border-bottom: 1px solid rgba(255, 60, 60, 0.9);
+                padding: 15px;
+                border-bottom: 1px solid rgba(255, 60, 60, 0.8);
             }
 
             /* .menu ul li a 중분류 글자 */
@@ -170,20 +179,77 @@ a{
                 text-decoration: none;
                 color: rgba(230, 30, 30, 0.9);
                 font-size: 18px;
+                font-weight: bold;
             }
 
             /* .menu ul ul li 레이아웃 */
             .header_menus ul ul li {
-                padding: 10px;
-                border-bottom: 1px solid rgba(255, 120, 120, 0.9);
+                padding: 15px;
+                border-bottom: 1px solid rgba(255, 120, 120, 0.8);
             }
 
             /* .menu ul ul li a 소분류 글자 */
             .header_menus ul ul li a {
                 text-decoration: none;
-                color: rgba(255, 100, 100, 0.9);
-                font-size: 14px;
+                color: rgba(255, 100, 100, 0.8);
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .header_menus>ul:first-child{
+                margin-top: 20px;
             }
             /* 사이드바 css 종료 */
 
+}
+
+@media (max-width:768px) {
+    .header_rectangle{
+        top:31px;
+        left: 70px;
+        width: 30px;
+        height: 30px;
+    }
+    .sign_section{
+       display: none;
+    }
+
+    .header_logo>img{
+        width: 30px;
+        height: 30px;
+    }
+    .header_logo_id{
+        font-size: 24px;
+    }
+    .header_mobileSearch{
+        display: flex;
+        align-items: center;
+        border: 2px solid red;
+        width: calc(var(--search_bar_width) - 50px);
+        height: calc(var(--search_var_height) - 10px);
+        margin-top: 10px;
+        border-radius: 13px;
+        line-height: calc(var(--search_var_height) - 10px);
+        color: black;
+        margin-left: auto;
+        margin-right: auto;
+        transition: all 0.5s;
+        font-size: 0px;
+
+    }
+
+    .header_mobile_searchText{
+        background-color: rgba(255, 255, 255, 0);
+        font-size: 12px;
+        width: calc(var(--search_bar_width) - 65px);
+        text-align: center;
+        line-height: calc(var(--search_var_height) - 10px);
+        border: none;
+        text-indent: 10px;
+    }
+    .header_searchArea{
+        display:none;
+    }
+    .headerItem2{
+        border-bottom: 1px solid #dc4141e7;
+    }
 }
