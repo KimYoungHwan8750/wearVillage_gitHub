@@ -40,8 +40,8 @@ const mobile_searchText_originalStyle = mobile_searchText_focus.getAttribute('st
 const mobile_searchText_originalPlaceholder = mobile_searchText_focus.getAttribute('placeholder');
 
 mobile_searchText_focus.addEventListener('focusin',()=>{
-    mobile_searchArea_width.setAttribute('style','width:250px;');
-    mobile_searchText_focus.setAttribute('style','width:235px; text-align:left; font-size:18px')
+    mobile_searchArea_width.setAttribute('style','width:210px;');
+    mobile_searchText_focus.setAttribute('style','width:195px; text-align:left; font-size:18px')
     mobile_searchText_focus.setAttribute('placeholder','');
 })
 
