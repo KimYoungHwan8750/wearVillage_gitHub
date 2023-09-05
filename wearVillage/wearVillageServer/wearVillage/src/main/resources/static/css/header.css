@@ -63,9 +63,10 @@ a{
     align-items: center;
 }
 .header_logo>img{
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     overflow: visible;   
+    margin-right: 5px;
 }
 
 
@@ -214,8 +215,7 @@ a{
     }
 
     .header_logo>img{
-        width: 30px;
-        height: 30px;
+        display: none;
     }
     .header_logo_id{
         font-size: 24px;
