@@ -43,7 +43,7 @@ public class Controller {
     public String default_createUser(Model model) {
         // 로그인 API를 경유하지 않고 곧장 회원가입 눌렀을 때
         model.addAttribute("testStyle", "border-bottom: solid 2px var(--color-wear_gray);");
-        model.addAttribute("profile_img", "img/index/기본프사.jpg");
+        model.addAttribute("profile_img", "img/기본프사.jpg");
         return "createUser.html";
     }
 
@@ -74,7 +74,7 @@ public class Controller {
         return "login";
     }
 
-    @RequestMapping(value = "/items_buy")
+    @GetMapping(value = "/items_buy")
     public String items_buy(){
         return "items_buy.html";
     }

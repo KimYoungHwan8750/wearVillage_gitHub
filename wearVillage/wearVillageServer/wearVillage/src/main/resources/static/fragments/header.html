@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+
 <div th:fragment="header" class="header_fragment">
+        <link layout:fragment="css" rel="stylesheet" href="css/header.css">
 <section class="sign_section">
     <a href="login"><img
             style="position:relative;
@@ -21,7 +23,7 @@
         </div>
         <ul>
             <li><a href="#">판매/대여</a></li>
-            <li><a href="#">구매/대여</a></li>
+            <li><a href="/items_buy">구매/대여</a></li>
             <li><a href="#">마이페이지</a>
                 <ul>
                     <li><a href="/mypage"># 내 정보</a></li>
@@ -45,10 +47,10 @@
             background-size: cover;">
             </div>
             <img src="img/img_wearVillageLogo.png" alt="">
-            <div class ="header_logo_id">wearVillage</div>
+            <div class ="header_logo_id"><a href="/">wearVillage</a></div>
         </div>
 
-        <div class="header_menu"><a href="#">구매/대여</a></div>
+        <div class="header_menu"><a href="/items_buy">구매/대여</a></div>
         <div class="header_menu"><a href="#">판매/대여</a></div>
         <div class="header_menu"><a href="#">마이페이지</a></div>
         <div class="header_menu"><a href="#">고객센터</a></div>
@@ -61,9 +63,7 @@
 <div class="header_searchArea">
     <input class="header_searchText" type="text" placeholder="검색어를 입력해주세요" >
 </div>
+<script layout:fragment="script" src="js/header.js"></script>
 </div>
-<!--JS 임포트-->
-
-
 
 </html>

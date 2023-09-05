@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/items_buy.css"/>
-    <link rel="stylesheet" href="/css/common.css"/>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="container">
+    <html xmlns:th="https://www.thymeleaf.org"
+    xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/default}">
+
+<div layout:fragment="content">
+    <link rel="stylesheet" href="css/items_buy.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+
+    <div class="itemsBuy_container">
       <div class="category">
         <ul class="mcategory">
           <li class="noto_bold_black clothing">
@@ -349,7 +342,6 @@
         </div>
         </div>
       </div>
-  </body>
   <script>
 
     var categories = {
@@ -419,4 +411,5 @@ $(document).ready(function() {
   });
 });
   </script>
+  </div>
 </html>
