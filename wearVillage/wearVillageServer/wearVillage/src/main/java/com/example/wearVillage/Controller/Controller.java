@@ -2,20 +2,23 @@ package com.example.wearVillage.Controller;
 
 
 
+import static com.example.wearVillage.dataContoller.LoginCheck.*;
+import static com.example.wearVillage.dataContoller.check_email.*;
+import static com.example.wearVillage.dataContoller.check_id.*;
+import static com.example.wearVillage.dataContoller.createUserToOracle.*;
+
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-
-
-import static com.example.wearVillage.dataContoller.LoginCheck.login_check;
-import static com.example.wearVillage.dataContoller.check_email.check_email;
-import static com.example.wearVillage.dataContoller.check_id.check_id;
-import static com.example.wearVillage.dataContoller.createUserToOracle.dataToOracle;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
 @org.springframework.stereotype.Controller
-@CrossOrigin(origins = "http://localhost:8090")
+@CrossOrigin
 public class Controller {
     // 메인화면으로 이동
     @RequestMapping(value = "/")
@@ -44,7 +47,7 @@ public class Controller {
     public String default_createUser(Model model) {
         // 로그인 API를 경유하지 않고 곧장 회원가입 눌렀을 때
         model.addAttribute("testStyle", "border-bottom: solid 2px var(--color-wear_gray);");
-        model.addAttribute("profile_img", "img/index/기본프사.jpg");
+        model.addAttribute("profile_img", "img/기본프사.jpg");
         return "createUser.html";
     }
 
