@@ -1,0 +1,896 @@
+@import url(reset.css);
+@import url(font.css);
+@import url(color.css);
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    margin: 0px;
+}
+
+.container{
+    display:grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas:
+  '. gnb .'
+  '. main .'
+}
+
+.no-italics {
+    font-style: normal;
+}.container .gnb {
+     grid-area: gnb;
+ }
+.container .gnb .menu {
+    display: flex;
+    justify-content: space-evenly;
+}
+.container .gnb .menu .item {
+    padding: 3px 5px;
+}
+.container .gnb .menu .item:nth-of-type(1):hover .category {
+    display: block;
+    position: absolute;
+}
+
+.container .gnb .category {
+    outline: 1px solid black;
+    width: 650px;
+    height: 250px;
+    background-color: white;
+    display: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.container .gnb .category .categories {
+    font-size: large;
+    width: 100%;
+    height: 30px;
+    background-color: var(--color-wear_red);
+    outline: 1px solid black;
+    color: white;
+    text-align: flex-start;
+    line-height: 30px;
+}
+
+.container .gnb .category .category_items_상의 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.상의
+.category_items_상의
+.긴소매티셔츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.상의
+.category_items_상의
+.반소매티셔츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.상의
+.category_items_상의
+.셔츠블라우스:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.상의
+.category_items_상의
+.후드티셔츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.상의
+.category_items_상의
+.맨투맨:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.상의
+.category_items_상의
+.니트스웨터:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.상의
+.category_items_상의
+.기타상의:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container .gnb .category .category_items_하의 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.하의
+.category_items_하의
+.데님팬츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.하의
+.category_items_하의
+.코튼팬츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.하의
+.category_items_하의
+.슈트팬츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.하의
+.category_items_하의
+.트레이닝조거팬츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.하의
+.category_items_하의
+.숏팬츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.하의
+.category_items_하의
+.기타하의:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container .gnb .category .category_items_아우터 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.후드집업:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.레더라이더스재킷:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.트래커재킷:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.슈트블레이저재킷:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.카디건:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.아노락재킷:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.플리스:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.패딩:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.아우터
+.category_items_아우터
+.기타아우터:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.container .gnb .category .category_items_원피스 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.원피스
+.category_items_원피스
+.미니원피스:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.원피스
+.category_items_원피스
+.미디원피스:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.원피스
+.category_items_원피스
+.맥시원피스:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.원피스
+.category_items_원피스
+.기타원피스:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container .gnb .category .category_items_비치웨어 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.비치웨어
+.category_items_비치웨어
+.남성비치웨어:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.비치웨어
+.category_items_비치웨어
+.여성비치웨어:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container .gnb .category .category_items_스포츠 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.스포츠
+.category_items_스포츠
+.스포츠상의:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.스포츠
+.category_items_스포츠
+.스포츠하의:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.스포츠
+.category_items_스포츠
+.트레이닝재킷:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container .gnb .category .category_items_모자 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.모자
+.category_items_모자
+.캡야구모자:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.모자
+.category_items_모자
+.버킷사파리햇:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.모자
+.category_items_모자
+.비니:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.모자
+.category_items_모자
+.기타모자:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container .gnb .category .category_items_신발 {
+    position: absolute;
+    top: 30px;
+    left: 105px;
+    padding: 1px;
+    width: 85%;
+    height: 500px;
+    margin: -1px;
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.신발
+.category_items_신발
+.구두:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.신발
+.category_items_신발
+.로퍼:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.신발
+.category_items_신발
+.힐펌프스:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.신발
+.category_items_신발
+.샌들:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.신발
+.category_items_신발
+.슬리퍼:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.container
+.gnb
+.menu
+.item
+.category
+.under_category
+.신발
+.category_items_신발
+.부츠:hover {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.container .gnb .category .under_category {
+    border-right: 1px solid black;
+    font-size: large;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 16%;
+    height: 220px;
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 27.5px;
+}
+
+.container .gnb .category .under_category .상의 {
+    border-bottom: 1px solid black;
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_상의 {
+    color: #000;
+    display: none;
+}
+.container .gnb .category .under_category .상의:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.container
+.gnb
+.category
+.under_category
+.상의:hover
+.category_items_상의 {
+    display: block;
+}
+.container .gnb .category .under_category .하의 {
+    border-bottom: 1px solid black;
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_하의 {
+    color: black;
+    display: none;
+}
+.container .gnb .category .under_category .하의:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.하의:hover .trousers {
+    opacity: 1;
+}
+.container
+.gnb
+.category
+.under_category
+.하의:hover
+.category_items_하의 {
+    display: block;
+}
+.container .gnb .category .under_category .아우터 {
+    border-bottom: 1px solid black;
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_아우터 {
+    color: black;
+    display: none;
+}
+.container .gnb .category .under_category .아우터:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.아우터:hover .coat {
+    opacity: 1;
+}
+.container
+.gnb
+.category
+.under_category
+.아우터:hover
+.category_items_아우터 {
+    display: block;
+}
+.container .gnb .category .under_category .원피스 {
+    border-bottom: 1px solid black;
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_원피스 {
+    color: black;
+    display: none;
+}
+.container .gnb .category .under_category .원피스:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.원피스:hover .woman {
+    font-size: bold;
+    opacity: 1;
+}
+.container
+.gnb
+.category
+.under_category
+.원피스:hover
+.category_items_원피스 {
+    display: block;
+}
+.container .gnb .category .under_category .비치웨어 {
+    border-bottom: 1px solid black;
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_비치웨어 {
+    color: black;
+    display: none;
+}
+.container .gnb .category .under_category .비치웨어:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.비치웨어:hover .bikini {
+    opacity: 1;
+}
+.container
+.gnb
+.category
+.under_category
+.비치웨어:hover
+.category_items_비치웨어 {
+    display: block;
+}
+.container .gnb .category .under_category .스포츠 {
+    border-bottom: 1px solid black;
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_스포츠 {
+    color: black;
+    display: none;
+}
+.container .gnb .category .under_category .스포츠:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.스포츠:hover .outfit {
+    opacity: 1;
+}
+.container
+.gnb
+.category
+.under_category
+.스포츠:hover
+.category_items_스포츠 {
+    display: block;
+}
+.container .gnb .category .under_category .모자 {
+    border-bottom: 1px solid black;
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_모자 {
+    color: black;
+    display: none;
+}
+.container .gnb .category .under_category .모자:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.모자:hover .cap {
+    opacity: 1;
+}
+.container
+.gnb
+.category
+.under_category
+.모자:hover
+.category_items_모자 {
+    display: block;
+}
+.container .gnb .category .under_category .신발 {
+    height: 26.5px;
+}
+.container .gnb .category .under_category .category_items_신발 {
+    color: black;
+    display: none;
+}
+.container .gnb .category .under_category .신발:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    font-weight: bold;
+}
+.신발:hover .boot {
+    opacity: 1;
+}
+.container
+.gnb
+.category
+.under_category
+.신발:hover
+.category_items_신발 {
+    display: block;
+}
+.main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    justify-content: center;
+    grid-auto-rows: 200px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.main .item .pic {
+    border-radius: 10px;
+
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.main .item .pic:hover img {
+    transform: scale(200%);
+    transition: all 0.5s;
+}
+
+.main .item .pic img {
+    width: 100%;
+    height: 100%;
+}
+.trousers {
+    width: 22px;
+    height: 18px;
+    opacity: 0.5;
+}
+.bikini {
+    width: 22px;
+    height: 18px;
+    opacity: 0.5;
+}
+.boot {
+    width: 22px;
+    height: 18px;
+    opacity: 0.5;
+}
+.cap {
+    width: 22px;
+    height: 18px;
+    opacity: 0.5;
+}
+.coat {
+    width: 22px;
+    height: 18px;
+    opacity: 0.5;
+}
+.woman {
+    width: 22px;
+    height: 18px;
+    opacity: 0.5;
+}
+.outfit {
+    width: 22px;
+    height: 18px;
+    opacity: 0.5;
+}
