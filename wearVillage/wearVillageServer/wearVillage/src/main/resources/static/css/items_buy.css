@@ -2,8 +2,12 @@
     list-style: none;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+}
 
-.itemsBuy_container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;

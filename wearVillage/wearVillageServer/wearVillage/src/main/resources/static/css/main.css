@@ -188,19 +188,14 @@ font-weight: 500;
 /* 슬라이드 구간 */
 /*아이템 1 2 3 이미지 크기 조절*/
 #img_chicken{
-    position:relative;
-    bottom:80px;
-    right:100px;
-    width: 400px;
-    height: 400px;}
-
-    #img_starbucksCupShadows{
-        position:relative;
-        bottom:80px;
-        left:40px;
-        width: 400px;
-        height: 400px;
-    }
+    position: relative;
+    width: 230px;
+    height: 260px;
+}
+#img_starbucksCupShadows{
+    width: 200px;
+    height: 260px;
+}
 .background_img{
     position: absolute;
     height: 360px;
