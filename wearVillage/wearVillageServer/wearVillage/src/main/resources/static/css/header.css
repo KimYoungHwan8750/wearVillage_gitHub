@@ -44,6 +44,7 @@ a{
     color: black;
 }
 .header_menu{
+
     width: 130px;
     min-width: 130px;
     text-align: center;
@@ -251,5 +252,10 @@ a{
     }
     .headerItem2{
         border-bottom: 1px solid #dc4141e7;
+    }
+    .header_menu{
+        position:fixed;
+        background-color:#fdfdfd;
+        z-index:100;
     }
 }

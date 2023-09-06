@@ -2,15 +2,19 @@ package com.example.wearVillage.Controller;
 
 
 
+import static com.example.wearVillage.dataContoller.LoginCheck.*;
+import static com.example.wearVillage.dataContoller.check_email.*;
+import static com.example.wearVillage.dataContoller.check_id.*;
+import static com.example.wearVillage.dataContoller.createUserToOracle.*;
+
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
-import static com.example.wearVillage.dataContoller.LoginCheck.login_check;
-import static com.example.wearVillage.dataContoller.check_email.check_email;
-import static com.example.wearVillage.dataContoller.check_id.check_id;
-import static com.example.wearVillage.dataContoller.createUserToOracle.dataToOracle;
 
 
 
@@ -18,8 +22,8 @@ import static com.example.wearVillage.dataContoller.createUserToOracle.dataToOra
 public class Controller {
     // 메인화면으로 이동
     @RequestMapping(value = "/")
-    public String home(){
-            return "main.html";
+    public String home() {
+        return "main.html";
     }
 
     //로그인 방식에 따라 회원가입 양식을 자동으로 채워주는 API
@@ -81,6 +85,19 @@ public class Controller {
 
     @GetMapping(value = "/https_healthy_check")
     public String healthy_check(){
-        return "main.html";
+        return "main(임시).html";
     }
+
+    @GetMapping(value ="/posting")
+    public String posting(){
+        return "posting";
+    }
+
+    @GetMapping("/map_popup")
+    public String makePopup() {
+        return "maps.html";
+    }
+    
+
+
 }
