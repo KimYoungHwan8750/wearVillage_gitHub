@@ -250,7 +250,16 @@
 </script>
     <!--포스트 방식 URL,파라미터 전달-->
     <!--action에 URL지정, params에 JSON 데이터 지정-->
-
+<script>
+    window.onpageshow = function (event) {
+	if (event.persisted) {
+		sessionStorage.removeItem('naverLoginCheck');
+	}
+	else {
+		sessionStorage.removeItem('naverLoginCheck');
+	}
+};
+</script>
 <script>
     function sendPost(action, params) {
     var form = document.createElement('form');

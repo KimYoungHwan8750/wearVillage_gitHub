@@ -143,6 +143,7 @@ a{
     position: absolute;
     left: 90px;
     top: 55px;
+    border-radius: 4px;
     transform: translate(-50%, -50%);
     cursor: pointer;
     z-index: 10000;

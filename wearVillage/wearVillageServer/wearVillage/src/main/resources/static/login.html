@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" xmlns="https://www.w3.org/1999/html">
-    <link rel="stylesheet" href="css/logins_css.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/font.css">
 <html lang="ko">
@@ -197,15 +197,39 @@
     <!--네이버 로그인 버튼에 기능 부여-->
 
     <script>
+     window.onpageshow = function (event) {
+	if (event.persisted) {
+		sessionStorage.removeItem('naverLoginCheck');
+	}
+	else {
+		sessionStorage.removeItem('naverLoginCheck');
+	}
+};
     $(document).on("click", "#naverLogin", function(){ 
         var btnNaverLogin = document.getElementById("naverIdLogin").firstChild;
         btnNaverLogin.click();
-        naverLogin.getLoginStatus(function (status) {
+        sessionStorage.setItem('naverLoginCheck','true');
+    });
+    
+    const naverLogin = new naver.LoginWithNaverId(
+      {
+       clientId: "3Wx6ZUggUTx1VZXfbMO9",
+       callbackUrl: "http://localhost:8090/login",
+       loginButton: {color: "green", type: 2, height: 45}
+       }
+    );
+    naverLogin.init();
+
+    naverLogin.getLoginStatus(function (status) {
+
+        if(sessionStorage.getItem('naverLoginCheck')=='true'){
+
         if (status) {
             const naverEmail=naverLogin.user.email;
             const naverProfile=naverLogin.user.profile_image;
             const naverJson = {email:naverEmail,
             profile_img:naverProfile};
+            console.log(sessionStorage.getItem('naverLoginCheck'));
             $.ajax({
                 type: "POST",
                 url: "/use_api",
@@ -215,8 +239,11 @@
                     if (response=="true") {
                         sessionStorage.setItem("login", naverEmail); // 이미 있는 이메일인 경우 로그인 상태 지정
                         window.location.href = "/";
+                        sessionStorage.removeItem("naverLoginCheck");
                     } else if (response=="false") {
                         sendPost("/createUser", naverJson)
+                        sessionStorage.removeItem("naverLoginCheck");
+
                     } else {
                         alert("서버에서 알 수 없는 응답을 받았습니다.");
                     }
@@ -224,10 +251,9 @@
                 error: function (request, status, error) {
                     alert("서버에 오류가 발생했습니다.");
                 }
-            });
+            });}
         }
       });
-    });
     </script>
 
 
@@ -277,16 +303,7 @@
 
     <!--네이버 로그인 API-->
 
-    <script>
-    const naverLogin = new naver.LoginWithNaverId(
-      {
-       clientId: "3Wx6ZUggUTx1VZXfbMO9",
-       callbackUrl: "http://localhost:8090/login",
-       loginButton: {color: "green", type: 2, height: 45}
-       }
-    );
-    naverLogin.init();
-    </script>
+
 
     <!--포스트 방식 URL,파라미터 전달-->
     <!--action에 URL지정, params에 JSON 데이터 지정-->
