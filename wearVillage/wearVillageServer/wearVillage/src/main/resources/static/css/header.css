@@ -106,49 +106,6 @@ a{
 .header_searchText:focus{
     outline: none;
 }
-@media (max-width:1230px) {
-
-    .headerItem2{
-        flex-wrap: wrap;
-    }
-    .header_logo{
-        justify-content: center;
-        width: 100%;
-    }
-
-    
-}
-
-@media (max-width:850px) {
-
-.header_menu>a{
-    display: none;
-}
-.headerContainer{
-    display: flex;
-    justify-content: center;
-}
-.headerItem2{
-    min-width: 0px;
-
-}
-
-
-
-.header_rectangle {
-    display: inline;
-    width: 45px;
-    height: 45px;
-    background-color: red;
-    position: absolute;
-    left: 90px;
-    top: 55px;
-    border-radius: 4px;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    z-index: 10000;
-
-}
             /* 사이드바 메뉴 본문 */
             .header_menus {
                 display: inline;
@@ -202,23 +159,59 @@ a{
                 margin-top: 20px;
             }
             /* 사이드바 css 종료 */
+@media (max-width:1023px) {
 
-}
-
-@media (max-width:768px) {
-    .header_rectangle{
-        top:31px;
-        left: 70px;
-        width: 30px;
-        height: 30px;
+    .headerItem2{
+        flex-wrap: wrap;
     }
-    .sign_section{
-       display: none;
+    .header_logo{
+        justify-content: center;
+        width: 100%;
     }
-
     .header_logo>img{
         display: none;
     }
+    .headerContainer{
+        display: flex;
+        justify-content: center;
+    }
+    .headerItem2{
+        min-width: 0px;
+    
+    }
+    
+
+    
+}
+
+
+
+
+
+
+@media (max-width:768px) {
+    .sign_section{
+       display: none;
+    }
+.header_menu>a{
+    display: none;
+}
+    .header_rectangle {
+    display: inline;
+    top:31px;
+    left: 70px;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    position: absolute;
+
+    border-radius: 4px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10000;
+
+}
+
     .header_logo_id{
         font-size: 24px;
     }

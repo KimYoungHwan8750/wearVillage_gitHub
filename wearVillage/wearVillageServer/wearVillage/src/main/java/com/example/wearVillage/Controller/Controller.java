@@ -7,18 +7,17 @@ import static com.example.wearVillage.dataContoller.check_email.*;
 import static com.example.wearVillage.dataContoller.check_id.*;
 import static com.example.wearVillage.dataContoller.createUserToOracle.*;
 
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-
+import java.util.List;
 
 
 @org.springframework.stereotype.Controller
+@RequiredArgsConstructor
+
 public class Controller {
     // 메인화면으로 이동
     @RequestMapping(value = "/")
@@ -56,6 +55,10 @@ public class Controller {
     public String finished_create_user(@RequestParam String userId,@RequestParam String userPassword, @RequestParam String email) {
             dataToOracle(email, userId, userPassword);
             return "main.html";
+    }
+    @GetMapping(value = "/chat")
+    public String chat() {
+        return "chat2.html";
     }
 
     //아이디 중복검사
@@ -97,7 +100,7 @@ public class Controller {
     public String makePopup() {
         return "maps.html";
     }
-    
+
 
 
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var websocket = new WebSocket("ws://localhost:8090/chat");
+        websocket.onopen = function(evt){
+            alert("웹소켓 연결 완료");
+        }
+    </script>
+</body>
+</html>
