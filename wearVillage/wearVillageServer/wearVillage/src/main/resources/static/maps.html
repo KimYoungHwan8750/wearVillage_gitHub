@@ -89,7 +89,7 @@
 
       axios
         .get(
-          `https://openapi.naver.com/v1/search/local.json?query=${searchQuery}`,
+          `http://localhost:8090/api/maps?query=${searchQuery}`,
           {
             headers: {
               'X-Naver-Client-Id': '0mTIguFzdA7z9a9TF_3h',
@@ -107,6 +107,7 @@
 
           // Axios 요청에 대한 응답을 받은 후에 searchAddressToCoordinate 함수를 호출합니다.
           searchAddressToCoordinate(address2);
+          
         })
 
         .catch(error => {
