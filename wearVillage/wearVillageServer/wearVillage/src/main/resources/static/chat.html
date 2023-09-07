@@ -1,78 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- SockJS 및 Stomp.js 스크립트 로드 -->
+    <script src="https://cdn.jsdelivr.net/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
 </head>
+
 <body>
-    이름: <input type="text" id="nickname">
-    <input type="button" id="enterBtn" value="입장">
-    <input type="button" id="exitBtn" value="나가기">
+    <div id="msgArea"></div>
+    <button type="button" id = "button-exit">나가기</button>
+    <button type="button" id = "button-send">보내기</button>
+    <button type="button" id = "button-join">접속하기</button>
+    <input type="text" id="msg" placeholder="입력하기">
+    <input type="text" id="username" placeholder="닉네임">
+    
+</body>
 
-    <h1>대화 영역</h1>
-    <div id="chatArea"><div id="chatMessageArea"></div></div>
-    <br/>
-    <input type="text" id="message">
-    <input type="button" id="sendBtn" value="전송">
-    <script>
+<script th:inline="javascript">
+        let chat_check;
+        document.addEventListener('DOMContentLoaded', function() {
+        
 
-        var $WebSocket;
-        function connect(){
-        $WebSocket = new WebSocket(
-            "ws://localhost:8090/chat"
-        );
-        $WebSocket.onopen = onOpen;
-        $WebSocket.onmessage = onMessage;
-        $WebSocket.onclose = onClose;
-    }
-    function disconnect(){
-        wsocket.close;
-    }
-    function onOpen(evt){
-        appendMessage("연결되었습니다.");
-    }
-    function onMessage(evt){
-        var $data = evt.data;
-        appendMessage($data)
-    }
-    function onClose(evt){
-        appendMessage("연결을 끊었습니다.");
-    }
+        // 실행할 기능을 정의해주세요.
+        let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
+        console.log('Username: ' + username);
 
-    function send(){
-        var $nickname = $("#nickname").val();
-        var msg = $("message").val();
-        $WebSocket.send("msg:"+$nickname+":"+msg);
-        $("#message").val("");
-    }
+        let msgArea = document.getElementById("msgArea");
+        console.log("maxArea = ", msgArea);
 
-    function appendMessage(msg){
-        $("#chatMessageArea").append(msg+"<br>");
-        var chatAreaHeight = $("chatArea").height();
-        var maxScroll = $("chatMessageArea").height() - chatAreaHeight;
-        $("#chatArea").scrollTop(maxScroll);
-    }
+        // 버튼 클릭 이벤트 설정
+        let exitButton = document.getElementById("button-exit");
+        exitButton.addEventListener("click", function (e) {
+            disconnect();
+        });
 
-    $(document).ready(function(){
-        $('#message').keypress(function(event){
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if(keycode == '13'){
-                send();
+        let joinButton = document.getElementById("button-join");
+        joinButton.addEventListener("click", function (e) {
+            join();
+        });
+        function join(){
+
+            username = document.getElementById('username').value;
+            websocket = new SockJS("http://localhost:8090/chattest", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
+            websocket.onmessage = onMessage;
+            websocket.onopen = onOpen;
+            websocket.onclose = onClose;
+            chat_check="채팅중";
+            
+        }
+
+        let sendButton = document.getElementById("button-send");
+        sendButton.addEventListener("click", function (e) {
+            send();
+        });
+
+        function send() {
+
+            var msg = document.getElementById("msg");
+            console.log(username + ":" + msg.value);
+            websocket.send(username + ":" + msg.value);
+            msg.value = '2';
+        }
+
+        function disconnect() {
+            let str = username + ": 님이 채팅을 종료했습니다.";
+            websocket.send(str);
+            websocket.close();
+        }
+
+        //채팅창에서 나갔을 때
+        function onClose(evt) {
+            let str = username + ": 님이 방을 나가셨습니다.";
+            websocket.send(str);
+        }
+
+        //채팅창에 들어왔을 때
+        function onOpen(evt) {
+            let str = username + ": 님이 입장하셨습니다.";
+            websocket.send(str);
+        }
+
+        function onMessage(msg) {
+            let data = msg.data;
+            console.log(msg);
+            let sessionId = null;
+            //데이터를 보낸 사람
+            let message = null;
+            let arr = data.split(":");
+
+            for (let i = 0; i < arr.length; i++) {
+                console.log('arr[' + i + ']: ' + arr[i]);
             }
-            event.stopPropagation();
-        })
-        $("#sendBtn").click(function(){send();})
-        $("#enterBtn").click(function(){connect();})
-        $("#exitBtn").click(function(){disconnect();})
-    })
 
-    </script>
+            let cur_session = username;
+
+            //현재 세션에 로그인 한 사람
+            sessionId = arr[0];
+            message = arr[1];
+
+            console.log("sessionID : " + sessionId);
+            console.log("cur_session : " + cur_session);
+
+            //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
+            if (sessionId == cur_session) {
+                let div = document.createElement('div');
+                div.classList.add('alert');
+                div.classList.add('alert-secondary');
+                let b = document.createElement('b');
+                b.innerText = sessionId + " : " + message;
+                div.appendChild(b);
+                msgArea.append(div);
+            } else {
+                let div = document.createElement('div');
+                div.classList.add('alert');
+                div.classList.add('alert-warning');
+                let b = document.createElement('b');
+                b.innerText = sessionId + " : " + message;
+                div.appendChild(b);
+                msgArea.append(div);
+            }
+        }
+    });
+</script>
 </body>
 </html>

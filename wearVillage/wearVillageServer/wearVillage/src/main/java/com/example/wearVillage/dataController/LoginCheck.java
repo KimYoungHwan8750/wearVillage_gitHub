@@ -1,4 +1,4 @@
-package com.example.wearVillage.dataContoller;
+package com.example.wearVillage.dataController;
 
 import com.example.wearVillage.DBConnection;
 

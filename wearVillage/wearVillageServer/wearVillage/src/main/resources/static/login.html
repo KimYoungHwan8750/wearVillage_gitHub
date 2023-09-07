@@ -197,14 +197,7 @@
     <!--네이버 로그인 버튼에 기능 부여-->
 
     <script>
-     window.onpageshow = function (event) {
-	if (event.persisted) {
-		sessionStorage.removeItem('naverLoginCheck');
-	}
-	else {
-		sessionStorage.removeItem('naverLoginCheck');
-	}
-};
+
     $(document).on("click", "#naverLogin", function(){ 
         var btnNaverLogin = document.getElementById("naverIdLogin").firstChild;
         btnNaverLogin.click();

@@ -1,8 +1,10 @@
 package com.example.wearVillage.Handler;
 
+import groovy.transform.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -17,13 +19,16 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // 메세지 처리하는 메소드
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        System.out.println("확인3");
         String payload = message.getPayload();
+        System.out.println(payload);
         log.info("payload : " + payload);
 
         for(WebSocketSession sess: sessions) {
             sess.sendMessage(message);
         }
     }
+
 
     // client 접속 시 호출되는 메서드
     @Override

@@ -2,17 +2,15 @@ package com.example.wearVillage.Controller;
 
 
 
-import static com.example.wearVillage.dataContoller.LoginCheck.*;
-import static com.example.wearVillage.dataContoller.check_email.*;
-import static com.example.wearVillage.dataContoller.check_id.*;
-import static com.example.wearVillage.dataContoller.createUserToOracle.*;
+import static com.example.wearVillage.dataController.LoginCheck.*;
+import static com.example.wearVillage.dataController.check_email.*;
+import static com.example.wearVillage.dataController.check_id.*;
+import static com.example.wearVillage.dataController.createUserToOracle.*;
 
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @org.springframework.stereotype.Controller
@@ -58,7 +56,8 @@ public class Controller {
     }
     @GetMapping(value = "/chat")
     public String chat() {
-        return "chat2.html";
+        System.out.println("확인2");
+        return "chat.html";
     }
 
     //아이디 중복검사
