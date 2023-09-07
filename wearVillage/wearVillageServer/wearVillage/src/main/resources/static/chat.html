@@ -25,7 +25,7 @@
 </body>
 
 <script th:inline="javascript">
-        let chat_check;
+        let chat_check = false;
         document.addEventListener('DOMContentLoaded', function() {
         
 
@@ -47,13 +47,14 @@
             join();
         });
         function join(){
-
+            if(chat_check==false){
             username = document.getElementById('username').value;
             websocket = new SockJS("http://localhost:8090/chattest", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
             websocket.onclose = onClose;
-            chat_check="채팅중";
+            chat_check=true;
+        }
             
         }
 
@@ -67,14 +68,17 @@
             var msg = document.getElementById("msg");
             console.log(username + ":" + msg.value);
             websocket.send(username + ":" + msg.value);
-            msg.value = '2';
+            msg.value = '';
         }
 
         function disconnect() {
             let str = username + ": 님이 채팅을 종료했습니다.";
             websocket.send(str);
             websocket.close();
+            chat_check=false;
+
         }
+        
 
         //채팅창에서 나갔을 때
         function onClose(evt) {

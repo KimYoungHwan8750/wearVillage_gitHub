@@ -21,7 +21,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         System.out.println("확인3");
         String payload = message.getPayload();
-        System.out.println(payload);
+        System.out.println(message);
         log.info("payload : " + payload);
 
         for(WebSocketSession sess: sessions) {
@@ -42,5 +42,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         log.info(session + " 클라이언트 접속 해제");
         sessions.remove(session);
+
     }
 }
