@@ -6,12 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <button onclick="test()">test1</button>
+    <button onclick="test2()">test2</button>
+
     <script>
-        var websocket = new WebSocket("ws://localhost:8090/chat");
-        websocket.onopen = function(evt){
-            alert("웹소켓 연결 완료");
-        }
-    </script>
+        let socket;
+        function test(){
+        socket = new WebSocket("ws://localhost:8090/chat");}
+        
+        function test2(){
+        socket.onopen = function(e) {
+          alert("[open] Connection established");
+        };
+        
+        socket.onerror = function(error) {
+          alert(`[error] ${error.message}`);
+        };
+    }
+        </script>
 </body>
 </html>

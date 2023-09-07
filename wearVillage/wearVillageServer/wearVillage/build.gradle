@@ -34,9 +34,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
-	implementation 'org.json:json:20210307'
+	implementation 'org.json:json:20220320'
 	implementation 'com.oracle.database.jdbc:ojdbc8:19.3.0.0'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 jar {

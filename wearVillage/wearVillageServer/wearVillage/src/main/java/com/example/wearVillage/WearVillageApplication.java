@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class WearVillageApplication {
@@ -18,5 +19,9 @@ public class WearVillageApplication {
 public RestTemplate restTemplate() {
     return new RestTemplate();
 }
+	@Bean
+	public ServerEndpointExporter serverEndpointExporter() {
+		return new ServerEndpointExporter();
+	}
 
 }
