@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 public class Controller {
     // 메인화면으로 이동
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String home() {
         return "main.html";
     }
@@ -50,7 +50,7 @@ public class Controller {
         return "createUser.html";
     }
 
-    //회원가입시 메인화면으로 이동하기 위한 코드 (아직 구현 중)
+    //회원가입시 메인화면으로 이동하기 위한 코드 (구현완료)
     @PostMapping(value = "/")
     public String finished_create_user(@RequestParam String userId,@RequestParam String userPassword, @RequestParam String email) {
             dataToOracle(email, userId, userPassword);

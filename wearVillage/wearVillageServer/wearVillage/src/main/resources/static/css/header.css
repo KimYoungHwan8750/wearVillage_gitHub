@@ -5,6 +5,8 @@
     --search_bar_width:200px;
     --search_var_height:40px;
 }
+
+
 .header_mobileSearch{
     display: none;
 }
