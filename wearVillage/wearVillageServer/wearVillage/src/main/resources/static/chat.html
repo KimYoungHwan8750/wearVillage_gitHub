@@ -14,8 +14,9 @@
     <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
 </head>
 
-<body>
+<body><div style="max-height: 700px; overflow: scroll;">
     <div id="msgArea"></div>
+    </div>
     <button type="button" id = "button-exit">나가기</button>
     <button type="button" id = "button-send">보내기</button>
     <button type="button" id = "button-join">접속하기</button>
@@ -27,8 +28,12 @@
 <script th:inline="javascript">
         let chat_check = false;
         document.addEventListener('DOMContentLoaded', function() {
-        
-
+        let $msg = document.getElementById('msg');
+        $msg.addEventListener('keydown',(evt)=>{
+            if(evt.keyCode=='13'){
+                send();
+            }
+        })
         // 실행할 기능을 정의해주세요.
         let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
         console.log('Username: ' + username);
@@ -41,7 +46,6 @@
         exitButton.addEventListener("click", function (e) {
             disconnect();
         });
-
         let joinButton = document.getElementById("button-join");
         joinButton.addEventListener("click", function (e) {
             join();
@@ -49,7 +53,7 @@
         function join(){
             if(chat_check==false){
             username = document.getElementById('username').value;
-            websocket = new SockJS("http://localhost:8090/chattest", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
+            websocket = new SockJS("https://wearvillage.store/chattest", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
             websocket.onclose = onClose;
@@ -66,7 +70,6 @@
         function send() {
 
             var msg = document.getElementById("msg");
-            console.log(username + ":" + msg.value);
             websocket.send(username + ":" + msg.value);
             msg.value = '';
         }
@@ -99,14 +102,11 @@
             //데이터를 보낸 사람
             let message = null;
             let arr = data.split(":");
-
-            for (let i = 0; i < arr.length; i++) {
-                console.log('arr[' + i + ']: ' + arr[i]);
-            }
+            //username:입력값 형태로 웹소켓에 전달되는데 이 때 :를 기준으로 데이터를 잘라서 배열로 반환함
 
             let cur_session = username;
-
             //현재 세션에 로그인 한 사람
+            
             sessionId = arr[0];
             message = arr[1];
 

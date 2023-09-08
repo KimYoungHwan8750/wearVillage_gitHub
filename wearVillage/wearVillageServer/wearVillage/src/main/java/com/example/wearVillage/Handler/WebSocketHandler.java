@@ -1,7 +1,9 @@
 package com.example.wearVillage.Handler;
 
-import groovy.transform.ToString;
+
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -13,7 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @Slf4j
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
-
+    private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
     private static final ConcurrentLinkedQueue<WebSocketSession> sessions= new ConcurrentLinkedQueue<>();
 
     // 메세지 처리하는 메소드

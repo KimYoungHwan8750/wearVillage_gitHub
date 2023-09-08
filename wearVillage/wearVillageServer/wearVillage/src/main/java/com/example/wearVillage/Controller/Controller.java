@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 
 @org.springframework.stereotype.Controller
 @RequiredArgsConstructor
@@ -98,6 +100,12 @@ public class Controller {
     @GetMapping("/map_popup")
     public String makePopup() {
         return "maps.html";
+    }
+
+    @GetMapping("/login.session")
+    public void loginSession(HttpSession httpsession,@RequestParam String id){
+        httpsession.setAttribute("login",id);
+        System.out.println("로그인함");
     }
 
 

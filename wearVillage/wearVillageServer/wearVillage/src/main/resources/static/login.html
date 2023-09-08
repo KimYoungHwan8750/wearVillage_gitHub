@@ -207,7 +207,7 @@
     const naverLogin = new naver.LoginWithNaverId(
       {
        clientId: "3Wx6ZUggUTx1VZXfbMO9",
-       callbackUrl: "http://localhost:8090/login",
+       callbackUrl: "https://wearvillage.store/login",
        loginButton: {color: "green", type: 2, height: 45}
        }
     );
@@ -332,8 +332,9 @@
             dataType: "json",                       // 서버에서 보내줄 데이터의 타입
             success:function(result){
                 if(result==true){
+                    fetch("/login.session",{method:"get",body:{"id":id}})
+                    .catch(err=>console.log(err));
                     location.href="/";
-                    sessionStorage.setItem("login",id);
                 } else {
                     document.getElementById("login_text").innerText = "다시 입력해주세요."
                     document.getElementById("login_text").style.color = "red";
