@@ -1,7 +1,6 @@
 package com.example.wearVillage.dataContoller;
 
 import com.example.wearVillage.DBConnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
