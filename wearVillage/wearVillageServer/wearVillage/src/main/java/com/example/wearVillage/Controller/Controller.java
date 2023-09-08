@@ -26,6 +26,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.PostData;
@@ -158,17 +160,36 @@ public class Controller {
 
         // 새로운 게시글 저장
         String insertQuery = "INSERT INTO POSTING_TABLE (POST_ID, POST_WRITER_ID, POST_SUBTITLE, POST_TEXT, POST_DATE, POST_MODIFY_DATE) VALUES (?, ?, ?, ?, ?, ?)";
-        
+
         jdbcTemplate.update(insertQuery,
-                           newId,
-                           postData.getPostWriterId(),
-                           postData.getPostSubtitle(),
-                           postData.getPostText(),
-                           postData.getPostDate(),
-                           postData.getPostModifyDate());
+                newId,
+                postData.getPostWriterId(),
+                postData.getPostSubtitle(),
+                postData.getPostText(),
+                postData.getPostDate(),
+                postData.getPostModifyDate());
 
         return "main.html";
     }
+
+    @GetMapping("/viewPost")
+    public ModelAndView viewPost(@RequestParam("id") Integer id) {
+    // 게시글 조회
+    String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+    PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
+
+    ModelAndView modelAndView = new ModelAndView("postDetail");
+    modelAndView.addObject("post", postData);
+
+    return modelAndView;
+}
+
+    // @PostMapping("/viewPost")
+    // public String viewPost(@RequestBody PostData postData) {
+    //     String selectQuery = "SELECT * FROM POSTING_TABLE";
+
+    //     return "view_post.html"
+    // }
 
 
     // @PostMapping("/postToOracle")
