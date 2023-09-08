@@ -1,4 +1,4 @@
-package com.example.wearVillage.dataController;
+package com.example.wearVillage.dataContoller;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-@CrossOrigin(origins = {"http://localhost:8090","https://wearvillage.store"})
+@CrossOrigin(origins = {"http://localhost:8090"})
 @RestController
 @RequestMapping("/api")
 public class ApiController {
