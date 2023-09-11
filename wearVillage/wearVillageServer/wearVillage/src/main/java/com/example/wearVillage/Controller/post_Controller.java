@@ -23,7 +23,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.PostData;
 import com.example.wearVillage.dataController.uploadTest;
