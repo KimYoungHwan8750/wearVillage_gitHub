@@ -3,6 +3,7 @@ package com.example.wearVillage.Controller;
 
 
 import static com.example.wearVillage.dataController.LoginCheck.*;
+import static com.example.wearVillage.dataController.SFTPSender.SFTPSend;
 import static com.example.wearVillage.dataController.check_email.*;
 import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
@@ -108,6 +109,10 @@ public class Controller {
         System.out.println("로그인함");
     }
 
-
+    @GetMapping("/upload_check")
+    public void upload_check(){
+        SFTPSend();
+        System.out.println("접근확인");
+    }
 
 }

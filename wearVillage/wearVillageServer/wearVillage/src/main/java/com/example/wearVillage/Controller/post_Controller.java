@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.imageio.ImageIO;
 
+import com.example.wearVillage.status.local_or_server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.PostData;
-import com.example.wearVillage.dataController.uploadTest;
+
 
 import static com.example.wearVillage.dataController.imgToOracle.imgdataToOracle;
 
@@ -33,7 +34,7 @@ import static com.example.wearVillage.dataController.imgToOracle.imgdataToOracle
         "http://localhost:8090/map_popup" ,"*"})
 @org.springframework.stereotype.Controller
 public class post_Controller {
-    private static final Logger logger = LoggerFactory.getLogger(uploadTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(com.example.wearVillage.dataContoller.uploadTest.class);
     @Autowired
     public post_Controller(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -118,7 +119,9 @@ public class post_Controller {
         }
 
         // 내가 업로드 파일을 저장할 경로
-        String uploadFolder = "C:\\upload";
+//        String uploadFolder = "C:\\upload";
+        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String str = sdf.format(date);
@@ -180,7 +183,9 @@ public class post_Controller {
 
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
-        File file = new File("c:\\upload\\" + fileName);
+        File file = new File((local_or_server.status == "local" ? "c:\\upload" : "upload") + fileName);
+//        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
+//
         ResponseEntity<byte[]> result = null;
         try {
             HttpHeaders header = new HttpHeaders();
@@ -199,7 +204,7 @@ public class post_Controller {
 
         try {
             /* 썸네일 파일 삭제 */
-            file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+            file = new File(local_or_server.status == "local" ? "c:\\upload\\" : "upload\\" + URLDecoder.decode(fileName, "UTF-8"));
 
             file.delete();
 
