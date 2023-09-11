@@ -1,4 +1,4 @@
-package com.example.wearVillage.dataContoller;
+package com.example.wearVillage.dataController;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -55,7 +55,7 @@ public class uploadTest {
 
             // 내가 업로드 파일을 저장할 경로
 
-            String uploadFolder = "/home/ubuntu";  // 경로를 EC2 인스턴스에 맞게 변경
+            String uploadFolder = "/home/ubuntu/upload";  // 경로를 EC2 인스턴스에 맞게 변경
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");  // 날짜 형식을 Linux 스타일에 맞게 변경
             Date date = new Date();
             String str = sdf.format(date);

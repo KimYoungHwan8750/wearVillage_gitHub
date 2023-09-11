@@ -324,6 +324,8 @@
         function login_check(){
         var id = $('#userID').val();
         var password = $('#userPassword').val();
+        var testdatadata = {id:id};
+        var testdatadata2 = JSON.stringify(testdatadata);
         $.ajax({
             url: "/Dologin",                        // 클라이언트가 요청을 보낼 서버의 URL 주소
             data: {id:id,
@@ -332,9 +334,12 @@
             dataType: "json",                       // 서버에서 보내줄 데이터의 타입
             success:function(result){
                 if(result==true){
-                    fetch("/login.session",{method:"get",body:{"id":id}})
+                    fetch("/login_session",{method:"get",body:id=id})
+                    .then(Response => {
+                        console.log(Response);
+                    })
                     .catch(err=>console.log(err));
-                    location.href="/";
+                    // location.href="/";
                 } else {
                     document.getElementById("login_text").innerText = "다시 입력해주세요."
                     document.getElementById("login_text").style.color = "red";

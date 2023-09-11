@@ -34,7 +34,7 @@ import static com.example.wearVillage.dataController.imgToOracle.imgdataToOracle
         "http://localhost:8090/map_popup" ,"*"})
 @org.springframework.stereotype.Controller
 public class post_Controller {
-    private static final Logger logger = LoggerFactory.getLogger(com.example.wearVillage.dataContoller.uploadTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(com.example.wearVillage.dataController.uploadTest.class);
     @Autowired
     public post_Controller(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -120,7 +120,9 @@ public class post_Controller {
 
         // 내가 업로드 파일을 저장할 경로
 //        String uploadFolder = "C:\\upload";
-        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
+        System.out.println("저장츄라이");
+        String uploadFolder = local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/upload/";
+        System.out.println("저장츄라이2");
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
@@ -183,11 +185,12 @@ public class post_Controller {
 
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
-        File file = new File((local_or_server.status == "local" ? "c:\\upload" : "upload") + fileName);
+        File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/upload/") + fileName);
 //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
 //
         ResponseEntity<byte[]> result = null;
         try {
+            System.out.println("디스플레이 츄라이");
             HttpHeaders header = new HttpHeaders();
             header.add("Content-type", Files.probeContentType(file.toPath()));
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);

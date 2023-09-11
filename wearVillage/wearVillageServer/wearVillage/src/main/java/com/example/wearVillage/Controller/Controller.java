@@ -7,12 +7,16 @@ import static com.example.wearVillage.dataController.SFTPSender.SFTPSend;
 import static com.example.wearVillage.dataController.check_email.*;
 import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
+import static com.example.wearVillage.dataController.dataToServer.*;
 
 
+import com.example.wearVillage.dataController.SFTPSender;
+import com.example.wearVillage.dataController.dataToServer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -103,16 +107,17 @@ public class Controller {
         return "maps.html";
     }
 
-    @GetMapping("/login.session")
-    public void loginSession(HttpSession httpsession,@RequestParam String id){
-        httpsession.setAttribute("login",id);
-        System.out.println("로그인함");
+    @GetMapping("/login_session")
+    @ResponseBody
+    public String loginSession(@RequestParam String id){
+        System.out.println(id);
+        return id;
     }
 
     @GetMapping("/upload_check")
-    public void upload_check(){
-        SFTPSend();
-        System.out.println("접근확인");
+    public String upload_check() throws Exception {
+        SFTPSender.SFTPSend();
+        return "main";
     }
 
 }
