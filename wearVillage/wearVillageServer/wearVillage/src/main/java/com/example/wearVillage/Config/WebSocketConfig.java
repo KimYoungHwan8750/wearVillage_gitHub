@@ -16,6 +16,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
 
     private final WebSocketHandler webSocketHandler;
+    public WebSocketConfig(WebSocketHandler webSocketHandler) {
+        this.webSocketHandler = webSocketHandler;
+    }
+
 
 
     @Override

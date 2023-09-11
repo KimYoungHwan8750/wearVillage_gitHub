@@ -89,7 +89,7 @@ public class Controller {
 
     @GetMapping(value = "/https_healthy_check")
     public String healthy_check(){
-        return "main(임시).html";
+        return "main.html";
     }
 
     @GetMapping(value ="/posting")

@@ -30,7 +30,7 @@ import com.example.wearVillage.dataController.uploadTest;
 import static com.example.wearVillage.dataController.imgToOracle.imgdataToOracle;
 
 @CrossOrigin(origins = { "http://localhost:8090/posting", "http://localhost:8090/maps",
-        "http://localhost:8090/map_popup" })
+        "http://localhost:8090/map_popup" ,"*"})
 @org.springframework.stereotype.Controller
 public class post_Controller {
     private static final Logger logger = LoggerFactory.getLogger(uploadTest.class);
