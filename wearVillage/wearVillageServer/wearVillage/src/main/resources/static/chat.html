@@ -5,23 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <!-- SockJS 및 Stomp.js 스크립트 로드 -->
     <script src="https://cdn.jsdelivr.net/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+    <style>
+        .test1{
+            display: inline-block;
+            background-color: rgb(157, 157, 231);
+            border-radius: 15px;
+            padding: 10px;
+        }
+        .test2{}
+    </style>
 </head>
 
-<body><div style="max-height: 700px; overflow: scroll;">
+<body><div id ="msgArea_outZone"style="max-width:600px; height:400px; max-height: 400px; overflow: scroll; margin-left: auto;margin-right: auto;">
     <div id="msgArea"></div>
     </div>
+    <div style="display:flex;justify-content: center;justify-items: center;margin-left: auto; margin-right: auto;">
     <button type="button" id = "button-exit">나가기</button>
     <button type="button" id = "button-send">보내기</button>
     <button type="button" id = "button-join">접속하기</button>
     <input type="text" id="msg" placeholder="입력하기">
     <input type="text" id="username" placeholder="닉네임">
+</div>
     
 </body>
 
@@ -116,15 +127,17 @@
             //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
             if (sessionId == cur_session) {
                 let div = document.createElement('div');
-                div.classList.add('alert');
+                div.classList.add('test1');
                 div.classList.add('alert-secondary');
                 let b = document.createElement('b');
                 b.innerText = sessionId + " : " + message;
                 div.appendChild(b);
                 msgArea.append(div);
+                let $msgArea_outZone = document.getElementById('msgArea_outZone');
+                $msgArea_outZone.scrollTop = $msgArea_outZone.scrollHeight;
             } else {
                 let div = document.createElement('div');
-                div.classList.add('alert');
+                div.classList.add('test2');
                 div.classList.add('alert-warning');
                 let b = document.createElement('b');
                 b.innerText = sessionId + " : " + message;
