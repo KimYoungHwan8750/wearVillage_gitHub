@@ -1,0 +1,145 @@
+/* * {
+        outline: 1px solid red; */
+/* }
+      .postDetail_container {
+        width: 1024px;
+        height: 420px;
+      }
+      .postDetail_container h2 {
+        padding: 0px;
+        padding-top: 10px;
+        margin: 0px;
+      }
+      .postDetail_container h3 {
+        padding: 0px;
+        padding-top: 10px;
+        margin: 0px;
+      }
+      .thumb_nail_container {
+        display: flex;
+        width: 512px;
+        height: 420px;
+        flex-direction: row;
+      }
+      .thumb_nail_list {
+        margin: 0;
+        padding: 0;
+      }
+      .thumb_nail_list img {
+        width: 160px;
+        height: 130px;
+      }
+      .thumb_nail_first {
+        display: flex;
+        width: 170px;
+        height: 140px;
+        justify-content: center;
+        align-items: center;
+      }
+      .thumb_nail_second {
+        display: flex;
+        width: 170px;
+        height: 140px;
+        justify-content: center;
+        align-items: center;
+      }
+      .thumb_nail_third {
+        display: flex;
+        width: 170px;
+        height: 140px;
+        justify-content: center;
+        align-items: center;
+      }
+      .thumb_nail_main {
+        display: flex;
+        width: 342px;
+        height: 420px;
+        justify-content: center;
+        align-items: center;
+      }
+      .thumb_nail_main img {
+        width: 322px;
+        height: 400px;
+      }
+      .postDetail_container {
+        display: flex;
+        flex-direction: row;
+      }
+      .post_info_container {
+        width: 502px;
+        height: 410px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-left: 10px;
+      }
+      .post_subtitle {
+        width: 412px;
+        height: 120px;
+        margin: 0;
+        padding: 0;
+        word-wrap: break-word;
+      }
+
+      .post_product_info {
+        width: 412px;
+        height: 30px;
+        border-bottom: 2px solid gray;
+      }
+
+      .writerId {
+        width: 412px;
+        height: 30px;
+        border-bottom: 2px solid gray;
+      }
+      .product_tag {
+        padding: 10px;
+      }
+
+      .postDetail_container2 {
+        width: 1024px;
+        height: 1000px;
+      } */
+* {
+  outline: 1px solid red;
+}
+.postDetail_super_container {
+  display: flex;
+  width: 1024px;
+  height: 2000px;
+  flex-direction: column;
+  text-align: center;
+}
+.postDetail_container {
+  display: flex;
+  flex-direction: column;
+}
+.thumb_nail_container {
+  display: flex;
+  width: 1024px;
+  height: 600px;
+  flex-direction: column;
+  align-items: center;
+}
+.thumb_nail_list {
+  width: 600px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.thumb_nail_main img {
+  width: 600px;
+  height: 500px;
+}
+.thumb_nail_list img {
+  width: 100px;
+  height: 100px;
+}
+.post_info_container {
+  display: flex;
+  flex-direction: column;
+}
+.post_subtitle {
+  width: 800px;
+}

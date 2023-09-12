@@ -112,17 +112,17 @@
       <div class="thumb_nail_container">
         <div class="thumb_nail_list">
           <div class="thumb_nail_first" id="imageContainer">
-            <img src="/src/main/resources/static/img/1.jpg" alt="" />
+            <a href="#"><img src="" alt="" /></a>
           </div>
           <div class="thumb_nail_second">
-            <img src="/src/main/resources/static/img/1.jpg" alt="" />
+            <a href="#"><img src="" alt="" /></a>
           </div>
           <div class="thumb_nail_third">
-            <img src="/src/main/resources/static/img/1.jpg" alt="" />
+            <a href="#"><img src="" alt="" /></a>
           </div>
         </div>
         <div class="thumb_nail_main">
-          <img src="/src/main/resources/static/img/1.jpg" alt="" />
+          <img src="" alt="" />
         </div>
       </div>
       <div class="post_info_container">
@@ -145,29 +145,21 @@
     </div>
     <div class="postDetail_container2">
       <div class="post_text" th:utext="${post.postText}"></div>
+      <!-- <time
+          datetime=""
+          th:text="${#dates.format(post.postDate,'yyyy-MM-dd')}"
+        ></time> -->
     </div>
 
     <!-- <div th:if="${post == null}">
       <p>No post found.</p>
     </div> -->
 
-    <div th:if="${post != null}">
-      <h2 th:text="${post.postSubtitle}"></h2>
-      <!-- <p>작성자ID<span th:text="${post.postWriterId}"></span></p> -->
-      <p>
-        <!-- <time
-          datetime=""
-          th:text="${#dates.format(post.postDate,'yyyy-MM-dd')}"
-        ></time> -->
-      </p>
-      <div th:utext="${post.postText}"></div>
-    </div>
-
     <a href="/main">메인화면으로</a>
   </body>
   <script th:inline="javascript">
     let imageUrls = [];
-    let postTextElement = document.createElement('.thumb_first');
+    let postTextElement = document.createElement('div');
     postTextElement.innerHTML = /*[[${post.postText}]]*/ '';
 
     let imageEelements = postTextElement.getElementsByTagName('img');
@@ -181,5 +173,53 @@
       let imgTag = document.createElement('img');
       imgTag.setAttribute('src', imageUrls[j]);
     }
+  </script>
+  <script th:inline="javascript">
+    // post.postText에서 HTML 파싱하여 <img> 태그 찾기
+    let postTextElements = document.createElement('div');
+    postTextElements.innerHTML = /*[[${post.postText}]]*/ '';
+
+    let imageElements = postTextElements.getElementsByTagName('img');
+
+    // 첫 번째, 두 번째, 세 번째 썸네일 요소 찾기
+    let thumbFirst = document.querySelector('.thumb_nail_first img');
+    let thumbSecond = document.querySelector('.thumb_nail_second img');
+    let thumbThird = document.querySelector('.thumb_nail_third img');
+    let thumbMain = document.querySelector('.thumb_nail_main img');
+
+    // 이미지가 있다면 각각의 썸네일 요소에 할당하기
+    if (imageElements.length > 0 && thumbFirst) {
+      thumbFirst.src = imageElements[0].src;
+      if (imageElements.length > 1 && thumbSecond) {
+        thumbSecond.src = imageElements[1].src;
+        if (imageElements.length > 2 && thumbThird) {
+          thumbThird.src = imageElements[2].src;
+        }
+      }
+    }
+    if (imageElements.length > 0 && thumbFirst) {
+      thumbMain.src = imageElements[0].src;
+    }
+
+    document
+      .querySelector('.thumb_nail_first img')
+      .addEventListener('click', () => {
+        document.querySelector('.thumb_nail_main img').src =
+          imageElements[0].src;
+      });
+
+    document
+      .querySelector('.thumb_nail_second img')
+      .addEventListener('click', () => {
+        document.querySelector('.thumb_nail_main img').src =
+          imageElements[1].src;
+      });
+
+    document
+      .querySelector('.thumb_nail_third img')
+      .addEventListener('click', () => {
+        document.querySelector('.thumb_nail_main img').src =
+          imageElements[2].src;
+      });
   </script>
 </html>
