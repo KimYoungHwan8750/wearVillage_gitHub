@@ -3,16 +3,12 @@ package com.example.wearVillage.Controller;
 
 
 import static com.example.wearVillage.dataController.LoginCheck.*;
-import static com.example.wearVillage.dataController.SFTPSender.SFTPSend;
 import static com.example.wearVillage.dataController.check_email.*;
 import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
-import static com.example.wearVillage.dataController.dataToServer.*;
 
 
 import com.example.wearVillage.PostData;
-import com.example.wearVillage.dataController.SFTPSender;
-import com.example.wearVillage.dataController.dataToServer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -26,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 
 @org.springframework.stereotype.Controller
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 
 public class Controller {
 
