@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #hello{
-            
-        }
-        #hi{
-            background-color: red;
-            display: inline-block;
-        }
+    
     </style>
 </head>
 <body>
-    <div id = 'hello'>
-    <div id = 'hi'>hi</div>
-    </div>
-    <div>dd</div>
+    <img src="img/img_greenCampaign.PNG" alt="">
+    <textarea name="" id="gd" cols="30" rows="10"></textarea>
+    <button onclick="testmet()">gd</button>
+    <script>
+        function testmet(){
+        const test = document.getElementById('gd');
+        var test2=test.value;
+        console.log(test2);
+        }
+    </script>
 </body>
 </html>

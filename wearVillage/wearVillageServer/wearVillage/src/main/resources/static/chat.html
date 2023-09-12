@@ -1,151 +1,34 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-    <!-- SockJS 및 Stomp.js 스크립트 로드 -->
+    <html xmlns:th="https://www.thymeleaf.org"
+    xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/default}">
+    <body>
+    <div layout:fragment="content">
+        <link layout:fragmnet="css" rel="stylesheet" href="css/chat.css">
+
     <script src="https://cdn.jsdelivr.net/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
-    <style>
-        .test1{
-            display: inline-block;
-            background-color: rgb(157, 157, 231);
-            border-radius: 15px;
-            padding: 10px;
-        }
-        .test2{}
-    </style>
-</head>
-
-<body><div id ="msgArea_outZone"style="max-width:600px; height:400px; max-height: 400px; overflow: scroll; margin-left: auto;margin-right: auto;">
-    <div id="msgArea"></div>
+    <div class ="chat_msgArea_outZone">
+    <div class="chat_msgArea"></div>
+    <div class="chat_bottom_nav">
+        <input id="msg" type="text">
+    <button id="button-send"type="button" value="보내기">전송</button>
     </div>
-    <div style="display:flex;justify-content: center;justify-items: center;margin-left: auto; margin-right: auto;">
+    </div>
+    
+
+
+    <div class="diveloperZone">
+    <p>"임시 개발자 영역입니다."</p>
     <button type="button" id = "button-exit">나가기</button>
-    <button type="button" id = "button-send">보내기</button>
+    <!-- <button type="button" id = "button-send">보내기</button> -->
     <button type="button" id = "button-join">접속하기</button>
-    <input type="text" id="msg" placeholder="입력하기">
+    <!-- <input type="text" id="msg" placeholder="입력하기"> -->
     <input type="text" id="username" placeholder="닉네임">
 </div>
     
-</body>
+<script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
 
-<script th:inline="javascript">
-        let chat_check = false;
-        document.addEventListener('DOMContentLoaded', function() {
-        let $msg = document.getElementById('msg');
-        $msg.addEventListener('keydown',(evt)=>{
-            if(evt.keyCode=='13'){
-                send();
-            }
-        })
-        // 실행할 기능을 정의해주세요.
-        let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
-        console.log('Username: ' + username);
-
-        let msgArea = document.getElementById("msgArea");
-        console.log("maxArea = ", msgArea);
-
-        // 버튼 클릭 이벤트 설정
-        let exitButton = document.getElementById("button-exit");
-        exitButton.addEventListener("click", function (e) {
-            disconnect();
-        });
-        let joinButton = document.getElementById("button-join");
-        joinButton.addEventListener("click", function (e) {
-            join();
-        });
-        function join(){
-            if(chat_check==false){
-            username = document.getElementById('username').value;
-            websocket = new SockJS("https://wearvillage.store/chattest", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
-            websocket.onmessage = onMessage;
-            websocket.onopen = onOpen;
-            websocket.onclose = onClose;
-            chat_check=true;
-        }
-            
-        }
-
-        let sendButton = document.getElementById("button-send");
-        sendButton.addEventListener("click", function (e) {
-            send();
-        });
-
-        function send() {
-
-            var msg = document.getElementById("msg");
-            websocket.send(username + ":" + msg.value);
-            msg.value = '';
-        }
-
-        function disconnect() {
-            let str = username + ": 님이 채팅을 종료했습니다.";
-            websocket.send(str);
-            websocket.close();
-            chat_check=false;
-
-        }
-        
-
-        //채팅창에서 나갔을 때
-        function onClose(evt) {
-            let str = username + ": 님이 방을 나가셨습니다.";
-            websocket.send(str);
-        }
-
-        //채팅창에 들어왔을 때
-        function onOpen(evt) {
-            let str = username + ": 님이 입장하셨습니다.";
-            websocket.send(str);
-        }
-
-        function onMessage(msg) {
-            let data = msg.data;
-            console.log(msg);
-            let sessionId = null;
-            //데이터를 보낸 사람
-            let message = null;
-            let arr = data.split(":");
-            //username:입력값 형태로 웹소켓에 전달되는데 이 때 :를 기준으로 데이터를 잘라서 배열로 반환함
-
-            let cur_session = username;
-            //현재 세션에 로그인 한 사람
-            
-            sessionId = arr[0];
-            message = arr[1];
-
-            console.log("sessionID : " + sessionId);
-            console.log("cur_session : " + cur_session);
-
-            //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-            if (sessionId == cur_session) {
-                let div = document.createElement('div');
-                div.classList.add('test1');
-                div.classList.add('alert-secondary');
-                let b = document.createElement('b');
-                b.innerText = sessionId + " : " + message;
-                div.appendChild(b);
-                msgArea.append(div);
-                let $msgArea_outZone = document.getElementById('msgArea_outZone');
-                $msgArea_outZone.scrollTop = $msgArea_outZone.scrollHeight;
-            } else {
-                let div = document.createElement('div');
-                div.classList.add('test2');
-                div.classList.add('alert-warning');
-                let b = document.createElement('b');
-                b.innerText = sessionId + " : " + message;
-                div.appendChild(b);
-                msgArea.append(div);
-            }
-        }
-    });
-</script>
+</div>
 </body>
 </html>

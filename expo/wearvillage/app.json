@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "wearvillage",
-    "slug": "wearvillage",
+    "name": "wearVillage",
+    "slug": "wearVillage",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

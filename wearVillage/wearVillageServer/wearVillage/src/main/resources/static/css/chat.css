@@ -1,0 +1,80 @@
+.chat_targetTextBox{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left:15px;
+}
+
+.chat_myTextBox{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right:15px;
+    justify-content: end;
+}
+
+.chat_Text{
+    max-width:300px;
+    border-radius: 15px;
+    padding-top:6px;
+    padding-bottom:7px;
+    padding-left:10px;
+    padding-right:10px;
+    font-size: 14px;
+    font-weight: normal;
+    word-wrap: break-word;
+}
+.chat_targetText{
+    background-color: rgb(157, 157, 231);
+}
+.chat_myText{
+    background-color: rgb(226, 105, 105);
+}
+
+.chat_msgArea{
+    background-color: rgb(255, 236, 236);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 500px;
+    max-width: 500px;
+    height: 500px;
+    max-height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+.chat_msgArea_outZone{
+    width: 500px;
+max-width: 500px;
+    height: 700px;
+    max-height: 700px;
+    margin-top: 100px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.chat_bottom_nav{
+    display: flex;
+    width: 500px;
+    max-width: 500px;
+    height:100px;
+    max-height: 100px;
+    align-content: center;
+}
+.chat_bottom_nav>input{
+    background-color:rgb(249 203 203);
+    outline:50px;
+    width:500px;
+    max-width: 500px;
+    word-wrap: break-word;
+    border:0px;
+    text-indent:20px;
+}
+
+.developerZone{
+    margin-left: auto;
+    margin-right: auto;
+}

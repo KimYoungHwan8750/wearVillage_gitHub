@@ -10,11 +10,16 @@ import static com.example.wearVillage.dataController.createUserToOracle.*;
 import static com.example.wearVillage.dataController.dataToServer.*;
 
 
+import com.example.wearVillage.PostData;
 import com.example.wearVillage.dataController.SFTPSender;
 import com.example.wearVillage.dataController.dataToServer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +29,13 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 
 public class Controller {
+
+    private final JdbcTemplate jdbcTemplate;
+    @Autowired
+    public Controller(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     // 메인화면으로 이동
     @GetMapping(value = "/")
     public String home() {
@@ -114,10 +126,18 @@ public class Controller {
         return id;
     }
 
-    @GetMapping("/upload_check")
-    public String upload_check() throws Exception {
-        SFTPSender.SFTPSend();
-        return "main";
+    @GetMapping("/viewPost")
+    public ModelAndView viewPost(@RequestParam("id") Integer id) {
+        // 게시글 조회
+        String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+        PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
+
+        ModelAndView modelAndView = new ModelAndView("postDetail");
+        modelAndView.addObject("post", postData);
+
+        return modelAndView;
     }
+
+
 
 }

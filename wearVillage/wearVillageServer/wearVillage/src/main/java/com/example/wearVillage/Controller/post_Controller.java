@@ -35,11 +35,18 @@ import static com.example.wearVillage.dataController.imgToOracle.imgdataToOracle
 @org.springframework.stereotype.Controller
 public class post_Controller {
     private static final Logger logger = LoggerFactory.getLogger(com.example.wearVillage.dataController.uploadTest.class);
+    private final JdbcTemplate jdbcTemplate;
+
     @Autowired
     public post_Controller(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
+/*
+*
+*
+*
+*
+* */
     @ResponseBody
     @PostMapping(value = "/letsgo_oracle")
     public void letsgo(@RequestBody List<AttachImageVO> images) {
@@ -55,10 +62,12 @@ public class post_Controller {
             imgdataToOracle(uploadPath, uuid, fileName);
         }
     }
-
-    private final JdbcTemplate jdbcTemplate;
-
-
+    /*
+     *
+     *
+     *
+     *
+     * */
 
     @PostMapping("/postToOracle")
     public String postToOracle(@RequestBody PostData postData) {
@@ -182,7 +191,12 @@ public class post_Controller {
 
         return result;
     }
-
+    /*
+     *
+     *
+     *
+     *
+     * */
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
         File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/upload/") + fileName);
@@ -199,7 +213,12 @@ public class post_Controller {
         }
         return result;
     }
-
+    /*
+     *
+     *
+     *
+     *
+     * */
     @PostMapping("/deleteFile")
     public ResponseEntity<String> deleteFile(String fileName) {
         logger.info("deleteFile......" + fileName);
