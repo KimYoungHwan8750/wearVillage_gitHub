@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-    
-    </style>
+<style>
+    p{
+        font-size: 10vh;
+    }
+</style>
 </head>
 <body>
-    <img src="img/img_greenCampaign.PNG" alt="">
-    <textarea name="" id="gd" cols="30" rows="10"></textarea>
-    <button onclick="testmet()">gd</button>
+    <p>test</p>
+    <h1>dgd</h1>
+<button onclick="windowsopen()">오픈</button>
+<a href="javascript:windowsopen()" target="_blank">열기</a>
     <script>
-        function testmet(){
-        const test = document.getElementById('gd');
-        var test2=test.value;
-        console.log(test2);
+        function windowsopen(){
+            window.open("main.html","","location=no,resizable=no,status=no,width=500,height=500,top=200,left=200,toolbars=no")
         }
     </script>
 </body>

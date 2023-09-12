@@ -1,37 +1,46 @@
 <!DOCTYPE html>
-    <html xmlns:th="https://www.thymeleaf.org"
+<html>
+    <!-- <html xmlns:th="https://www.thymeleaf.org"
     xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/default}">
+    layout:decorate="~{layouts/default}"> -->
     <body>
-    <div class="chat_content" layout:fragment="content">
+    <!-- <div class="chat_content" layout:fragment="content"> -->
     <link layout:fragmnet="css" rel="stylesheet" href="css/chat.css">
 
     <script src="https://cdn.jsdelivr.net/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
     <div class ="chat_msgArea_outZone">
-        <div class="chat_midContent">
-    <div class="chat_msgArea"></div>
-    <div class="chat_scrollBar"></div>
+    <!--채팅 디스플레이 구간-->
+    <div class="chat_midContent">
+
+    <div class="chat_msgArea">
     </div>
+
+    </div>
+    <!--채팅 입력 구간-->
+    <div class="chat_bottom_nav">
+        <img src="img/img_wearVillageMypage.png" alt="">
+        <img src="img/img_wearVillageLogo.png" alt="">
+    </div>
+
     <div class="chat_bottomContent">
-        <input id="msg" type="text">
+    <textarea name="" spellcheck="false" id="msg" cols="30" rows="3" maxlength="500"></textarea>
     <button id="button-send"type="button" value="보내기">전송</button>
     </div>
+
     </div>
     
 
 
-    <div class="diveloperZone">
+    <!-- <div class="diveloperZone">
     <p>"임시 개발자 영역입니다."</p>
     <button type="button" id = "button-exit">나가기</button>
-    <!-- <button type="button" id = "button-send">보내기</button> -->
     <button type="button" id = "button-join">접속하기</button>
-    <!-- <input type="text" id="msg" placeholder="입력하기"> -->
     <input type="text" id="username" placeholder="닉네임">
-</div>
+</div> -->
     
 <script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
 
-</div>
+<!-- </div> -->
 </body>
 </html>
