@@ -3,14 +3,17 @@
     xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layouts/default}">
     <body>
-    <div layout:fragment="content">
-        <link layout:fragmnet="css" rel="stylesheet" href="css/chat.css">
+    <div class="chat_content" layout:fragment="content">
+    <link layout:fragmnet="css" rel="stylesheet" href="css/chat.css">
 
     <script src="https://cdn.jsdelivr.net/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
     <div class ="chat_msgArea_outZone">
+        <div class="chat_midContent">
     <div class="chat_msgArea"></div>
-    <div class="chat_bottom_nav">
+    <div class="chat_scrollBar"></div>
+    </div>
+    <div class="chat_bottomContent">
         <input id="msg" type="text">
     <button id="button-send"type="button" value="보내기">전송</button>
     </div>

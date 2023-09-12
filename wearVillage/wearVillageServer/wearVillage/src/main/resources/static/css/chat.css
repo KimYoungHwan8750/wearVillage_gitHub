@@ -1,4 +1,4 @@
-.chat_targetTextBox{
+/* .chat_targetTextBox{
     display: flex;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -77,4 +77,19 @@ max-width: 500px;
 .developerZone{
     margin-left: auto;
     margin-right: auto;
+} */
+
+
+.chat_msgArea_outZone{
+    /* background-color: red; */
+    width: 95vw;
+    max-width: 95vw;
+    height: 95vh;
+    max-height: 95vh;
+    /* max-height: 400px; */
+}
+
+    .chat_content{
+    margin: 0;
+    background-color: blue;
 }
