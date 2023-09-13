@@ -79,10 +79,12 @@ max-width: 500px;
     margin-right: auto;
 } */
 :root{
-    /*디스플레이 영역 색깔*/
-    --msgZoneColor: rgb(253,143,143);
     /*타이핑하는 영역 진한 색깔*/
-    --typingZoneColor:rgb(253,180,180);
+
+    --msgZoneColor: rgb(255, 231, 231);
+    /*디스플레이 영역 색깔*/
+
+    --displayZoneColor:rgb(255, 246, 246);
     /*스크롤바 색깔*/
     --scrollbarsColor:rgb(232, 55, 55);
     /*타이핑 커서 색깔*/
@@ -104,12 +106,48 @@ body{
 }
 
 .chat_msgArea_outZone{
-    background-color: var(--typingZoneColor);
+    background-color: var(--displayZoneColor);
     width: 100%;
     max-width: 100%;
     height: 100%;
     max-height: 100%;
 }
+.chat_noticeClose{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(65, 65, 65);
+    color: white;
+    border-radius: 5px;
+    line-height: 20px;
+    cursor: pointer;
+}
+.chat_notice{
+    position: fixed;
+    display: inline-block;
+    top:15px;
+    width: 50%;
+    background-color: rgba(116, 116, 116, 0.4);
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+    transition: all 1s;
+
+}
+.chat_noticeTitle{
+    font-size: 18px;
+    font-weight: bold;
+}
+.chat_noticeText{
+    text-align: left;
+    font-size: 16px;
+}
+
 .chat_midContent{
     width: 100%;
     max-width: 100%;
@@ -118,21 +156,24 @@ body{
 }
 .chat_bottom_nav{
     position: absolute;
-    margin-top: 10px;
-    margin-left: 10px;
+
 }
+
 .chat_bottom_nav>img{
     width: 30px;
     height: 30px;
 }
 .chat_bottomContent{
     display: flex;
+    position: relative;
+    border-top: 1px solid rgba(0,0,0,0.3);
     width: 100%;
     max-width: 100%;
     height: 20%;
     max-height: 20%;
     background-color: var(--msgZoneColor);
     align-items: center;
+    overflow: hidden;
 }
 #msg:focus{
     outline: none;
@@ -148,7 +189,11 @@ body{
     word-wrap: break-word;
     font-size: 16px;
     caret-color: var(--caretColor);
-    background-color: var(--msgZoneColor);
+    background-color: white;
+    margin-left: 20px;
+    padding:20px;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 15px;
 }
 #msg:active{
     cursor: default;
@@ -176,8 +221,47 @@ body{
     cursor: pointer;
 }
 
+/*채팅 텍스트 박스*/
+.chat_myTextBox{
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+}
+.chat_targetTextBox{
+    display: flex;
+    padding-left: 20px;
+}
+.chat_Text{
+    border-radius: 15px;
+    margin-top:15px;
+    margin-bottom: 15px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 50%;
+}
 
+.chat_myText{
+    background-color: rgb(140, 157, 255);
+}
+.chat_targetText{
+    background-color: rgb(250, 177, 177);
+}
+.chat_msgArea{
+    display: flex;
+    flex-direction:column;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+.chat_msgArea::-webkit-scrollbar{
+    width: 6px;
+}
+.chat_msgArea::-webkit-scrollbar-thumb{
+    background-color: red;
+    border-radius: 20px;
 
+}
 
 
 

@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<style>
-    p{
-        font-size: 10vh;
-    }
-</style>
+
 </head>
 <body>
-    <p>test</p>
-    <h1>dgd</h1>
-<button onclick="windowsopen()">오픈</button>
-<a href="javascript:windowsopen()" target="_blank">열기</a>
+    <input type="color" id="sample_text_area">
     <script>
-        function windowsopen(){
-            window.open("main.html","","location=no,resizable=no,status=no,width=500,height=500,top=200,left=200,toolbars=no")
-        }
+var ColorPicker = CodeMirrorColorPicker.ColorPicker;
+var colorpicker = new ColorPicker({
+    color: 'blue', // init color code 
+    type : 'mini' // or 'sketch',  default type is 'chromedevtool'
+})
+
     </script>
 </body>
 </html>

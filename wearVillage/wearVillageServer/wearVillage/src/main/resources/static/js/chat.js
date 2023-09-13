@@ -2,10 +2,12 @@
         const $chat_msgArea = document.querySelector(".chat_msgArea");
         document.addEventListener('DOMContentLoaded', function() {
         const $msg = document.getElementById('msg');
-        $msg.addEventListener('keydown',(evt)=>{
+        $msg.addEventListener('keyup',(evt)=>{
             if(evt.keyCode==13){
                 send();
+
             }
+
         })
         // 실행할 기능을 정의해주세요.
         let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
@@ -39,14 +41,13 @@
         });
 
         function send() {
-            let msg = document.getElementById("msg");
             websocket.send(username + "[wearCutLines]" + $msg.value);
-            $msg.value = '';
+            $msg.value=''
         }
 
         function disconnect() {
             // let str = username + ": 님이 채팅을 종료했습니다.";
-            websocket.send(str);
+            // websocket.send(str);
             websocket.close();
             chat_check=false;
 
@@ -56,13 +57,13 @@
         //채팅창에서 나갔을 때
         function onClose(evt) {
             // let str = username + ": 님이 방을 나가셨습니다.";
-            websocket.send(str);
+            // websocket.send(str);
         }
 
         //채팅창에 들어왔을 때
         function onOpen(evt) {
             // let str = username + ": 님이 입장하셨습니다.";
-            websocket.send(str);
+            // websocket.send(str);
         }
 
         function onMessage(msg) {
@@ -90,8 +91,9 @@
                 let b = document.createElement('b');
                 b.classList.add('chat_Text');
                 b.classList.add('chat_myText');
-                b.innerText = sessionId + " : " + message;
-                div.appendChild(b);
+                b.innerText = message;
+                console.log(message);
+                div.append(b);
                 $chat_msgArea.append(div);
                 $chat_msgArea.scrollTop = $chat_msgArea.scrollHeight;
             } else {
@@ -108,3 +110,18 @@
             }
         }
     });
+
+
+
+
+
+    /*디자인 관련 스크립트*/ 
+
+    const $chat_noticeClose = document.querySelector('.chat_noticeClose');
+    const $chat_notice = document.querySelector('.chat_notice');
+    const $chat_notice_content = document.querySelector('.chat_notice_content');
+    $chat_noticeClose.addEventListener("click",()=>{
+        $chat_notice_content.style.display = 'none';
+        $chat_notice.setAttribute('style','width=50%;')
+        console.log($chat_notice.getAttribute('style'));
+    })
