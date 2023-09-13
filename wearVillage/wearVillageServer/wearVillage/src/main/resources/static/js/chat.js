@@ -121,7 +121,12 @@
     const $chat_notice = document.querySelector('.chat_notice');
     const $chat_notice_content = document.querySelector('.chat_notice_content');
     $chat_noticeClose.addEventListener("click",()=>{
-        $chat_notice_content.style.display = 'none';
-        $chat_notice.setAttribute('style','width=50%;')
+        // $chat_notice_content.style.display = 'none';
+        $chat_notice_content.setAttribute('style','transition:all 1s;transform:scale(0)');
+        // setTimeout(() => {
+        // $chat_notice.setAttribute('style','transition:all 2s;width:30px;height:30px;');
+            
+        // }, 1000);
         console.log($chat_notice.getAttribute('style'));
     })
+    
