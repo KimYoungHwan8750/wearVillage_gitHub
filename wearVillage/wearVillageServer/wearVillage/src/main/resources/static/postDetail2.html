@@ -36,11 +36,11 @@
             </div>
             <div class="writerId">
               작성자ID:<span th:text="${post.postWriterId}">조회수</span>
-              <!-- 프로필사진도 따와야함, 조회수 넣어야함 -->
+              <!-- TODO 프로필사진도 따와야함, 조회수 넣어야함 -->
             </div>
           </div>
           <div class="post_info_container2">
-            <div class="cloth_price">\999999</div>
+            <div class="cloth_price"><span th:text="${post.postPrice}">\999999</span></div>
             <div class="cloth_price_2">안전거래 보증금=\999999</div>
           </div>
           <div class="postDetail_container2">

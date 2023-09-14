@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화면 전환</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .memberjoin_container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .memberjoin_main{
+      width: 460px;
+      height: 450px;
+      border-radius: 10px;
+      border:1px solid #E6E8FA;
+      outline: 1px solid lightgray;
+
+    }
+    .full{
+      display: flex;
+    width: 300%;
+    transition: transform 0.3s ease-in-out;
+    }
+    .memberjoin_display{
+      flex: 1;
+    align-items: center;
+    }
+    .memberjoin_dp1{
+      /* display: flex;
+      justify-content: center;
+      flex-direction: column; */
+      padding: 40px;
+      
+    }
+    .memberjoin_dp2{
+      /* display: flex;
+      justify-content: center;
+      flex-direction: column; */
+      padding: 40px;
+    }
+    .memberjoin_dp3{
+      /* display: flex;
+      justify-content: center;
+      flex-direction: column; */
+      padding: 40px;
+    }
+    .memberjoin_dp_main{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .memberjoin_logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    gap: 2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+    .memberjoin_container img{
+    width: 20px;
+    height: 20px;
+    }
+    .memberjoin_top{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+    .memberjoin_bar{
+      width: 77%;
+    height: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: none;
+    outline: 1px solid gray;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 10px;
+    border-color: lightgray;
+}
+.memberjoin_bar:focus{
+  outline: 3px solid rgba(252, 126, 126, 0.8);
+}
+.memberjoin_input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 460px;
+}
+
+.memberjoin_ex {
+  position: absolute;
+  top: 28px;
+  left: 50px;
+  font-size: 17px;
+  padding: 0px 5px 0px 5px;
+  cursor: text;
+  background-color: white;
+  color: gray;
+  transition: top 0.2s ease, font-size 0.2s ease;
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.memberjoin_input input:focus+.memberjoin_ex {
+  top: 10px;
+  left: 50px;
+  /* 클릭 시 플레이스홀더 위치를 이동합니다. */
+  font-size: 14px;
+  /* 원하는 폰트 크기로 조정하세요. */
+  color: rgba(252, 126, 126, 0.8);
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.memberjoin_input input:not(:placeholder-shown)+.memberjoin_ex {
+  top: 10px;
+    left: 50px;
+    /* 입력된 상태에서 플레이스홀더 위치를 고정합니다. */
+    font-size: 14px;
+    /* 원하는 폰트 크기로 조정하세요. */
+    -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  }
+  .memberJoin_gender{
+     -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  }
+  .memberJoin_gender input[type="radio"]:hover{
+    background-color: rgb(255, 165, 165);
+  }
+  .memberjoin_container input[type="radio"] {
+    appearance: none; 
+    width: 13px;  
+    height: 13px; 
+    border: 1px solid rgb(236, 92, 92);
+    border-radius: 50%; 
+    background-color: #ffffff; 
+    outline: none; 
+}
+  .memberjoin_container input[type="radio"]:checked{
+    color:rgb(236, 92, 92);
+    width: 13px;
+    height: 13px; 
+    background-color: rgb(236, 92, 92);
+    padding: 1px;
+    border-color: rgb(236, 92, 92);
+  }
+.memberjoin_next_btn{
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  .memberjoin_btn{
+    width: 65px;
+    height: 38px;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 20px;
+    color: #fff;
+      -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    background-color: rgb(236, 92, 92);
+  }
+  .memberjoin_btn:hover {
+    cursor: pointer;
+    background-color: rgb(236, 92, 92);
+  }
+  </style>
+</head>
+
+<body>
+  <div class="memberjoin_container">
+    <div class="memberjoin_main">
+      <div class="full">
+      <div class="memberjoin_display memberjoin_dp1">
+        <div class="memberjoin_dp_main">
+        <div class="memberjoin_logo">
+          <img class="memberjoin_logo_img" src="img/img_wearVillageLogo.png" alt="">
+          <p class="footer_title">WearVillage</p>
+        </div>
+        <div class="memberjoin_top">
+          <h3>계정 만들기</h3>
+          아이디와 비밀번호를 입력하세요.
+        </div>
+        <div class="memberjoin_input">
+          <input type="text" class="memberjoin_bar" id="id" placeholder="">
+          <label class="memberjoin_ex" for="id">아이디</label>
+        </div>
+      </div>
+        <p class="임시">아이디 검사</p>
+        <div class="memberjoin_dp_main">
+        <div class="memberjoin_input">
+          <input type="password" class="memberjoin_bar" id="pw" placeholder=''>
+          <label class="memberjoin_ex" for="pw">비밀번호</label>
+        </div>
+      </div>   
+        <p class="임시">비밀번호 검사</p>
+      <div class="memberjoin_next_btn"><button class="memberjoin_btn" onclick="nextSlide()">다음</button></div>
+    </div>
+    <!-- 2번째 화면 -->
+      <div class="memberjoin_display memberjoin_dp2">
+        <div class="memberjoin_dp_main">
+      <div class="memberjoin_logo">
+        <img class="memberjoin_logo_img" src="img/img_wearVillageLogo.png" alt="">
+        <p class="footer_title">WearVillage</p>
+      </div>
+      <div class="memberjoin_top">
+        <h3>기본 정보</h3>
+        이메일을 인증하면 완료됩니다.
+      </div>
+      <div class="memberjoin_input">
+        <input type="text" class="memberjoin_bar" id="name" placeholder="">
+        <label class="memberjoin_ex" for="name">닉네임</label>
+      </div>
+    </div>   
+      <p class="d">닉네임 검사</p>
+      <div class="memberjoin_dp_main">
+      <div class="memberjoin_input">
+        <input type="text" class="memberjoin_bar" id="birthday" placeholder=''>
+        <label class="memberjoin_ex" for="birthday">생일 6자리</label>
+      </div>
+      </div>
+      <p class="d">생일 검사</p>
+      <br>
+        <div class="memberJoin_gender">
+          <label>성별</label>
+          <input type="radio" name="gender" id="male" value="남">
+          <label for="male">남자</label>
+          <input type="radio" name="gender" id="female" value="여">
+          <label for="female">여자</label>
+      </div>
+      <div class="memberjoin_next_btn"><button class="memberjoin_btn" onclick="prevSlide()">이전</button><button class="memberjoin_btn" onclick="nextSlide1()">다음</button></div>
+    </div>
+    <!-- 3번째 화면 -->
+      <div class="memberjoin_display memberjoin_dp3">
+        <div class="memberjoin_dp_main">
+      <div class="memberjoin_logo">
+        <img class="memberjoin_logo_img" src="img/img_wearVillageLogo.png" alt="">
+        <p class="footer_title">WearVillage</p>
+      </div>
+      <div class="memberjoin_top">
+        <h3>이메일 인증</h3>
+        이메일을 인증하면 완료됩니다.
+      </div>
+      <div class="memberjoin_dp_main">
+      <div class="memberjoin_input">
+        <input type="text" class="memberjoin_bar" id="email" placeholder=''>
+        <label class="memberjoin_ex" for="email">이메일</label>
+      </div>
+      </div>
+    </div>   
+      <p class="d">이메일 검사</p>
+      <div class="memberjoin_dp_main">
+      <div class="memberjoin_input">
+        <input type="text" class="memberjoin_bar" id="pin" placeholder=''>
+        <label class="memberjoin_ex" for="pin">인증번호</label>
+      </div>
+      </div>
+      <p class="d">인증번호 검사</p>
+      <div class="memberjoin_next_btn">
+        <button class="memberjoin_btn" onclick="prevSlide()">이전</button>
+        <button class="memberjoin_btn" onclick="prevSlide()">완료</button></div>
+    </div>
+    </div>
+  </div>
+  </div>
+  <script>
+    let currentSlide = 1;
+      const slider = document.querySelector('.full');
+
+      function nextSlide() {
+        if (currentSlide < 3) {
+          currentSlide++;
+          slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333}%)`;
+        }
+      }
+
+      function nextSlide1() {
+          if (currentSlide < 3) {
+            currentSlide++;
+            slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333}%)`;
+          }
+        }
+      function prevSlide() {
+        if (currentSlide > 1) {
+          currentSlide--;
+          slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333}%)`;
+        }
+      }
+  </script>
+</body>
+
+</html>
