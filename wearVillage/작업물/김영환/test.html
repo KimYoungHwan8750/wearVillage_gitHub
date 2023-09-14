@@ -5,55 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .hi{
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            outline: 1px red;
-            background-color: rgb(199, 199, 199);
-            top:100px;
-            left:100px;
-            width: 500px;
-            height: 500px;
-            justify-content:flex-end;
-            align-items: flex-end;
-            overflow-y: scroll;
-        }
+    
     </style>
 </head>
 <body>
-    
-    <div class="hi">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>3</div>
-        <div>2</div>
-    </div>
-
+    <img src="img/img_greenCampaign.PNG" alt="">
+    <textarea name="" id="gd" cols="30" rows="10"></textarea>
+    <button onclick="testmet()">gd</button>
+    <script>
+        function testmet(){
+        const test = document.getElementById('gd');
+        var test2=test.value;
+        console.log(test2);
+        }
+    </script>
 </body>
 </html>

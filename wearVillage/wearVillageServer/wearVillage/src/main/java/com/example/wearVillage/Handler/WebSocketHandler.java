@@ -21,9 +21,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // 메세지 처리하는 메소드
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println("메세지:" + message);
+        System.out.println("확인3");
         String payload = message.getPayload();
-//        log.info("payload : " + payload);
+        System.out.println(message);
+        log.info("payload : " + payload);
 
         for(WebSocketSession sess: sessions) {
             sess.sendMessage(message);

@@ -1,4 +1,6 @@
 package com.example.wearVillage.Controller;
+import static com.example.wearVillage.dataController.imgToOracle.*;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
 import javax.imageio.ImageIO;
 
-import com.example.wearVillage.status.local_or_server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.PostData;
-
-
-import static com.example.wearVillage.dataController.imgToOracle.imgdataToOracle;
+import com.example.wearVillage.status.local_or_server;
 
 @CrossOrigin(origins = { "http://localhost:8090/posting", "http://localhost:8090/maps",
         "http://localhost:8090/map_popup" ,"*"})
@@ -79,12 +84,18 @@ public class post_Controller {
         int newId = (maxId != null ? maxId : 0) + 1;
 
         // 새로운 게시글 저장
-        String insertQuery = "INSERT INTO POSTING_TABLE (POST_ID, POST_WRITER_ID, POST_SUBTITLE, POST_TEXT, POST_DATE, POST_MODIFY_DATE) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO POSTING_TABLE (POST_ID, POST_WRITER_ID, POST_SUBTITLE, POST_PRICE, POST_RENT_DEFAULT_PRICE, POST_RENT_DAY_PRICE, POST_TAG_TOP, POST_TAG_MIDDLE, POST_MAP_INFO, POST_TEXT, POST_DATE, POST_MODIFY_DATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(insertQuery,
                 newId,
                 postData.getPostWriterId(),
                 postData.getPostSubtitle(),
+                postData.getPostPrice(),
+                postData.getPostRentDefaultPrice(),
+                postData.getPostRentDayPrice(),
+                postData.getPostTagTop(),
+                postData.getPostTagMiddle(),
+                postData.getPostMapInfo(),
                 postData.getPostText(),
                 postData.getPostDate(),
                 postData.getPostModifyDate());

@@ -64,11 +64,11 @@
         </div>
         <div class="search2">
           <input
-            type="text"
+            type="hidden"
             id="text_id"
             class="text_class"
             disabled="true"
-            value="임시 주소(로컬구동)"
+            value=""
           />
           <!-- 임시 주소값 =>> 서버에서 사용시 value값만 받아서 밖으로 빼올거라 임시적으로 넣어놨습니다 -->
         </div>
@@ -81,6 +81,8 @@
     let address2;
     let mapx;
     let mapy;
+    let address_value;
+    let address_value_flag = false;
 
     let htmlAddresses2;
 
@@ -209,6 +211,11 @@
               document.querySelector('.text_class').value = address;
               document.querySelector('.text_class').disabled = true;
               infoWindow.close();
+              address_value_flag = true;
+              localStorage.setItem('address_value_flag',address_value_flag);
+              address_value = document.querySelector('.text_class').value;
+              localStorage.setItem('address_value', address_value);
+              window.close();
             });
           }, 0);
         },
@@ -273,6 +280,12 @@
                   document.querySelector('.text_class').value = address;
                   document.querySelector('.text_class').disabled = true;
                   infoWindow.close();
+                  address_value_flag = true;
+                  localStorage.setItem('address_value_flag',address_value_flag);
+                  address_value = document.querySelector('.text_class').value;
+                  localStorage.setItem('address_value', address_value);
+                  self.opener=self;
+                  window.close();
                 });
             }, 0);
           } else {
@@ -327,6 +340,12 @@
                   document.querySelector('.text_class').value = address;
                   document.querySelector('.text_class').disabled = true;
                   infoWindow.close();
+                  address_value_flag = true;
+                  localStorage.setItem('address_value_flag',address_value_flag);
+                  address_value = document.querySelector('.text_class').value;
+                  localStorage.setItem('address_value', address_value);
+                  self.opener=self;
+                  window.close();
                 });
             }, 0);
           }
