@@ -91,6 +91,7 @@
                 chat_typing_time + "[wearCutLines]" +
                 $th_post_id
                 );
+                console.log("테스트확인:"+$th_id+"//"+$th_target_id+"//"+$th_post_id)
             
             setTimeout(()=>{
             $msg.value='';
@@ -140,9 +141,11 @@
             message = arr[2];
             chat_typing_time = arr[4]
             chatPlace_history =arr[5];
-            chat_member = [arr[0],arr[1]];
+            chat_member = [$th_id,$th_target_id]
+            console.log("확인222:"+myId+"//"+target_id+"//"+$th_post_id+"//"+chatPlace_history+"//"+chat_member[0]+"//"+chat_member[1])
             //현재 게시글 번호가 같고, 허락된 채팅 멤버간의 텍스트 표출
-            if((chatPlace_history==$th_post_id)&&chat_member.includes(myId)&&chat_member.includes(target_id)){
+            if(chatPlace_history==$th_post_id&&chat_member.includes(myId)&&chat_member.includes(target_id)){
+                console.log(chatPlace_history + "이프문" + $th_post_id)
             //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
             if (myId == $th_id) {
                 //div태그 생성
