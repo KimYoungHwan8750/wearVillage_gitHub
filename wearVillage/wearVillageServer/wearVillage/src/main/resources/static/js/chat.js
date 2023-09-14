@@ -127,7 +127,7 @@
             //상대방 아이디
             let message = null;
             let chat_typing_time =null;
-            let now_post_id = null;
+            let chatPlace_history = null;
             let chat_member = null;
             //메세지
             let arr = data.split("[wearCutLines]");
@@ -139,10 +139,10 @@
             target_id = arr[1];
             message = arr[2];
             chat_typing_time = arr[4]
-            now_post_id =arr[5];
+            chatPlace_history =arr[5];
             chat_member = [arr[0],arr[1]];
             //현재 게시글 번호가 같고, 허락된 채팅 멤버간의 텍스트 표출
-            if((now_post_id==$th_post_id)&&chat_member.includes(myId)&&chat_member.includes(target_id)){
+            if((chatPlace_history==$th_post_id)&&chat_member.includes(myId)&&chat_member.includes(target_id)){
             //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
             if (myId == $th_id) {
                 //div태그 생성
