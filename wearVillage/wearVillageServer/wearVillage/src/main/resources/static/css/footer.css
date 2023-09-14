@@ -12,7 +12,7 @@ footer{
             text-decoration: none;
             color: black;
         }
-        @media screen and  (max-width:768px) { /* 768이하 태블릿*/
+        @media screen and (max-width:768px) { /* 768이하 태블릿*/
       footer {
         .footer_row{
             display: flex;

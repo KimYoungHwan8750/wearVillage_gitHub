@@ -102,6 +102,7 @@ body{
     width: 100%;
     height: 100%;
     background-color: var(--msgZoneColor);
+    overflow-y: hidden;
 
 }
 
@@ -123,21 +124,19 @@ body{
     border-radius: 5px;
     line-height: 20px;
     cursor: pointer;
+    display: none;
 }
 .chat_notice{
-    position: fixed;
+    position: absolute;
     display: inline-block;
-    top:15px;
+    top:50%;
     width: 50%;
-    background-color: rgba(116, 116, 116, 0.4);
+    padding-top: 10px;
+    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 15px;
-    padding: 10px;
     text-align: center;
-    margin-bottom: auto;
     left: 50%;
-    transform: translate(-50%, 0);
-    transition: all 1s;
-
+    transform: translate(-50%, -50%);
 }
 .chat_noticeTitle{
     font-size: 18px;
@@ -146,13 +145,16 @@ body{
 .chat_noticeText{
     text-align: left;
     font-size: 16px;
+    padding-left: 15px;
 }
 
 .chat_midContent{
+    position: relative;
     width: 100%;
     max-width: 100%;
     height: 80%;
     max-height: 80%;
+    overflow-y: scroll;
 }
 .chat_bottom_nav{
     position: absolute;
@@ -203,16 +205,16 @@ body{
 }
 
 #msg::-webkit-scrollbar-thumb{
-    background-color: var(--scrollbarsColor);
+    background-color: rgb(173, 173, 173);
     border-radius: 15px;
     height: 50%;
 }
 #button-send{
-    background-color: var(--scrollbarsColor);
+    background-color: #a7a7a7;
     border: 0px;
     border-radius: 10px;
-    width: 20%;
-    height: 30%;
+    width: 12%;
+    height: 25%;
     margin-right: 3%;
     color:white;
     font-size: 18px;
@@ -222,6 +224,7 @@ body{
 }
 
 /*채팅 텍스트 박스*/
+
 .chat_myTextBox{
     display: flex;
     justify-content: end;
@@ -232,13 +235,14 @@ body{
     padding-left: 20px;
 }
 .chat_Text{
-    border-radius: 15px;
+    border-radius: 8px;
     margin-top:15px;
     margin-bottom: 15px;
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
     max-width: 50%;
+    white-space: pre-wrap;
 }
 
 .chat_myText{
@@ -248,20 +252,24 @@ body{
     background-color: rgb(250, 177, 177);
 }
 .chat_msgArea{
-    display: flex;
+    display: block;
     flex-direction:column;
+    width: 100%;
     height: 100%;
-    max-height: 100%;
-    overflow-y: scroll;
+    justify-content: flex-end;
 }
-.chat_msgArea::-webkit-scrollbar{
+.chat_midContent::-webkit-scrollbar{
     width: 6px;
 }
-.chat_msgArea::-webkit-scrollbar-thumb{
-    background-color: red;
+.chat_midContent::-webkit-scrollbar-thumb{
+    background-color: rgb(253, 112, 112);
     border-radius: 20px;
 
 }
-
-
-
+.chat_displayTime{
+    font-size: 12px;
+    margin-top: auto;
+    margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}

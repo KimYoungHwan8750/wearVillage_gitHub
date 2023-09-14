@@ -69,10 +69,18 @@ public class Controller {
             dataToOracle(email, userId, userPassword);
             return "main.html";
     }
-    @GetMapping(value = "/chat")
-    public String chat() {
-        System.out.println("확인2");
+    @PostMapping(value = "/chat")
+    public String chat(Model model, @RequestParam String id,@RequestParam String target_id,@RequestParam String post_id,@RequestParam(required = false) String chat_thema) {
+        model.addAttribute("id",id);
+        model.addAttribute("target_id",target_id);
+        model.addAttribute("post_id",post_id);
+        model.addAttribute("chat_thema",chat_thema);
         return "chat.html";
+    }
+
+    @GetMapping(value = "/chatroom")
+    public String chatroom(){
+        return "chatroom.html";
     }
 
     //아이디 중복검사
