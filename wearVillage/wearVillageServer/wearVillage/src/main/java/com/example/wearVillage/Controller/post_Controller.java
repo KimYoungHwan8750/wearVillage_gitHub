@@ -46,12 +46,12 @@ public class post_Controller {
     public post_Controller(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-/*
-*
-*
-*
-*
-* */
+    /*
+     *
+     *
+     *
+     *
+     * */
     @ResponseBody
     @PostMapping(value = "/letsgo_oracle")
     public void letsgo(@RequestBody List<AttachImageVO> images) {
