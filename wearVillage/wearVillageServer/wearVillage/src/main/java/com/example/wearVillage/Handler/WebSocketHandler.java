@@ -12,7 +12,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-@Slf4j
+//@Slf4j
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
     private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
@@ -34,6 +34,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // client 접속 시 호출되는 메서드
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
+        System.out.println(session + "클라이언트 접속");
+
         sessions.add(session);
         log.info(session + " 클라이언트 접속");
     }
@@ -41,7 +43,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // client 접속 해제 시 호출되는 메서드드
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-        log.info(session + " 클라이언트 접속 해제");
+        System.out.println(session + "클라이언트 접속 해제" + status);
+        log.info(session + " 클라이언트 접속 해제" + status);
         sessions.remove(session);
 
     }

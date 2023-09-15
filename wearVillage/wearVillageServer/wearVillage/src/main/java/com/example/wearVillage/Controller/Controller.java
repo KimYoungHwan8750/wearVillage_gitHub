@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 public class Controller {
 
     private final JdbcTemplate jdbcTemplate;
+
     @Autowired
     public Controller(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -124,14 +125,14 @@ public class Controller {
     }
 
     @GetMapping("/login_session")
-    @ResponseBody
-    public String loginSession(@RequestParam String id){
-        System.out.println(id);
-        return id;
+    public String loginSession(){
+
+        return "redirect:/";
     }
 
+
     @GetMapping("/viewPost")
-    public ModelAndView viewPost(@RequestParam("id") Integer id) {
+    public ModelAndView viewPost(@RequestParam Integer id) {
         // 게시글 조회
         String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
         PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
