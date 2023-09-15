@@ -9,7 +9,10 @@ import static com.example.wearVillage.dataController.createUserToOracle.*;
 
 
 import com.example.wearVillage.PostData;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,8 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 
 @org.springframework.stereotype.Controller
@@ -61,7 +62,7 @@ public class Controller {
         // 로그인 API를 경유하지 않고 곧장 회원가입 눌렀을 때
         model.addAttribute("testStyle", "border-bottom: solid 2px var(--color-wear_gray);");
         model.addAttribute("profile_img", "img/기본프사.jpg");
-        return "createUser.html";
+        return "memberjoin.html";
     }
 
     //회원가입시 메인화면으로 이동하기 위한 코드 (구현완료)
@@ -101,7 +102,7 @@ public class Controller {
     //로그인 화면으로 이동
     @RequestMapping(value ="/login")
     public String login(){
-        return "login";
+        return "login.html";
     }
 
     @GetMapping(value = "/items_buy")
@@ -119,17 +120,37 @@ public class Controller {
         return "posting";
     }
 
-    @GetMapping("/map_popup")
+    @GetMapping(value = "/map_popup")
     public String makePopup() {
         return "maps.html";
     }
 
-    @GetMapping("/login_session")
-    public String loginSession(){
-
-        return "redirect:/";
+    @PostMapping(value = "/login_createSession")
+    public String loginSession(@RequestParam String id,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("login_check",id);
+        System.out.println(session.getAttribute("login_check")+"세션 등록 완료");
+        return "main.html";
     }
 
+    @GetMapping(value = "/fetchTestHome")
+    public String fetchTestHome(){
+        return "fetchtest.html";
+    }
+@ResponseBody
+    @PostMapping(value = "/fetchTest")
+    public String fetchTest(@RequestBody String data){
+        System.out.println("데이터 :"+data);
+        return data;
+    }
+
+    @GetMapping("/session_check")
+    public String testse(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute("login_check"));
+        model.addAttribute("session23","hi");
+        return "session_test.html";
+    }
 
     @GetMapping("/viewPost")
     public ModelAndView viewPost(@RequestParam Integer id) {

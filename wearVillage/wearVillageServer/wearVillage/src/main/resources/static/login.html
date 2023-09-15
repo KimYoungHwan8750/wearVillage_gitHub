@@ -333,17 +333,15 @@
             success:function(result){
                 if(result==true){
                     $.ajax({
-                        url:"/login_session",
-                        data:{"id":id},
-                        type:"GET",
+                        url:"/login_createSession",
+                        data:{id:id},
+                        type:"POST",
                         success:function(result){
-                            sessionStorage.setItem("login",id);
-                            console.log(sessionStorage.getItem("login"));
-                            console.log(result);
+                            console.log(id+"세션 등록");
                         }
                     })
                 
-                    // location.href="/";
+                    location.href="/";
                 } else {
                     document.getElementById("login_text").innerText = "다시 입력해주세요."
                     document.getElementById("login_text").style.color = "red";
