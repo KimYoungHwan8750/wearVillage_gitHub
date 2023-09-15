@@ -111,7 +111,7 @@ public class post_Controller {
     //                     postData.getPostDate(), postData.getPostModifyDate());
     //     return "redirect:/login";
     // }
-    @PostMapping(value = "/uploadTest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/uploadTest", produces = MediaType.APPLICATION_JSON_VALUE)
     // public void uploadTestPOST(MultipartFile[] uploadFile) {
     public ResponseEntity<List<AttachImageVO>> uploadTest(MultipartFile[] uploadFile) {
         System.out.println("응답받아쪙");
@@ -153,7 +153,7 @@ public class post_Controller {
             uploadPath.mkdirs();
         }
 
-        List<AttachImageVO> list = new ArrayList();
+        List<AttachImageVO> list = new ArrayList<>();
         for (MultipartFile multipartFile : uploadFile) {
             AttachImageVO vo = new AttachImageVO();
             String uploadFileName = multipartFile.getOriginalFilename();
