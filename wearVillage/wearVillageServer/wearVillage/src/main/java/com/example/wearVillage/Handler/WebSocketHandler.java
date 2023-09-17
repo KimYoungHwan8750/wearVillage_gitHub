@@ -1,9 +1,9 @@
 package com.example.wearVillage.Handler;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -15,14 +15,42 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 //@Slf4j
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
+    private final JdbcTemplate jdbcTemplate;
     private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
     private static final ConcurrentLinkedQueue<WebSocketSession> sessions= new ConcurrentLinkedQueue<>();
+
+    public WebSocketHandler(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     // 메세지 처리하는 메소드
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         System.out.println("메세지:" + message);
+
         String payload = message.getPayload();
+        String[] chat_formData = payload.split("'wearCutLines'");
+        System.out.println("챗오라클확인1");
+//        for (int i = 0; i < chat_formData.length; i++) {
+//            System.out.println(chat_formData[i]);
+//            System.out.println(i+"번째 검색");
+//
+//        }
+
+        String user_id = chat_formData[0];
+        String target_id = chat_formData[1];
+        String chat_message = chat_formData[2];
+        String chat_typing_time = chat_formData[4];
+        String chatPlace_history = chat_formData[5];
+        System.out.println("챗오라클확인2");
+        jdbcTemplate.update("INSERT INTO USER_CHAT(USER_ID,TARGET_ID,MESSAGE,CHAT_DATE) VALUES (?,?,?,?)",user_id,target_id,chat_message,chat_typing_time);
+        System.out.println("챗오라클확인3");
+
+//        myId:arr[0],
+//                target_id:arr[1],
+//                message:arr[2],
+//                chat_typing_time:arr[4],
+//                chatPlace_history:arr[5]
 //        log.info("payload : " + payload);
 
         for(WebSocketSession sess: sessions) {
