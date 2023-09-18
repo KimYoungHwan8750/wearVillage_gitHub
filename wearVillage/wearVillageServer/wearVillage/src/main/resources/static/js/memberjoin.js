@@ -5,7 +5,8 @@
       let nextpage3 = 0; //닉네임
       let nextpage4 = 0; //생일
       let nextpage5 = 0; //성별
-      let nextpage6 = 0; //성별
+      // 3페이지에서 완료할때
+      let nextpage6 = 0; //이메일
 
 //id_box 인스턴스화
       //id_box.value에 따른 문구출력 = id_text
@@ -42,8 +43,7 @@
       //성별
       const male_box = document.getElementById("male");
       const female_box = document.getElementById("female"); 
-      const all_error = document.getElementById("memberjoin_all_error"); 
-
+      
       let duplicate_check = false;
 
 
@@ -375,27 +375,58 @@ button2.addEventListener("focus", function () {
     document.removeEventListener("keydown", preventTab);
   });
 });
+
+
+
+
+
+const shakeButton1 = document.getElementById("nextbtn");
+const shakeButton2 = document.getElementById("nextbtn2");
+
 // -----------------------------------/탭으로 다음 페이지 가는거 막기 종료-----------------------------------
-  //화면 1~3페이지 전환 버튼
-   let currentSlide = 1;
-        const slider = document.querySelector('.full');
-  
-        function nextSlide() {
-          if (currentSlide < 3 && nextpage2 == 1) { // 다음페이지 넘어가는 조건 && nextpage1 == 1 && nextpage2 == 1
-            currentSlide++;
-            slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
-          }
-        }
-  
-        function nextSlide1() {
-            if (currentSlide < 3 && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1) { // 다음페이지 넘어가는 조건 && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1
-              currentSlide++;
-              slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
-            }
-          }
+// 화면 1~3페이지 전환 버튼
+let currentSlide = 1;
+const slider = document.querySelector('.full');
+
+// 각 버튼에 대한 클릭 이벤트 리스너를 따로 정의합니다.
+shakeButton1.addEventListener("click", function() {
+    if (currentSlide < 3 && nextpage1 == 1 && nextpage2 == 1) {
+        currentSlide++;
+        slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
+        memberjoin_nextbtn_error1.innerText = '';
+    } else {
+        memberjoin_nextbtn_error1.innerText = '입력칸을 확인해주세요.';
+        shakeButton1.classList.add("shake");
+
+        // 흔들린 후 0.5초 후에 흔들림 클래스를 제거합니다.
+        setTimeout(function() {
+            shakeButton1.classList.remove("shake");
+        }, 500);
+    }
+});
+
+shakeButton2.addEventListener("click", function() {
+    if (currentSlide < 3 && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1) {
+        currentSlide++;
+        slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
+        memberjoin_nextbtn_error2.innerText = '';
+    } else {
+        memberjoin_nextbtn_error2.innerText = '입력칸을 확인해주세요.';
+        shakeButton2.classList.add("shake");
+
+        // 흔들린 후 0.5초 후에 흔들림 클래스를 제거합니다.
+        setTimeout(function() {
+            shakeButton2.classList.remove("shake");
+        }, 500);
+    }
+});
+
         function prevSlide() {
           if (currentSlide > 1) {
             currentSlide--;
             slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
+          
+            memberjoin_nextbtn_error3.innerText = '';
           }
         }
+
