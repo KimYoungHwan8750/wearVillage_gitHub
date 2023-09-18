@@ -101,7 +101,7 @@ public class post_Controller {
                 postData.getPostDate(),
                 postData.getPostModifyDate());
 
-        return "main.html";
+        return "items_buy";
     }
 
 
@@ -112,10 +112,9 @@ public class post_Controller {
     //                     postData.getPostDate(), postData.getPostModifyDate());
     //     return "redirect:/login";
     // }
-    @PostMapping(value = "/uploadTest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/uploadTest", produces = MediaType.APPLICATION_JSON_VALUE)
     // public void uploadTestPOST(MultipartFile[] uploadFile) {
     public ResponseEntity<List<AttachImageVO>> uploadTest(MultipartFile[] uploadFile) {
-        System.out.println("응답받아쪙");
         logger.info("uploadTestPOST............");
         for (MultipartFile multipartFile : uploadFile) {
             File checkfile = new File(multipartFile.getOriginalFilename());
@@ -141,9 +140,7 @@ public class post_Controller {
 
         // 내가 업로드 파일을 저장할 경로
 //        String uploadFolder = "C:\\upload";
-        System.out.println("저장츄라이");
         String uploadFolder = local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/upload/";
-        System.out.println("저장츄라이2");
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
@@ -154,7 +151,7 @@ public class post_Controller {
             uploadPath.mkdirs();
         }
 
-        List<AttachImageVO> list = new ArrayList();
+        List<AttachImageVO> list = new ArrayList<>();
         for (MultipartFile multipartFile : uploadFile) {
             AttachImageVO vo = new AttachImageVO();
             String uploadFileName = multipartFile.getOriginalFilename();
@@ -216,7 +213,6 @@ public class post_Controller {
 //
         ResponseEntity<byte[]> result = null;
         try {
-            System.out.println("디스플레이 츄라이");
             HttpHeaders header = new HttpHeaders();
             header.add("Content-type", Files.probeContentType(file.toPath()));
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);

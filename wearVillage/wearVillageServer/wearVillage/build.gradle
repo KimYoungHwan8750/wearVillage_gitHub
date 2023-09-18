@@ -47,6 +47,7 @@ dependencies {
 	implementation 'com.google.guava:guava:30.1-jre'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'com.jcraft:jsch:0.1.55'
+  implementation 'org.jsoup:jsoup:1.14.3'
 }
 
 jar {

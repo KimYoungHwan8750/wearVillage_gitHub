@@ -120,8 +120,15 @@
 }
 .post_text {
   width: 600px;
+  flex-direction: column;
   word-wrap: break-word;
   word-break: keep-all;
+}
+
+.post_text img {
+  width: 600px;
+  height: 500px;
+  object-fit: cover;
 }
 
 .postDetail_chat_button {

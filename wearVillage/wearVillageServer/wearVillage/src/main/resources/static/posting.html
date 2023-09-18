@@ -571,6 +571,7 @@
     let POST_TAG_MIDDLE;
     let POST_MAP_INFO;
     let POST_TEXT;
+    let POST_IMAGE;
     let POST_DATE;
     let POST_MODIFY_DATE;
 
@@ -592,6 +593,15 @@
 
       let category = $('#posting_category_id').val();
       let splitCategory = category.split(' > ');
+      let postText = quill.container.firstChild.innerHTML;
+      let parser = new DOMParser();
+      let doc = parser.parseFromString(postText,'text/html');
+
+      let img = doc.querySelector('img');
+      if(img){
+        let postImage = img.src;
+        console.log(postImage);
+      }
 
       let postData = {
         postId: '1',
@@ -609,8 +619,7 @@
         postMapInfo: $('#posting_map_box_id').val(),
 
         postText: quill.container.firstChild.innerHTML,
-        postDate:
-          today.getFullYear() +
+        postDate: today.getFullYear() +
           '년' +
           (today.getMonth() + 1) +
           '월' +
@@ -627,12 +636,12 @@
         data: JSON.stringify(postData),
         contentType: 'application/json',
         success: function (response) {
-          console.log('Success');
-          console.log(postData);
-          // window.location.href = ''; 이동위치
+          location.href ="/posts" ;
+          // window.location.href = 'items_buy';
         },
         error: function (error) {
           console.log('Error');
+          alert("서버와의 연결에 실패했습니다.")
           // Handle error here
         },
       });

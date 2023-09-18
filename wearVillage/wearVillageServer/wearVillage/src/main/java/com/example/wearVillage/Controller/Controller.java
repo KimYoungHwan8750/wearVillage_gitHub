@@ -7,6 +7,11 @@ import static com.example.wearVillage.dataController.check_email.*;
 import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
 
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.PostData;
-
 
 @org.springframework.stereotype.Controller
 // @RequiredArgsConstructor
@@ -148,6 +152,32 @@ public class Controller {
 
         ModelAndView modelAndView = new ModelAndView("postDetail2");
         modelAndView.addObject("post", postData);
+
+        return modelAndView;
+    }
+
+    // 모든 게시글을 DB에서 가져와서 List화 시키기
+    
+    
+    @GetMapping("/posts")
+    public ModelAndView listPosts() {
+        String sql = "SELECT * FROM POSTING_TABLE";
+        List<PostData> posts = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PostData.class));
+
+        for (PostData post : posts) {
+            String postText = post.getPostText();
+
+            Document doc = Jsoup.parse(postText);
+            Element img = doc.select("img").first();
+
+            if (img != null) {
+                String imgUrl = img.attr("src");
+                post.setPostThumbnailUrl(imgUrl);
+            }
+        }
+
+        ModelAndView modelAndView = new ModelAndView("items_buy");
+        modelAndView.addObject("posts", posts);
 
         return modelAndView;
     }

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class postToOracle {
-  public static void postdataToOracle(String POST_ID, String POST_WRITER_ID, String POST_SUBTITLE, String POST_PRICE, String POST_RENT_DEFAULT_PRICE, String POST_RENT_DAY_PRICE, String POST_TAG_TOP, String POST_TAG_MIDDLE, String POST_MAP_INFO,String POST_TEXT, String POST_DATE, String POST_MODIFY_DATE) {
+  public static void postdataToOracle(String POST_ID, String POST_WRITER_ID, String POST_SUBTITLE, String POST_PRICE, String POST_RENT_DEFAULT_PRICE, String POST_RENT_DAY_PRICE, String POST_TAG_TOP, String POST_TAG_MIDDLE, String POST_MAP_INFO, String POST_TEXT, String POST_DATE, String POST_MODIFY_DATE) {
     Connection conn = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;

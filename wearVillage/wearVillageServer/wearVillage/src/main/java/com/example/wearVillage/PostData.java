@@ -13,6 +13,7 @@ public class PostData {
     private String postText;
     private String postDate;
     private String postModifyDate;
+    private String postThumbnailUrl;
 
     public String getPostId() {
         return this.postId;
@@ -62,6 +63,10 @@ public class PostData {
         return this.postModifyDate;
     }
 
+    public String getPostThumbnailUrl() {
+        return postThumbnailUrl;
+    }
+
      
 
    public void setPostId(String postId) {
@@ -106,7 +111,11 @@ public class PostData {
       this.postDate = postDate ;  
   }
 
-  public void setPostModifyDate (String postModifyDate ) { 
-      this.postModifyDate = postModifyDate ;  
-  }  
+  public void setPostModifyDate(String postModifyDate) {
+      this.postModifyDate = postModifyDate;
+  }
+  
+  public void setPostThumbnailUrl(String postThumbnailUrl) {
+      this.postThumbnailUrl = postThumbnailUrl;
+  }
 }

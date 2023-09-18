@@ -14,7 +14,7 @@
     ></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<!-- TODO 검색하는 칸 지우고 경로 하나만 시작위치+거래위치 해서 경로 하나만 나오게 하기 -->
     <style>
       button {
         background: #eea2cd;
@@ -391,9 +391,9 @@
     }
 
     function initGeocoder() {
-      map.addListener('click', function (e) {
-        searchCoordinateToAddress(e.coord);
-      });
+      // map.addListener('click', function (e) {
+      //   searchCoordinateToAddress(e.coord);
+      // });
 
       $('#address').on('keydown', function (e) {
         var keyCode = e.which;
@@ -406,7 +406,6 @@
       });
 
       $('#submit').on('click', function (e) {
-        e.preventDefault();
 
         read_axios();
         searchAddressToCoordinate($('#address').val());
