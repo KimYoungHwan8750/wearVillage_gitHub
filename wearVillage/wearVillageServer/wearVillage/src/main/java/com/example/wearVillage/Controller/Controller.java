@@ -9,10 +9,9 @@ import static com.example.wearVillage.dataController.createUserToOracle.*;
 
 
 import com.example.wearVillage.PostData;
+import com.example.wearVillage.serverInfo.now_number_of_users;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
-import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,10 +27,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class Controller {
 
     private final JdbcTemplate jdbcTemplate;
+    private now_number_of_users nowNumberOfUsers;
+
 
     @Autowired
-    public Controller(JdbcTemplate jdbcTemplate) {
+    public Controller(JdbcTemplate jdbcTemplate,now_number_of_users nowNumberOfUsers) {
         this.jdbcTemplate = jdbcTemplate;
+        this.nowNumberOfUsers = nowNumberOfUsers;
     }
 
     // 메인화면으로 이동
@@ -125,12 +127,25 @@ public class Controller {
         return "maps.html";
     }
 
+    @GetMapping("/map_popup2")
+    public String map2() {
+        return "maps2.html";
+    }
+
     @PostMapping(value = "/login_createSession")
     public String loginSession(@RequestParam String id,HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("login_check",id);
         System.out.println(session.getAttribute("login_check")+"세션 등록 완료");
         return "main.html";
+    }
+
+
+    @ResponseBody
+    @GetMapping(value = "/numberOfUsers")
+    public int numberOfUsers(){
+        System.out.println(nowNumberOfUsers.getTotalActiveSession());
+        return nowNumberOfUsers.getTotalActiveSession();
     }
 
     @GetMapping(value = "/fetchTestHome")
@@ -164,6 +179,18 @@ public class Controller {
         return modelAndView;
     }
 
+
+    @GetMapping("/viewPost2")
+    public ModelAndView viewPost2(@RequestParam("id") Integer id) {
+        // 게시글 조회
+        String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+        PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
+
+        ModelAndView modelAndView = new ModelAndView("postDetail2");
+        modelAndView.addObject("post", postData);
+
+        return modelAndView;
+    }
 
 
 }

@@ -26,11 +26,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // 메세지 처리하는 메소드
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println("메세지:" + message);
+//        System.out.println("메세지:" + message);
 
         String payload = message.getPayload();
+        System.out.println("메세지: "+payload);
         String[] chat_formData = payload.split("'wearCutLines'");
-        System.out.println("챗오라클확인1");
+//        System.out.println("챗오라클확인1");
 //        for (int i = 0; i < chat_formData.length; i++) {
 //            System.out.println(chat_formData[i]);
 //            System.out.println(i+"번째 검색");
@@ -42,9 +43,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String chat_message = chat_formData[2];
         String chat_typing_time = chat_formData[4];
         String chatPlace_history = chat_formData[5];
-        System.out.println("챗오라클확인2");
-        jdbcTemplate.update("INSERT INTO USER_CHAT(USER_ID,TARGET_ID,MESSAGE,CHAT_DATE) VALUES (?,?,?,?)",user_id,target_id,chat_message,chat_typing_time);
-        System.out.println("챗오라클확인3");
+        jdbcTemplate.update("INSERT INTO USER_CHAT(USER_ID,TARGET_ID,MESSAGE,CHAT_DATE,CHATROOM_ID) VALUES (?,?,?,?,?)",user_id,target_id,chat_message,chat_typing_time,chatPlace_history);
 
 //        myId:arr[0],
 //                target_id:arr[1],

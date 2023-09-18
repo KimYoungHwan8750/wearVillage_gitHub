@@ -82,36 +82,41 @@
 
       <script>
         const $checkbox_sale = document.querySelector('#checkbox_sale_id');
-        const $posting_sale_price_info =
-          document.querySelector('#checkbox_sale_id');
-        $checkbox_sale.addEventListener('change', e => {
-          if ($checkbox_sale.checked) {
-            document
-              .querySelector('.posting_price_info')
-              .classList.remove('posting_hidden');
-          } else {
-            document
-              .querySelector('.posting_price_info')
-              .classList.add('posting_hidden');
-          }
-        });
-      </script>
-      <!-- 대여요금 on/off -->
-      <script>
         const $checkbox_rent = document.querySelector('#checkbox_rent_id');
-        const $posting_rent_price_info =
-          document.querySelector('#checkbox_rent_id');
-        $checkbox_rent.addEventListener('change', e => {
-          if ($checkbox_rent.checked) {
-            document
-              .querySelector('.posting_rent_price_info')
-              .classList.remove('posting_hidden');
-          } else {
-            document
-              .querySelector('.posting_rent_price_info')
-              .classList.add('posting_hidden');
+        const $posting_sale_price_info = document.querySelector(
+          '.posting_price_info',
+        );
+        const $posting_rent_price_info = document.querySelector(
+          '.posting_rent_price_info',
+        );
+
+        function updateVisibility() {
+          if ($checkbox_sale.checked) {
+            $posting_sale_price_info.classList.remove('posting_hidden');
+          } else if ($checkbox_rent.checked) {
+            $posting_sale_price_info.classList.add('posting_hidden');
           }
-        });
+
+          if ($checkbox_rent.checked) {
+            $posting_rent_price_info.classList.remove('posting_hidden');
+          } else if ($checkbox_sale.checked) {
+            $posting_rent_price_info.classList.add('posting_hidden');
+          }
+        }
+
+        function preventAllUnchecked() {
+          if (!$checkbox_sale.checked && !$checkbox_rent.checked) {
+            alert('하나는 체크되어있어야 합니다');
+            this.checked = true;
+          }
+
+          updateVisibility();
+        }
+
+        $checkbox_sale.addEventListener('change', preventAllUnchecked);
+        $checkbox_rent.addEventListener('change', preventAllUnchecked);
+
+        updateVisibility();
       </script>
       <script>
         const $input = document.querySelector('#posting_price_id');
@@ -170,6 +175,14 @@
             />
           </label>
           <!-- 라벨자바스크립트 -->
+          <script>
+            document
+              .querySelector('.posting_category_box')
+              .addEventListener('focus', () => {
+                document.querySelector('.category_layer').style.display =
+                  'block';
+              });
+          </script>
           <script>
             document.querySelector('.posting_map_box').addEventListener(
               'focus',
@@ -583,11 +596,12 @@
       let postData = {
         postId: '1',
         // postWriterId: $('#post_writer_id').val(),
-        postWriterId: '2',
+        // TODO 작성자ID값 수정(세션값으로)
+        postWriterId: '작성자ID',
         postSubtitle: $('#post_subtitle_id').val(),
         postPrice: $('#posting_price_id').val(),
-        postRentDefaultPrice : $('#posting_rent_price_id').val(),
-        postRentDayPrice : $('#posting_rent_price2_id').val(),
+        postRentDefaultPrice: $('#posting_rent_price_id').val(),
+        postRentDayPrice: $('#posting_rent_price2_id').val(),
 
         postTagTop: splitCategory[0],
         postTagMiddle: splitCategory[1],
@@ -743,7 +757,7 @@
       }
     }, 100);
     function map_popup() {
-      window.open('/map_popup', '지도', 'width=788px, height=600');
+      window.open('/map_popup', '지도', 'width=748, height=600');
     }
   </script>
   <!-- 지도 끝 -->
@@ -896,6 +910,3 @@
     }
   </script>
 </html>
-
-<!-- TODO -->
-<!-- POSTING_TABLE로 가격, 태그, 위치 보내기 -->
