@@ -26,7 +26,7 @@ import com.example.wearVillage.AttachImageVO;
 public class uploadTest {
     private static final Logger logger = LoggerFactory.getLogger(uploadTest.class);
 
-    @PostMapping(value = "/uploadTest", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/uploadTest", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadTest(MultipartFile[] uploadFile) {
         {
             System.out.println("응답받아쪙");
@@ -65,7 +65,7 @@ public class uploadTest {
                 uploadPath.mkdirs();
             }
 
-            List<AttachImageVO> list = new ArrayList();
+            List<AttachImageVO> list = new ArrayList<>();
             for (MultipartFile multipartFile : uploadFile) {
                 AttachImageVO vo = new AttachImageVO();
                 String uploadFileName = multipartFile.getOriginalFilename();
