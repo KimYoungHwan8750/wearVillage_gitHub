@@ -1,79 +1,265 @@
 * {
-    justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
-#logo {
-    width: 200px;
-    height: 200px;
+.login_container a{
+  text-decoration: none;
+  color: #000;
+}
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.logos {
-    display: grid;
-    justify-content: center;
+.login_main {
+  width: 460px;
+  height: 450px;
+  border-radius: 10px;
+  border: 1px solid #E6E8FA;
+  outline: 1px solid lightgray;
+
 }
 
-.loginbanner {
-    display: grid;
-    justify-content: center;
+.login_stick{
+  font-size: 14px;
+  font-weight: 400;
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.login_display {
+  flex: 1;
+  align-items: center;
 }
 
-input {
-    border: none;
-    height: 25px;
-    width: 400px;
-    font-size: 20px;
+.login_dp1 {
+  padding: 40px;
+
+}
+.login_dp_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0px;
+
 }
 
-input:focus {
-    outline: none;
+.login_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 15px;
+  gap: 2px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-#login_btn {
-    font-style: unset;
-    font-size: 25px;
-    outline: 1px solid white;
-    font-weight: bold;
-    height: 35px;
-    width: 400px;
-    background-color: var(--color-wear_red);
-    color: white;
-    text-align: center;
-    line-height: 10px;
+.login_container .login_logo img {
+  width: 20px;
+  height: 20px;
 }
-.checkboxes {
-    display: flex;
+
+.login_top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
+
+.login_bar {
+  width: 77%;
+  height: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border: none;
+  outline: 1px solid gray;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 10px;
+  border-color: lightgray;
+}
+
+.login_bar:focus {
+  outline: 3px solid rgba(252, 126, 126, 0.8);
+}
+
 .ID_text {
-    display: grid;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 460px;
 }
 .PW_text {
-    display: grid;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 460px;
 }
-.checkboxes input[type='checkbox'] {
-    width: 14px;
-    height: 14px;
+
+.login_ex {
+  position: absolute;
+  top: 28px;
+  left: 50px;
+  font-size: 17px;
+  padding: 0px 5px 0px 5px;
+  cursor: text;
+  background-color: white;
+  color: gray;
+  transition: top 0.2s ease, font-size 0.2s ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.login_btn_info {
-    display: grid;
-    justify-content: center;
+
+.ID_text input:focus+.login_ex {
+  top: 10px;
+  left: 50px;
+  /* 클릭 시 플레이스홀더 위치를 이동합니다. */
+  font-size: 14px;
+  /* 원하는 폰트 크기로 조정하세요. */
+  color: rgba(252, 126, 126, 0.8);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.find {
-    text-decoration: none;
-    color: black;
-    display: flex;
-    justify-content: center;
+.PW_text input:focus+.login_ex {
+  top: 10px;
+  left: 50px;
+  /* 클릭 시 플레이스홀더 위치를 이동합니다. */
+  font-size: 14px;
+  /* 원하는 폰트 크기로 조정하세요. */
+  color: rgba(252, 126, 126, 0.8);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.api_login{
-    display:flex;
-    justify-content:center;
+
+.PW_text input:not(:placeholder-shown)+.login_ex {
+  top: 10px;
+  left: 50px;
+  /* 입력된 상태에서 플레이스홀더 위치를 고정합니다. */
+  font-size: 14px;
+  /* 원하는 폰트 크기로 조정하세요. */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.kakao_login{
-    width:183px;
-    height:45px;
+.ID_text input:not(:placeholder-shown)+.login_ex {
+  top: 10px;
+  left: 50px;
+  /* 입력된 상태에서 플레이스홀더 위치를 고정합니다. */
+  font-size: 14px;
+  /* 원하는 폰트 크기로 조정하세요. */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.naver_login{
-    width:183px;
-    height:45px;
+.login_btn {
+  width: 380px;
+  height: 38px;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  background-color: rgb(236, 92, 92);
+}
+
+.login_btn:hover {
+  cursor: pointer;
+  background-color: rgb(214, 74, 74);
+}
+#login_text{
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(180, 0, 0, 0.600);
+}
+.checkboxes{
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate(-3px, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate(3px, 0);
+  }
+}
+.api_login {
+  display: flex;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.kakao_login {
+  width: 170px;
+  height: 43px;
+  cursor: pointer;
+    margin: 20px;
+  border-radius: 5px;
+}
+
+.naver_login {
+  width: 170px;
+  height: 43px;
+  cursor: pointer;
+    margin: 20px;
+  border-radius: 5px;
+}
+.kakao_login:hover {
+    border-radius: 5px;
+  filter: opacity(0.8) drop-shadow(0 0 0 rgb(70, 75, 0));
+}
+
+.naver_login:hover {
+  border-radius: 5px;
+  filter: opacity(0.8) drop-shadow(0 0 0 rgb(1, 44, 1));
+}
+.find{
+  margin-top: 5px;
+  text-align: center;
 }

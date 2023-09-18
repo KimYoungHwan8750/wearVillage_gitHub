@@ -46,19 +46,19 @@ public class PostData {
     public String getPostTagMiddle() {
         return this.postTagMiddle;
     }
-    
+
     public String getPostMapInfo() {
         return this.postMapInfo;
     }
 
     public String getPostText() {
-        return this.postText; 
+        return this.postText;
     }
-    
+
     public String getPostDate() {
-        return this.postDate; 
+        return this.postDate;
     }
-    
+
     public String getPostModifyDate() {
         return this.postModifyDate;
     }
@@ -67,55 +67,55 @@ public class PostData {
         return postThumbnailUrl;
     }
 
-     
 
-   public void setPostId(String postId) {
-       this.postId = postId;  
-   }
-   
-   public void setPostWriterId(String postWriterId) { 
-       this.postWriterId = postWriterId;  
-   }
-   
-   public void setPostSubtitle(String postSubtitle) {
-       this.postSubtitle = postSubtitle;
-   }
 
-   public void setPostPrice(String postPrice) {
-       this.postPrice = postPrice;
-   }
-   
-   public void setPostRentDefaultPrice(String postRentDefaultPrice) {
-       this.postRentDefaultPrice = postRentDefaultPrice;
-   }
-   
-   public void setPostRentDayPrice(String postRentDayPrice) {
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public void setPostWriterId(String postWriterId) {
+        this.postWriterId = postWriterId;
+    }
+
+    public void setPostSubtitle(String postSubtitle) {
+        this.postSubtitle = postSubtitle;
+    }
+
+    public void setPostPrice(String postPrice) {
+        this.postPrice = postPrice;
+    }
+
+    public void setPostRentDefaultPrice(String postRentDefaultPrice) {
+        this.postRentDefaultPrice = postRentDefaultPrice;
+    }
+
+    public void setPostRentDayPrice(String postRentDayPrice) {
         this.postRentDayPrice = postRentDayPrice;
-   }
+    }
 
-   public void setPostTagTop(String postTagTop) {
-    this.postTagTop= postTagTop;
-   }
-   public void setPostTagMiddle(String postTagMiddle) {
-       this.postTagMiddle = postTagMiddle;
-}
-   public void setPostMapInfo(String postMapInfo) {
-    this.postMapInfo= postMapInfo;
-   }
-   
-   public void setPostText(String postText) { 
-       this.postText =  postText ;  
-   }
-   
-   public void setPostDate(String postDate) { 
-      this.postDate = postDate ;  
-  }
+    public void setPostTagTop(String postTagTop) {
+        this.postTagTop= postTagTop;
+    }
+    public void setPostTagMiddle(String postTagMiddle) {
+        this.postTagMiddle = postTagMiddle;
+    }
+    public void setPostMapInfo(String postMapInfo) {
+        this.postMapInfo= postMapInfo;
+    }
 
-  public void setPostModifyDate(String postModifyDate) {
-      this.postModifyDate = postModifyDate;
-  }
-  
-  public void setPostThumbnailUrl(String postThumbnailUrl) {
-      this.postThumbnailUrl = postThumbnailUrl;
-  }
+    public void setPostText(String postText) {
+        this.postText =  postText ;
+    }
+
+    public void setPostDate(String postDate) {
+        this.postDate = postDate ;
+    }
+
+    public void setPostModifyDate(String postModifyDate) {
+        this.postModifyDate = postModifyDate;
+    }
+
+    public void setPostThumbnailUrl(String postThumbnailUrl) {
+        this.postThumbnailUrl = postThumbnailUrl;
+    }
 }

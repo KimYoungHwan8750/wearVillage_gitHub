@@ -7,44 +7,37 @@ import static com.example.wearVillage.dataController.check_email.*;
 import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
 
-import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
+import com.example.wearVillage.DTO.UserInfoDTO;
+import com.example.wearVillage.PostData;
+import com.jcraft.jsch.UserInfo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
-import com.example.wearVillage.PostData;
-import com.example.wearVillage.serverInfo.now_number_of_users;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 
 @org.springframework.stereotype.Controller
-// @RequiredArgsConstructor
+//@RequiredArgsConstructor
 
 public class Controller {
 
     private final JdbcTemplate jdbcTemplate;
-    private now_number_of_users nowNumberOfUsers;
 
 
     @Autowired
-    public Controller(JdbcTemplate jdbcTemplate,now_number_of_users nowNumberOfUsers) {
+    public Controller(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.nowNumberOfUsers = nowNumberOfUsers;
     }
 
     // 메인화면으로 이동
@@ -84,19 +77,13 @@ public class Controller {
             dataToOracle(email, userId, userPassword);
             return "main.html";
     }
-    @PostMapping(value = "/chat")
-    public String chat(Model model, @RequestParam String id, @RequestParam String target_id,
-            @RequestParam String post_id, @RequestParam(required = false) String chat_thema) {
-        model.addAttribute("id", id);
-        model.addAttribute("target_id", target_id);
-        model.addAttribute("post_id", post_id);
-        model.addAttribute("chat_thema", chat_thema);
-        return "chat.html";
-    }
+
+
     @GetMapping(value = "/chatroom")
     public String chatroom(){
         return "chatroom.html";
     }
+
     //아이디 중복검사
     @PostMapping(value ="/checkID")
     @ResponseBody
@@ -142,34 +129,31 @@ public class Controller {
         return "maps2.html";
     }
 
-
-
     @PostMapping(value = "/login_createSession")
     public String loginSession(@RequestParam String id,HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("login_check",id);
         System.out.println(session.getAttribute("login_check")+"세션 등록 완료");
+
         return "main.html";
     }
 
-
     @ResponseBody
-    @GetMapping(value = "/numberOfUsers")
-    public int numberOfUsers(){
-        System.out.println(nowNumberOfUsers.getTotalActiveSession());
-        return nowNumberOfUsers.getTotalActiveSession();
+    @GetMapping(value ="userId")
+    public String userId(HttpSession session){
+        String id = (String) session.getAttribute("login_check");
+        return id;
     }
 
-    @GetMapping(value = "/fetchTestHome")
-    public String fetchTestHome(){
-        return "fetchtest.html";
-    }
-@ResponseBody
-    @PostMapping(value = "/fetchTest")
-    public String fetchTest(@RequestBody String data){
-        System.out.println("데이터 :"+data);
-        return data;
-    }
+
+//    @ResponseBody
+//    @GetMapping(value = "/numberOfUsers")
+//    public int numberOfUsers(){
+//        System.out.println(now_number_of_users.getTotalActiveSession());
+//        return now_number_of_users.getTotalActiveSession();
+//    }
+
+
 
     @GetMapping("/session_check")
     public String testse(HttpServletRequest request, Model model){
@@ -204,9 +188,6 @@ public class Controller {
         return modelAndView;
     }
 
-    // 모든 게시글을 DB에서 가져와서 List화 시키기
-    
-    
     @GetMapping("/posts")
     public ModelAndView listPosts() {
         String sql = "SELECT * FROM POSTING_TABLE";
@@ -229,5 +210,6 @@ public class Controller {
 
         return modelAndView;
     }
+
 
 }

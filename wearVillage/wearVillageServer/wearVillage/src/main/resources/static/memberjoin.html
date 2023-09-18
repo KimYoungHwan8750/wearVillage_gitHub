@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <link rel="icon" type="image/x-icon" href="img/index/옷빌리지빨강 수정.png">
     <link rel="stylesheet" href="css/color.css">
@@ -10,7 +8,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-    <div th:fragment="footer">
+    <div th:fragment="memberjoin">
         <link layout:fragment="css" rel="stylesheet" href="/css/memberjoin.css">
         <div class="memberjoin_container">
             <div class="memberjoin_main">
@@ -44,7 +42,8 @@
                         <span id="pw_text"></span>
                         <span id="pw_text2"></span>
                         <div class="memberjoin_next_btn"><button class="memberjoin_btn" id="nextbtn"
-                                onclick="nextSlide()">다음</button></div>
+                            onclick="nextSlide()">다음</button></div>
+                            <p class="memberjoin_error " id="memberjoin_nextbtn_error1"></p>
                     </div>
                     <!-- 2번째 화면 -->
                     <div class="memberjoin_display memberjoin_dp2">
@@ -83,7 +82,8 @@
                             <label for="female">여자</label>
                         </div>
                         <div class="memberjoin_next_btn"><button class="memberjoin_btn" onclick="prevSlide()">이전</button><button
-                                class="memberjoin_btn" id="nextbtn2" onclick="nextSlide1()">다음</button></div>
+                                class="memberjoin_btn" id="nextbtn2" onclick="nextSlide2()">다음</button></div>
+                                <p class="memberjoin_error" id="memberjoin_nextbtn_error2"></p>
                     </div>
                     <!-- 3번째 화면 -->
                     <div class="memberjoin_display memberjoin_dp3">
@@ -100,13 +100,16 @@
                                 <!-- 이메일 -->
                                 <div class="memberjoin_input">
                                     <input type="text" class="memberjoin_bar" id="email_box" placeholder=''
-                                        onblur="email_check()" th:style="${testStyle}" name="userEmail" th:value="${user_email}"
+                                        onblur="email_check()" name="userEmail" th:style="${testStyle}" th:value="${user_email}"
                                         th:readonly="${email_readonly}">
                                     <label class="memberjoin_ex" for="email">이메일</label>
                                 </div>
                             </div>
                         </div>
+                        <div class="memberjoin_email_check">
                         <p class="memberjoin_info" id="email_text">이메일을 입력하세요.</p>
+                        <button class="memberjoin_check_btn" id="emeil_check_btn">인증번호 발송</button>
+                        </div>
                         <div class="memberjoin_dp_main">
                             <div class="memberjoin_input">
                                 <input type="text" class="memberjoin_bar" id="pin" placeholder=''>
@@ -121,7 +124,7 @@
                                 완료
                             </button>
                         </div>
-                        <p class="lasterror" id="memberjoin_all_error"></p>
+                        <p class="memberjoin_error" id="memberjoin_nextbtn_error3"></p>
         
                     </div>
                 </div>

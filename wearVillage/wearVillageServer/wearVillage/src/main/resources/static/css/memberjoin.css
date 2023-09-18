@@ -186,7 +186,22 @@
   justify-content: flex-end;
   gap: 15px;
 }
-
+.memberjoin_check_btn{
+  width: 100px;
+    height: 25px;
+  border: none;
+    border-radius: 3px;
+    -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      color: #fff;
+    background-color: rgb(236, 92, 92);
+}
+.memberjoin_check_btn:hover {
+  cursor: pointer;
+  background-color: rgb(214, 74, 74);
+}
 .memberjoin_btn {
   width: 65px;
   height: 38px;
@@ -195,23 +210,27 @@
   font-weight: bold;
   font-size: 14px;
   margin-top: 20px;
-  color: #fff;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  color: #fff;
   background-color: rgb(236, 92, 92);
 }
 
 .memberjoin_btn:hover {
   cursor: pointer;
-  background-color: rgb(236, 92, 92);
+  background-color: rgb(214, 74, 74);
 }
 .memberjoin_container input[type="number"]::-webkit-outer-spin-button,
 .memberjoin_container input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+.memberjoin_email_check{
+  display: flex;
+  justify-content: space-around;
 }
 #id_text{
   font-size: 14px;
@@ -244,8 +263,42 @@
     color: rgba(180, 0, 0, 0.600);
 }
 .lasterror{
+  text-align: end;
+  font-size: 14px;
+  font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+}
+.memberjoin_error{
+  margin-top: 5px;
+  text-align: end;
   font-size: 14px;
     font-weight: bold;
     color: rgba(180, 0, 0, 0.600);
-  text-align: end;
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate(-3px, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate(3px, 0);
+  }
 }
