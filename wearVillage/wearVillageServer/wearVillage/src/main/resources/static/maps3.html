@@ -46,50 +46,25 @@
         id="map"
         style="
           width: 100%;
-          height: 650px;
+          height: 430px;
           position: relative;
           overflow: hidden;
           background: rgb(248, 249, 250);
         "
       >
-        <div class="search">
+        <div class="search" style="display:none;">
           <input
             id="address"
             class="address_class"
             type="text"
             placeholder="검색할 주소"
-            value="검색할 주소를 입력하세요"
-          />
-          <input id="submit" type="button" value="주소 검색" />
-        </div>
-        <div class="search2">
-          <input
-            type="hidden"
-            id="text_id"
-            class="text_class"
-            disabled="true"
             value=""
           />
+          <input id="submit" type="button" value="주소 검색"/>
+        </div>
           <!-- 임시 주소값 =>> 서버에서 사용시 value값만 받아서 밖으로 빼올거라 임시적으로 넣어놨습니다 -->
         </div>
       </div>
-      <script>
-    let delay = 300;
-    let timer = null;
-    let $map_box = document.getElementById('map');
-    window.addEventListener('resize',function(){
-      clearTimeout(timer);
-      timer = setTimeout(function(){
-        let mapBoxHeight = parseInt(getComputedStyle($map_box).height); // 실제 계산된 높이 값
-        if((window.innerHeight - mapBoxHeight) > 50){
-          $map_box.style.height = (window.innerHeight-20) + 'px';
-        }else if((mapBoxHeight - window.innerHeight ) > 50){
-          $map_box.style.height = (window.innerHeight - 20) + 'px';
-        }
-      },delay)
-    })
-</script>
-
     </div>
   </body>
   <script>
@@ -102,13 +77,15 @@
     let address_value_flag = false;
 
     let htmlAddresses2;
+    let postMaps3Info = localStorage.getItem('MapInfo');
 
     function read_axios() {
-      let searchQuery = document.querySelector('.address_class').value;
-
+      console.log('axios'+postMaps3Info);
+      let searchQuery = postMaps3Info;
+      console.log('searchquery'+searchQuery);
       axios
         .get(
-          `https://wearvillage.store/api/maps?query=${searchQuery}`,
+          `http://localhost:8090/api/maps?query=${searchQuery}`,
           {
             headers: {
               'X-Naver-Client-Id': '0mTIguFzdA7z9a9TF_3h',
@@ -132,6 +109,10 @@
         .catch(error => {
           console.error(error);
         });
+    }
+
+    window.onload=function(){
+      searchAddressToCoordinate(postMaps3Info);
     }
 
     document.querySelector('#address').addEventListener('focus', () => {
@@ -162,9 +143,7 @@
     function searchCoordinateToAddress(latlng) {
       infoWindow.close();
 
-      function togglePopup() {
-        var showPopup = !showPopup;
-      }
+    
 
       naver.maps.Service.reverseGeocode(
         {
@@ -257,123 +236,36 @@
             mapy = TM128_to_point.y;
 
 
-            let htmlAddresses2 = [],
-              item = address2,
-              point2 = new naver.maps.Point(mapx, mapy);
-
-            console.log(mapx);
-            console.log(mapy);
-            console.log(point2);
-            console.log(htmlAddresses2);
-
-            htmlAddresses2.push('[지번 주소] ' + item);
-
-            infoWindow.setContent(
-              [
-                '<div style="padding:10px;min-width:200px;line-height:150%;">',
-                htmlAddresses2.join('<br />'),
-                '<h4 style="margin-top:5px; text-align:center;">이곳이 맞나요?</h4><br />',
-                '<div class="btn_wrap" style="display:flex; justify-content:space-evenly;">',
-                '<button class="btn_yes" style="width:100px;">네</button>',
-                '<button class="btn_nope" style="width:100px;">아니오</button>',
-                '</div>',
-                '</div>',
-              ].join('\n'),
-            );
+            var marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(mapy, mapx),
+          map: map,
+        });
 
             map.setCenter(point2);
-            infoWindow.open(map, point2);
+            map.marker(map,point2);
 
-            setTimeout(() => {
-              document
-                .querySelector('.btn_nope')
-                .addEventListener('click', () => {
-                  infoWindow.close();
-                });
-            }, 0);
-            setTimeout(() => {
-              document
-                .querySelector('.btn_yes')
-                .addEventListener('click', () => {
-                  document.querySelector('.text_class').value = address;
-                  document.querySelector('.text_class').disabled = true;
-                  infoWindow.close();
-                  address_value_flag = true;
-                  localStorage.setItem('address_value_flag',address_value_flag);
-                  address_value = document.querySelector('.text_class').value;
-                  localStorage.setItem('address_value', address_value);
-                  self.opener=self;
-                  window.close();
-                });
-            }, 0);
+            
           } else {
             var htmlAddresses = [],
               item = response.v2.addresses[0],
               point = new naver.maps.Point(item.x, item.y);
-
-            console.log(item.x);
-            console.log(item.y);
-            console.log(point);
-            console.log(htmlAddresses);
-
-            if (item.roadAddress) {
-              htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
-            }
-
-            if (item.jibunAddress) {
-              htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
-            }
-
-            if (item.englishAddress) {
-              htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
-            }
-
-            infoWindow.setContent(
-              [
-                '<div style="padding:10px;min-width:200px;line-height:150%;">',
-                htmlAddresses.join('<br />'),
-                '<h4 style="margin-top:5px; text-align:center;">이곳이 맞나요?</h4><br />',
-                '<div class="btn_wrap" style="display:flex; justify-content:space-evenly;">',
-                '<button class="btn_yes" style="width:100px;">네</button>',
-                '<button class="btn_nope" style="width:100px;">아니오</button>',
-                '</div>',
-                '</div>',
-              ].join('\n'),
-            );
+              var marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(item.y, item.x),
+                        map: map,
+                      });
 
             map.setCenter(point);
-            infoWindow.open(map, point);
 
-            setTimeout(() => {
-              document
-                .querySelector('.btn_nope')
-                .addEventListener('click', () => {
-                  infoWindow.close();
-                });
-            }, 0);
-            setTimeout(() => {
-              document
-                .querySelector('.btn_yes')
-                .addEventListener('click', () => {
-                  document.querySelector('.text_class').value = address;
-                  document.querySelector('.text_class').disabled = true;
-                  infoWindow.close();
-                  address_value_flag = true;
-                  localStorage.setItem('address_value_flag',address_value_flag);
-                  address_value = document.querySelector('.text_class').value;
-                  localStorage.setItem('address_value', address_value);
-                  self.opener=self;
-                  window.close();
-                });
-            }, 0);
+            
           }
         },
       );
     }
+    
+    
 
     function initGeocoder() {
       map.addListener('click', function (e) {
-        searchCoordinateToAddress(e.coord);
       });
 
       $('#address').on('keydown', function (e) {
@@ -382,7 +274,7 @@
         if (keyCode === 13) {
           // Enter Key
           read_axios();
-          searchAddressToCoordinate($('#address').val());
+          searchAddressToCoordinate(postMaps3Info);
         }
       });
 
@@ -390,7 +282,7 @@
         e.preventDefault();
 
         read_axios();
-        searchAddressToCoordinate($('#address').val());
+        searchAddressToCoordinate(postMaps3Info);
       });
     }
 
@@ -480,9 +372,6 @@
         position.coords.latitude,
         position.coords.longitude,
       );
-
-      map.setCenter(location);
-      searchCoordinateToAddress(location);
     }
 
     function onErrorGeolocation() {

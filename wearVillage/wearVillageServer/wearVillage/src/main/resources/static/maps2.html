@@ -45,8 +45,8 @@
       <div
         id="map"
         style="
-          width: 100%;
-          height: 650px;
+          width: 60%;
+          height: 600px;
           position: relative;
           overflow: hidden;
           background: rgb(248, 249, 250);
@@ -73,23 +73,6 @@
           <!-- 임시 주소값 =>> 서버에서 사용시 value값만 받아서 밖으로 빼올거라 임시적으로 넣어놨습니다 -->
         </div>
       </div>
-      <script>
-    let delay = 300;
-    let timer = null;
-    let $map_box = document.getElementById('map');
-    window.addEventListener('resize',function(){
-      clearTimeout(timer);
-      timer = setTimeout(function(){
-        let mapBoxHeight = parseInt(getComputedStyle($map_box).height); // 실제 계산된 높이 값
-        if((window.innerHeight - mapBoxHeight) > 50){
-          $map_box.style.height = (window.innerHeight-20) + 'px';
-        }else if((mapBoxHeight - window.innerHeight ) > 50){
-          $map_box.style.height = (window.innerHeight - 20) + 'px';
-        }
-      },delay)
-    })
-</script>
-
     </div>
   </body>
   <script>
@@ -108,7 +91,8 @@
 
       axios
         .get(
-          `https://wearvillage.store/api/maps?query=${searchQuery}`,
+          `http://localhost:8090/api/maps?query=${searchQuery}`,
+
           {
             headers: {
               'X-Naver-Client-Id': '0mTIguFzdA7z9a9TF_3h',
@@ -126,13 +110,50 @@
 
           // Axios 요청에 대한 응답을 받은 후에 searchAddressToCoordinate 함수를 호출합니다.
           searchAddressToCoordinate(address2);
-          
         })
 
         .catch(error => {
           console.error(error);
         });
     }
+
+    // 네이버api
+       function fetchDirections(startLat, startLng, mapy, mapx) {
+        var naverAPI =
+          'https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start=' +
+          startLng +
+          ',' +
+          startLat +
+          '&goal=' +
+          mapy +
+          ',' +
+          mapx;
+
+       fetch(naverAPI, {
+           headers: {
+               'X-NCP-APIGW-API-KEY-ID': '2qgrpuc6ex',
+               'X-NCP-APIGW-API-KEY': '898V8432wKg7kAMkhUW2hxAuhFzlbv2zXquEISDU'
+           }
+       })
+       .then(response => response.json())
+       .then(data => { 
+       const pathData = data.route.traoptimal[0].path;
+       let pathPoints = [];
+       
+       for(let i=0; i<pathData.length; i++) {
+         pathPoints.push(new naver.maps.LatLng(pathData[i][1], pathData[i][0]));
+       }
+       
+       const polylinePath = new naver.maps.Polyline({
+         map: map,
+         path: pathPoints,
+         strokeColor: '#5347AA',
+         strokeWeight: 2
+       });
+     })
+     .catch(error => console.error('Error:', error));
+}
+
 
     document.querySelector('#address').addEventListener('focus', () => {
       document.querySelector('#address').value = '';
@@ -216,10 +237,10 @@
             isFirst = true;
           }
 
+          
           setTimeout(() => {
             document
-              .querySelector('.btn_nope')
-              .addEventListener('click', () => {
+              .querySelector('.btn_nope').addEventListener('click', () => {
                 infoWindow.close();
               });
           }, 0);
@@ -228,11 +249,6 @@
               document.querySelector('.text_class').value = address;
               document.querySelector('.text_class').disabled = true;
               infoWindow.close();
-              address_value_flag = true;
-              localStorage.setItem('address_value_flag',address_value_flag);
-              address_value = document.querySelector('.text_class').value;
-              localStorage.setItem('address_value', address_value);
-              window.close();
             });
           }, 0);
         },
@@ -255,7 +271,8 @@
             let TM128_to_point = naver.maps.TransCoord.fromTM128ToLatLng(tm128);
             mapx = TM128_to_point.x;
             mapy = TM128_to_point.y;
-
+            
+            fetchDirections(startLat, startLng, mapy, mapx);
 
             let htmlAddresses2 = [],
               item = address2,
@@ -310,6 +327,8 @@
             var htmlAddresses = [],
               item = response.v2.addresses[0],
               point = new naver.maps.Point(item.x, item.y);
+
+              fetchDirections(startLat, startLng, item.x, item.y);
 
             console.log(item.x);
             console.log(item.y);
@@ -475,20 +494,15 @@
     naver.maps.onJSContentLoaded = initGeocoder;
     naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
 
-    function onSuccessGeolocation(position) {
-      var location = new naver.maps.LatLng(
-        position.coords.latitude,
-        position.coords.longitude,
-      );
-
-      map.setCenter(location);
-      searchCoordinateToAddress(location);
-    }
+    
 
     function onErrorGeolocation() {
       var center = map.getCenter();
       searchCoordinateToAddress(center);
     }
+
+    let startLat;
+    let startLng;
 
     $(window).on('load', function () {
       if (navigator.geolocation) {
@@ -498,8 +512,34 @@
         );
       } else {
         var center = map.getCenter();
+
+        startLat = center.lat();
+        startLng = center.lng();
+        console.log(startLat);
+        console.log(startLng);
+
         searchCoordinateToAddress(center);
+        fetchDirections(startLat,startLng,mapy,mapx);
       }
     });
+
+    function onSuccessGeolocation(position) {
+      var location = new naver.maps.LatLng(
+        position.coords.latitude,
+        position.coords.longitude,
+      );
+
+      map.setCenter(location);
+      startLat = position.coords.latitude;
+      startLng = position.coords.longitude;
+
+      searchCoordinateToAddress(location);
+
+      if(mapy && mapx){
+      fetchDirections(startLat,startLng,mapy,mapx);
+    }
+  }
+
+    
   </script>
 </html>

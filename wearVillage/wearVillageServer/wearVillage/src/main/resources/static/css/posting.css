@@ -65,6 +65,7 @@
 .posting_hidden {
   opacity: 0;
   max-height: 0;
+  visibility: hidden;
 }
 
 .posting_rent_price2_box {
@@ -95,6 +96,14 @@
   outline: none;
   border-bottom: 1px solid gray;
   font-size: 17px;
+  cursor: pointer;
+}
+#toOracle_btn {
+  visibility: hidden;
+}
+
+#maps_id {
+  cursor: pointer;
 }
 
 .posting_category_button {
@@ -104,12 +113,20 @@
   border-radius: 5px;
   outline: none;
   border: none;
+  cursor: pointer;
 }
 
 .posting_map_select {
   display: flex;
   flex-direction: column;
   padding: 2px;
+}
+
+#post_post_id {
+  color: #dc4141;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius:5px;
+  font-weight: bold;
 }
 
 .posting_map_box {
@@ -120,6 +137,7 @@
   outline: none;
   border-bottom: 1px solid gray;
   font-size: 17px;
+  cursor: pointer;
 }
 
 .posting_map_container button {

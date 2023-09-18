@@ -7,18 +7,18 @@ import static com.example.wearVillage.dataController.check_email.*;
 import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
 
-
-import com.example.wearVillage.PostData;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import com.example.wearVillage.PostData;
 
 
 @org.springframework.stereotype.Controller
@@ -115,6 +115,12 @@ public class Controller {
         return "maps.html";
     }
 
+    @GetMapping("/map_popup2")
+    public String map2() {
+        return "maps2.html";
+    }
+
+
     @GetMapping("/login_session")
     @ResponseBody
     public String loginSession(@RequestParam String id){
@@ -134,6 +140,16 @@ public class Controller {
         return modelAndView;
     }
 
+    @GetMapping("/viewPost2")
+    public ModelAndView viewPost2(@RequestParam("id") Integer id) {
+        // 게시글 조회
+        String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+        PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
 
+        ModelAndView modelAndView = new ModelAndView("postDetail2");
+        modelAndView.addObject("post", postData);
+
+        return modelAndView;
+    }
 
 }

@@ -2,10 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>View Post</title>
-    <link
-      rel="stylesheet"
-      href="/src/main/resources/static/css/postDetail2.css"
-    />
+    <link rel="stylesheet" href="css/postDetail2.css" />
   </head>
   <body>
     <div class="postDetail_super_container">
@@ -27,27 +24,81 @@
           </div>
         </div>
         <div class="post_info_container">
+          <div class="post_writer_info">
+            <div class="writerId">
+              <div class="post_writer_container1">
+                <span class="post_writer_img"
+                  ><img src="./img/bikini.png" alt=""
+                /></span>
+                <div class="post_writer_container2">
+                  <span th:text="${post.postWriterId}"></span>
+                  <button class="postDetail_chat_button">채팅하기</button>
+                </div>
+              </div>
+              <!-- <div><span th:text="${post.postWriterId}">김영환바보</span></div>
+              <button class="postDetail_chat_button">채팅하기</button> -->
+              <!-- TODO 프로필사진도 따와야함, 조회수 넣어야함 -->
+            </div>
+          </div>
           <div class="post_info_container1">
-            <div class="product_tag">태그</div>
+            <div class="product_tag">
+              <button
+                class="tag_top_button"
+                disabled="true"
+                th:text="${post.postTagTop}"
+              >
+                태그
+              </button>
+              <button
+                class="tag_middle_button"
+                disabled="true"
+                th:text="${post.postTagMiddle}"
+              >
+                예시
+              </button>
+            </div>
             <div class="post_subtitle">
               <h2 th:text="${post.postSubtitle}">
                 제목예시입니다.가나다라마바사.
               </h2>
             </div>
-            <div class="writerId">
-              작성자ID:<span th:text="${post.postWriterId}">조회수</span>
-              <!-- TODO 프로필사진도 따와야함, 조회수 넣어야함 -->
-            </div>
           </div>
           <div class="post_info_container2">
-            <div class="cloth_price"><span th:text="${post.postPrice}">\999999</span></div>
-            <div class="cloth_price_2">안전거래 보증금=\999999</div>
-          </div>
-          <div class="postDetail_container2">
-            <div class="post_text" th:utext="${post.postText}">
-              가나다라마바사 안녕하세요 옷팝니다
+            <div class="cloth_price">
+              판매 금액: <span th:text="${post.postPrice}">999999</span>\
+            </div>
+            <div class="cloth_price_2">
+              대여 금액: (기본금):
+              <span th:text="${post.postRentDefaultPrice}"></span>원+(일일
+              금액):<span th:text="${post.postRentDayPrice}"></span>원
             </div>
           </div>
+          <div class="postDetail_container2">
+            <div style="display:flex; font-size:22px; font-weight:bold;">설명</div>
+            <div class="post_text" th:utext="${post.postText}">
+            </div>
+          </div>
+          <script>
+            window.onload = function () {
+              const $maps3 = document.getElementById('maps3_container');
+              $maps3.innerHTML =
+                '<object width="600px;" height="450px;" type="text/html" data="maps3.html"></object>';
+            };
+          </script>
+          <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
+            console.log(postMaps3Info);
+
+            /*]]>*/
+          </script>
+          <script>
+            localStorage.setItem('MapInfo', postMaps3Info);
+          </script>
+        </div>
+        <div class="maps3_info"style="font-size:22px; font-weight: bold;">거래 가능한 위치
+        <div id="maps3_container"></div>
         </div>
       </div>
 
