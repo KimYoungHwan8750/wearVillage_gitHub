@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.memberjoin_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.memberjoin_main {
+  width: 460px;
+  height: 450px;
+  border-radius: 10px;
+  border: 1px solid #E6E8FA;
+  outline: 1px solid lightgray;
+
+}
+
+.full {
+  display: flex;
+  width: 300%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.memberjoin_display {
+  flex: 1;
+  align-items: center;
+}
+
+.memberjoin_dp1 {
+  /* display: flex;
+      justify-content: center;
+      flex-direction: column; */
+  padding: 40px;
+
+}
+
+.memberjoin_dp2 {
+  /* display: flex;
+      justify-content: center;
+      flex-direction: column; */
+  padding: 40px;
+}
+
+.memberjoin_dp3 {
+  /* display: flex;
+      justify-content: center;
+      flex-direction: column; */
+  padding: 40px;
+}
+
+.memberjoin_dp_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.memberjoin_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 15px;
+  gap: 2px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.memberjoin_container img {
+  width: 20px;
+  height: 20px;
+}
+
+.memberjoin_top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.memberjoin_bar {
+  width: 77%;
+  height: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border: none;
+  outline: 1px solid gray;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 10px;
+  border-color: lightgray;
+}
+
+.memberjoin_bar:focus {
+  outline: 3px solid rgba(252, 126, 126, 0.8);
+}
+
+.memberjoin_input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 460px;
+}
+
+.memberjoin_ex {
+  position: absolute;
+  top: 28px;
+  left: 50px;
+  font-size: 17px;
+  padding: 0px 5px 0px 5px;
+  cursor: text;
+  background-color: white;
+  color: gray;
+  transition: top 0.2s ease, font-size 0.2s ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.memberjoin_input input:focus+.memberjoin_ex {
+  top: 10px;
+  left: 50px;
+  /* 클릭 시 플레이스홀더 위치를 이동합니다. */
+  font-size: 14px;
+  /* 원하는 폰트 크기로 조정하세요. */
+  color: rgba(252, 126, 126, 0.8);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.memberjoin_input input:not(:placeholder-shown)+.memberjoin_ex {
+  top: 10px;
+  left: 50px;
+  /* 입력된 상태에서 플레이스홀더 위치를 고정합니다. */
+  font-size: 14px;
+  /* 원하는 폰트 크기로 조정하세요. */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.memberJoin_gender {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.memberJoin_gender input[type="radio"]:hover {
+  background-color: rgb(255, 165, 165);
+}
+
+.memberjoin_container input[type="radio"] {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border: 1px solid rgb(236, 92, 92);
+  border-radius: 50%;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.memberjoin_container input[type="radio"]:checked {
+  color: rgb(236, 92, 92);
+  width: 13px;
+  height: 13px;
+  background-color: rgb(236, 92, 92);
+  padding: 1px;
+  border-color: rgb(236, 92, 92);
+}
+
+.memberjoin_next_btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.memberjoin_btn {
+  width: 65px;
+  height: 38px;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #fff;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: rgb(236, 92, 92);
+}
+
+.memberjoin_btn:hover {
+  cursor: pointer;
+  background-color: rgb(236, 92, 92);
+}
+.memberjoin_container input[type="number"]::-webkit-outer-spin-button,
+.memberjoin_container input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#id_text{
+  font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  }
+#pw_text{
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(180, 0, 0, 0.600);
+}
+  #pw_text2{
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(0, 120, 0, 0.600);
+  }
+  #memberjoin_birth_error{
+  font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+}
+.memberjoin_info{
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.600);
+}
+#nickname_text{
+  font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+}
+.lasterror{
+  font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  text-align: end;
+}

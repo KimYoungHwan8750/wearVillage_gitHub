@@ -1,5 +1,4 @@
-* {
-}
+
 .postDetail_super_container {
   display: flex;
   width: 1024px;
@@ -129,6 +128,45 @@
   width: 600px;
   height: 500px;
   object-fit: cover;
+}
+
+.postDetail_chat_button {
+  color: #dc4141;
+  border-radius: 5px;
+  background-color: rgba(195, 57, 57, 0.193);
+  border: none;
+  outline: 1px solid gray;
+  cursor: pointer;
+}
+
+.product_tag button:disabled {
+  color: #dc4141;
+  border-radius: 5px;
+  background-color: white;
+  border: none;
+  outline: 1px solid gray;
+  font-weight: bold;
+}
+
+.post_text {
+  display: flex;
+}
+
+.maps3_info {
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  margin-left: 20px;
+  margin-left: 20px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  word-break: keep-all;
+  border-bottom: 2px solid gray;
+}
+.post_text {
+  width: 600px;
+  word-wrap: break-word;
+  word-break: keep-all;
 }
 
 .postDetail_chat_button {
