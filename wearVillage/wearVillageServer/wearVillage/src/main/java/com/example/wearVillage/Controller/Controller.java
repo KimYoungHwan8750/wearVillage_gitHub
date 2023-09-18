@@ -188,28 +188,5 @@ public class Controller {
         return modelAndView;
     }
 
-    @GetMapping("/posts")
-    public ModelAndView listPosts() {
-        String sql = "SELECT * FROM POSTING_TABLE";
-        List<PostData> posts = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PostData.class));
-
-        for (PostData post : posts) {
-            String postText = post.getPostText();
-
-            Document doc = Jsoup.parse(postText);
-            Element img = doc.select("img").first();
-
-            if (img != null) {
-                String imgUrl = img.attr("src");
-                post.setPostThumbnailUrl(imgUrl);
-            }
-        }
-
-        ModelAndView modelAndView = new ModelAndView("items_buy");
-        modelAndView.addObject("posts", posts);
-
-        return modelAndView;
-    }
-
 
 }
