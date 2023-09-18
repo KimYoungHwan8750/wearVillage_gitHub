@@ -390,7 +390,7 @@ const slider = document.querySelector('.full');
 
 // 각 버튼에 대한 클릭 이벤트 리스너를 따로 정의합니다.
 shakeButton1.addEventListener("click", function() {
-    if (currentSlide < 3 && nextpage1 == 1 && nextpage2 == 1) {
+    if (currentSlide < 3 &&  nextpage2 == 1) { //nextpage1 == 1 &&
         currentSlide++;
         slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
         memberjoin_nextbtn_error1.innerText = '';

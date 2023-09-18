@@ -8,7 +8,9 @@ import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
 
 
+import com.example.wearVillage.DTO.UserInfoDTO;
 import com.example.wearVillage.PostData;
+import com.jcraft.jsch.UserInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.util.List;
+import java.util.Map;
 
 
 @org.springframework.stereotype.Controller
@@ -69,14 +77,7 @@ public class Controller {
             dataToOracle(email, userId, userPassword);
             return "main.html";
     }
-    @PostMapping(value = "/chat")
-    public String chat(Model model, @RequestParam String id,@RequestParam String target_id,@RequestParam String post_id,@RequestParam(required = false) String chat_thema) {
-        model.addAttribute("id",id);
-        model.addAttribute("target_id",target_id);
-        model.addAttribute("post_id",post_id);
-        model.addAttribute("chat_thema",chat_thema);
-        return "chat.html";
-    }
+
 
     @GetMapping(value = "/chatroom")
     public String chatroom(){
@@ -183,6 +184,29 @@ public class Controller {
 
         ModelAndView modelAndView = new ModelAndView("postDetail2");
         modelAndView.addObject("post", postData);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/posts")
+    public ModelAndView listPosts() {
+        String sql = "SELECT * FROM POSTING_TABLE";
+        List<PostData> posts = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PostData.class));
+
+        for (PostData post : posts) {
+            String postText = post.getPostText();
+
+            Document doc = Jsoup.parse(postText);
+            Element img = doc.select("img").first();
+
+            if (img != null) {
+                String imgUrl = img.attr("src");
+                post.setPostThumbnailUrl(imgUrl);
+            }
+        }
+
+        ModelAndView modelAndView = new ModelAndView("items_buy");
+        modelAndView.addObject("posts", posts);
 
         return modelAndView;
     }
