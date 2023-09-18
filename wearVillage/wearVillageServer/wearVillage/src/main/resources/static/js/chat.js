@@ -3,6 +3,9 @@
         const $msg = document.getElementById('msg');
         const $chat_midContent = document.querySelector('.chat_midContent');
         const $button_send = document.getElementById('button-send');
+        $th_chatHistory.forEach(element => {
+            console.log(element)
+        });
         let chat_time = null;
         let date; // 날짜 객체 생성
         $msg.addEventListener('keydown',()=>{
@@ -26,6 +29,7 @@
         })
         // 실행할 기능을 정의해주세요.
         let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
+
 
 
 

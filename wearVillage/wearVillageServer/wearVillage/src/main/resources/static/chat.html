@@ -41,7 +41,12 @@
         </div></div>
 
     <div class="chat_msgArea">
-
+        <div th:each= "th_chatHistory : ${chat_history}">
+            <th:block>
+                <div th:if="th_chatHistory">
+                </div>
+            </th:block>
+        </div>
     </div>
     </div>
     <!--채팅 입력 구간-->
@@ -75,6 +80,7 @@
        let $th_target_id = "[[${target_id}]]";
        let $th_chat_thema = "[[${chat_thema}]]";
        let $th_post_id = "[[${post_id}]]"
+       let $th_chatHistory = "[[${chat_history}]]"
 
        /*
      ]]>*/

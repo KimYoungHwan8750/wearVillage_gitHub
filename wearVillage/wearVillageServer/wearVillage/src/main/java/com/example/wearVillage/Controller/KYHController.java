@@ -11,8 +11,11 @@ import java.util.Map;
 
 @Controller
 public class KYHController {
-    @Autowired
-    private userChatDAO userDAO;
+//    @Autowired
+    private final userChatDAO userDAO;
+    KYHController(userChatDAO userDAO){
+        this.userDAO = userDAO;
+    }
     @PostMapping(value = "/chat")
     public String chat(Model model, @RequestParam String id, @RequestParam String target_id, @RequestParam String post_id, @RequestParam(required = false) String chat_thema) {
         model.addAttribute("id",id);

@@ -4,10 +4,11 @@ import com.example.wearVillage.DTO.userChatDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public class userChatDAO {
 
     private final JdbcTemplate jdbcTemplate;
@@ -28,7 +29,7 @@ public class userChatDAO {
 
     public List<Map<String,Object>> oracle_to_userChat(String user_id, String target_id, String chatroom_id){
                 return jdbcTemplate.queryForList(
-                        "SELECT * FROM USER_CHAT WHERE USER_ID = ? AND TARGET_ID = ? AND CHATROOM_ID = ?",user_id,target_id,chatroom_id);
+                        "SELECT * FROM USER_CHAT WHERE USER_ID = ? AND TARGET_ID = ? AND CHATROOM_ID = ? ORDER BY CHAT_NUM ASC",user_id,target_id,chatroom_id);
     }
 }
 
