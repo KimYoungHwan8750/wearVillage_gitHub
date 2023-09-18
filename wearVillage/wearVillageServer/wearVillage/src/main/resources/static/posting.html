@@ -41,7 +41,7 @@
 <div class="posting_info">
   <div class="posting_prices_container">
     <div class="posting_price_info">
-      판매 가격
+      <span class="sale_sale_price">판매 가격</span>
       <div class="posting_price_container">
         <input
                 type="text"
@@ -89,12 +89,13 @@
     const $posting_rent_price_info = document.querySelector(
       '.posting_rent_price_info',
     );
-
+    // TODO
     function updateVisibility() {
       if ($checkbox_sale.checked) {
-        $posting_sale_price_info.classList.remove('posting_hidden');
+        document.querySelector('.sale_sale_price').innerText = '판매 가격';
       } else if ($checkbox_rent.checked) {
-        $posting_sale_price_info.classList.add('posting_hidden');
+        document.querySelector('.sale_sale_price').innerText =
+          '보증금 가격';
       }
 
       if ($checkbox_rent.checked) {
@@ -203,14 +204,14 @@
 <div class="form_section">
   <div class="form_section_title"></div>
   <!-- <div class="form_section_content">
-    <input
-      type="file"
-      multiple="true"
-      name="uploadFile"
-      style="height: 30px"
-    />
-    <div id="uploadResult"></div>
-  </div> -->
+<input
+  type="file"
+  multiple="true"
+  name="uploadFile"
+  style="height: 30px"
+/>
+<div id="uploadResult"></div>
+</div> -->
 </div>
 
 <button
@@ -595,10 +596,10 @@
     let splitCategory = category.split(' > ');
     let postText = quill.container.firstChild.innerHTML;
     let parser = new DOMParser();
-    let doc = parser.parseFromString(postText,'text/html');
+    let doc = parser.parseFromString(postText, 'text/html');
 
     let img = doc.querySelector('img');
-    if(img){
+    if (img) {
       let postImage = img.src;
       console.log(postImage);
     }
@@ -619,7 +620,8 @@
       postMapInfo: $('#posting_map_box_id').val(),
 
       postText: quill.container.firstChild.innerHTML,
-      postDate: today.getFullYear() +
+      postDate:
+        today.getFullYear() +
         '년' +
         (today.getMonth() + 1) +
         '월' +
@@ -636,12 +638,12 @@
       data: JSON.stringify(postData),
       contentType: 'application/json',
       success: function (response) {
-        location.href ="/posts" ;
+        location.href = '/posts';
         // window.location.href = 'items_buy';
       },
       error: function (error) {
         console.log('Error');
-        alert("서버와의 연결에 실패했습니다.")
+        alert('서버와의 연결에 실패했습니다.');
         // Handle error here
       },
     });
