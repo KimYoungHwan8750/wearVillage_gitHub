@@ -1,3 +1,4 @@
+
 HELP.md
 .gradle
 build/
@@ -35,3 +36,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# ignore properties file
+# application.properties
+# application-API-KEY.properties
+# config.properties
