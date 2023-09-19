@@ -74,7 +74,7 @@ public class post_Controller {
      *
      *
      * */
-
+    @ResponseBody
     @PostMapping("/postToOracle")
     public String postToOracle(@RequestBody PostData postData) {
         // 가장 최근의 postId 조회
@@ -101,7 +101,7 @@ public class post_Controller {
                 postData.getPostDate(),
                 postData.getPostModifyDate());
 
-        return "items_buy";
+        return "posts";
     }
 
 
@@ -213,7 +213,6 @@ public class post_Controller {
 //
         ResponseEntity<byte[]> result = null;
         try {
-            System.out.println("디스플레이 츄라이");
             HttpHeaders header = new HttpHeaders();
             header.add("Content-type", Files.probeContentType(file.toPath()));
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);

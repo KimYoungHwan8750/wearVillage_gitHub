@@ -67,7 +67,7 @@ body{
     display: none;
 }
 .chat_notice{
-    position: absolute;
+    position: fixed;
     display: inline-block;
     top:50%;
     width: 50%;

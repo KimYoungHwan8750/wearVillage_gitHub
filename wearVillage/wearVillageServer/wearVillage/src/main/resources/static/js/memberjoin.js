@@ -1,3 +1,21 @@
+      
+      
+          let dataForm = {
+            ID:id_box.value,
+            PW:pw_box.value,
+            EMAIL:email_box.value,
+            GENDER:gendercheck(),
+            BIRTH:birth_box.value,
+            NICKNAME:nickname_box.value,
+            PROFILEIMG:"",
+            THEMA:gendercheck()
+        }
+
+        
+        function gendercheck(){
+          return document.querySelector('input[name="gender"]:checked').value;
+        }
+      
       //1페이지에서 2페이지 갈때 확인용
       let nextpage1 = 0; //아이디
       let nextpage2 = 0; //비번
@@ -55,16 +73,19 @@
         nickname_check();
         birth_check();
         if (id_check() && pw_check() && nickname_check() && email_check() &&duplicate_check == true) {
-          let user_info_json =
-          {
-            email: email_box.value,
-            nickname: nickname_box.value,
-            userId: id_box.value,
-            userPassword: pw_box.value,
-            // userBirthday: birth_box.value,
-            // userGender: 
-          };
-          sendPost("/", user_info_json)
+          fetch(
+            "/finished_signUp",
+            {
+              method:"POST",
+              headers:{"Content-Type":"application/json"},
+              body:JSON.stringify(dataForm),
+           })
+           .then(res=>res.text()
+           .then(ok=>ok==ok?location.href="/":alert("회원가입에 실패했습니다. 관리자에게 문의하세요."))
+           )
+           .catch(err=>alert(err+"에러메세지")
+           )
+           
         }
       }
       //   function create_user() {
@@ -75,7 +96,7 @@
       //   all_error.textContent = "임시: 회원가입 완료";
       // }
       // }
-      
+      id_box.addEventListener('input', id_check);
       function id_check() {
         //아래는 디버깅용 코드. 필요시 활성화
         // console.log("ID체크 완료");
@@ -117,6 +138,7 @@
           })
           return true;
         } else if (id_box.value === "") {
+          id_text.style.color = "rgba(180, 0, 0, 0.600)";
           id_text.innerText = "아이디를 입력하세요."
           //조건을 충족하지 못한 요소로 화면 이동. 당장에는 회원가입창이 작아서 필요없지만
           //추후 회원가입 화면에 들어가는 요소가 많아졌을 때 고객 편리성을 기대할 수 있음
@@ -124,6 +146,7 @@
           nextpage1 = 0;
           return false;
         } else {
+          id_text.style.color = "rgba(180, 0, 0, 0.600)";
           id_text.innerText = "아이디를 확인해주세요.";
           id_box.scrollIntoView();
           nextpage1 = 0;
@@ -131,43 +154,52 @@
         }
       }
 
-      function pw_check() {
-        let pw_value_check = pw_box.value;
-        let hasUpperCase = /^(?=.*[A-Z]).*$/.test(pw_value_check);
-        let hasLowerCase = /^(?=.*[a-z]).*$/.test(pw_value_check);
-        let hasSpecialcase = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/.test(pw_value_check);
-        let hasnumbercase = /^(?=.*[0-9]).*$/.test(pw_value_check);
-        let haslengthcase = /^.{8,20}.*$/.test(pw_value_check);
+// 비밀번호 입력 필드에 이벤트 리스너를 추가합니다.
+pw_box.addEventListener('input', pw_check);
 
+function pw_check() {
+    let pw_value_check = pw_box.value;
+    let hasUpperCase = /^(?=.*[A-Z]).*$/.test(pw_value_check);
+    let hasLowerCase = /^(?=.*[a-z]).*$/.test(pw_value_check);
+    let hasSpecialcase = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/.test(pw_value_check);
+    let hasnumbercase = /^(?=.*[0-9]).*$/.test(pw_value_check);
+    let haslengthcase = /^.{8,20}.*$/.test(pw_value_check);
 
-        if(!hasUpperCase){
-          pw_text2.textContent = "";
-          pw_text.textContent = "대문자가 없습니다.";
-          nextpage2 = 0; 
-        }else if(!hasLowerCase){
-          pw_text2.textContent = "";
-          pw_text.textContent = "소문자가 없습니다.";
-          nextpage2 = 0; 
-        }else if(!hasSpecialcase){
-          pw_text2.textContent = "";
-          pw_text.textContent = "특수문자가 없습니다.";
-          nextpage2 = 0; 
-        }else if(!hasnumbercase){
-          pw_text2.textContent = "";
-          pw_text.textContent = "숫자가 없습니다.";
-          nextpage2 = 0; 
-        }else if(!haslengthcase){
-          pw_text2.textContent = "";
-          pw_text.textContent = "8 ~ 20자 이하로 작성해야 합니다.";
-          nextpage2 = 0; 
-        }else{
-          pw_text.textContent = "";
-          pw_text2.textContent = "사용 가능한 비밀번호";
-         nextpage2 = 1; 
-        }
-      }
+    if (pw_value_check == "") {
+        pw_text2.textContent = "";
+        pw_text.textContent = "비밀번호를 입력하세요.";
+    } else if (!hasUpperCase) {
+        pw_text2.textContent = "";
+        pw_text.textContent = "대문자가 없습니다.";
+        nextpage2 = 0;
+    } else if (!hasLowerCase) {
+        pw_text2.textContent = "";
+        pw_text.textContent = "소문자가 없습니다.";
+        nextpage2 = 0;
+    } else if (!hasSpecialcase) {
+        pw_text2.textContent = "";
+        pw_text.textContent = "특수문자가 없습니다.";
+        nextpage2 = 0;
+    } else if (!hasnumbercase) {
+        pw_text2.textContent = "";
+        pw_text.textContent = "숫자가 없습니다.";
+        nextpage2 = 0;
+    } else if (!haslengthcase) {
+        pw_text2.textContent = "";
+        pw_text.textContent = "8 ~ 20자 이하로 작성해야 합니다.";
+        nextpage2 = 0;
+    } else {
+        pw_text.textContent = "";
+        pw_text2.textContent = "사용 가능한 비밀번호";
+        nextpage2 = 1;
+    }
+}
 
-
+        
+          
+      
+      
+     nickname_box.addEventListener("input", nickname_check) 
       function nickname_check() {
         const forbiddenWords = ["ㅅㅂ", "씨발", "씨바", "개세끼", "18년", "18놈", "18새끼", "ㄱㅐㅅㅐㄲl", "ㄱㅐㅈㅏ", "가슴만져", "가슴빨아", "가슴빨어", "가슴조물락", "가슴주물럭", "가슴쪼물딱",
           "가슴쪼물락", "가슴핧아", "가슴핧어", "강간", "개가튼년", "개가튼뇬", "개같은년", "개걸레", "개고치", "개너미", "개넘", "개년", "개놈", "개늠", "개똥", "개떵", "개떡",
@@ -235,12 +267,12 @@
           return false; // 잘못된 형식의 닉네임이면 false 반환
         }
       }
-
-
+email_box.addEventListener("input", email_check) 
+      
       function email_check() {
         //아래는 디버깅용 코드. 필요시 활성화
-        // console.log("EMAIL체크 완료");
         let email_value_check = email_box.value;
+        // console.log("EMAIL체크 완료");
         if ((/\w+[\w.]*@[\w.]+\.\w+/g).test(email_value_check)) {
           email_text.style.color = "rgba(0, 120, 0, 0.600)";
           email_text.innerText = '올바른 이메일 형식입니다.';
@@ -281,10 +313,11 @@
       const inputbirth = document.getElementById("birthday");
       
       // 입력 필드에 이벤트 리스너를 추가합니다.
-      inputbirth.addEventListener("input", function () {
-        // 입력된 값을 가져옵니다.
-        const birthValue = inputbirth.value;
-  
+      // 입력된 값을 가져옵니다.
+      inputbirth.addEventListener("input", birth_check) 
+        
+        function birth_check() {
+     const birthValue = inputbirth.value;
   // 입력된 값이 숫자인지 확인합니다.
   if (!isNaN(birthValue)) {
     // 입력된 값이 숫자일 때, 길이가 8자리인지 확인합니다.
@@ -315,8 +348,7 @@
       nextpage4 = 0;
     }
   } 
-});
-
+}
 //생일 숫자만 최대 8자 입력가능
 function numberMaxLength(e){
         if(e.value.length > e.maxLength){
@@ -379,7 +411,7 @@ button2.addEventListener("focus", function () {
 
 
 
-
+// 화면 다음 버튼 흔들기
 const shakeButton1 = document.getElementById("nextbtn");
 const shakeButton2 = document.getElementById("nextbtn2");
 
@@ -390,25 +422,28 @@ const slider = document.querySelector('.full');
 
 // 각 버튼에 대한 클릭 이벤트 리스너를 따로 정의합니다.
 shakeButton1.addEventListener("click", function() {
-    if (currentSlide < 3 &&  nextpage2 == 1) { //nextpage1 == 1 &&
+    if (currentSlide < 3 &&  nextpage2 == 1 &&  nextpage1 == 1) { 
         currentSlide++;
-        slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
+        slider.style.transform = `translateX(-${(currentSlide - 1) * 33.33333333}%)`;
         memberjoin_nextbtn_error1.innerText = '';
     } else {
         memberjoin_nextbtn_error1.innerText = '입력칸을 확인해주세요.';
+        //버튼 흔들기
         shakeButton1.classList.add("shake");
 
         // 흔들린 후 0.5초 후에 흔들림 클래스를 제거합니다.
         setTimeout(function() {
             shakeButton1.classList.remove("shake");
         }, 500);
+        id_check();
+        pw_check();
     }
 });
 
 shakeButton2.addEventListener("click", function() {
-    if (currentSlide < 3 && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1) {
+    if (currentSlide < 3 && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1) { 
         currentSlide++;
-        slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
+        slider.style.transform = `translateX(-${(currentSlide - 1) * 33.33333333}%)`;
         memberjoin_nextbtn_error2.innerText = '';
     } else {
         memberjoin_nextbtn_error2.innerText = '입력칸을 확인해주세요.';
@@ -424,9 +459,27 @@ shakeButton2.addEventListener("click", function() {
         function prevSlide() {
           if (currentSlide > 1) {
             currentSlide--;
-            slider.style.transform = `translateX(-${(currentSlide - 1) * 33.333333}%)`;
+            slider.style.transform = `translateX(-${(currentSlide - 1) * 33.33333333}%)`;
           
             memberjoin_nextbtn_error3.innerText = '';
           }
         }
 
+        //프로필 사진 임시 ----------------------------
+// 파일 입력 상자의 변경 이벤트 감지
+      document.getElementById('profile_picture').addEventListener('change', function () {
+        var file = this.files[0];
+        var previewImage = document.getElementById('preview_image');
+
+        if (file) {
+          // FileReader를 사용하여 선택한 이미지를 읽고 미리보기에 표시
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            previewImage.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          // 파일이 선택되지 않은 경우 미리보기 이미지 초기화
+          previewImage.src = "img/기본프사.jpg";
+        }
+      });

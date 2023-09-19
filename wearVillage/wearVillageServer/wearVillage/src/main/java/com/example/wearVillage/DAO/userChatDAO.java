@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+
 @Repository
 public class userChatDAO {
 
@@ -27,9 +28,9 @@ public class userChatDAO {
 
     }
 
-    public List<Map<String,Object>> oracle_to_userChat(String user_id, String target_id, String chatroom_id){
+    public List<Map<String,Object>> oracle_to_userChat(String user_id, String chatroom_id){
                 return jdbcTemplate.queryForList(
-                        "SELECT * FROM USER_CHAT WHERE USER_ID = ? AND TARGET_ID = ? AND CHATROOM_ID = ? ORDER BY CHAT_NUM ASC",user_id,target_id,chatroom_id);
+                        "SELECT * FROM USER_CHAT WHERE USER_ID = ? OR TARGET_ID = ? AND CHATROOM_ID = ? ORDER BY CHAT_NUM ASC",user_id,user_id,chatroom_id);
     }
 }
 

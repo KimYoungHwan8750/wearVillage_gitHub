@@ -10,10 +10,8 @@
     type="image/x-icon"
     href="img/img_wearVillageLogo.png"
     />
-    <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
-  />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=0">
+
     </head>
     <body>
     <!-- <div class="chat_content" layout:fragment="content"> -->
@@ -41,12 +39,7 @@
         </div></div>
 
     <div class="chat_msgArea">
-        <div th:each= "th_chatHistory : ${chat_history}">
-            <th:block>
-                <div th:if="th_chatHistory">
-                </div>
-            </th:block>
-        </div>
+
     </div>
     </div>
     <!--채팅 입력 구간-->
@@ -71,21 +64,26 @@
     <button type="button" id = "button-join">접속하기</button>
     <input type="text" id="username" placeholder="닉네임">
 </div> -->
-
-<script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
 <script>
-     /*<![CDATA[
-        */
-       let $th_id = "[[${id}]]";
-       let $th_target_id = "[[${target_id}]]";
-       let $th_chat_thema = "[[${chat_thema}]]";
-       let $th_post_id = "[[${post_id}]]"
-       let $th_chatHistory = "[[${chat_history}]]"
+    /*<![CDATA[
+       */
+      let $th_id = "[[${id}]]";
+      let $th_target_id = "[[${target_id}]]";
+      let $th_chat_thema = "[[${chat_thema}]]";
+      let $th_post_id = "[[${post_id}]]"
+   //    let $th_chatHistory = "[[${chat_history}]]"
 
-       /*
-     ]]>*/
+      /*
+    ]]>*/
 
 </script>
+<script th:inline="javascript">
+    
+    let $th_chatHistory = '[[${chat_history}]]';
+</script>
+<script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
+
+
 <!-- </div> -->
 </body>
 </html>
