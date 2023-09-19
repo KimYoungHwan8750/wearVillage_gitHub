@@ -2,7 +2,9 @@ package com.example.wearVillage.Controller;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,42 +34,72 @@ public class PJYController {
 
     @GetMapping("/posts")
     public ModelAndView listPosts(@RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "16") int size) {
+        @RequestParam(defaultValue = "16") int size,
+        @RequestParam(required = false) String postTagMiddle,
+        @RequestParam(required = false) String postTagTop) { // 추가 파라미터
+
       int offset = page * size;
-      String sql = "SELECT * FROM (SELECT t.*, ROWNUM r FROM (SELECT * FROM POSTING_TABLE ORDER BY POST_ID DESC) t) WHERE r BETWEEN ? AND ?";
       int startRow = offset + 1;
       int endRow = offset + size;
-      List<PostData> posts = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PostData.class), startRow, endRow);
-        
-      for (PostData post : posts) {
-        String postText = post.getPostText();
 
-        Document doc = Jsoup.parse(postText);
-        Element img = doc.select("img").first();
+      Map<String, Object> params = new HashMap<>();
+      params.put("startRow", startRow);
+      params.put("endRow", endRow);
 
-        if (img != null) {
-          String imgUrl = img.attr("src");
-          post.setPostThumbnailUrl(imgUrl);
-        }
-      }
+      StringBuilder sqlBuilder = new StringBuilder();
       
-        String countSql = "SELECT COUNT(*) FROM POSTING_TABLE";
-        Integer totalPosts = jdbcTemplate.queryForObject(countSql, Integer.class);
+      sqlBuilder.append("SELECT * FROM (SELECT t.*, ROWNUM r FROM (SELECT * FROM POSTING_TABLE");
 
-        int totalPages;
+      if (postTagMiddle != null) {
+        sqlBuilder.append(" WHERE POST_TAG_MIDDLE=:postTagMiddle");
+        params.put("postTagMiddle", postTagMiddle);
+      } else if(postTagTop!=null){
+        sqlBuilder.append(" WHERE POST_TAG_TOP=:postTagTop");
+        params.put("postTagTop", postTagTop);
+      }
+    
+    sqlBuilder.append(" ORDER BY POST_ID DESC) t) WHERE r BETWEEN :startRow AND :endRow");
 
-        if (totalPosts % size == 0)
-          totalPages = totalPosts / size;
-          else
-            totalPages = totalPosts / size + 1;
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate =
+            new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
 
-        ModelAndView modelAndView = new ModelAndView("items_buy");
-        modelAndView.addObject("posts", posts);
+    List<PostData> posts =
+            namedParameterJdbcTemplate.query(sqlBuilder.toString(), params, new BeanPropertyRowMapper<>(PostData.class));
 
-        modelAndView.addObject("currentPage", page);
-        modelAndView.addObject("totalPages", totalPages);
+            
+        for (PostData post : posts) {
+          String postText = post.getPostText();
 
-        return modelAndView;
-    }
+          Document doc = Jsoup.parse(postText);
+          Element img = doc.select("img").first();
 
+          if (img != null) {
+            String imgUrl = img.attr("src");
+            post.setPostThumbnailUrl(imgUrl);
+          }
+        }
+
+      String countSql="SELECT COUNT(*) FROM POSTING_TABLE";
+        if(postTagMiddle!=null){
+            countSql+=" WHERE POST_TAG_MIDDLE=:postTagMiddle";
+        }else if(postTagTop!=null){
+            countSql+=" WHERE POST_TAG_TOP=:postTagTop";
+        }
+    Integer totalPosts=namedParameterJdbcTemplate.queryForObject(countSql,params,Integer.class);
+
+    int totalPages;
+
+    if(totalPosts % size ==0)
+    totalPages=totalPosts/size;
+    else
+    totalPages=totalPosts/size+1;
+
+    ModelAndView modelAndView=new ModelAndView ("items_buy");
+    modelAndView.addObject ("posts",posts);
+
+    modelAndView.addObject ("currentPage",page);
+    modelAndView.addObject ("totalPages",totalPages);
+
+    return modelAndView;
+  }
 }

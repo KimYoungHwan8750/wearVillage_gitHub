@@ -636,6 +636,10 @@
         alert('이미지를 한장 이상 업로드해주세요!!')
         return false;
       }
+      if(postData.postMapInfo=='건물명(풀네임)으로 입력'){
+        alert('거래 가능한 위치를 정해주세요!!')
+        return false;
+      }
       console.log(typeof postData.postMapInfo);
       console.log(postData);
 

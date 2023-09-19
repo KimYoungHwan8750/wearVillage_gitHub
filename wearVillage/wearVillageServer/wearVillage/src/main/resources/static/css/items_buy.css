@@ -75,6 +75,7 @@ a {
   justify-content: space-evenly;
   width: 100%;
   line-height: 30px;
+  margin-top: 15px;
 }
 
 /* 호버 스타일 */
