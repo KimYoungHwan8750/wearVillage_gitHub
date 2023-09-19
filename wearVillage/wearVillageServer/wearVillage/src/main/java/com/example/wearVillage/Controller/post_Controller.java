@@ -74,7 +74,7 @@ public class post_Controller {
      *
      *
      * */
-
+    @ResponseBody
     @PostMapping("/postToOracle")
     public String postToOracle(@RequestBody PostData postData) {
         // 가장 최근의 postId 조회
@@ -101,7 +101,7 @@ public class post_Controller {
                 postData.getPostDate(),
                 postData.getPostModifyDate());
 
-        return "items_buy";
+        return "posts";
     }
 
 

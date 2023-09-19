@@ -89,7 +89,6 @@
         const $posting_rent_price_info = document.querySelector(
           '.posting_rent_price_info',
         );
-        // TODO
         function updateVisibility() {
           if ($checkbox_sale.checked) {
             document.querySelector('.sale_sale_price').innerText = '판매 가격';
@@ -629,6 +628,14 @@
           '일',
         postModifyDate: '수정일자없음',
       };
+      if(postData.postTagMiddle=='중분류'){
+        alert('태그는 반드시 골라야합니다!!')
+        return false;
+      }
+      if(!img){
+        alert('이미지를 한장 이상 업로드해주세요!!')
+        return false;
+      }
       console.log(typeof postData.postMapInfo);
       console.log(postData);
 
@@ -636,10 +643,9 @@
         type: 'POST',
         url: '/postToOracle',
         data: JSON.stringify(postData),
-        contentType: 'application/json',
+        contentType: 'application/json; text/html; charset=utf-8;',
         success: function (response) {
-          location.href = '/posts';
-          // window.location.href = 'items_buy';
+          window.location.href = '/posts';
         },
         error: function (error) {
           console.log('Error');

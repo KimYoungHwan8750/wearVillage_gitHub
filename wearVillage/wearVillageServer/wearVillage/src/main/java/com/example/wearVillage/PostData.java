@@ -64,7 +64,7 @@ public class PostData {
     }
 
     public String getPostThumbnailUrl() {
-        return postThumbnailUrl;
+        return this.postThumbnailUrl;
     }
 
 

@@ -26,6 +26,30 @@
   justify-content: center;
 }
 
+.mcategory li ol li:hover {
+  background-color: #dc41418e;
+  transition: 0.5s;
+  border: 1px solid #7572723f;
+}
+
+.mcategory li ol li {
+  border: 1px solid #00000000;
+}
+.mcategory li span {
+  font-size: 19px;
+}
+
+.pagination_container .disabled {
+  visibility: hidden;
+}
+.pagination_container .active {
+  font-weight: bold;
+  color: #dc414192;
+}
+.pagination_container .active a {
+  cursor: default;
+}
+
 .mini_container {
   width: 201px;
   height: 308px;
@@ -183,7 +207,7 @@ a {
   display: flex;
   justify-content: center;
 }
-.page_numbers a{
-    margin-left: 5px;
-    margin-right:5px;
+.page_numbers a {
+  margin-left: 5px;
+  margin-right: 5px;
 }
