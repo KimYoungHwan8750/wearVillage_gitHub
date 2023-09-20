@@ -35,11 +35,11 @@ public class KYHController {
     }
 
     @PostMapping(value = "/chat")
-    public String chat(Model model, @RequestParam String id, @RequestParam String target_id, @RequestParam String post_id, @RequestParam(required = false) String chat_thema) {
+    public String chat(Model model, @RequestParam String id, @RequestParam String target_id, @RequestParam String post_id, @RequestParam(required = false) String chat_theme) {
         model.addAttribute("id", id);
         model.addAttribute("target_id", target_id);
         model.addAttribute("post_id", post_id);
-        model.addAttribute("chat_thema", chat_thema);
+        model.addAttribute("chat_theme", chat_theme);
         List<Map<String, Object>> chatHistory = userDAO.oracle_to_userChat(id, post_id);
         model.addAttribute("chat_history", chatHistory);
         return "chat.html";

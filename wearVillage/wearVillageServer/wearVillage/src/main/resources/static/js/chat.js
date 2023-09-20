@@ -136,7 +136,7 @@
                 $th_id + "'wearCutLines'" + 
                 $th_target_id + "'wearCutLines'" + 
                 $msg.value + "'wearCutLines'" + 
-                $th_chat_thema + "'wearCutLines'" + 
+                $th_chat_theme + "'wearCutLines'" + 
                 chat_typing_time + "'wearCutLines'" +
                 $th_post_id
                 );
