@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <button onclick="test()"></button>    
+    <script>
+       function test(){
+        let id="id2";
+        let hello="hello2";
+        const wai = fetch("/fetchTest",{
+            method: "post",
+            headers:{
+                "Content-Type":"application/json; charset=utf-8"
+            },
+            body:JSON.stringify({id:hello})})
+            .then(res=>res.text())
+            .then(res=>{
+                console.log(res);
+            })
+        }
+    </script>
+</body>
+</html>

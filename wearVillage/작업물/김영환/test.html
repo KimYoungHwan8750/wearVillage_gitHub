@@ -5,19 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-    
+        .hi{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            outline: 1px red;
+            background-color: rgb(199, 199, 199);
+            top:100px;
+            left:100px;
+            width: 500px;
+            height: 500px;
+            justify-content:flex-end;
+            align-items: flex-end;
+            overflow-y: scroll;
+        }
     </style>
 </head>
 <body>
-    <img src="img/img_greenCampaign.PNG" alt="">
-    <textarea name="" id="gd" cols="30" rows="10"></textarea>
-    <button onclick="testmet()">gd</button>
-    <script>
-        function testmet(){
-        const test = document.getElementById('gd');
-        var test2=test.value;
-        console.log(test2);
-        }
-    </script>
+    
+    <div class="hi">
+    </div>
+<script>
+    let arr = ["안녕","하이"];
+    console.log(arr[0],arr[1]);
+    console.log(arr.includes("안녕"));
+    console.log(arr.includes("안"));
+    console.log(arr.includes("안1"));
+</script>
 </body>
+
 </html>

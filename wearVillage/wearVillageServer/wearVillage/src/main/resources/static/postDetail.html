@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>View Post</title>
+    <link rel="stylesheet" href="css/postDetail.css">
+  </head>
+  <body>
+    <div class="postDetail_container">
+      <div class="thumb_nail_container">
+        <div class="thumb_nail_list">
+          <div class="thumb_nail_first" id="imageContainer">
+            <img src="/src/main/resources/static/img/1.jpg" alt="" />
+          </div>
+          <div class="thumb_nail_second">
+            <img src="/src/main/resources/static/img/1.jpg" alt="" />
+          </div>
+          <div class="thumb_nail_third">
+            <img src="/src/main/resources/static/img/1.jpg" alt="" />
+          </div>
+        </div>
+        <div class="thumb_nail_main">
+          <img src="/src/main/resources/static/img/1.jpg" alt="" />
+        </div>
+      </div>
+      <div class="post_info_container">
+        <div class="post_subtitle">
+          <h2 th:text="${post.postSubtitle}"></h2>
+        </div>
+        <div class="post_product_info">
+          <h3>Product Info <span style="color: gray">제품정보</span></h3>
+          <!-- 버튼 넣기() -->
+          <div class="product_tag">
+            <button>하의</button> <button>스커트</button>
+          </div>
+          <!-- 태그 개수에 따라 js로 처리해야함. -->
+        </div>
+
+        <!-- <div class="writerId">
+          작성자ID:<span th:text="${post.postWriterId}"></span>
+        </div> -->
+      </div>
+    </div>
+    <div class="postDetail_container2">
+      <div class="post_text" th:utext="${post.postText}"></div>
+    </div>
+
+    <!-- <div th:if="${post == null}">
+      <p>No post found.</p>
+    </div> -->
+
+    <div th:if="${post != null}">
+      <h2 th:text="${post.postSubtitle}"></h2>
+      <!-- <p>작성자ID<span th:text="${post.postWriterId}"></span></p> -->
+      <p>
+        <!-- <time
+          datetime=""
+          th:text="${#dates.format(post.postDate,'yyyy-MM-dd')}"
+        ></time> -->
+      </p>
+      <div th:utext="${post.postText}"></div>
+    </div>
+
+    <a href="/main">메인화면으로</a>
+  </body>
+  <script th:inline="javascript">
+    let imageUrls = [];
+    let postTextElement = document.createElement('.thumb_first');
+    postTextElement.innerHTML = /*[[${post.postText}]]*/ '';
+
+    let imageEelements = postTextElement.getElementsByTagName('img');
+    for (var i = 0; i < imageEelements.length; i++) {
+      let imageUrl = imageEelements[i].getAttribute('src');
+      imageUrls.push(imageUrl);
+      // 3개까지만 넣는 로직 추가
+    }
+    let imageContainer = document.getElementById('imageContainer');
+    for (let j = 0; j < imageUrls.length; j++) {
+      let imgTag = document.createElement('img');
+      imgTag.setAttribute('src', imageUrls[j]);
+    }
+  </script>
+</html>

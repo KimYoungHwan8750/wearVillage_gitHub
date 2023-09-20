@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-    <html xmlns:th="https://www.thymeleaf.org"
+    <html xmlns:th="https://www.thymeleaf.org">
+    <!-- <html xmlns:th="https://www.thymeleaf.org"
     xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layouts/default}"> -->
     <head>
@@ -13,8 +14,8 @@
 
     </head>
     <body>
-    <div layout:fragment="content">
-        <link layout:fragmnet="css" rel="stylesheet" href="css/chat.css">
+    <!-- <div class="chat_content" layout:fragment="content"> -->
+    <link layout:fragmnet="css" rel="stylesheet" href="css/chat.css">
 
     <script src="https://cdn.jsdelivr.net/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
@@ -52,24 +53,16 @@
     <textarea name="" spellcheck="false" id="msg" cols="30" rows="4" maxlength="500"></textarea>
     <button id="button-send"type="button" value="보내기">전송</button>
     </div>
+
     </div>
     
 
-
+<!-- 
     <div class="diveloperZone">
     <p>"임시 개발자 영역입니다."</p>
     <button type="button" id = "button-exit">나가기</button>
-    <!-- <button type="button" id = "button-send">보내기</button> -->
     <button type="button" id = "button-join">접속하기</button>
-    <!-- <input type="text" id="msg" placeholder="입력하기"> -->
     <input type="text" id="username" placeholder="닉네임">
-<<<<<<< HEAD
-</div>
-    
-<script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
-
-</div>
-=======
 </div> -->
 <script>
     /*<![CDATA[
@@ -92,6 +85,5 @@
 
 
 <!-- </div> -->
->>>>>>> 3ea686e29dc9b060e6ae9b93e927c07d70c4c89f
 </body>
 </html>

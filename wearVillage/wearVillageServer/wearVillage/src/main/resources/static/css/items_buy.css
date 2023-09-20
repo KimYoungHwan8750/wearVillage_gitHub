@@ -1,0 +1,214 @@
+* {
+  list-style: none;
+}
+
+.itemsBuy_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  width: 980px;
+  height: 1300px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(201px, max-content));
+  grid-template-rows: repeat(auto-fill, minmax(308px, max-content));
+  padding-top: 50px;
+  gap: 10px;
+  text-align: center;
+  margin: auto;
+  justify-content: center;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+}
+
+.mcategory li ol li:hover {
+  background-color: #dc41418e;
+  transition: 0.5s;
+  border: 1px solid #7572723f;
+}
+
+.mcategory li ol li {
+  border: 1px solid #00000000;
+}
+.mcategory li span {
+  font-size: 19px;
+}
+
+.pagination_container .disabled {
+  visibility: hidden;
+}
+.pagination_container .active {
+  font-weight: bold;
+  color: #dc414192;
+}
+.pagination_container .active a {
+  cursor: default;
+}
+
+.mini_container {
+  width: 201px;
+  height: 308px;
+}
+
+a {
+  text-decoration-line: none;
+}
+
+/* 카테고리 스타일 */
+
+.category {
+  display: flex;
+  width: 1200px;
+  height: 50px;
+  white-space: nowrap;
+  text-align: center;
+  z-index: 1;
+}
+
+.mcategory {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  line-height: 30px;
+  margin-top: 15px;
+}
+
+/* 호버 스타일 */
+
+.cloth_top {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.cloth_top_under {
+  display: none;
+  background-color: #fff;
+  position: absolute;
+  padding: 0;
+  margin-left: -40px;
+}
+
+.cloth_bot {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.cloth_bot_under {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin-left: -55px;
+}
+
+.cloth_outer {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.cloth_outer_under {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin-left: -55px;
+}
+.cloth_dress {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+.cloth_dress_under {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin-left: -20px;
+}
+
+.cloth_beach {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.cloth_beach_under {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin-left: -20px;
+}
+.cloth_sports {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.cloth_sports_under {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin-left: -30px;
+}
+.cloth_hat {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.cloth_hat_under {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin-left: -43px;
+}
+.cloth_shoes {
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.cloth_shoes_under {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin-left: -27px;
+}
+
+/* 카테고리 서브 스타일 */
+.category_sub_ulist {
+  width: 980px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.category_main {
+  padding-top: 1px;
+  padding-bottom: 20px;
+}
+
+.pagination_container {
+  display: flex;
+  width: 980px;
+}
+
+.pagination {
+  display: flex;
+  width: 980px;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.page_numbers {
+  display: flex;
+  justify-content: center;
+}
+.page_numbers a {
+  margin-left: 5px;
+  margin-right: 5px;
+}
