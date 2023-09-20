@@ -53,6 +53,10 @@ dependencies {
 	implementation 'com.sun.xml.bind:jaxb-core:2.3.0'
 	implementation 'com.sun.xml.bind:jaxb-impl:2.3.3'
 	implementation 'javax.activation:activation:1.1.1'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	testCompileOnly 'org.projectlombok:lombok:1.18.22'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 jar {

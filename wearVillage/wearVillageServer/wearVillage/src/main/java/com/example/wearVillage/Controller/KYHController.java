@@ -4,16 +4,9 @@ import com.example.wearVillage.DAO.userChatDAO;
 import com.example.wearVillage.Entity.USER_INFO;
 
 import com.example.wearVillage.Repository.Repository_USER_INFO;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import netscape.javascript.JSObject;
-import org.apache.catalina.User;
-import org.hibernate.type.descriptor.java.ObjectJavaType;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +16,8 @@ import java.util.Map;
 
 @Controller
 public class KYHController {
-    @Autowired
     private final Repository_USER_INFO rep_user_info;
 
-    //    @Autowired
     private final userChatDAO userDAO;
 
     KYHController(userChatDAO userDAO, Repository_USER_INFO rep_user_info) {
@@ -35,18 +26,23 @@ public class KYHController {
     }
 
     @PostMapping(value = "/chat")
-    public String chat(Model model, @RequestParam String id, @RequestParam String target_id, @RequestParam String post_id, @RequestParam(required = false) String chat_theme) {
+    public String chat(Model model, @RequestParam String id, @RequestParam String target_id, @RequestParam String post_id) {
         model.addAttribute("id", id);
         model.addAttribute("target_id", target_id);
         model.addAttribute("post_id", post_id);
-        model.addAttribute("chat_theme", chat_theme);
         List<Map<String, Object>> chatHistory = userDAO.oracle_to_userChat(id, post_id);
         model.addAttribute("chat_history", chatHistory);
         return "chat.html";
     }
+
     @PostMapping(value = "/chatroom")
     public String chatroom(HttpSession session){
         session.getAttribute("id");
+
+        return "chatroom.html";
+    }
+    @GetMapping(value = "/chatroom")
+    public String getchatroom(){
 
         return "chatroom.html";
     }
@@ -70,7 +66,20 @@ public class KYHController {
         String PROFILEIMG=user.getString("PROFILEIMG");
         String GENDER=user.getString("GENDER");
         String BIRTH=user.getString("BIRTH");
-        rep_user_info.save(new USER_INFO(ID,PW,NICKNAME,EMAIL,PROFILEIMG,THEME,GENDER,BIRTH));
+        USER_INFO user_info= USER_INFO.builder()
+                .ID(ID)
+                .PW(PW)
+                .EMAIL(EMAIL)
+                .BIRTH(BIRTH)
+                .GENDER(GENDER)
+                .PROFILEIMG(PROFILEIMG)
+                .THEME(THEME)
+                .NICKNAME(NICKNAME)
+                .build();
+
+
+
+        rep_user_info.save(user_info);
         return "main.html";
     }
 

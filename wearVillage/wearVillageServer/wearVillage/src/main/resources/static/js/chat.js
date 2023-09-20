@@ -6,7 +6,7 @@
         const Encoder = new TextEncoder();
         const Decoder = new TextDecoder();
         JSON.parse($th_chatHistory).forEach(element => {
-            if ($th_id == element["USER_ID"]) {
+            if ($th_id == element["USER_ID"]&&$th_post_id==element["CHATROOM_ID"]) {
                 //div태그 생성
                 let div = document.createElement('div');
                 //div태그에 chat_myTextBox 클래스 부여
@@ -27,7 +27,7 @@
                 $chat_msgArea.append(div);
                 //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
                 $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
-            } else {
+            } else if($th_post_id==element["CHATROOM_ID"]) {
                 //div태그 생성
                 let div = document.createElement('div');
                 //div태그에 chat_targetTextBox 클래스 부여
