@@ -30,6 +30,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.webjars:sockjs-client:1.1.2'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
@@ -48,9 +49,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'com.jcraft:jsch:0.1.55'
 	implementation 'org.jsoup:jsoup:1.14.3'
+<<<<<<< HEAD
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+=======
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	implementation 'com.sun.xml.bind:jaxb-core:2.3.0'
+	implementation 'com.sun.xml.bind:jaxb-impl:2.3.3'
+	implementation 'javax.activation:activation:1.1.1'
+>>>>>>> 3ea686e29dc9b060e6ae9b93e927c07d70c4c89f
 }
 
 jar {

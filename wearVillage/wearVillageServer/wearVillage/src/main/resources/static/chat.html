@@ -9,10 +9,8 @@
     type="image/x-icon"
     href="img/img_wearVillageLogo.png"
     />
-    <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
-  />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=0">
+
     </head>
     <body>
     <div layout:fragment="content">
@@ -65,10 +63,35 @@
     <button type="button" id = "button-join">접속하기</button>
     <!-- <input type="text" id="msg" placeholder="입력하기"> -->
     <input type="text" id="username" placeholder="닉네임">
+<<<<<<< HEAD
 </div>
     
 <script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
 
 </div>
+=======
+</div> -->
+<script>
+    /*<![CDATA[
+       */
+      let $th_id = "[[${id}]]";
+      let $th_target_id = "[[${target_id}]]";
+      let $th_chat_thema = "[[${chat_thema}]]";
+      let $th_post_id = "[[${post_id}]]"
+   //    let $th_chatHistory = "[[${chat_history}]]"
+
+      /*
+    ]]>*/
+
+</script>
+<script th:inline="javascript">
+    
+    let $th_chatHistory = '[[${chat_history}]]';
+</script>
+<script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
+
+
+<!-- </div> -->
+>>>>>>> 3ea686e29dc9b060e6ae9b93e927c07d70c4c89f
 </body>
 </html>

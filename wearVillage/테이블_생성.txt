@@ -80,3 +80,16 @@ CREATE TABLE USER_CHAT(
 	CHAT_ID varChar2(40),
 	POST_ID NUMBER
 )
+
+
+/*유저 인포*/
+CREATE TABLE USER_INFO(
+	ID varChar2(40) PRIMARY KEY,
+	PW varChar2(40),
+	NICKNAME varChar2(20),
+	EMAIL varChar2(60),
+	PROFILEIMG varChar2(400),
+	THEMA varChar2(20),
+	GENDER varChar2(10),
+	BIRTH varChar2(20)
+)

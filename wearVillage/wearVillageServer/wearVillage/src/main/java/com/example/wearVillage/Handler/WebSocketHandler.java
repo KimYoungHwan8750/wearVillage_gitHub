@@ -43,7 +43,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String chat_message = chat_formData[2];
         String chat_typing_time = chat_formData[4];
         String chatPlace_history = chat_formData[5];
-        jdbcTemplate.update("INSERT INTO USER_CHAT(USER_ID,TARGET_ID,MESSAGE,CHAT_DATE,CHATROOM_ID) VALUES (?,?,?,?,?)",user_id,target_id,chat_message,chat_typing_time,chatPlace_history);
+        jdbcTemplate.update("INSERT INTO USER_CHAT(CHAT_NUM,USER_ID,TARGET_ID,MESSAGE,CHATROOM_ID,CHAT_DATE) VALUES (CHAT_NUM_COUNT.NEXTVAL,?,?,?,?,?)",user_id,target_id,chat_message,chatPlace_history,chat_typing_time);
 
 //        myId:arr[0],
 //                target_id:arr[1],
