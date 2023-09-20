@@ -70,8 +70,7 @@ public class KYHController {
         String PROFILEIMG=user.getString("PROFILEIMG");
         String GENDER=user.getString("GENDER");
         String BIRTH=user.getString("BIRTH");
-        USER_INFO user_info = new USER_INFO(ID,PW,NICKNAME,EMAIL,PROFILEIMG,THEME,GENDER,BIRTH);
-        rep_user_info.save(user_info);
+        rep_user_info.save(new USER_INFO(ID,PW,NICKNAME,EMAIL,PROFILEIMG,THEME,GENDER,BIRTH));
         return "main.html";
     }
 
