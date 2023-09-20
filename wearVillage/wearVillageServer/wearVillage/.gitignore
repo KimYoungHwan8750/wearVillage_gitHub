@@ -38,6 +38,6 @@ out/
 .vscode/
 
 # ignore properties file
-# application.properties
+application.properties
 # application-API-KEY.properties
 # config.properties
