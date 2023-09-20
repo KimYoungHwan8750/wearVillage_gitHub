@@ -9,17 +9,17 @@ public class USER_INFO_DTO {
     private String EMAIL;
     private String PROFILEIMG;
     private String THEMA;
-    private String SEX;
+    private String GENDER;
     private String BIRTH;
 
-    public USER_INFO_DTO(USER_INFO userInfo){
-        this.ID=userInfo.getID();
-        this.PW=userInfo.getPW();
-        this.NICKNAME=userInfo.getNICKNAME();
-        this.EMAIL=userInfo.getEMAIL();
-        this.PROFILEIMG=userInfo.getPROFILEIMG();
-        this.THEMA=userInfo.getTHEMA();
-        this.SEX=userInfo.getSEX();
-        this.BIRTH=userInfo.getBIRTH();
-    }
+//    public USER_INFO_DTO(USER_INFO userInfo){
+//        this.ID=userInfo.getID();
+//        this.PW=userInfo.getPW();
+//        this.NICKNAME=userInfo.getNICKNAME();
+//        this.EMAIL=userInfo.getEMAIL();
+//        this.PROFILEIMG=userInfo.getPROFILEIMG();
+//        this.THEMA=userInfo.getTHEMA();
+//        this.SEX=userInfo.getSEX();
+//        this.BIRTH=userInfo.getBIRTH();
+//    }
 }

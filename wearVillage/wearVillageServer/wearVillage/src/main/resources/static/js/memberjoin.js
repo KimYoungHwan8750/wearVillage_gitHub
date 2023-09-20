@@ -1,20 +1,8 @@
       
-      
-          let dataForm = {
-            ID:id_box.value,
-            PW:pw_box.value,
-            EMAIL:email_box.value,
-            GENDER:gendercheck(),
-            BIRTH:birth_box.value,
-            NICKNAME:nickname_box.value,
-            PROFILEIMG:"",
-            THEMA:gendercheck()
-        }
+
 
         
-        function gendercheck(){
-          return document.querySelector('input[name="gender"]:checked').value;
-        }
+
       
       //1페이지에서 2페이지 갈때 확인용
       let nextpage1 = 0; //아이디
@@ -64,14 +52,47 @@
       
       let duplicate_check = false;
 
-
-
+      //데이터 종합
+            
+      function testtest(){
+        let dataForm = {
+          ID:id_box.value,
+          PW:pw_box.value,
+          EMAIL:email_box.value,
+          GENDER:gendercheck(),
+          BIRTH:inputbirth.value,
+          NICKNAME:nickname_box.value,
+          PROFILEIMG:"",
+          THEMA:gendercheck()
+      }
+        fetch(
+          "/finished_signUp",
+          {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(dataForm),
+         })
+      }
+    function gendercheck(){
+      return document.querySelector('input[name="gender"]:checked').value;
+    }
       function create_user() {
         id_check();
         pw_check();
         email_check();
         nickname_check();
         birth_check();
+        let dataForm = {
+          ID:id_box.value,
+          PW:pw_box.value,
+          EMAIL:email_box.value,
+          GENDER:gendercheck(),
+          BIRTH:inputbirth.value,
+          NICKNAME:nickname_box.value,
+          PROFILEIMG:"",
+          THEMA:gendercheck()
+      }
+        
         if (id_check() && pw_check() && nickname_check() && email_check() &&duplicate_check == true) {
           fetch(
             "/finished_signUp",
@@ -80,11 +101,9 @@
               headers:{"Content-Type":"application/json"},
               body:JSON.stringify(dataForm),
            })
-           .then(res=>res.text()
-           .then(ok=>ok==ok?location.href="/":alert("회원가입에 실패했습니다. 관리자에게 문의하세요."))
-           )
-           .catch(err=>alert(err+"에러메세지")
-           )
+           .then(res=>res.text())
+           .then(ok=>console.log(ok));
+           
            
         }
       }
