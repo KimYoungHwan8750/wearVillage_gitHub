@@ -3,7 +3,336 @@
   padding: 0;
   overflow: hidden;
 }
+ .memberjoin_container img {
+   width: 20px;
+   height: 20px;
+ }
+ .shake {
+   animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+ }
 
+ @keyframes shake {
+
+   0%,
+   100% {
+     transform: translate(0, 0);
+   }
+
+   10%,
+   30%,
+   50%,
+   70%,
+   90% {
+     transform: translate(-3px, 0);
+   }
+
+   20%,
+   40%,
+   60%,
+   80% {
+     transform: translate(3px, 0);
+   }
+ }
+@media screen and (max-width: 768px) {
+  .memberjoin_display_top {
+.memberjoin_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .full {
+    display: flex;
+    width: 300%;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .memberjoin_display {
+    flex: 1;
+    align-items: center;
+  }
+
+  .memberjoin_dp1 {
+    padding: 40px;
+
+  }
+
+  .memberjoin_dp2 {
+    padding: 40px;
+  }
+
+  .memberjoin_dp3 {
+    padding: 40px;
+  }
+
+  .memberjoin_dp_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .memberjoin_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    gap: 2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+ 
+
+  .memberjoin_top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .memberjoin_bar {
+    width: 91%;
+    height: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: none;
+    outline: 1px solid gray;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 10px;
+    border-color: lightgray;
+  }
+
+  .memberjoin_bar:focus {
+    outline: 3px solid rgba(252, 126, 126, 0.8);
+  }
+
+  .memberjoin_input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+
+  .memberjoin_ex {
+    position: absolute;
+    top: 28px;
+    left: 30px;
+    font-size: 17px;
+    padding: 0px 5px 0px 5px;
+    cursor: text;
+    background-color: white;
+    color: gray;
+    transition: top 0.2s ease, font-size 0.2s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .memberjoin_input input:focus+.memberjoin_ex {
+    top: 10px;
+    left: 30px;
+    /* 클릭 시 플레이스홀더 위치를 이동합니다. */
+    font-size: 14px;
+    /* 원하는 폰트 크기로 조정하세요. */
+    color: rgba(252, 126, 126, 0.8);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .memberjoin_input input:not(:placeholder-shown)+.memberjoin_ex {
+    top: 10px;
+    left: 30px;
+    /* 입력된 상태에서 플레이스홀더 위치를 고정합니다. */
+    font-size: 14px;
+    /* 원하는 폰트 크기로 조정하세요. */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .memberJoin_gender {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .memberJoin_gender input[type="radio"]:hover {
+    background-color: rgb(255, 165, 165);
+  }
+
+  .memberjoin_container input[type="radio"] {
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    border: 1px solid rgb(236, 92, 92);
+    border-radius: 50%;
+    background-color: #ffffff;
+    outline: none;
+  }
+
+  .memberjoin_container input[type="radio"]:checked {
+    color: rgb(236, 92, 92);
+    width: 13px;
+    height: 13px;
+    background-color: rgb(236, 92, 92);
+    padding: 1px;
+    border-color: rgb(236, 92, 92);
+  }
+
+  .memberjoin_next_btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .memberjoin_check_btn {
+    width: 100px;
+    height: 25px;
+    border: none;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #fff;
+    background-color: rgb(236, 92, 92);
+  }
+
+  .memberjoin_check_btn:hover {
+    cursor: pointer;
+    background-color: rgb(214, 74, 74);
+  }
+
+  .memberjoin_btn {
+    width: 65px;
+    height: 38px;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #fff;
+    background-color: rgb(236, 92, 92);
+  }
+
+  .memberjoin_btn:hover {
+    cursor: pointer;
+    background-color: rgb(214, 74, 74);
+  }
+
+  .memberjoin_container input[type="number"]::-webkit-outer-spin-button,
+  .memberjoin_container input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .memberjoin_email_check {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #id_text {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  }
+
+  #pw_text {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  }
+
+  #pw_text2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(0, 120, 0, 0.600);
+  }
+
+  #memberjoin_birth_error {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  }
+
+  .memberjoin_info {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.600);
+  }
+
+  #nickname_text {
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  }
+
+  .lasterror {
+    text-align: end;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  }
+
+  .memberjoin_error {
+    margin-top: 5px;
+    text-align: end;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(180, 0, 0, 0.600);
+  }
+    .memberjoin_frofile_input input {
+      display: none;
+    }
+  
+    .memberjoin_frofile_input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  
+    #preview_image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      margin: 10px;
+      outline: 1px solid black;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+}
+}
+
+
+
+/* 768이상-------------------------------------------------------------------------------------------------------------------- */
+ @media screen and (min-width: 769px) {
+   .memberjoin_display_top {
 .memberjoin_container {
   display: flex;
   justify-content: center;
@@ -13,7 +342,7 @@
 
 .memberjoin_main {
   width: 460px;
-  height: 450px;
+  height: 500px;
   border-radius: 10px;
   border: 1px solid #E6E8FA;
   outline: 1px solid lightgray;
@@ -206,10 +535,10 @@
   width: 65px;
   height: 38px;
   border: none;
+  margin-top: 5px;
   border-radius: 3px;
   font-weight: bold;
   font-size: 14px;
-  margin-top: 20px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -230,7 +559,7 @@
 }
 .memberjoin_email_check{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 #id_text{
   font-size: 14px;
@@ -275,30 +604,29 @@
     font-weight: bold;
     color: rgba(180, 0, 0, 0.600);
 }
+.memberjoin_frofile_input input{
+      display: none;
+    }
+    .memberjoin_frofile_input{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      -webkit-user-select: none;
+             -moz-user-select: none;
+             -ms-user-select: none;
+             user-select: none;
+    }
+    #preview_image{
+      width: 80px;
+      height: 80px;
+      border-radius: 50px;
+      margin: 10px;
+      outline: 1px solid black;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
-.shake {
-  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
-}
-
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translate(-3px, 0);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translate(3px, 0);
-  }
-}
+   }}

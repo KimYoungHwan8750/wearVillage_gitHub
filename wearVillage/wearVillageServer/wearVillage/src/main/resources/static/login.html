@@ -179,10 +179,11 @@
                                     data: { email: kakaoEmail },
                                     dataType: "text",
                                     success: function (response) {
-                                        if (response == "true") {
+                                        console.log("카카오톡 응답 받아쪙"+response)
+                                        if (response == true) {
                                             sessionStorage.setItem("login", kakaoEmail); // 이미 있는 이메일인 경우 로그인 상태 지정
                                             window.location.href = "/";
-                                        } else if (response == "false") {
+                                        } else if (response == false) {
                                             sendPost("/createUser", kakaoJson);
                                         } else {
                                             alert("서버에서 알 수 없는 응답을 받았습니다.");
@@ -244,6 +245,7 @@
                     type: "post",                           // HTTP 요청 방식(GET, POST)
                     dataType: "json",                       // 서버에서 보내줄 데이터의 타입
                     success: function (result) {
+                        console.log(result);
                         if (result == true) {
                             $.ajax({
                                 url: "/login_createSession",

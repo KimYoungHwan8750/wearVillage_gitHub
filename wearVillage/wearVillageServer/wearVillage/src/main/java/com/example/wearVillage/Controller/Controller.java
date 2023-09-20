@@ -8,8 +8,10 @@ import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
 
 
-
+import com.example.wearVillage.Entity.USER_INFO;
 import com.example.wearVillage.PostData;
+
+import com.example.wearVillage.Repository.Repository_USER_INFO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class Controller {
 
     private final JdbcTemplate jdbcTemplate;
+    private final Repository_USER_INFO rep_user_info;
 
 
     @Autowired
-    public Controller(JdbcTemplate jdbcTemplate) {
+    public Controller(JdbcTemplate jdbcTemplate, Repository_USER_INFO rep_user_info) {
         this.jdbcTemplate = jdbcTemplate;
+        this.rep_user_info = rep_user_info;
     }
 
     // 메인화면으로 이동
@@ -50,8 +54,8 @@ public class Controller {
     }
     @ResponseBody
     @PostMapping("/use_api")
-    public String use_api(@RequestParam(required = false) String email) {
-        return check_email(email)? "true":"false";
+    public USER_INFO use_api(@RequestParam(required = false) String email) {
+        return rep_user_info.findByEMAIL(email);
     }
 
     // 옷빌리지 회원가입 (외부 API 사용 X)
@@ -67,23 +71,20 @@ public class Controller {
 
 
 
-    @GetMapping(value = "/chatroom")
-    public String chatroom(){
-        return "chatroom.html";
-    }
+
 
     //아이디 중복검사
     @PostMapping(value ="/checkID")
     @ResponseBody
-    public boolean checkID(@RequestParam String id_box){
-        return check_id(id_box);
+    public Boolean checkID(@RequestParam String id_box){
+        return rep_user_info.existsByID(id_box);
     }
 
     //아이디 비밀번호 체크 후 있을시 True반환
     @PostMapping(value ="/Dologin")
     @ResponseBody
-    public boolean Dologin(@RequestParam String id, @RequestParam String password){
-        return login_check(id,password);
+    public Boolean Dologin(@RequestParam String id, @RequestParam String password){
+        return rep_user_info.existsByIDAndPW(id, password);
     }
 
     //로그인 화면으로 이동
@@ -120,7 +121,7 @@ public class Controller {
     @PostMapping(value = "/login_createSession")
     public String loginSession(@RequestParam String id,HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("login_check",id);
+        session.setAttribute("id",id);
         System.out.println(session.getAttribute("login_check")+"세션 등록 완료");
 
         return "main.html";

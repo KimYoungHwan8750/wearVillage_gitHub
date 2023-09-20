@@ -63,7 +63,7 @@
           BIRTH:inputbirth.value,
           NICKNAME:nickname_box.value,
           PROFILEIMG:"",
-          THEMA:gendercheck()
+          THEME:gendercheck()
       }
         fetch(
           "/finished_signUp",
@@ -90,7 +90,7 @@
           BIRTH:inputbirth.value,
           NICKNAME:nickname_box.value,
           PROFILEIMG:"",
-          THEMA:gendercheck()
+          THEME:gendercheck()
       }
         
         if (id_check() && pw_check() && nickname_check() && email_check() &&duplicate_check == true) {
@@ -100,9 +100,9 @@
               method:"POST",
               headers:{"Content-Type":"application/json"},
               body:JSON.stringify(dataForm),
-           })
-           .then(res=>res.text())
-           .then(ok=>console.log(ok));
+           }).then(res=>res.text().then(location.href="/"))
+ 
+
            
            
         }
@@ -211,6 +211,8 @@ function pw_check() {
         pw_text.textContent = "";
         pw_text2.textContent = "사용 가능한 비밀번호";
         nextpage2 = 1;
+        return true;
+
     }
 }
 

@@ -2,7 +2,8 @@ package com.example.wearVillage.Controller;
 
 import com.example.wearVillage.DAO.userChatDAO;
 import com.example.wearVillage.Entity.USER_INFO;
-import com.example.wearVillage.Repository.Repository;
+
+import com.example.wearVillage.Repository.Repository_USER_INFO;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -23,14 +24,14 @@ import java.util.Map;
 @Controller
 public class KYHController {
     @Autowired
-    private final Repository repository;
+    private final Repository_USER_INFO rep_user_info;
 
     //    @Autowired
     private final userChatDAO userDAO;
 
-    KYHController(userChatDAO userDAO, Repository repository) {
+    KYHController(userChatDAO userDAO, Repository_USER_INFO rep_user_info) {
         this.userDAO = userDAO;
-        this.repository = repository;
+        this.rep_user_info = rep_user_info;
     }
 
     @PostMapping(value = "/chat")
@@ -43,28 +44,33 @@ public class KYHController {
         model.addAttribute("chat_history", chatHistory);
         return "chat.html";
     }
+    @PostMapping(value = "/chatroom")
+    public String chatroom(HttpSession session){
+        session.getAttribute("id");
+
+        return "chatroom.html";
+    }
 
     @ResponseBody
-    @GetMapping(value = "/userId")
+    @GetMapping(value = "/userInfo")
     public List<USER_INFO> userId(HttpSession session) {
-        String id = (String) session.getAttribute("login_check");
-        System.out.println(repository.findByID(id));
-        return repository.findByID(id);
+        String id = (String) session.getAttribute("id");
+        System.out.println(rep_user_info.findByID(id));
+        return rep_user_info.findByID(id);
     }
 
     @PostMapping(value = "/finished_signUp")
     public String signup(@RequestBody String data) {
-        System.out.println(data);
         JSONObject user = new JSONObject(data);
         String ID=user.getString("ID");
         String PW=user.getString("PW");
         String NICKNAME=user.getString("NICKNAME");
         String EMAIL=user.getString("EMAIL");
-        String THEMA=user.getString("THEMA");
+        String THEME=user.getString("THEME");
         String PROFILEIMG=user.getString("PROFILEIMG");
         String GENDER=user.getString("GENDER");
         String BIRTH=user.getString("BIRTH");
-        repository.save(new USER_INFO(ID,PW,NICKNAME,EMAIL,PROFILEIMG,THEMA,GENDER,BIRTH));
+        rep_user_info.save(new USER_INFO(ID,PW,NICKNAME,EMAIL,PROFILEIMG,THEME,GENDER,BIRTH));
         return "main.html";
     }
 

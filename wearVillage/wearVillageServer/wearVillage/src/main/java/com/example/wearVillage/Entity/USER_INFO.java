@@ -17,13 +17,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class USER_INFO {
     @Id
-
     private String ID;
     private String PW;
     private String NICKNAME;
     private String EMAIL;
     private String PROFILEIMG;
-    private String THEMA;
+    private String THEME;
     private String GENDER;
     private String BIRTH;
 }
