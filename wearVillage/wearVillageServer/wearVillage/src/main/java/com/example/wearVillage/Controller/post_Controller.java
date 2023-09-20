@@ -181,19 +181,6 @@ public class post_Controller {
                 logger.error("Error occurred while file uploading", e);
             }
             list.add(vo);
-
-            // (의존성 thunmnailatr 주입할시, thumbnailFile import할것)
-            // try{
-            //   multipartFile.transferTo(saveFile);
-            //   BufferedImage bo_image = ImageIO.read(saveFile);
-            //   double ratio = 3;
-            //   int width = (int) (bo_image.getWidth() / ratio);
-            //   int height = (int) (bo_image.getHeight() / ratio);
-            //   File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
-            //   thumbnails.of(saveFile).size(width,height).toFile(thumbnailFile);
-            // } catch (Exception e) {
-            //   e.printStackTrace();
-            // }
         }
         ResponseEntity<List<AttachImageVO>> result = new ResponseEntity<List<AttachImageVO>>(list,
                 HttpStatus.OK);

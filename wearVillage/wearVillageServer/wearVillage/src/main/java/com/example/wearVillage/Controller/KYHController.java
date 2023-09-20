@@ -1,25 +1,23 @@
 package com.example.wearVillage.Controller;
 
-import com.example.wearVillage.DAO.userChatDAO;
-import com.example.wearVillage.Entity.USER_INFO;
-
-import com.example.wearVillage.Repository.Repository_USER_INFO;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import netscape.javascript.JSObject;
-import org.apache.catalina.User;
-import org.hibernate.type.descriptor.java.ObjectJavaType;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.wearVillage.DAO.userChatDAO;
+import com.example.wearVillage.Entity.USER_INFO;
+import com.example.wearVillage.Repository.Repository_USER_INFO;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class KYHController {
