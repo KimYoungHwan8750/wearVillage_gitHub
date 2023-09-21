@@ -139,7 +139,7 @@
                             data: { email: naverEmail },
                             dataType: "text",
                             success: function (response) {
-                                if (response == "true") {
+                                if (response ==true) {
                                     sessionStorage.setItem("login", naverEmail); // 이미 있는 이메일인 경우 로그인 상태 지정
                                     window.location.href = "/";
                                     sessionStorage.removeItem("naverLoginCheck");
@@ -245,11 +245,12 @@
                     type: "post",                           // HTTP 요청 방식(GET, POST)
                     dataType: "json",                       // 서버에서 보내줄 데이터의 타입
                     success: function (result) {
-                        console.log(result);
-                        if (result == true) {
+                        let login_info = JSON.parse(result);
+                        let $email= login_info[0]["email"];
+                        
                             $.ajax({
                                 url: "/login_createSession",
-                                data: { id: id },
+                                data: { email: $email },
                                 type: "POST",
                                 success: function (result) {
                                     console.log(id + "세션 등록");
@@ -257,9 +258,7 @@
                             })
 
                             location.href = "/";
-                        } else {
-                            document.getElementById("login_text").innerText = "다시 입력해주세요."
-                        }
+
                     },
                     error: function (error) {
                         alert(error);

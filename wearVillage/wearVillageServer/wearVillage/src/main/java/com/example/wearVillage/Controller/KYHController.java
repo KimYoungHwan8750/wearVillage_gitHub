@@ -4,6 +4,7 @@ import com.example.wearVillage.DAO.userChatDAO;
 import com.example.wearVillage.Entity.USER_INFO;
 
 import com.example.wearVillage.Repository.Repository_USER_INFO;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class KYHController {
     KYHController(userChatDAO userDAO, Repository_USER_INFO rep_user_info) {
         this.userDAO = userDAO;
         this.rep_user_info = rep_user_info;
+    }
+
+
+    @GetMapping(value ="/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("id");
+        return "redirect:/";
     }
 
     @PostMapping(value = "/chat")
@@ -80,7 +88,7 @@ public class KYHController {
 
 
         rep_user_info.save(user_info);
-        return "main.html";
+        return "redirect:/";
     }
 
 }

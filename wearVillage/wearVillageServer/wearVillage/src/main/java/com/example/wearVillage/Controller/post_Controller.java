@@ -35,9 +35,7 @@ import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.PostData;
 import com.example.wearVillage.status.local_or_server;
 
-@CrossOrigin(origins = { "http://localhost:8090/posting", "http://localhost:8090/maps",
-        "http://localhost:8090/map_popup",
-        "http://localhost:8090/map_popup2" ,"*"})
+
 @org.springframework.stereotype.Controller
 public class post_Controller {
     private static final Logger logger = LoggerFactory.getLogger(com.example.wearVillage.dataController.uploadTest.class);
@@ -161,39 +159,26 @@ public class post_Controller {
             String uuid = UUID.randomUUID().toString();
             vo.setUuid(uuid);
             uploadFileName = uuid + "_" + uploadFileName;
-            File saveFile = new File(uploadPath, uploadFileName);
-            File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
+            File saveFile = new File(uploadPath, "_" + uploadFileName);
+            // File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
 
             try {
 
                 multipartFile.transferTo(saveFile);
-                BufferedImage bo_image = ImageIO.read(saveFile);
-                double ratio = 3;
-                int width = (int) (bo_image.getWidth() / ratio);
-                int height = (int) (bo_image.getHeight() / ratio);
-                BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-                Graphics2D graphic = bt_image.createGraphics();
-                graphic.drawImage(bo_image, 0, 0, width, height, null);
-                ImageIO.write(bt_image, "jpg", thumbnailFile);
+                // BufferedImage bo_image = ImageIO.read(saveFile);
+                // double ratio = 3;
+                // int width = (int) (bo_image.getWidth() / ratio);
+                // int height = (int) (bo_image.getHeight() / ratio);
+                // BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+                // Graphics2D graphic = bt_image.createGraphics();
+                // graphic.drawImage(bo_image, 0, 0, width, height, null);
+                // ImageIO.write(bt_image, "jpg", thumbnailFile);
                 // void transferTo(File dest) throws IOException 업로드한 파일 데이터를 지정한 파일에 저장
 
             } catch (Exception e) {
                 logger.error("Error occurred while file uploading", e);
             }
             list.add(vo);
-
-            // (의존성 thunmnailatr 주입할시, thumbnailFile import할것)
-            // try{
-            //   multipartFile.transferTo(saveFile);
-            //   BufferedImage bo_image = ImageIO.read(saveFile);
-            //   double ratio = 3;
-            //   int width = (int) (bo_image.getWidth() / ratio);
-            //   int height = (int) (bo_image.getHeight() / ratio);
-            //   File thumbnailFile = new File(uploadPath,"s_"+uploadFileName);
-            //   thumbnails.of(saveFile).size(width,height).toFile(thumbnailFile);
-            // } catch (Exception e) {
-            //   e.printStackTrace();
-            // }
         }
         ResponseEntity<List<AttachImageVO>> result = new ResponseEntity<List<AttachImageVO>>(list,
                 HttpStatus.OK);
@@ -209,9 +194,10 @@ public class post_Controller {
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
         File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/upload/") + fileName);
-//        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
-//
+        //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
+        //
         ResponseEntity<byte[]> result = null;
+
         try {
             HttpHeaders header = new HttpHeaders();
             header.add("Content-type", Files.probeContentType(file.toPath()));
@@ -221,6 +207,8 @@ public class post_Controller {
         }
         return result;
     }
+
+
     /*
      *
      *
