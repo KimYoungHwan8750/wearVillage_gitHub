@@ -1,5 +1,7 @@
 package com.example.wearVillage.Controller;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,7 +41,7 @@ public class profileImageController {
     }
 
     // 업로드 폴더 설정하기
-    String uploadFolder = local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/upload2/";
+    String uploadFolder = local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/profileImage/";
 
     // 업로드 폴더를 dateFormat 지정해서 넣어주기
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,18 +69,28 @@ public class profileImageController {
     vo.setFileName(uploadFileName);
     vo.setUploadPath(datePath);
 
-
-    // 파일 위치, 파일 이름을 합친 File 객체 지정
-    File saveFile = new File(uploadPath, uploadFileName);
-
     // 이름이 같다면 덮어씌워지니까 UUID포멧을 이용해 랜덤이름으로 바꾼다.
     String uuid = UUID.randomUUID().toString();
     vo.setUuid(uuid);
     uploadFileName = uuid + "_" + uploadFileName;
 
+    // 파일 위치, 파일 이름을 합친 File 객체 지정
+    File saveFile = new File(uploadPath, uploadFileName);
+
+    // 썸네일 지정하기
+    File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
+
     // 파일 저장하기
-    try{
+    try {
       uploadFile.transferTo(saveFile);
+      BufferedImage bo_image = ImageIO.read(saveFile);
+      double ratio = 1;
+      int width = (int) (bo_image.getWidth() / ratio);
+      int height = (int) (bo_image.getHeight() / ratio);
+      BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+      Graphics2D graphic = bt_image.createGraphics();
+      graphic.drawImage(bo_image, 0, 0, width, height, null);
+      ImageIO.write(bt_image, "jpg", thumbnailFile);
     } catch (Exception e) {
       e.printStackTrace();
     }

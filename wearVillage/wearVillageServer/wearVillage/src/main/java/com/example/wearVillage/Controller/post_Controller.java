@@ -196,9 +196,10 @@ public class post_Controller {
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
         File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/upload/") + fileName);
-//        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
-//
+        //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
+        //
         ResponseEntity<byte[]> result = null;
+        
         try {
             HttpHeaders header = new HttpHeaders();
             header.add("Content-type", Files.probeContentType(file.toPath()));
@@ -208,6 +209,8 @@ public class post_Controller {
         }
         return result;
     }
+
+
     /*
      *
      *

@@ -1078,11 +1078,6 @@ document
       },
     });
 
-    console.log(fileObj);
-    console.log(fileObj.name);
-    console.log(fileObj.size);
-    console.log(fileObj.type);
-
     // 레귤러익스프레션
     let regex = new RegExp('(.*?).(jpg|png)$');
     let maxSize = 1048576;
@@ -1103,22 +1098,27 @@ document
 
     // 이미지 받아와서 출력하기
     function showUploadImage(uploadResultArr) {
+      let images = [];
+
       if (!uploadResultArr || uploadResultArr.length == 0) {
         return;
       }
       let uploadResult = $('#preview_image');
-      
+
       let obj = uploadResultArr[0];
-      console.log(obj.uuid);
-      // let str = "";
-      let fileCallPath = encodeURIComponent(
-        obj.uploadPath.replace(/\\/g, '/') + obj.uuid + '_' + obj.fileName,
-      );
-      console.log(fileCallPath);
+      let str = '';
+      let fileCallPath =
+        obj.uploadPath.replace(/\\/g, '/') +
+        '/s_' +
+        obj.uuid +
+        '_' +
+        obj.fileName;
+      fileCallPath = encodeURIComponent(fileCallPath);
+
       let previewImage = document.getElementById('preview_image');
       // previewImage.src = '/display?fileName=' + fileCallPath;
       previewImage.setAttribute('src', '/display?fileName=' + fileCallPath);
-      // str += "<img src='/display?fileName" + fileCallPath + "'>";
+      // str = "<img src='/display?fileName" + fileCallPath + "'>";
 
       // uploadResult.append(str);
     }
