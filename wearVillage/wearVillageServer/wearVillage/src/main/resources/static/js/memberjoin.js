@@ -1080,11 +1080,11 @@ document
 
     // 레귤러익스프레션
     let regex = new RegExp('(.*?).(jpg|png)$');
-    let maxSize = 1048576;
+    let maxSize = 21048576;
 
     function fileCheck(fileName, fileSize) {
       let regex = new RegExp('(.*?).(jpg|png)$');
-      let maxSize = 1048576;
+      let maxSize = 21048576;
       if (fileSize >= maxSize) {
         alert('파일 사이즈가 너무 큽니다');
         return false;
@@ -1109,7 +1109,7 @@ document
       let str = '';
       let fileCallPath =
         obj.uploadPath.replace(/\\/g, '/') +
-        '/s_' +
+        '/_' +
         obj.uuid +
         '_' +
         obj.fileName;

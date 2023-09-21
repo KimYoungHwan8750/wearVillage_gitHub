@@ -161,20 +161,20 @@ public class post_Controller {
             String uuid = UUID.randomUUID().toString();
             vo.setUuid(uuid);
             uploadFileName = uuid + "_" + uploadFileName;
-            File saveFile = new File(uploadPath, uploadFileName);
-            File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
+            File saveFile = new File(uploadPath, "_" + uploadFileName);
+            // File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
 
             try {
 
                 multipartFile.transferTo(saveFile);
-                BufferedImage bo_image = ImageIO.read(saveFile);
-                double ratio = 3;
-                int width = (int) (bo_image.getWidth() / ratio);
-                int height = (int) (bo_image.getHeight() / ratio);
-                BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-                Graphics2D graphic = bt_image.createGraphics();
-                graphic.drawImage(bo_image, 0, 0, width, height, null);
-                ImageIO.write(bt_image, "jpg", thumbnailFile);
+                // BufferedImage bo_image = ImageIO.read(saveFile);
+                // double ratio = 3;
+                // int width = (int) (bo_image.getWidth() / ratio);
+                // int height = (int) (bo_image.getHeight() / ratio);
+                // BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+                // Graphics2D graphic = bt_image.createGraphics();
+                // graphic.drawImage(bo_image, 0, 0, width, height, null);
+                // ImageIO.write(bt_image, "jpg", thumbnailFile);
                 // void transferTo(File dest) throws IOException 업로드한 파일 데이터를 지정한 파일에 저장
 
             } catch (Exception e) {
