@@ -214,6 +214,7 @@
         <!--action에 URL지정, params에 JSON 데이터 지정-->
         
         <script>
+            $login_text = document.getElementById("login_text");
             function sendPost(action, params) {
                 var form = document.createElement('form');
                 form.setAttribute('method', 'post');
@@ -245,19 +246,24 @@
                     type: "post",                           // HTTP 요청 방식(GET, POST)
                     dataType: "json",                       // 서버에서 보내줄 데이터의 타입
                     success: function (result) {
-                        let login_info = JSON.parse(result);
-                        let $email= login_info[0]["email"];
+                        if(Object.keys(result).length!=0){
+                        let $email= result[0]["email"]
+                        console.log($email+"$email")
                         
                             $.ajax({
                                 url: "/login_createSession",
                                 data: { email: $email },
                                 type: "POST",
                                 success: function (result) {
-                                    console.log(id + "세션 등록");
+                                    console.log($email + "세션 등록");
                                 }
                             })
 
                             location.href = "/";
+                        } else {
+                            $login_text.innerText = "아이디 비밀번호를 다시 확인해주세요.";
+                        }
+
 
                     },
                     error: function (error) {

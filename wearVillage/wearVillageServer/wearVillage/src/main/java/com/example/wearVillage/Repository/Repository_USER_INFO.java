@@ -11,7 +11,8 @@ import java.util.List;
 public interface Repository_USER_INFO extends JpaRepository <USER_INFO, String> {
 
     List<USER_INFO> findByID(String ID);
-    USER_INFO findByEMAIL(String EMAIL);
+    List<USER_INFO> findByEMAIL(String EMAIL);
+
     Boolean existsByEMAIL(String EMAIL);
     List<USER_INFO> findByIDAndPW(String ID, String PW);
     Boolean existsByID(String ID);

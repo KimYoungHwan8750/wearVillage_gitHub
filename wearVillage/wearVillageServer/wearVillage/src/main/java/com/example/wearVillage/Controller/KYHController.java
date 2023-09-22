@@ -29,7 +29,7 @@ public class KYHController {
 
     @GetMapping(value ="/logout")
     public String logout(HttpSession session){
-        session.removeAttribute("id");
+        session.removeAttribute("email");
         return "redirect:/";
     }
 
@@ -58,9 +58,8 @@ public class KYHController {
     @ResponseBody
     @GetMapping(value = "/userInfo")
     public List<USER_INFO> userId(HttpSession session) {
-        String id = (String) session.getAttribute("id");
-        System.out.println(rep_user_info.findByID(id));
-        return rep_user_info.findByID(id);
+        String email = (String) session.getAttribute("email");
+        return rep_user_info.findByEMAIL(email);
     }
 
     @PostMapping(value = "/finished_signUp")

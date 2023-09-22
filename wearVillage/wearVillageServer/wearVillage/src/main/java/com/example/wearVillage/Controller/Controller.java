@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
@@ -49,10 +50,10 @@ public class Controller {
 
     //로그인에 성공할 시 메인화면으로 이동
     @PostMapping(value = "/login_createSession")
-    public String loginSession(@RequestParam String id,HttpServletRequest request) {
+    public String loginSession(@RequestParam String email,HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("id",id);
-        System.out.println(session.getAttribute("id")+"세션 등록 완료");
+        session.setAttribute("email",email);
+        System.out.println(session.getAttribute("email")+"세션 등록 완료");
 
         return "redirect:/";
     }
@@ -70,8 +71,8 @@ public class Controller {
     @ResponseBody
     @PostMapping("/use_api")
 
-    public Boolean use_api(@RequestParam(required = false) String email) {
-        return rep_user_info.existsByEMAIL(email);
+    public List<USER_INFO> use_api(@RequestParam(required = false) String email, HttpSession session) {
+        return rep_user_info.findByEMAIL(email);
 
     }
 
@@ -98,6 +99,10 @@ public class Controller {
     @PostMapping(value ="/Dologin")
     @ResponseBody
     public List<USER_INFO> Dologin(@RequestParam String id, @RequestParam String password){
+        List<USER_INFO> userinfo = new ArrayList<>(rep_user_info.findByIDAndPW(id, password));
+        if(userinfo.size()!=0) {
+            System.out.println(userinfo.get(0).getID());
+        }
         return rep_user_info.findByIDAndPW(id, password);
     }
 
