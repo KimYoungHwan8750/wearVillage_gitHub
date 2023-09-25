@@ -14,6 +14,7 @@ import com.example.wearVillage.PostData;
 import com.example.wearVillage.Repository.Repository_USER_INFO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,13 +24,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @org.springframework.stereotype.Controller
 @CrossOrigin(origins = { "http://localhost:8090/posting", "http://localhost:8090/maps",
         "http://localhost:8090/map_popup",
         "http://localhost:8090/map_popup2" ,"*"})
 //@RequiredArgsConstructor
-
+@Slf4j
 public class Controller {
 
     private final JdbcTemplate jdbcTemplate;
@@ -50,7 +52,8 @@ public class Controller {
 
     //로그인에 성공할 시 메인화면으로 이동
     @PostMapping(value = "/login_createSession")
-    public String loginSession(@RequestParam String email,HttpServletRequest request) {
+    public String loginSession(@RequestBody Map<String,String> map,HttpServletRequest request) {
+        String email = map.get("email");
         HttpSession session = request.getSession();
         session.setAttribute("email",email);
         System.out.println(session.getAttribute("email")+"세션 등록 완료");
@@ -58,22 +61,25 @@ public class Controller {
         return "redirect:/";
     }
 
+
     //로그인 방식에 따라 회원가입 양식을 자동으로 채워주는 API
     @PostMapping(value = "/createUser")
     public String data_to_createUser(@RequestParam (required = false) String email, @RequestParam (required = false) String profile_img, Model model) {
-        // 외부 API로그인에 성공했을때
-//            model.addAttribute("user_email", email);
-//            model.addAttribute("email_readonly", "true");
-//            model.addAttribute("testStyle", "background-color: var(--color-wear_gray);");
-//            model.addAttribute("profile_img", profile_img);
-            return "createUser.html";
+
+            return "memberjoin.html";
     }
     @ResponseBody
     @PostMapping("/use_api")
 
-    public List<USER_INFO> use_api(@RequestParam(required = false) String email, HttpSession session) {
-        return rep_user_info.findByEMAIL(email);
-
+    public Boolean use_api(@RequestBody Map<String,String> map, HttpSession session) {
+        String email = map.get("email");
+        log.info(email);
+        if(rep_user_info.existsByEMAIL(email)){
+            session.setAttribute("email",email);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // 옷빌리지 회원가입 (외부 API 사용 X)
@@ -98,12 +104,10 @@ public class Controller {
     //아이디 비밀번호 체크 후 있을시 True반환하고 로그인 성공
     @PostMapping(value ="/Dologin")
     @ResponseBody
-    public List<USER_INFO> Dologin(@RequestParam String id, @RequestParam String password){
-        List<USER_INFO> userinfo = new ArrayList<>(rep_user_info.findByIDAndPW(id, password));
-        if(userinfo.size()!=0) {
-            System.out.println(userinfo.get(0).getID());
-        }
-        return rep_user_info.findByIDAndPW(id, password);
+    public List<USER_INFO> Dologin(@RequestBody Map<String, String> map){
+        String id = map.get("id");
+        String pw = map.get("password");
+        return rep_user_info.findByIDAndPW(id, pw);
     }
 
     //로그인 화면으로 이동

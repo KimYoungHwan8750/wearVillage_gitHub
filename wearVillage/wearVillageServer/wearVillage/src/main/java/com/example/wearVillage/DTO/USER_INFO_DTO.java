@@ -1,16 +1,21 @@
 package com.example.wearVillage.DTO;
 
 import com.example.wearVillage.Entity.USER_INFO;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 public class USER_INFO_DTO {
-    private String ID;
-    private String PW;
-    private String NICKNAME;
-    private String EMAIL;
-    private String PROFILEIMG;
-    private String THEMA;
-    private String GENDER;
-    private String BIRTH;
+    String ID;
+    String PW;
+    String NICKNAME;
+    String EMAIL;
+    String PROFILEIMG;
+    String THEMA;
+    String GENDER;
+    String BIRTH;
 
 //    public USER_INFO_DTO(USER_INFO userInfo){
 //        this.ID=userInfo.getID();

@@ -1,11 +1,13 @@
 package com.example.wearVillage.Controller;
 
 import com.example.wearVillage.DAO.userChatDAO;
+import com.example.wearVillage.DTO.USER_INFO_DTO;
 import com.example.wearVillage.Entity.USER_INFO;
 
 import com.example.wearVillage.Repository.Repository_USER_INFO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,37 +59,31 @@ public class KYHController {
 
     @ResponseBody
     @GetMapping(value = "/userInfo")
-    public List<USER_INFO> userId(HttpSession session) {
-        String email = (String) session.getAttribute("email");
-        return rep_user_info.findByEMAIL(email);
+    public List<USER_INFO> userId(HttpSession session) throws IndexOutOfBoundsException{
+        try {
+            String email = (String) session.getAttribute("email");
+            return rep_user_info.findByEMAIL(email);
+
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @PostMapping(value = "/finished_signUp")
-    public String signup(@RequestBody String data) {
-        JSONObject user = new JSONObject(data);
-        String ID=user.getString("ID");
-        String PW=user.getString("PW");
-        String NICKNAME=user.getString("NICKNAME");
-        String EMAIL=user.getString("EMAIL");
-        String THEME=user.getString("THEME");
-        String PROFILEIMG=user.getString("PROFILEIMG");
-        String GENDER=user.getString("GENDER");
-        String BIRTH=user.getString("BIRTH");
-        USER_INFO user_info= USER_INFO.builder()
-                .ID(ID)
-                .PW(PW)
-                .EMAIL(EMAIL)
-                .BIRTH(BIRTH)
-                .GENDER(GENDER)
-                .PROFILEIMG(PROFILEIMG)
-                .THEME(THEME)
-                .NICKNAME(NICKNAME)
-                .build();
-
-
-
+    public String signup(@RequestBody USER_INFO user_info) {
         rep_user_info.save(user_info);
         return "redirect:/";
+    }
+
+    @GetMapping(value ="/testPlace")
+    public String testPlace(){
+        return "datatest.html";
+    }
+
+
+    @GetMapping(value="/kyhTest")
+    public String kyhTest(){
+        return "";
     }
 
 }
