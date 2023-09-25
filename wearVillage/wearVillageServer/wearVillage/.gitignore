@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+## 개인정보들
+application.properties

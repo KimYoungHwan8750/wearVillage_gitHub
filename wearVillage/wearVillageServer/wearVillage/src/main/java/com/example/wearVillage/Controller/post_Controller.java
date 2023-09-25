@@ -35,7 +35,9 @@ import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.PostData;
 import com.example.wearVillage.status.local_or_server;
 
-
+@CrossOrigin(origins = { "http://localhost:8090/posting", "http://localhost:8090/maps",
+        "http://localhost:8090/map_popup",
+        "http://localhost:8090/map_popup2" ,"*"})
 @org.springframework.stereotype.Controller
 public class post_Controller {
     private static final Logger logger = LoggerFactory.getLogger(com.example.wearVillage.dataController.uploadTest.class);
