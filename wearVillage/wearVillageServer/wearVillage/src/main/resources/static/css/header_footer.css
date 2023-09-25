@@ -1,0 +1,176 @@
+@import url(common.css);
+
+
+#testMsg{
+    color: var(--color-wear_red);
+}
+.banner {
+grid-area: banner;
+display: flex;
+justify-content: center;
+flex-direction: center;
+}
+.no-italics {
+font-style: normal;
+}
+
+.bannerlogo {
+width: 120px;
+height: 120px;
+}
+
+
+
+
+.top {
+    grid-area: top;
+    display: inline;
+    position: relative;
+}
+
+.top .sns {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    font-size: 30px;
+}
+.top .wearviliage {
+    display: flex;
+    justify-content: center;
+    flex-direction: center;
+    font-size: 20px;
+}
+
+/* 푸터 영역 */
+
+.footer {
+    display:grid;
+    justify-content:center;
+}
+.foot_top {
+    font-size: small;
+    justify-content: flex-start;
+    text-align: flex-start;
+}
+
+.footer .foot_bot .address_tel_fax_email {
+    font-size: small;
+    display: grid;
+    grid-template-areas: 'tel fax email';
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.footer .foot_mid {
+    display: grid;
+    grid-template-areas: 'footer_img sanghomyung daepyo';
+    grid-template-columns: 120px 250px 350px;
+    justify-content: flex-start;
+    text-align: flex-start;
+}
+.foot_mid .sanghomyung {
+    justify-content: center;
+    width: 80%;
+}
+.foot_mid .daepyo {
+    justify-content: center;
+    width: 80%;
+}
+
+.footer .foot_mid .sanghomyung {
+    font-size: small;
+}
+.footer .foot_mid .sanghomyung li {
+    list-style-type: none;
+}
+.footer .foot_mid .pic img {
+    width: 100px;
+    height: 100px;
+}
+.footer .foot_mid .daepyo {
+    font-size: small;
+    list-style-type: none;
+}
+.footer .foot_mid .pic2 img {
+    width: 200px;
+    height: 35px;
+}
+.footer .foot_mid .sanghomyung .coperation {
+    background-color: var(--color-wear_red);
+    color: white;
+}
+.footer .foot_mid .sanghomyung .button {
+    outline: 2px solid black;
+    background-color: var(--color-wear_red);
+    color: white;
+    text-align: center;
+    font-size: large;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+}
+
+
+
+.loginbanner {
+    display: grid;
+    justify-content: center;
+}
+
+input {
+    border: none;
+    height: 25px;
+    width: 400px;
+    font-size: 20px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.login_btn {
+    font-style: unset;
+    font-size: 25px;
+    outline: 2px solid black;
+    font-weight: bold;
+    height: 55px;
+    background-color: var(--color-wear_red);
+    color: white;
+}
+.checkboxes {
+    display: flex;
+}
+.ID_text {
+    display: grid;
+    justify-content: center;
+}
+.PW_text {
+    display: grid;
+    justify-content: center;
+}
+.checkboxes input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+}
+.login_btn_info {
+    display: grid;
+    justify-content: center;
+}
+.find {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+.api_login{
+    display:flex;
+    justify-content:center;
+}
+.kakao_login{
+    width:183px;
+    height:45px;
+}
+.naver_login{
+    width:183px;
+    height:45px;
+}

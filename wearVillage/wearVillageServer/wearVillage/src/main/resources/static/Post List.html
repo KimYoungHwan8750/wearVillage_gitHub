@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Title</th><th>Price</th></th>
+    </tr>
+
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.postSubtitle}"></td>
+        <td th:text="${post.postPrice}"></td>
+
+        <td><a th:href="@{/viewPost2(id=${post.postId})}">View</a></td>
+    </tr>
+</table>
+</body>
+</html>
+
+<!-- 보증금 개념을 위해 무조건 판매가격이 있어야함. -->

@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    /* outline: 1px solid red; */
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.asklist_container {
+    display: grid;
+    grid-template-areas: "asklist_l_gap asklist_main asklist_r_gap";
+    grid-template-columns: 1fr 768px 1fr;
+}
+
+.asklist_l_gap {
+    grid-area: asklist_l_gap;
+}
+
+.asklist_r_gap {
+    grid-area: asklist_r_gap;
+}
+
+.asklist_main {
+    grid-area: asklist_main;
+}
+
+/* 리스트 전체 */
+.asklist_container .asklist_all_list {
+    display: flex;
+    outline: 3px solid rgb(204, 204, 204);
+}
+
+/* 리스트 사이의 라인 */
+.asklist_all_list .asklist_line {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    outline: 1px solid rgb(204, 204, 204);
+}
+
+/* 리스트 번호 */
+.asklist_all_list .asklist_num {
+    width: 50px;
+    font-weight: bold;
+    outline: 1px solid rgb(204, 204, 204);
+    background-color: rgb(234, 234, 234);
+}
+
+/* 리스트 */
+.asklist_all_list .asklist_list {
+    width: 618px;
+    background-color: rgb(255, 255, 255);
+    outline: 2px solid rgb(204, 204, 204);
+}
+
+/* 상태 */
+.asklist_all_list .asklist_situation {
+    width: 100px;
+    background-color: rgb(255, 255, 255);
+    outline: 2px solid rgb(204, 204, 204);
+}
+
+/* 번호, 제목, 상태 */
+.asklist_all_list .asklist_title {
+    font-weight: bold;
+    outline: 1px solid rgb(204, 204, 204);
+    background-color: rgb(234, 234, 234);
+}
+
+/* 임시 헤더 */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100px;
+    margin-bottom: 100px;
+    outline: 1px solid black;
+}
+
+/* 임시 푸터 */
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100px;
+    margin-top: 50px;
+    outline: 1px solid black;
+}

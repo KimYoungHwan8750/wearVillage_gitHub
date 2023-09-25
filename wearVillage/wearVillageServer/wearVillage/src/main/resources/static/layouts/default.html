@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="img/img_wearVillageSmallLogo.png">
+    <meta property="og:title" content="👔옷빌리지👕">
+    <meta property="og:description" content="옷장 관리가 이렇게도 쉽다니! 지금 바로 이용하세요!">
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+    <title>옷빌리지</title>
+
+    <link
+    rel="icon"
+    type="image/x-icon"
+    href="img/img_wearVillageLogo.png"
+/>
+
+    <!-- 각 페이지의 script가 작성될 위치 -->
+
+    <!-- 각 페이지의 css가 작성될 위치 -->
+    <th:block layout:fragment="css">
+    </th:block>
+</head>
+<body>    
+
+        
+<div class="noto_regular_graywhite" th:replace="~{fragments/header::header} " style="margin-bottom: 30px;"></div>
+
+<div layout:fragment="content" class="content"></div>
+
+<div th:replace="~{fragments/footer::footer}"></div>
+
+<th:block layout:fragment="script">
+</th:block>
+</body>
+</html>

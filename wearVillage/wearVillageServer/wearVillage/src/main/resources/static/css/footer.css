@@ -1,0 +1,177 @@
+        
+        
+footer{
+    margin-top: 50px;
+}
+        .footer_mid img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+        }
+        .footer_bottom a {
+            text-decoration: none;
+            color: black;
+        }
+        @media screen and (max-width:768px) { /* 768이하 태블릿*/
+      footer {
+        .footer_row{
+            display: flex;
+            justify-content: center;
+            height: 200px;
+            background-color: rgb(235, 235, 235);
+        }
+        .footer_main{
+            flex-direction: column-reverse;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer_top{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+        }
+        .footer_top_stick{
+            font-size: 0px;
+        }
+        .footer_mid{
+            margin: 10px;
+        }
+        .footer_info{
+            display: none;
+        }
+        .footer_tel_info{
+            margin-top: 10px;
+            display: none;
+        }
+        .footer_logo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .footer_title{
+            display: flex;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: gray;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .footer_logo_img{
+            display: none;
+        }
+        
+        .footer_bottom{
+            display: flex;  
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            width: 200px;
+            font-size: 12px;
+            font-weight: bold;
+            gap: 7px;
+        }
+        .footer_bottom_sub{
+            color: gray;
+        }
+        .footer_login{
+            display: flex;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .footer_bottom_stick{
+            font-size: 11px;
+            font-weight: 300;
+            color: gray;
+        }
+    }
+}
+@media screen and  (min-width: 769px) { /* 769px이상 pc*/ 
+    footer {
+        
+        .footer_row {
+            display: flex;
+            justify-content: center;
+            height: 220px;
+            background-color: rgb(235, 235, 235);
+            padding-right: 50px;
+            padding-left: 50px;
+        }
+
+        .footer_main {
+            flex-direction: column;
+            align-items: stretch;
+            display: flex;
+            justify-content: center;
+            width: 1200px;
+        }
+        .footer_top{
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            font-size: 13px;
+        }
+        .footer_top_stick{
+            font-size: 12px;
+        }
+        .footer_mid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 10px;
+            font-size: 16px;
+        }
+
+        .footer_info{
+            font-size: 15px;
+        }
+        .footer_tel_info {
+            margin-top: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .footer_logo {
+            display: flex;
+            justify-content: center;
+            padding-right: 50px;
+        }
+        
+        .footer_title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .footer_bottom {
+            display: flex;
+            justify-content: space-between;
+            width: 400px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+        }
+        .footer_bottom_sub{
+            color: black;
+        }
+        .footer_login{
+            display: none;        }
+        .footer_bottom_stick{
+            display: none;
+        }
+
+        .footer_line {
+            outline: 1px solid rgb(170, 170, 170);
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+    }}
+    
