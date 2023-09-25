@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/wallet.css">
+    <!-- 제이쿼리 임포트 -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+    <!-- 외부 wallet.js 파일 로드 -->
+    <!-- <script type="text/javascript" src="./js/wallet.js"></script> -->
+</head>
+
+<body>
+    <div class="walletContainer">
+        <div class="walletContainer__blank"></div>
+        <div class="walletContainer__body">
+            <div class="walletBody walletTitle">잔액 조회</div>
+            <div class="walletBody walletProfile">
+                <div class="round-image">A</div>
+            </div>
+            <div class="walletBody walletCurrent" id="walletCurrentText">[충전하기]를 통해 결제 후 충전량이 이곳에 표시됩니다.</div>
+            <div class="walletBody walletButtonBox" id="walletBalanceText">--잔액: Loading...--</div>
+
+            <button class="walletButton chargeButton" onclick="requestPay()">충전하기</button>
+            <button class="walletButton withdrawButton">출금하기</button>
+        </div>
+    </div>
+    <div class="walletContainer__blank"></div>
+    </div>
+
+    <script>
+        // JavaScript 코드는 이 부분에 포함됩니다.
+        var IMP = window.IMP;
+        IMP.init("imp03533685");
+
+        var today = new Date();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours + minutes + seconds + milliseconds;
+
+        // 잔액을 업데이트하는 함수
+        function updateBalance() {
+            fetch('/get-balance')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('walletBalanceText').textContent = '현재 잔액은 ' + data.toLocaleString() + '원 입니다.';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        // 초기 페이지 로드 시 잔액 업데이트
+        updateBalance();
+
+        function requestPay() {
+            // 이 함수는 "결제하기" 버튼을 클릭하면 호출됩니다.
+            // 결제 요청을 수행하는 코드가 들어갑니다.
+            IMP.init('imp03533685');
+            IMP.request_pay({
+                pg: 'html5_inicis.INIpayTest',
+                pay_method: 'card',
+                merchant_uid: 'merchant_' + new Date().getTime(),
+                name: '주문명:결제테스트', // 상품명
+                amount: 108, // 상품 가격
+                buyer_email: 'iamport@siot.do', // 구매자 이메일
+                buyer_name: '구매자이름',
+                buyer_tel: '010-1234-5678', // 구매자 연락처
+                buyer_addr: '서울특별시 강남구 삼성동', // 구매자 주소
+                buyer_postcode: '123-456' // 구매자 우편번호
+            }, handlePaymentResponse); // 콜백 함수 지정
+        };
+
+        function handlePaymentResponse(rsp) {
+            if (rsp.success) {
+                var rspJSON = JSON.stringify(rsp);
+
+                // 서버로 요청을 보내고 응답을 받은 후에 실행될 코드
+                $.ajax({
+                    url: '/wallet-endpoint',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: rspJSON,
+                    success: function (response) {
+                        // 서버에서 반환된 응답을 처리합니다.
+                        console.log(response);
+
+                        // 결제가 성공하면 Current 충전량을 업데이트합니다.
+                        var newCurrent = "[충전하기]를 통해 " + rsp.paid_amount.toLocaleString() + "원이 충전되었습니다.";
+                        document.getElementById("walletCurrentText").textContent = newCurrent;
+
+                        // 잔액을 업데이트합니다.
+                        updateBalance();
+                    },
+                    error: function (error) {
+                        // 오류 처리
+                        console.error(error);
+                    }
+                });
+            } else {
+                console.log(rsp);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
