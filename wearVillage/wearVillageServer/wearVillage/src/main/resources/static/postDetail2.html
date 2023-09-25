@@ -32,7 +32,7 @@
                 /></span>
                 <div class="post_writer_container2">
                   <span th:text="${post.postWriterId}"></span>
-                  <button class="postDetail_chat_button">채팅하기</button>
+                  <button class="postDetail_chat_button" onclick="goChat()">채팅하기</button>
                 </div>
               </div>
               <!-- <div><span th:text="${post.postWriterId}">김영환바보</span></div>
@@ -78,8 +78,10 @@
             <div class="post_text" th:utext="${post.postText}">
             </div>
           </div>
-          <script>
-            let $th_post = "[[${post}]]";
+          <script th:object="${post}";>
+            function goChat(){
+              
+            }
             window.onload = function () {
               const $maps3 = document.getElementById('maps3_container');
               $maps3.innerHTML =
