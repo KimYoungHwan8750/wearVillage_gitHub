@@ -39,3 +39,6 @@ out/
 ### VS Code ###
 .vscode/
 
+### profiles ###
+spring.profiles.include=api-key
+spring.profiles.include=smtp

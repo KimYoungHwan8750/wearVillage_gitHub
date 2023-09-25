@@ -6,15 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.wearVillage.DTO.GmailDto;
+import com.example.wearVillage.Service.EmailService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.PostData;
@@ -25,12 +28,8 @@ import com.example.wearVillage.PostData;
 public class PJYController {
 
     private final JdbcTemplate jdbcTemplate;
+    private final EmailService emailService;
 
-
-    @Autowired
-    public PJYController(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @GetMapping("/posts")
     public ModelAndView listPosts(@RequestParam(defaultValue = "0") int page,
@@ -102,4 +101,27 @@ public class PJYController {
 
         return modelAndView;
     }
+
+
+
+
+    public PJYController(EmailService emailService, JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.emailService = emailService;
+    }
+    
+    @GetMapping("/mail/send")
+    public String mail(){
+        return "memberjoin.html";
+    }
+
+    @ResponseBody
+    @PostMapping("/mail/send")
+    public String sendMail(GmailDto gmailDto){
+        emailService.sendSimpleMessage(gmailDto);
+        System.out.println("완료");
+        return "memberjoin.html";
+    }
+
+
 }
