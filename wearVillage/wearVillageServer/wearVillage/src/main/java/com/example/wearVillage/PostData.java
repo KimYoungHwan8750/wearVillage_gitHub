@@ -1,5 +1,7 @@
 package com.example.wearVillage;
 
+import jakarta.persistence.Entity;
+
 public class PostData {
     private String postId;
     private String postWriterId;

@@ -78,10 +78,9 @@
             <div class="post_text" th:utext="${post.postText}">
             </div>
           </div>
-          <script th:object="${post}";>
-            function goChat(){
-              
-            }
+          <script th:object="${post}"></script>
+          <script>
+
             window.onload = function () {
               const $maps3 = document.getElementById('maps3_container');
               $maps3.innerHTML =

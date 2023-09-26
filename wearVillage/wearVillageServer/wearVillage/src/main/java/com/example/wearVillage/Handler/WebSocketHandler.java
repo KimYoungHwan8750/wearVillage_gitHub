@@ -1,6 +1,8 @@
 package com.example.wearVillage.Handler;
 
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,8 +29,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 //        System.out.println("메세지:" + message);
-
         String payload = message.getPayload();
+        JSONObject jsonPayload = new JSONObject(payload);
         System.out.println("메세지: "+payload);
         String[] chat_formData = payload.split("'wearCutLines'");
 //        System.out.println("챗오라클확인1");

@@ -72,31 +72,15 @@
             }
 
         })
-        // 실행할 기능을 정의해주세요.
         let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
 
 
 
-
-        // 버튼 클릭 이벤트 설정
-        // let exitButton = document.getElementById("button-exit");
-        // exitButton.addEventListener("click", function (e) {
-        //     disconnect();
-        // });
-        // let joinButton = document.getElementById("button-join");
-        // joinButton.addEventListener("click", function (e) {
-        //     join();
-        // });
-        // function join(){
-        //     if(chat_check==false){
             websocket = new SockJS("https://wearvillage.store/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
             websocket.onclose = onClose;
             chat_check=true;
-        // }
-            
-        // }
 
         let sendButton = document.getElementById("button-send");
         sendButton.addEventListener("click", function (e) {
