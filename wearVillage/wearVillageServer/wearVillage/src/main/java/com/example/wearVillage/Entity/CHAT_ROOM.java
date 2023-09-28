@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 @Entity
 public class CHAT_ROOM {
     @Id
-    @GeneratedValue()
     @Column(name = "ROOM_ID")
     private int roomId;
     @Column(name = "ID")
