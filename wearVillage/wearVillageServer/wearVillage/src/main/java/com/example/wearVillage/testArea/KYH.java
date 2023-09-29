@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@Entity
 public class KYH {
     String name;
     String age;

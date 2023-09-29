@@ -7,16 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="radio" name="gender" value="남">
-    남
-    <input type="radio" name="gender" value="여">
-    여
-    <button onclick="gender()"></button>
     <script>
-        function gender(){
-          var value = document.querySelector('input[name="gender"]:checked').value;
-          console.log(value)
-        }
+      async function test(){
+        const user = await fetch("https://koreanjson.com/users");
+        const test = user.json();
+        console.log(test);
+      }
+      
+      function test1(){
+        let url = "https://koreanjson.com/"
+        let url2 = "users"
+        let totalUrl = url+url2;
+        fetch(totalUrl).then(res=>console.log(res))
+      }
+      test1();  
+
 </script>
 </body>
 </html>
