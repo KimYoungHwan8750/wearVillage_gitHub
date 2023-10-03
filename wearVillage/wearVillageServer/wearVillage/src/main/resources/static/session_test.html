@@ -7,16 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="radio" name="gender" value="남">
-    남
-    <input type="radio" name="gender" value="여">
-    여
-    <button onclick="gender()"></button>
-    <script>
-        function gender(){
-          var value = document.querySelector('input[name="gender"]:checked').value;
-          console.log(value)
-        }
+  폼외부내용1<form id ="form" name="폼태그네임" value="폼태그밸류" class="폼태그클래스1 폼태그클래스2">
+    <div id ="inner_div">디브내용</div>
+    폼태그내부 내용</form>폼외부내용2
+<button id="test" value="gd2">gd</button>
+<script>
+if(confirm("로그인창으로 이동합니다.")){
+  location.href="/login";
+} else {
+  
+}
 </script>
+
 </body>
 </html>

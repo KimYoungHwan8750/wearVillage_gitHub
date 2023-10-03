@@ -4,6 +4,7 @@ const searchArea_originalStyle = searchArea_width.getAttribute('style');
 const searchText_originalStyle = searchText_focus.getAttribute('style');
 const searchText_originalPlaceholder = searchText_focus.getAttribute('placeholder');
 
+
 searchText_focus.addEventListener('focusin',()=>{
     searchArea_width.setAttribute('style','width:500px;');
     searchText_focus.setAttribute('style','width:485px; text-align:left; font-size:18px')

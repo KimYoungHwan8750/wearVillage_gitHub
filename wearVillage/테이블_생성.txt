@@ -89,7 +89,7 @@ CREATE TABLE USER_INFO(
 	NICKNAME varChar2(20),
 	EMAIL varChar2(60),
 	PROFILEIMG varChar2(400),
-	THEMA varChar2(20),
+	THEME varChar2(20),
 	GENDER varChar2(10),
 	BIRTH varChar2(20)
 )

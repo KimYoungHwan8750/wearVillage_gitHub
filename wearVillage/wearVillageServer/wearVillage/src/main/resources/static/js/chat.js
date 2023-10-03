@@ -3,10 +3,10 @@
         const $msg = document.getElementById('msg');
         const $chat_midContent = document.querySelector('.chat_midContent');
         const $button_send = document.getElementById('button-send');
-        const Encoder = new TextEncoder();
-        const Decoder = new TextDecoder();
+        // const Encoder = new TextEncoder();
+        // const Decoder = new TextDecoder();
         JSON.parse($th_chatHistory).forEach(element => {
-            if ($th_id == element["USER_ID"]) {
+            if ($th_id == element["USER_ID"]&&$th_post_id==element["CHATROOM_ID"]) {
                 //div태그 생성
                 let div = document.createElement('div');
                 //div태그에 chat_myTextBox 클래스 부여
@@ -27,7 +27,7 @@
                 $chat_msgArea.append(div);
                 //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
                 $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
-            } else {
+            } else if($th_post_id==element["CHATROOM_ID"]) {
                 //div태그 생성
                 let div = document.createElement('div');
                 //div태그에 chat_targetTextBox 클래스 부여
@@ -72,31 +72,15 @@
             }
 
         })
-        // 실행할 기능을 정의해주세요.
         let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
 
 
 
-
-        // 버튼 클릭 이벤트 설정
-        // let exitButton = document.getElementById("button-exit");
-        // exitButton.addEventListener("click", function (e) {
-        //     disconnect();
-        // });
-        // let joinButton = document.getElementById("button-join");
-        // joinButton.addEventListener("click", function (e) {
-        //     join();
-        // });
-        // function join(){
-        //     if(chat_check==false){
-            websocket = new SockJS("https://wearvillage.store/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
+            websocket = new SockJS("http://localhost:8090/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
             websocket.onmessage = onMessage;
             websocket.onopen = onOpen;
             websocket.onclose = onClose;
             chat_check=true;
-        // }
-            
-        // }
 
         let sendButton = document.getElementById("button-send");
         sendButton.addEventListener("click", function (e) {
