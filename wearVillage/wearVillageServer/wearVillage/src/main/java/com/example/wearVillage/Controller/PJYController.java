@@ -128,7 +128,7 @@ public class PJYController {
     @GetMapping("/delete/viewPost2")
     public String deleteById(@RequestParam Long id){
         int deletedRow = deleteSVC.deleteById(id);
-        log.info("요청보냄. id={}",id);
+        log.info("삭제요청보냄 id={}",id);
         return "redirect:/posts";
     }
 
