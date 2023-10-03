@@ -9,6 +9,7 @@ import java.util.Map;
 import com.example.wearVillage.DeleteEvent.DeleteSVC;
 import com.example.wearVillage.DTO.GmailDto;
 import com.example.wearVillage.Service.EmailService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -117,12 +118,29 @@ public class PJYController {
 
     @ResponseBody
     @PostMapping("/mail/send")
-    public String sendMail(GmailDto gmailDto){
-        emailService.sendSimpleMessage(gmailDto);
-        System.out.println("완료");
+    public String sendMail(HttpSession session, GmailDto gmailDto){
+        int gmailAuthCode = emailService.sendSimpleMessage(gmailDto,session);
+        session.setAttribute("gmailAuthCode",gmailAuthCode);
+        log.info("메일 송신 완료, 번호={}",gmailAuthCode);
         return "memberjoin.html";
     }
 
+    @ResponseBody
+    @PostMapping("/verify")
+    public Map<String, Boolean> verify(HttpSession session, @RequestBody Map<String, String> payload){
+        Integer sessionAuthCode = (Integer) session.getAttribute("authCode");
+
+        Map<String, Boolean> response = new HashMap<>();
+
+        if(sessionAuthCode != null && sessionAuthCode.equals(Integer.parseInt(payload.get("authCode")))){
+            log.info("메일 인증 성공");
+            response.put("success",true);
+        } else {
+            log.info("메일 인증 실패");
+            response.put("success",false);
+        }
+        return response;
+    }
 //    삭제
 
     @GetMapping("/delete/viewPost2")

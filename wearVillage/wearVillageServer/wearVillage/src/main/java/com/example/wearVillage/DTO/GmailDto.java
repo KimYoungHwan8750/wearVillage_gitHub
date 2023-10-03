@@ -1,6 +1,6 @@
 package com.example.wearVillage.DTO;
 
-import lombok.Getter;
+import  lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 

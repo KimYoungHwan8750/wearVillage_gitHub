@@ -136,9 +136,32 @@
                         </form>
                         <div class="memberjoin_dp_main">
                             <div class="memberjoin_input">
-                                <input type="text" class="memberjoin_bar" id="pin" placeholder=''>
-                                <label class="memberjoin_ex" for="pin">인증번호</label>
+                                <input type="text" class="memberjoin_bar" id="authCodeBar" placeholder=''>
+                                <label class="memberjoin_ex" for="authCodeBar">인증번호</label>
                                 <input id="timer" type="text" value="3" style="display: none;"/>
+                                <button id="submitBtn" value="인증하기">인증하기</button>
+                                <script>
+                                    const $submitBtn = document.getElementById('submitBtn');
+                                    $submitBtn.addEventListener('click',()=>{
+                                        let authCode = document.getElementById("authCodeBar").value;
+                                        fetch('/verify',{
+                                            method:'POST',
+                                            headers:{
+                                                'Content-Type' : 'application/json'
+                                            },
+                                            body : JSON.stringify({authCode:authCode})
+                                        })
+                                        .then(res=>res.json())
+                                            .then(data=>{
+                                                if(data.success){
+                                                    alert("인증성공");
+                                                }else{
+                                                    alert("인증실패");
+                                                }
+                                            })
+                                    })
+                                </script>
+
                             </div>
                         </div>
                         <br>
