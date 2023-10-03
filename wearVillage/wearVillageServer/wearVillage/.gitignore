@@ -1,3 +1,6 @@
+### application.properties ###
+# application.properties
+
 HELP.md
 .gradle
 build/
@@ -36,5 +39,5 @@ out/
 ### VS Code ###
 .vscode/
 
-## 개인정보들
-application.properties
+application-api-key.properties
+application-smtp.properties

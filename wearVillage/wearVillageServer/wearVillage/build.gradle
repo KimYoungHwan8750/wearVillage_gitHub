@@ -26,6 +26,10 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.jetbrains:annotations:24.0.0'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+  annotationProcessor 'org.projectlombok:lombok:1.18.22'
+  testCompileOnly 'org.projectlombok:lombok:1.18.22'
+  testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.webjars:sockjs-client:1.1.2'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -52,16 +56,13 @@ dependencies {
 	implementation 'com.sun.xml.bind:jaxb-core:2.3.0'
 	implementation 'com.sun.xml.bind:jaxb-impl:2.3.3'
 	implementation 'javax.activation:activation:1.1.1'
-	compileOnly 'org.projectlombok:lombok:1.18.22'
-	annotationProcessor 'org.projectlombok:lombok:1.18.22'
-	testCompileOnly 'org.projectlombok:lombok:1.18.22'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-devtools'
 }
 
 jar {
 	manifest {
-		attributes 'Main-Class': 'com.example.wearVillage.WearVillageApplication'
+		attributes 'Main-Class': 'com.example.wearVillage.wearVillageApplication'
 	}
 }
 

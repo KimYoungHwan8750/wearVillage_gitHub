@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="img/index/옷빌리지빨강 수정.png">
@@ -62,7 +63,8 @@
                                 상세 정보를 입력하세요.
                             </div>
                             <div class="memberjoin_frofile_input">
-                                <input name="uploadFile" type="file" id="profile_picture" accept="image/*">                                <label for="profile_picture">
+                                <input name="uploadFile" type="file" id="profile_picture" accept="image/*">
+                                <label for="profile_picture">
                                     <img src="img/기본프사.jpg" alt="" id="preview_image">
                                 </label>
                                 프로필 사진
@@ -117,14 +119,26 @@
                                     <label class="memberjoin_ex" for="email">이메일</label>
                                 </div>
                         </div>
+                        <form id='mail_form' th:action="@{/mail/send}" method="post">
                         <div class="memberjoin_email_check">
-                        <p class="memberjoin_info" id="email_text">이메일을 입력하세요.</p>
-                        <button class="memberjoin_check_btn" id="email_check_btn">인증번호 발송</button>
+                        <p class="memberjoin_info" id="email_text" name="address2">이메일을 입력하세요.</p>
+                        <input type="text" id="email_text2" name="address" value="" style="display:none;">
+                            <textarea name="title" style="display:none;"></textarea>
+                            <textarea name="content" style="display:none;"></textarea>
+                            <script>
+                                document.querySelector('#email_box').addEventListener('change',(e)=>{
+                                    document.querySelector('#email_text2').value=e.target.value
+                                })
+                            </script>
+
+                        <button type="submit" class="memberjoin_check_btn" id="email_check_btn">인증번호 발송</button>
                         </div>
+                        </form>
                         <div class="memberjoin_dp_main">
                             <div class="memberjoin_input">
                                 <input type="text" class="memberjoin_bar" id="pin" placeholder=''>
                                 <label class="memberjoin_ex" for="pin">인증번호</label>
+                                <input id="timer" type="text" value="3" style="display: none;"/>
                             </div>
                         </div>
                         <br>
@@ -138,6 +152,49 @@
                                 완료
                             </button>
                         </div>
+                        
+                        <script>
+                            const $Timer=document.getElementById("timer");
+                            let time = 60000;
+                            let min=1;
+                            let sec=60;
+
+                            $Timer.value=min+":"+'00';
+                            function TIMER(){
+                                PLAYTIME=setInterval(function(){
+                                    time=time-1000;
+                                    min=time/(60*1000);
+                                    if (sec>0){
+                                        sec=sec-1;
+                                        $Timer.value=Math.floor(min)+":"+sec;
+                                    }
+                                    if(sec===0){
+                                        sec=60;
+                                        $Timer.value=floor(min)+":"+'00'
+                                    }
+                                },1000);
+                            }
+                            const form = document.getElementById('mail_form');
+                            form.addEventListener('submit',(e)=>{
+                                e.preventDefault();
+
+                            const payload = new FormData(form)
+                            fetch('/mail/send',{
+                                method:'POST',
+                                body:payload,
+                            })
+                            .then(res=>res.json())
+                            .then(json => console.log(json));
+
+                            $Timer.style.display="block";
+                            TIMER();
+                            setTimeout(function(){
+                                clearInterval(PLAYTIME);
+                            },60000);
+                            
+                            });
+
+                        </script>
                         <p class="memberjoin_error" id="memberjoin_nextbtn_error3"></p>
         
                     </div>
@@ -145,8 +202,7 @@
             </div>
         </div>
     </div>
-        <script lang="javascript" src="js/forbiddenwords.js"></script>
-        <script layout:fragment="javascript" src="js/memberjoin.js"></script>
+        <script layout:fragment="javascript" rel="stylesheet" src="js/memberjoin.js"></script>
     </div>
 </body>
 

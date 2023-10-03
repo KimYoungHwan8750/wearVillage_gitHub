@@ -32,18 +32,26 @@
                 /></span>
                 <div class="post_writer_container2">
                   <span th:text="${post.postWriterId}"></span>
-                  <form th:object ="${post}" class = "postFormData" action="chat" method= "post" style = "display: none;">
-                    <input th:field="*{postWriterId}">
-                    <input th:field="*{postSubtitle}">
-                    <input th:field="*{postPrice}">
-                    <input th:field="*{postRentDefaultPrice}">
-                    <input th:field="*{postRentDayPrice}">
-                    <input name = "myId">
-                    <button class="submit_btn"></button>
-                  </form>
-                  <button class="postDetail_chat_button" onclick="goChat()">채팅하기</button>
+                  <form action="" method="get" th:object="${post}">
+                  <input type="text" id="postId" name="postId" hidden th:value="${post.postId}">
+                  <button class="postDetail_chat_button">채팅하기</button>
+                    <input type="button" value="삭제하기" id="postDetail2_btnDelete" th:data-post-id="${post.postId}"/>
 
+                  </form>
                 </div>
+                <script>
+                  const $delete_button = document.getElementById('postDetail2_btnDelete');
+                  $delete_button.addEventListener('click',(e)=>{
+                    const postId = e.target.dataset.postId;
+                    if(confirm("정말 삭제하시겠습니까?") == true){
+                      alert("삭제하겠습니다.");
+                      globalThis.location.href=`/delete/viewPost2?id=${postId}`;
+                    }
+                    else{
+                      return;
+                    }
+                  })
+                </script>
               </div>
               <!-- <div><span th:text="${post.postWriterId}">김영환바보</span></div>
               <button class="postDetail_chat_button">채팅하기</button> -->
@@ -88,31 +96,8 @@
             <div class="post_text" th:utext="${post.postText}">
             </div>
           </div>
-          <script th:object="${post}">
-            let $postWriterId = "[[${post.postSubtitle}]]";
-            let $postId = "[[${post.postId}]]";
-          </script>
           <script>
-            const $submit_btn = document.querySelector(".submit_btn");
-            const $postDetail_chat_button = document.querySelector(".postDetail_chat_button");
-            const $postFormData = document.querySelector(".postFormData");
-            
-            async function goChat(){
-              let goChat_firstStep = await fetch("/userInfo",{method:"post"});
-              goChat_firstStep.json().then(res=>{         
-                console.log(res+"res히힛");     
-                if(res!=''){
-                console.log("있음");
-              } else {
-                if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
-                  location.href="/login";
-                } else {
-
-                }
-              }})
-
-            }
-
+            let $th_post = "[[${post}]]";
             window.onload = function () {
               const $maps3 = document.getElementById('maps3_container');
               $maps3.innerHTML =

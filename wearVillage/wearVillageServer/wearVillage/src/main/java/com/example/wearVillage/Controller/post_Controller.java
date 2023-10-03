@@ -199,7 +199,7 @@ public class post_Controller {
         //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
         //
         ResponseEntity<byte[]> result = null;
-
+        
         try {
             HttpHeaders header = new HttpHeaders();
             header.add("Content-type", Files.probeContentType(file.toPath()));

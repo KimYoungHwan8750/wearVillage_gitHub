@@ -6,31 +6,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.wearVillage.DeleteEvent.DeleteSVC;
+import com.example.wearVillage.DTO.GmailDto;
+import com.example.wearVillage.Service.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.PostData;
-
+@Slf4j
 @org.springframework.stereotype.Controller
 //@RequiredArgsConstructor
 
 public class PJYController {
 
     private final JdbcTemplate jdbcTemplate;
-
-
-    @Autowired
-    public PJYController(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private final EmailService emailService;
+    private final DeleteSVC deleteSVC;
 
     @GetMapping("/posts")
     public ModelAndView listPosts(@RequestParam(defaultValue = "0") int page,
@@ -102,4 +100,37 @@ public class PJYController {
 
         return modelAndView;
     }
+
+
+
+
+    public PJYController(EmailService emailService, JdbcTemplate jdbcTemplate, DeleteSVC deleteSVC) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.emailService = emailService;
+        this.deleteSVC = deleteSVC;
+    }
+    
+    @GetMapping("/mail/send")
+    public String mail(){
+        return "memberjoin.html";
+    }
+
+    @ResponseBody
+    @PostMapping("/mail/send")
+    public String sendMail(GmailDto gmailDto){
+        emailService.sendSimpleMessage(gmailDto);
+        System.out.println("완료");
+        return "memberjoin.html";
+    }
+
+//    삭제
+
+    @GetMapping("/delete/viewPost2")
+    public String deleteById(@RequestParam Long id){
+        int deletedRow = deleteSVC.deleteById(id);
+        log.info("요청보냄. id={}",id);
+        return "redirect:/posts";
+    }
+
+
 }
