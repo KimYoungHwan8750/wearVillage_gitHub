@@ -5,8 +5,8 @@ const $headerTest = document.querySelector('.headerTest');
 const $footer_login = document.querySelector('.footer_login.footer_bottom_sub');
 let user_status=null;
 
-fetch("/userInfo", ).then(res=>
-        res.json()
+fetch("/userInfo",{method:'POST'}).then(res=>
+        res.json())
         .then(
             res=>{
                 if(res!=null){
@@ -34,7 +34,7 @@ fetch("/userInfo", ).then(res=>
                     $footer_login.innerText = "로그인";
                 }
             }
-        ))
+        )
         .catch((err)=>{
         $header_login_link.setAttribute("href","/login");
         $header_login_text.innerText = "로그인";

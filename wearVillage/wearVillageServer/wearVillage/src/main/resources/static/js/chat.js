@@ -3,8 +3,8 @@
         const $msg = document.getElementById('msg');
         const $chat_midContent = document.querySelector('.chat_midContent');
         const $button_send = document.getElementById('button-send');
-        const Encoder = new TextEncoder();
-        const Decoder = new TextDecoder();
+        // const Encoder = new TextEncoder();
+        // const Decoder = new TextDecoder();
         JSON.parse($th_chatHistory).forEach(element => {
             if ($th_id == element["USER_ID"]&&$th_post_id==element["CHATROOM_ID"]) {
                 //div태그 생성

@@ -7,6 +7,7 @@ import com.example.wearVillage.Entity.USER_INFO;
 import com.example.wearVillage.Repository.Repository_USER_INFO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class KYHController {
     private final Repository_USER_INFO rep_user_info;
 
@@ -36,12 +38,23 @@ public class KYHController {
     }
 
     @PostMapping(value = "/chat")
-    public String chat(Model model, @RequestParam String id, @RequestParam String target_id, @RequestParam String post_id) {
-        model.addAttribute("id", id);
-        model.addAttribute("target_id", target_id);
-        model.addAttribute("post_id", post_id);
-        List<Map<String, Object>> chatHistory = userDAO.oracle_to_userChat(id, post_id);
-        model.addAttribute("chat_history", chatHistory);
+    public String chat(Model model,
+                       @RequestParam String postSubtitle,
+                       @RequestParam String postWriterId,
+                       @RequestParam String postPrice,
+                       @RequestParam String postRentDefaultPrice,
+                       @RequestParam String postRentDayPrice,
+                       @RequestParam String myId) {
+
+        model.addAttribute("postSubtitle",postSubtitle);
+        model.addAttribute("postWriterId",postWriterId);
+        model.addAttribute("postPrice",postPrice);
+        model.addAttribute("postRentDefaultPirce",postRentDefaultPrice);
+        model.addAttribute("postRentDayPrice",postRentDayPrice);
+        model.addAttribute("myId",myId);
+        System.out.println(postSubtitle+"섭타이틀");
+//        List<Map<String, Object>> chatHistory = userDAO.oracle_to_userChat(id, post_id);
+//        model.addAttribute("chat_history", chatHistory);
         return "chat.html";
     }
 
@@ -52,16 +65,18 @@ public class KYHController {
         return "chatroom.html";
     }
     @GetMapping(value = "/chatroom")
-    public String getchatroom(){
+    public String getchatroom(HttpServletRequest request){
+        log.info(request.getContextPath());
 
         return "chatroom.html";
     }
 
     @ResponseBody
-    @GetMapping(value = "/userInfo")
+    @PostMapping(value = "/userInfo")
     public List<USER_INFO> userId(HttpSession session) throws IndexOutOfBoundsException{
         try {
             String email = (String) session.getAttribute("email");
+            log.info(email);
             return rep_user_info.findByEMAIL(email);
 
         } catch (Exception e) {

@@ -7,21 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
-      async function test(){
-        const user = await fetch("https://koreanjson.com/users");
-        const test = user.json();
-        console.log(test);
-      }
-      
-      function test1(){
-        let url = "https://koreanjson.com/"
-        let url2 = "users"
-        let totalUrl = url+url2;
-        fetch(totalUrl).then(res=>console.log(res))
-      }
-      test1();  
-
+  폼외부내용1<form id ="form" name="폼태그네임" value="폼태그밸류" class="폼태그클래스1 폼태그클래스2">
+    <div id ="inner_div">디브내용</div>
+    폼태그내부 내용</form>폼외부내용2
+<button id="test" value="gd2">gd</button>
+<script>
+if(confirm("로그인창으로 이동합니다.")){
+  location.href="/login";
+} else {
+  
+}
 </script>
+
 </body>
 </html>

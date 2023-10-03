@@ -30,7 +30,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 //        System.out.println("메세지:" + message);
         String payload = message.getPayload();
-        JSONObject jsonPayload = new JSONObject(payload);
+//        JSONObject jsonPayload = new JSONObject(payload);
         System.out.println("메세지: "+payload);
         String[] chat_formData = payload.split("'wearCutLines'");
 //        System.out.println("챗오라클확인1");
