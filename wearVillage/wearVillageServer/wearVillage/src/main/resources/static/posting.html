@@ -736,6 +736,7 @@
                     obj.uuid +
                     '_' +
                     obj.fileName;
+
                   filePath = encodeURIComponent(filePath);
 
                   // Insert uploaded image to the editor
@@ -792,12 +793,6 @@
       let fileInput = $('input[name="uploadFile"]');
       let fileList = fileInput[0].files;
       let fileObj = fileList[0];
-
-      console.log('filelist :' + fileList);
-      console.log('fileObj: ' + fileObj);
-      console.log('fileName : ' + fileObj.name);
-      console.log('fileSize : ' + fileObj.size);
-      console.log('fileType(MimeType) : ' + fileObj.type);
       let fileName = fileObj.name;
       let fileSize = fileObj.size;
       let fileType = fileObj.type;
