@@ -68,7 +68,7 @@ function create_user() {
   };
   if (
     id_check() &&
-    pw_check() &&
+    pw_check1() &&
     nickname_check() &&
     email_check() &&
     duplicate_check == true
@@ -77,7 +77,7 @@ function create_user() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataForm),
-    }).then(res=>res.text()).then(res=>res=='ok'?location.href="/":alert("알 수 없는 오류"));
+    }).then(res=>res.text()).then(res=>res=='ok'?location.href='/':alert("회원가입에 실패했습니다.\n자세한 사항은 고객센터에 문의해주세요."));
   }
 };
 //   function create_user() {
@@ -402,6 +402,9 @@ function birth_check() {
     } else {
       memberjoin_birth_error.textContent = '올바른 날짜를 입력하세요.'; // 입력 필드를 비웁니다.
       nextpage4 = 0;
+    }
+    if(memberjoin_birth_error.textContent != '올바른 날짜를 입력하세요.'){
+      return true;
     }
   }
 }

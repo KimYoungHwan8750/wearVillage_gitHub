@@ -85,9 +85,11 @@ public class KYHController {
     }
 
     @PostMapping(value = "/finished_signUp")
+    @ResponseBody
     public String signup(@RequestBody USER_INFO user_info) throws Exception {
         try {
             rep_user_info.save(user_info);
+            System.out.println("응답 받음"+user_info.toString());
             return "ok";
         }
         catch (Exception e){
