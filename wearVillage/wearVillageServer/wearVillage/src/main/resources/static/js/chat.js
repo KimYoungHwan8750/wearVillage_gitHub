@@ -114,10 +114,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         });
 
         function send() {
-            let senderId=null;
-            let addresseeId=null;
-            let chatMessage=null;
-            let postId = null;
+
             let sendMessage={
                 "sender":$th_sender,
                 "addressee":$th_addressee,
@@ -154,12 +151,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         let chat_typing_time = am_or_pm+" " +chat_hours+":"+chat_minute;
 
             websocket.send(
-                $th_id + "'wearCutLines'" + 
-                $th_target_id + "'wearCutLines'" + 
-                $msg.value + "'wearCutLines'" + 
-                $th_chat_theme + "'wearCutLines'" + 
-                chat_typing_time + "'wearCutLines'" +
-                $th_post_id
+               JSON.stringify(sendMessage)
                 );
                 console.log("테스트확인:"+$th_id+"//"+$th_target_id+"//"+$th_post_id)
             
