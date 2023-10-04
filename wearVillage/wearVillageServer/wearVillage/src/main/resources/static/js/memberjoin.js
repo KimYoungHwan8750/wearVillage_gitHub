@@ -499,7 +499,7 @@ document
       let str = '';
       let fileCallPath =
         obj.uploadPath.replace(/\\/g, '/') +
-        '/_' +
+        '/' +
         obj.uuid +
         '_' +
         obj.fileName;
