@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>View Post</title>
-    <link rel="stylesheet" href="css/postDetail2.css" />
-  </head>
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/default}">
+
+
   <body>
+    <div layout:fragment="content">
+      <link rel="stylesheet" href="css/postDetail2.css" />
+
     <div class="postDetail_super_container">
       <div class="postDetail_container">
         <div class="thumb_nail_container">
@@ -28,16 +31,20 @@
             <div class="writerId">
               <div class="post_writer_container1">
                 <span class="post_writer_img"
-                  ><img src="./img/bikini.png" alt=""
+                  ><img th:src="${profileimg}" alt=""
                 /></span>
                 <div class="post_writer_container2">
                   <span th:text="${post.postWriterId}"></span>
                   <form th:object ="${post}" class = "postFormData" action="/chat" method= "post" style = "display: none;">
                     <input th:field="*{postWriterId}">
+                    <input th:field="*{postId}">
                     <input th:field="*{postSubtitle}">
                     <input th:field="*{postPrice}">
                     <input th:field="*{postRentDefaultPrice}">
                     <input th:field="*{postRentDayPrice}">
+                    <input th:field="*{postMapInfo}">
+                    <input name = "theme">
+                    <input name = "postThumbnailUrl">
                     <input name = "myId">
                     <!-- <button class="submit_btn"></button> -->
                   </form>
@@ -117,18 +124,27 @@
             const $postFormData = document.querySelector(".postFormData");
 
             async function goChat(){
+              const thumbnailUrl = document.querySelector('input[name="postThumbnailUrl"]');
+              const myId = document.querySelector('input[name="myId"]');
+              const theme = document.querySelector('input[name="theme"]');
+              theme.value = user_status['theme'];
+              thumbnailUrl.value=imageElements[0].src;
+              myId.value=user_status['nickname'];
               let goChat_firstStep = await fetch("/userInfo",{method:"post"});
-              goChat_firstStep.json().then(res=>{         
-                console.log(res+"res히힛");     
-                if(res!=''){
-                $postFormData.submit();
-              } else {
-                if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
-                  location.href="/login";
-                } else {
+              goChat_firstStep.json().then(res=>
+              $postFormData.submit()
+              )
 
-                }
-              }})
+              // {         
+                // if(res!=''){
+              // } else {
+              //   if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
+              //     location.href="/login";
+              //   } else {
+
+              //   }
+              // }}
+              
 
             }</script>
           <script>
@@ -166,7 +182,6 @@
     </div> -->
 
     <a href="/main">메인화면으로</a>
-  </body>
   <script th:inline="javascript">
     let imageUrls = [];
     let postTextElement = document.createElement('div');
@@ -232,4 +247,7 @@
           imageElements[2].src;
       });
   </script>
+  </div>
+</body>
+
 </html>

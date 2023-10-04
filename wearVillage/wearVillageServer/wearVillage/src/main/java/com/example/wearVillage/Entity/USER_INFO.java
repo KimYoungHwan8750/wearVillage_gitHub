@@ -35,12 +35,14 @@ public class USER_INFO {
     @Override
     public String toString(){
         return
-                ID + "구분" +
-                        PW + "구분" +
-                        EMAIL + "구분" +
-                        NICKNAME + "구분" +
-                        PROFILEIMG + "구분" +
-                        GENDER + "구분";
+                "아이디="+ ID +
+                "비밀번호="+ PW +
+                "이메일" +EMAIL +
+                "닉네임" +NICKNAME +
+                "프로필사진" +PROFILEIMG +
+                "성별" +GENDER +
+                "생일"+BIRTH+
+                "테마"+THEME;
     }
 
 

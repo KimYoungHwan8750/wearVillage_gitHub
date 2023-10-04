@@ -199,7 +199,23 @@ public class post_Controller {
         //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
         //
         ResponseEntity<byte[]> result = null;
-        
+
+        try {
+            HttpHeaders header = new HttpHeaders();
+            header.add("Content-type", Files.probeContentType(file.toPath()));
+            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    @GetMapping("/profileimg")
+    public ResponseEntity<byte[]> getProfileImage(String fileName) {
+        File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/profileimage/") + fileName);
+        //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
+        //
+        ResponseEntity<byte[]> result = null;
+
         try {
             HttpHeaders header = new HttpHeaders();
             header.add("Content-type", Files.probeContentType(file.toPath()));

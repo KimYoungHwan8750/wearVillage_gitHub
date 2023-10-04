@@ -33,29 +33,39 @@ public class KYHController {
 
     @GetMapping(value ="/logout")
     public String logout(HttpSession session){
-        session.removeAttribute("email");
+        log.info((String) session.getAttribute("nickname")+"님이 로그아웃하셨습니다.");
+        session.invalidate();
         return "redirect:/";
     }
 
     @PostMapping(value = "/chat")
     public String chat(Model model,
+                        HttpSession session,
                        @RequestParam String postSubtitle,
                        @RequestParam String postWriterId,
                        @RequestParam String postPrice,
                        @RequestParam String postRentDefaultPrice,
                        @RequestParam String postRentDayPrice,
-                       @RequestParam String myId) {
-
-        model.addAttribute("postSubtitle",postSubtitle);
-        model.addAttribute("postWriterId",postWriterId);
-        model.addAttribute("postPrice",postPrice);
-        model.addAttribute("postRentDefaultPirce",postRentDefaultPrice);
-        model.addAttribute("postRentDayPrice",postRentDayPrice);
-        model.addAttribute("myId",myId);
-        System.out.println(postSubtitle+"섭타이틀");
+                       @RequestParam String postThumbnailUrl,
+                       @RequestParam String postMapInfo,
+                       @RequestParam String postId) {
+        if(session.getAttribute("email")!=null) {
+            model.addAttribute("postSubtitle", postSubtitle);
+            model.addAttribute("postWriterId", postWriterId);
+            model.addAttribute("postPrice", postPrice);
+            model.addAttribute("postRentDefaultPrice", postRentDefaultPrice);
+            model.addAttribute("postRentDayPrice", postRentDayPrice);
+            model.addAttribute("postThumbnailUrl", postThumbnailUrl);
+            model.addAttribute("postMapInfo", postMapInfo);
+            model.addAttribute("postId", postId);
+            model.addAttribute("myId", session.getAttribute("nickname"));
+            model.addAttribute("theme", session.getAttribute("theme"));
 //        List<Map<String, Object>> chatHistory = userDAO.oracle_to_userChat(id, post_id);
 //        model.addAttribute("chat_history", chatHistory);
-        return "chat.html";
+            return "chat.html";
+        } else {
+            return "redirect:/login";
+        }
     }
 
     @PostMapping(value = "/chatroom")
@@ -66,8 +76,6 @@ public class KYHController {
     }
     @GetMapping(value = "/chatroom")
     public String getchatroom(HttpServletRequest request){
-        log.info(request.getContextPath());
-
         return "chatroom.html";
     }
 
@@ -76,7 +84,6 @@ public class KYHController {
     public List<USER_INFO> userId(HttpSession session) throws IndexOutOfBoundsException{
         try {
             String email = (String) session.getAttribute("email");
-            log.info(email);
             return rep_user_info.findByEMAIL(email);
 
         } catch (Exception e) {
@@ -89,7 +96,7 @@ public class KYHController {
     public String signup(@RequestBody USER_INFO user_info) throws Exception {
         try {
             rep_user_info.save(user_info);
-            System.out.println("응답 받음"+user_info.toString());
+            System.out.println("사용자 회원가입 : "+user_info.toString());
             return "ok";
         }
         catch (Exception e){

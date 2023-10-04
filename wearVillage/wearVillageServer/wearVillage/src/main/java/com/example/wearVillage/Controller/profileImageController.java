@@ -25,7 +25,7 @@ import com.example.wearVillage.status.local_or_server;
 @org.springframework.stereotype.Controller
 public class profileImageController {
 
-    @PostMapping(value="/uploadProfileImage", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value="/uploadProfileImage", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadProfileImage(MultipartFile uploadFile) {
 
         File checkfile = new File(uploadFile.getOriginalFilename());
@@ -58,7 +58,7 @@ public class profileImageController {
             uploadPath.mkdirs();
         }
         // 이미지 정보를 담는 객체
-        List<AttachImageVO> list = new ArrayList();
+        List<AttachImageVO> list = new ArrayList<>();
 
         AttachImageVO vo = new AttachImageVO();
 

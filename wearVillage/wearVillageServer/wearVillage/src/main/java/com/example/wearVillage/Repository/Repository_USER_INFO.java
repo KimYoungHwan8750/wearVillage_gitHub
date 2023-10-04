@@ -12,6 +12,7 @@ public interface Repository_USER_INFO extends JpaRepository <USER_INFO, String> 
 
     List<USER_INFO> findByID(String ID);
     List<USER_INFO> findByEMAIL(String EMAIL);
+    USER_INFO findByNICKNAME(String nickname);
 
     Boolean existsByEMAIL(String EMAIL);
     List<USER_INFO> findByIDAndPW(String ID, String PW);

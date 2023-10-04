@@ -1,4 +1,30 @@
         let chat_check = false;
+        let user_status=null;
+fetch("/userInfo",{method:'POST'}).then(res=>
+    res.json())
+    .then(
+        res=>{
+            if(res!=null){
+                user_status = {
+                    id:res[0]["ID"],
+                    pw:res[0]["PW"],
+                    nickname:res[0]["NICKNAME"],
+                    email:res[0]["EMAIL"],
+                    profileimg:res[0]["PROFILEIMG"],
+                    gender:res[0]["GENDER"],
+                    theme:res[0]["THEME"],
+                    birth:res[0]["BIRTH"]
+                };
+
+            } else{
+            }
+        }
+    )
+    .catch((err)=>{
+        alert("서버에 오류가 발생했습니다. 자세한 사항은 고객 센터에 문의해주세요.\n 오류 내용:"+err)
+    })
+
+
         const $chat_msgArea = document.querySelector(".chat_msgArea");
         const $msg = document.getElementById('msg');
         const $chat_midContent = document.querySelector('.chat_midContent');
@@ -88,6 +114,17 @@
         });
 
         function send() {
+            let senderId=null;
+            let addresseeId=null;
+            let chatMessage=null;
+            let postId = null;
+            let sendMessage={
+                "sender":$th_sender,
+                "addressee":$th_addressee,
+                "message":$msg.value,
+                "chatroom":$th_post
+            }
+            let chatform
             let am_or_pm=null;
             let chat_hours=null;
             let chat_minute=null;
