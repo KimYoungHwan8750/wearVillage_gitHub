@@ -63,7 +63,7 @@ function create_user() {
     "GENDER": gendercheck(),
     "BIRTH": inputbirth.value,
     "NICKNAME": nickname_box.value,
-    "PROFILEIMG": "",
+    "PROFILEIMG": fileCallPath,
     "THEME": gendercheck(),
   };
 
