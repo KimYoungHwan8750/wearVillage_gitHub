@@ -150,7 +150,7 @@
                             <div class="memberjoin_input">
                                 <input type="text" class="memberjoin_bar" id="authCodeBar" placeholder=''>
                                 <label class="memberjoin_ex" for="authCodeBar">인증번호</label>
-                                <input id="timer" type="text" value="3" style="display: none;"/>
+                                <input id="timer" type="text" value="3" style="display: none; "/>
                                 <button id="submitBtn" class = "wearVillageBtn" value="인증하기">인증하기</button>
                                 <script>
                                     const $submitBtn = document.getElementById('submitBtn');
@@ -166,6 +166,7 @@
                                         .then(res=>res.json())
                                             .then(data=>{
                                                 if(data.success){
+                                                email_check_flag = true;
                                                     alert("인증성공");
                                                 }else{
                                                     alert("인증실패");
@@ -188,21 +189,22 @@
                         <script>
                             const $Timer=document.getElementById("timer");
                             let time = 60000;
-                            let min=1;
-                            let sec=60;
+                            let sec = 60;
 
-                            $Timer.value=min+":"+'00';
+                            $Timer.value=sec+'s';
                             function TIMER(){
                                 PLAYTIME=setInterval(function(){
                                     time=time-1000;
-                                    min=time/(60*1000);
                                     if (sec>0){
                                         sec=sec-1;
-                                        $Timer.value=Math.floor(min)+":"+sec;
+                                        $Timer.value=sec+'s';
                                     }
                                     if(sec===0){
-                                        sec=60;
-                                        $Timer.value=floor(min)+":"+'00'
+                                        $Timer.value='인증시간만료'
+                                        $AuthCodeBar = document.getElementById('authCodeBar');
+                                    }
+                                    if(email_check_flag==true){
+                                        $Timer.value='인증완료'
                                     }
                                 },1000);
                             }
@@ -219,6 +221,7 @@
                             .then(json => console.log(json));
 
                             $Timer.style.display="block";
+                            sec = 60;
                             TIMER();
                             setTimeout(function(){
                                 clearInterval(PLAYTIME);

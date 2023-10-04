@@ -9,6 +9,7 @@ import java.util.Map;
 import com.example.wearVillage.DeleteEvent.DeleteSVC;
 import com.example.wearVillage.DTO.GmailDto;
 import com.example.wearVillage.Service.EmailService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -118,9 +119,10 @@ public class PJYController {
 
     @ResponseBody
     @PostMapping("/mail/send")
-    public String sendMail(HttpSession session, GmailDto gmailDto){
-        int gmailAuthCode = emailService.sendSimpleMessage(gmailDto,session);
+    public String sendMail(HttpSession session, GmailDto gmailDto) throws MessagingException {
+        int gmailAuthCode = emailService.sendMimeMessage(gmailDto,session);
         session.setAttribute("gmailAuthCode",gmailAuthCode);
+        session.setMaxInactiveInterval(1 * 60);
         log.info("메일 송신 완료, 번호={}",gmailAuthCode);
         return "memberjoin.html";
     }
