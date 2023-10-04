@@ -3,9 +3,33 @@
   padding: 0;
   overflow: hidden;
 }
- .memberjoin_container img {
+ .memberjoin_container .memberjoin_logo img {
    width: 20px;
    height: 20px;
+ }
+ .memberjoin_container img{
+  width: 10px;
+    height: 10px;
+ }
+ #create_user_nicknameImg1{
+  width: 10px;
+    height: 10px;
+ }
+ #create_user_nicknameImg2{
+  width: 10px;
+    height: 10px;
+ }
+ #create_user_nicknameImg3{
+  width: 10px;
+    height: 10px;
+ }
+ #create_user_nicknameImg4{
+  width: 10px;
+    height: 10px;
+ }
+ #create_user_nicknameImg5{
+  width: 10px;
+    height: 10px;
  }
  .shake {
    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
@@ -33,6 +57,10 @@
      transform: translate(3px, 0);
    }
  }
+ .pw_error{
+  font-size: 14px;
+  font-weight: bold;
+ }
 @media screen and (max-width: 768px) {
   .memberjoin_display_top {
 .memberjoin_container {
@@ -55,16 +83,16 @@
   }
 
   .memberjoin_dp1 {
-    padding: 40px;
+    padding: 20px;
 
   }
 
   .memberjoin_dp2 {
-    padding: 40px;
+    padding: 20px;
   }
 
   .memberjoin_dp3 {
-    padding: 40px;
+    padding: 20px;
   }
 
   .memberjoin_dp_main {
@@ -77,7 +105,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     font-weight: bold;
     font-size: 15px;
     gap: 2px;
@@ -201,16 +229,7 @@
   .memberjoin_check_btn {
     width: 100px;
     height: 25px;
-    border: none;
-    border-radius: 3px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: #fff;
-    background-color: rgb(236, 92, 92);
   }
-
   .memberjoin_check_btn:hover {
     cursor: pointer;
     background-color: rgb(214, 74, 74);
@@ -315,16 +334,37 @@
     }
   
     #preview_image {
-      width: 50px;
-      height: 50px;
+      width: 80px;
+      height: 80px;
       border-radius: 50px;
       margin: 10px;
-      outline: 1px solid black;
+      outline: 1px solid rgb(151, 151, 151);;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
     }
+    
+        .memberjoin_btn1 {
+          display: flex;
+          justify-content: end;
+          align-items: end;
+          margin-top: 30px;
+        }
+    
+        .memberjoin_btn2 {
+          display: flex;
+          justify-content: end;
+          align-items: end;
+          margin-top: 33px;
+        }
+    
+        .memberjoin_btn3 {
+          display: flex;
+          justify-content: end;
+          align-items: end;
+          margin-top: 155px;
+        }
 }
 }
 
@@ -341,6 +381,7 @@
 }
 
 .memberjoin_main {
+  position: relative;
   width: 460px;
   height: 500px;
   border-radius: 10px;
@@ -392,7 +433,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   font-weight: bold;
   font-size: 15px;
   gap: 2px;
@@ -518,33 +559,13 @@
 .memberjoin_check_btn{
   width: 100px;
     height: 25px;
-  border: none;
-    border-radius: 3px;
-    -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      color: #fff;
-    background-color: rgb(236, 92, 92);
 }
-.memberjoin_check_btn:hover {
-  cursor: pointer;
-  background-color: rgb(214, 74, 74);
-}
+
 .memberjoin_btn {
   width: 65px;
   height: 38px;
-  border: none;
   margin-top: 5px;
-  border-radius: 3px;
-  font-weight: bold;
   font-size: 14px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #fff;
-  background-color: rgb(236, 92, 92);
 }
 
 .memberjoin_btn:hover {
@@ -570,6 +591,10 @@
   font-size: 14px;
   font-weight: bold;
   color: rgba(180, 0, 0, 0.600);
+}
+#pw_error{
+  font-size: 14px;
+  font-weight: bold;
 }
   #pw_text2{
     font-size: 14px;
@@ -598,7 +623,7 @@
     color: rgba(180, 0, 0, 0.600);
 }
 .memberjoin_error{
-  margin-top: 5px;
+  /* margin-top: 5px; */
   text-align: end;
   font-size: 14px;
     font-weight: bold;
@@ -622,11 +647,27 @@
       height: 80px;
       border-radius: 50px;
       margin: 10px;
-      outline: 1px solid black;
+      outline: 1px solid rgb(151, 151, 151);
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
     }
-
+   .memberjoin_btn1{
+    display: flex;  
+    justify-content: end;
+    align-items: end;
+   }
+   .memberjoin_btn2{
+    display: flex;  
+    justify-content: end;
+    align-items: end;
+    margin-top: 3px;
+   }
+   .memberjoin_btn3{
+    display: flex;  
+    justify-content: end;
+    align-items: end;
+    margin-top: 125px;
+   }
    }}

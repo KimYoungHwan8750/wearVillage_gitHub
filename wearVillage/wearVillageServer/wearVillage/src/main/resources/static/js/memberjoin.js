@@ -46,7 +46,7 @@ let duplicate_check = false;
 
 //데이터 종합
 
-
+let profileimg;
 function gendercheck() {
   return document.querySelector('input[name="gender"]:checked').value;
 }
@@ -63,10 +63,9 @@ function create_user() {
     "GENDER": gendercheck(),
     "BIRTH": inputbirth.value,
     "NICKNAME": nickname_box.value,
-    "PROFILEIMG": fileCallPath,
+    "PROFILEIMG": profileimg,
     "THEME": gendercheck(),
   };
-
   if (
     id_check() &&
     pw_check() &&
@@ -78,9 +77,9 @@ function create_user() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataForm),
-    }).then(res => res.text().then((location.href = '/')));
+    }).then(res=>res.text()).then(res=>res=='ok'?location.href="/":alert("알 수 없는 오류"));
   }
-}
+};
 //   function create_user() {
 // if(nextpage2 == 0 || nextpage3 == 0 || nextpage4 == 0|| nextpage5 == 0 || nextpage6 == 0){
 //   all_error.textContent = "빈칸을 확인해주세요.";
@@ -147,50 +146,141 @@ function id_check() {
 }
 
 // 비밀번호 입력 필드에 이벤트 리스너를 추가합니다.
+pw_box.addEventListener('input', pw_check1);
 pw_box.addEventListener('input', pw_check);
-
 function pw_check() {
+        let pw_value_check = pw_box.value;
+        let hasUpperCase = /^(?=.*[A-Z]).*$/.test(pw_value_check);
+        let hasLowerCase = /^(?=.*[a-z]).*$/.test(pw_value_check);
+        let hasSpecialcase = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/.test(pw_value_check);
+        let hasnumbercase = /^(?=.*[0-9]).*$/.test(pw_value_check);
+        let haslengthcase = /^.{8,20}.*$/.test(pw_value_check);
+
+var imgElement1 = document.getElementById("create_user_nicknameImg1"); // 이미지 요소 가져오기
+var imgElement2 = document.getElementById("create_user_nicknameImg2"); // 이미지 요소 가져오기
+var imgElement3 = document.getElementById("create_user_nicknameImg3"); // 이미지 요소 가져오기
+var imgElement4 = document.getElementById("create_user_nicknameImg4"); // 이미지 요소 가져오기
+var imgElement5 = document.getElementById("create_user_nicknameImg5"); // 이미지 요소 가져오기
+imgElement1.style.width = "10px"; // 새로운 너비 설정
+imgElement1.style.height = "10px"; // 새로운 높이 설정
+imgElement2.style.width = "10px"; // 새로운 높이 설정
+imgElement2.style.height = "10px"; // 새로운 높이 설정
+imgElement3.style.width = "10px"; // 새로운 높이 설정
+imgElement3.style.height = "10px"; // 새로운 높이 설정
+imgElement4.style.width = "10px"; // 새로운 높이 설정
+imgElement4.style.height = "10px"; // 새로운 높이 설정
+imgElement5.style.width = "10px"; // 새로운 높이 설정
+imgElement5.style.height = "10px"; // 새로운 높이 설정
+        if (hasUpperCase) {
+          document.getElementById("uppercase_result").style.color = "rgba(0, 120, 0, 0.600)";
+          document.getElementById("uppercase_result").style.fontSize = "14px";
+          document.getElementById("uppercase_result").style.fontWeight = "bold";
+          document.getElementById("uppercase_result").innerText = " 대문자가 포함되어 있습니다.";
+          document.getElementById("create_user_nicknameImg1").setAttribute('src', 'img/img_v.png')
+          // 조건을 충족시 이미지변환
+        } else {
+          document.getElementById("uppercase_result").style.color = "rgba(180, 0, 0, 0.600)";
+          document.getElementById("uppercase_result").innerText = " 대문자를 포함해야 합니다.";
+          document.getElementById("create_user_nicknameImg1").setAttribute('src', 'img/img_x.png')
+          // 조건을 불충족시 이미지변환
+        }
+
+        if (hasLowerCase) {
+          document.getElementById("lowercase_result").style.color = "rgba(0, 120, 0, 0.600)";
+          document.getElementById("lowercase_result").style.fontSize = "14px";
+          document.getElementById("lowercase_result").style.fontWeight = "bold";
+          document.getElementById("lowercase_result").innerText = " 소문자가 포함되어 있습니다.";
+          document.getElementById("create_user_nicknameImg2").setAttribute('src', 'img/img_v.png')
+          // 조건을 충족시 이미지변환
+        } else {
+          document.getElementById("lowercase_result").style.color = "rgba(180, 0, 0, 0.600)";
+          document.getElementById("lowercase_result").innerText = " 소문자를 포함해야 합니다.";
+          document.getElementById("create_user_nicknameImg2").setAttribute('src', 'img/img_x.png')
+          // 조건을 불충족시 이미지변환
+
+        }
+        if (hasSpecialcase) {
+          document.getElementById("Specialcase_result").style.color = "rgba(0, 120, 0, 0.600)";
+          document.getElementById("Specialcase_result").style.fontSize = "14px";
+          document.getElementById("Specialcase_result").style.fontWeight = "bold";
+          document.getElementById("Specialcase_result").innerText = " 최소 1개의 특수문자를가 포함되어 있습니다.";
+          document.getElementById("create_user_nicknameImg3").setAttribute('src', 'img/img_v.png')
+          // 조건을 충족시 이미지변환
+        } else {
+          document.getElementById("Specialcase_result").style.color = "rgba(180, 0, 0, 0.600)";
+          document.getElementById("Specialcase_result").innerText = " 최소 1개의 특수문자를 포함해야 합니다.";
+          document.getElementById("create_user_nicknameImg3").setAttribute('src', 'img/img_x.png')
+          // 조건을 불충족시 이미지변환
+
+        }
+        if (hasnumbercase) {
+          document.getElementById("numbercase_result").style.color = "rgba(0, 120, 0, 0.600)";
+          document.getElementById("numbercase_result").style.fontSize = "14px";
+          document.getElementById("numbercase_result").style.fontWeight = "bold";
+          document.getElementById("numbercase_result").innerText = " 최소 1개의 숫자가 포함되어 있습니다.";
+          document.getElementById("create_user_nicknameImg4").setAttribute('src', 'img/img_v.png')
+          // 조건을 충족시 이미지변환
+        } else {
+          document.getElementById("numbercase_result").style.color = "rgba(180, 0, 0, 0.600)";
+          document.getElementById("numbercase_result").innerText = " 최소 1개의 숫자를 포함해야 합니다.";
+          document.getElementById("create_user_nicknameImg4").setAttribute('src', 'img/img_x.png')
+          // 조건을 불충족시 이미지변환
+        }
+        if (haslengthcase) {
+          document.getElementById("lengthcase_result").style.color = "rgba(0, 120, 0, 0.600)";
+          document.getElementById("lengthcase_result").style.fontSize = "14px";
+          document.getElementById("lengthcase_result").style.fontWeight = "bold";
+          document.getElementById("lengthcase_result").innerText = " 8자 이상 20자 이하로 작성되어 있습니다";
+          document.getElementById("create_user_nicknameImg5").setAttribute('src', 'img/img_v.png')
+          // 조건을 충족시 이미지변환
+        } else {
+          document.getElementById("lengthcase_result").style.color = "rgba(180, 0, 0, 0.600)";
+          document.getElementById("lengthcase_result").innerText = " 8자 이상 20자 이하로 작성해야 합니다.";
+          document.getElementById("create_user_nicknameImg5").setAttribute('src', 'img/img_x.png')
+          // 조건을 불충족시 이미지변환
+        }
+      }
+function pw_check1() {
   let pw_value_check = pw_box.value;
   let hasUpperCase = /^(?=.*[A-Z]).*$/.test(pw_value_check);
   let hasLowerCase = /^(?=.*[a-z]).*$/.test(pw_value_check);
-  let hasSpecialcase = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/.test(
-    pw_value_check,
-  );
+  let hasSpecialcase = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/.test(pw_value_check,);
   let hasnumbercase = /^(?=.*[0-9]).*$/.test(pw_value_check);
   let haslengthcase = /^.{8,20}.*$/.test(pw_value_check);
 
   if (pw_value_check == '') {
     pw_text2.textContent = '';
-    pw_text.textContent = '비밀번호를 입력하세요.';
     pw_text.style.color = "rgba(180, 0, 0, 0.600)";
+    pw_text.textContent = '암호를 입력하세요.';
+    nextpage2 = 0;
   } else if (!hasUpperCase) {
     pw_text2.textContent = '';
-    pw_text.textContent = '대문자가 없습니다.';
     pw_text.style.color = "rgba(180, 0, 0, 0.600)";
+    pw_text.textContent = '잘못된 암호입니다.';
     nextpage2 = 0;
   } else if (!hasLowerCase) {
     pw_text2.textContent = '';
-    pw_text.textContent = '소문자가 없습니다.';
     pw_text.style.color = "rgba(180, 0, 0, 0.600)";
+    pw_text.textContent = '잘못된 암호입니다.';
     nextpage2 = 0;
   } else if (!hasSpecialcase) {
     pw_text2.textContent = '';
-    pw_text.textContent = '특수문자가 없습니다.';
     pw_text.style.color = "rgba(180, 0, 0, 0.600)";
+    pw_text.textContent = '잘못된 암호입니다.';
     nextpage2 = 0;
   } else if (!hasnumbercase) {
     pw_text2.textContent = '';
-    pw_text.textContent = '숫자가 없습니다.';
     pw_text.style.color = "rgba(180, 0, 0, 0.600)";
+    pw_text.textContent = '잘못된 암호입니다.';
     nextpage2 = 0;
   } else if (!haslengthcase) {
     pw_text2.textContent = '';
-    pw_text.textContent = '8 ~ 20자 이하로 작성해야 합니다.';
     pw_text.style.color = "rgba(180, 0, 0, 0.600)";
+    pw_text.textContent = '잘못된 암호입니다.';
     nextpage2 = 0;
   } else {
     pw_text.textContent = '';
-    pw_text2.textContent = '사용 가능한 비밀번호';
+    pw_text2.textContent = '사용 가능한 암호입니다.';
     nextpage2 = 1;
     return true;
   }
@@ -386,7 +476,7 @@ const slider = document.querySelector('.full');
 
 // 각 버튼에 대한 클릭 이벤트 리스너를 따로 정의합니다.
 shakeButton1.addEventListener('click', function () {
-  if (currentSlide < 3 && nextpage2 == 1 && nextpage1 == 1) {
+  if (currentSlide < 3 && nextpage1 == 1 && nextpage2 == 1 ) {// 
     currentSlide++;
     slider.style.transform = `translateX(-${
       (currentSlide - 1) * 33.33333333
@@ -402,12 +492,15 @@ shakeButton1.addEventListener('click', function () {
       shakeButton1.classList.remove('shake');
     }, 500);
     id_check();
-    pw_check();
+    pw_check1();
+    if(nextpage2 == 0 ){pw_box.focus();} 
+    if(nextpage1 == 0 ){id_box.focus();} 
   }
 });
 
+        var input = document.getElementById("myInput");
 shakeButton2.addEventListener('click', function () {
-  if (currentSlide < 3 && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1) {
+  if (currentSlide < 3  && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1 ) {// 
     currentSlide++;
     slider.style.transform = `translateX(-${
       (currentSlide - 1) * 33.33333333
@@ -421,6 +514,8 @@ shakeButton2.addEventListener('click', function () {
     setTimeout(function () {
       shakeButton2.classList.remove('shake');
     }, 500);
+    if(nextpage4 == 0 ){inputbirth.focus();} 
+    if(nextpage3 == 0 ){nickname_box.focus();} 
   }
 });
 
@@ -434,7 +529,6 @@ function prevSlide() {
     memberjoin_nextbtn_error3.innerText = '';
   }
 }
-
 //프로필 사진 임시 ----------------------------
 // 파일 입력 상자의 변경 이벤트 감지
 document
@@ -504,6 +598,7 @@ document
         '_' +
         obj.fileName;
       fileCallPath = encodeURIComponent(fileCallPath);
+      profileimg = fileCallPath;
 
       let previewImage = document.getElementById('preview_image');
       // previewImage.src = '/display?fileName=' + fileCallPath;

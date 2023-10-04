@@ -85,9 +85,15 @@ public class KYHController {
     }
 
     @PostMapping(value = "/finished_signUp")
-    public String signup(@RequestBody USER_INFO user_info) {
-        rep_user_info.save(user_info);
-        return "redirect:/";
+    public String signup(@RequestBody USER_INFO user_info) throws Exception {
+        try {
+            rep_user_info.save(user_info);
+            return "ok";
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return "no";
+        }
     }
 
     @GetMapping(value ="/testPlace")
