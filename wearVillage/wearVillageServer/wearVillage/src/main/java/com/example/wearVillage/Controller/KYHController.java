@@ -109,11 +109,13 @@ public class KYHController {
     public String testPlace(){
         return "datatest.html";
     }
+    @ResponseBody
+    @PostMapping(value="/kyhTest")
+    public void kyhTest(@RequestBody Object obj)
+    {
+        JSONObject jsonObject = new JSONObject(obj);
+        jsonObject.toString();
 
-
-    @GetMapping(value="/kyhTest")
-    public String kyhTest(){
-        return "";
     }
 
 }

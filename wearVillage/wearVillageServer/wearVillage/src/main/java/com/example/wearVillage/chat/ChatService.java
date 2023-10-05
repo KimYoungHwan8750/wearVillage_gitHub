@@ -2,12 +2,8 @@ package com.example.wearVillage.chat;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class ChatService {
-    private final ChatroomDAO chatroomdao;
-    private final ChatDAO chatdao;
-    void test(String a, int b) {
-        chatroomdao.isThereSenderAndChatroom(a,b);
-    }
+public interface ChatService {
+    //채팅 입력했을 때 채팅방 있는지 체크하고 없으면 채팅방 개설
+    void isThereChatroom(String sender, String addressee,int chatroom);
 
 }

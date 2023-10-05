@@ -7,8 +7,11 @@ import java.util.stream.Stream;
 
 public class FreeTest {
     public static void main(String[] args) {
-        Class1 class1 = new Class1();
-        System.out.println(class1.data1);
+        float test = 1.3f;
+        String test1 = String.valueOf(test);
+        System.out.println(test1);
+        int test2 = Integer.parseInt(test1);
+        System.out.println(test2);
     }
 }
 

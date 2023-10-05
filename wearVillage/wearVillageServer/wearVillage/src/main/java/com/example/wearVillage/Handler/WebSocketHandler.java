@@ -29,29 +29,17 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
-//        JSONObject jsonPayload = new JSONObject(payload);
-        System.out.println("메세지: "+payload);
-        String[] chat_formData = payload.split("'wearCutLines'");
-//        System.out.println("챗오라클확인1");
-//        for (int i = 0; i < chat_formData.length; i++) {
-//            System.out.println(chat_formData[i]);
-//            System.out.println(i+"번째 검색");
-//
-//        }
+        JSONObject jsonPayload = new JSONObject(payload);
+        String sender = (String) jsonPayload.get("sender");
+        String addressee = (String) jsonPayload.get("addressee");
+        String chatMessage = (String) jsonPayload.get("message");
+        String chatroom = (String) jsonPayload.get("chatroom");
+        System.out.println(jsonPayload.toString());
 
-        String user_id = chat_formData[0];
-        String target_id = chat_formData[1];
-        String chat_message = chat_formData[2];
-        String chat_typing_time = chat_formData[4];
-        String chatPlace_history = chat_formData[5];
-        jdbcTemplate.update("INSERT INTO USER_CHAT(CHAT_NUM,USER_ID,TARGET_ID,MESSAGE,CHATROOM_ID,CHAT_DATE) VALUES (CHAT_NUM_COUNT.NEXTVAL,?,?,?,?,?)",user_id,target_id,chat_message,chatPlace_history,chat_typing_time);
 
-//        myId:arr[0],
-//                target_id:arr[1],
-//                message:arr[2],
-//                chat_typing_time:arr[4],
-//                chatPlace_history:arr[5]
-//        log.info("payload : " + payload);
+
+
+
 
         for(WebSocketSession sess: sessions) {
             sess.sendMessage(message);

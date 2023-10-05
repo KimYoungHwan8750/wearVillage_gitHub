@@ -29,54 +29,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         const $msg = document.getElementById('msg');
         const $chat_midContent = document.querySelector('.chat_midContent');
         const $button_send = document.getElementById('button-send');
-        // const Encoder = new TextEncoder();
-        // const Decoder = new TextDecoder();
-        JSON.parse($th_chatHistory).forEach(element => {
-            if ($th_id == element["USER_ID"]&&$th_post_id==element["CHATROOM_ID"]) {
-                //div태그 생성
-                let div = document.createElement('div');
-                //div태그에 chat_myTextBox 클래스 부여
-                div.classList.add('chat_myTextBox');
-                //span태그 생성
-                let display_userChat = document.createElement('span');
-                //span태그 생성
-                let display_chatTime = document.createElement('span');
-                //display_userChat에 chat_Text와 chat_myText클래스 부여
-                display_chatTime.classList.add('chat_displayTime');
-                display_userChat.classList.add('chat_Text','chat_myText');
-                // 메세지 입력
-                display_chatTime.innerText = element["CHAT_DATE"];
-                display_userChat.innerText = element["MESSAGE"];
-                //b를 div의 자식 태그로 설정
-                div.append(display_chatTime,display_userChat);
-                //div태그를 chat_msgArea의 자식으로 설정
-                $chat_msgArea.append(div);
-                //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
-                $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
-            } else if($th_post_id==element["CHATROOM_ID"]) {
-                //div태그 생성
-                let div = document.createElement('div');
-                //div태그에 chat_targetTextBox 클래스 부여
-                div.classList.add('chat_targetTextBox');
-                //span태그 생성
-                let display_userChat = document.createElement('span');
-                //span태그 생성
-                let display_chatTime = document.createElement('span');
-                //display_userChat에 chat_Text와 chat_targetText클래스 부여
-                display_chatTime.classList.add('chat_displayTime');
-                display_userChat.classList.add('chat_Text','chat_targetText');
-                // 메세지 입력
-                display_chatTime.innerText = element["CHAT_DATE"];
-                display_userChat.innerText = element["MESSAGE"];
-                //b를 div의 자식 태그로 설정
-                div.append(display_userChat,display_chatTime);
-                //div태그를 chat_msgArea의 자식으로 설정
-                $chat_msgArea.append(div);
-                //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
-                $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
-            }
-            
-        });
+
         let chat_time = null;
         let date; // 날짜 객체 생성
         $msg.addEventListener('keydown',()=>{
@@ -121,7 +74,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 "message":$msg.value,
                 "chatroom":$th_post
             }
-            let chatform
+
             let am_or_pm=null;
             let chat_hours=null;
             let chat_minute=null;
