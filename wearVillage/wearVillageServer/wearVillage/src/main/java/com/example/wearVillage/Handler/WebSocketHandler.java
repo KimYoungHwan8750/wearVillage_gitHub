@@ -1,6 +1,11 @@
 package com.example.wearVillage.Handler;
 
 
+import com.example.wearVillage.chat.ChatDTO;
+import com.example.wearVillage.chat.ChatService;
+import com.example.wearVillage.chat.ChatroomEntity;
+import lombok.RequiredArgsConstructor;
+import oracle.sql.TIMESTAMP;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -12,47 +17,48 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.sql.Timestamp;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static java.lang.Integer.parseInt;
 
 //@Slf4j
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
     private final JdbcTemplate jdbcTemplate;
+    private final ChatService chatSVC;
     private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
     private static final ConcurrentLinkedQueue<WebSocketSession> sessions= new ConcurrentLinkedQueue<>();
 
-    public WebSocketHandler(JdbcTemplate jdbcTemplate) {
+    public WebSocketHandler(JdbcTemplate jdbcTemplate, ChatService chatSVC) {
         this.jdbcTemplate = jdbcTemplate;
+        this.chatSVC = chatSVC;
     }
 
     // 메세지 처리하는 메소드
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-//        System.out.println("메세지:" + message);
         String payload = message.getPayload();
-//        JSONObject jsonPayload = new JSONObject(payload);
-        System.out.println("메세지: "+payload);
-        String[] chat_formData = payload.split("'wearCutLines'");
-//        System.out.println("챗오라클확인1");
-//        for (int i = 0; i < chat_formData.length; i++) {
-//            System.out.println(chat_formData[i]);
-//            System.out.println(i+"번째 검색");
-//
-//        }
+        JSONObject jsonPayload = new JSONObject(payload);
+        String sender = jsonPayload.getString("sender");
+        String addressee = jsonPayload.getString("addressee");
+        String chatMessage = jsonPayload.getString("message");
+        int chatroom = jsonPayload.getInt("chatroom");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        ChatDTO chatDto = ChatDTO.builder()
+                .CHAT_NUM(chatSVC.maxNumUserChat())
+                .SENDER(sender)
+                .ADDRESSEE(addressee)
+                .MESSAGE(chatMessage)
+                .CHATROOM(chatroom)
+                .CHAT_DATE(null)
+                .build();
+        chatSVC.saveChat(chatDto);
 
-        String user_id = chat_formData[0];
-        String target_id = chat_formData[1];
-        String chat_message = chat_formData[2];
-        String chat_typing_time = chat_formData[4];
-        String chatPlace_history = chat_formData[5];
-        jdbcTemplate.update("INSERT INTO USER_CHAT(CHAT_NUM,USER_ID,TARGET_ID,MESSAGE,CHATROOM_ID,CHAT_DATE) VALUES (CHAT_NUM_COUNT.NEXTVAL,?,?,?,?,?)",user_id,target_id,chat_message,chatPlace_history,chat_typing_time);
 
-//        myId:arr[0],
-//                target_id:arr[1],
-//                message:arr[2],
-//                chat_typing_time:arr[4],
-//                chatPlace_history:arr[5]
-//        log.info("payload : " + payload);
+
+
+
 
         for(WebSocketSession sess: sessions) {
             sess.sendMessage(message);
