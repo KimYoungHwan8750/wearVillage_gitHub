@@ -5,23 +5,32 @@ package com.example.wearVillage.Controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.example.wearVillage.DeleteEvent.DeleteSVC;
 import com.example.wearVillage.DTO.GmailDto;
 import com.example.wearVillage.Service.EmailService;
+import com.example.wearVillage.UpdateEvent.UpdateEntityService;
+import com.example.wearVillage.UpdateEvent.UpdateRequest;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.PostData;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @Slf4j
 @org.springframework.stereotype.Controller
 //@RequiredArgsConstructor
@@ -153,4 +162,64 @@ public class PJYController {
     }
 
 
+    @Autowired
+    private UpdateEntityService updateEntityService;
+
+
+//    @GetMapping("/updateForm/{id}")
+//    public String viewPost2(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+//        // 게시글 조회
+//        String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+//        PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
+//
+//        // 모델에 추가
+//        redirectAttributes.addFlashAttribute("post", postData);
+//
+//        return "redirect:/update/" + id;
+//    }
+//    @ResponseBody
+//    @GetMapping("/update/{id}")
+//    public ResponseEntity<Void> updatePost(@PathVariable int id, @RequestBody UpdateRequest updateRequest){
+//        try{
+//            updateEntityService.updatePost(id,
+//                                            updateRequest.getSubtitle(),
+//                                            updateRequest.getText());
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e){
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+@GetMapping("/edit/{id}")
+public String editPost(@PathVariable("id") Long id, Model model) {
+    // 게시글 조회
+    String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+    log.info("쿼리호출할게~{}",selectQuery);
+    PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
+    log.info("쿼리호출했어~");
+    model.addAttribute("postData", postData);
+    log.info("쿼리넣었어~{}",postData.getPostId());
+    return "update_posting";  // 수정 폼 페이지 반환
 }
+
+    // 게시글 업데이트 요청 처리
+    @PostMapping("/edit/{id}")
+    public String updatePost(@PathVariable int id, @ModelAttribute UpdateRequest updateRequest) {
+        try {
+            updateEntityService.updatePost(id,
+                    updateRequest.getPostSubtitle(),
+                    updateRequest.getPostPrice(),
+                    updateRequest.getPostRentDefaultPrice(),
+                    updateRequest.getPostRentDayPrice(),
+                    updateRequest.getPostTagTop(),
+                    updateRequest.getPostTagMiddle(),
+                    updateRequest.getPostMapInfo(),
+                    updateRequest.getPostText(),
+                    updateRequest.getPostModifyDate());
+            return "redirect:/posts";
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return "error";
+        }
+    }
+}
+
