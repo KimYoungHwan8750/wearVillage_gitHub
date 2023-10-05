@@ -2,6 +2,7 @@ package com.example.wearVillage.Handler;
 
 
 import com.example.wearVillage.chat.ChatDTO;
+import com.example.wearVillage.chat.ChatEntity;
 import com.example.wearVillage.chat.ChatService;
 import com.example.wearVillage.chat.ChatroomEntity;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +54,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 .CHATROOM(chatroom)
                 .CHAT_DATE(null)
                 .build();
-        chatSVC.saveChat(chatDto);
+        ChatEntity chatEntity = new ChatEntity(chatDto);
+        chatSVC.saveChat(chatEntity);
 
 
 
@@ -78,8 +80,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // client 접속 해제 시 호출되는 메서드드
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-        System.out.println(session + "클라이언트 접속 해제" + status);
-        log.info(session + " 클라이언트 접속 해제" + status);
+        log.info(session + " 클라이언트 접속 해제");
         sessions.remove(session);
 
     }

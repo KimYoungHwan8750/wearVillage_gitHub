@@ -1,5 +1,8 @@
         let chat_check = false;
         let user_status=null;
+        //첫 채팅을 쳤을 때 채팅방이 있으면 채팅 진행, 없으면 채팅방 생성
+        let createChatroomFlag = false;
+
 fetch("/userInfo",{method:'POST'}).then(res=>
     res.json())
     .then(
@@ -30,8 +33,6 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         const $chat_midContent = document.querySelector('.chat_midContent');
         const $button_send = document.getElementById('button-send');
 
-        let chat_time = null;
-        let date; // 날짜 객체 생성
         $msg.addEventListener('keydown',()=>{
             setTimeout(()=>{
                 if($msg.value!=''){
@@ -64,7 +65,26 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         });
 
         function send() {
-
+            //채팅방이 있는지 조회하고 없으면 생성하고 있으면 채팅 동작
+            if(!createChatroomFlag){
+                fetch("/createChatroom",
+                      {
+                        headers:{"Content-Type":"application/json"},
+                        method:"post",
+                        body:JSON.stringify({
+                        "MEMBER1":JSON.parse($th_sender),
+                        "MEMBER2":JSON.parse($th_addressee),
+                        "POST_ID":JSON.parse($th_postId)
+                      })
+                      }
+                      ).then(res=>res.json())
+                      .then(res=>
+                        {
+                            if(res){
+                                createChatroomFlag=true;
+                            }
+                        })
+            }
             let sendMessage={
                 "sender":JSON.parse($th_sender),
                 "addressee":JSON.parse($th_addressee),
@@ -72,36 +92,9 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 "chatroom":JSON.parse($th_postId)
             }
 
-            let am_or_pm=null;
-            let chat_hours=null;
-            let chat_minute=null;
-            date = new Date();
-
-            /*시간이 12시 이후면 오후로 표시*/
-       if(date.getHours()<'13'){
-        am_or_pm ='오전';
-       } else {
-        am_or_pm ='오후';
-       }
-            /*시간이 12시 이후면 시간을 -12해서 오후 시간으로 반환*/
-
-        if(date.getHours()>'11'){
-        chat_hours = date.getHours()-12;
-        } else {
-        chat_hours = date.getHours();
-        }
-
-        /*분 표시*/
-        if(date.getMinutes()<'10'){
-            chat_minute = '0'+date.getMinutes();
-        } else {
-        chat_minute = date.getMinutes();
-
-        }
-        let chat_typing_time = am_or_pm+" " +chat_hours+":"+chat_minute;
-
+            
             websocket.send(
-               sendMessage
+               JSON.stringify(sendMessage)
                 );
                 console.log("테스트확인:"+$th_id+"//"+$th_target_id+"//"+$th_post_id)
             

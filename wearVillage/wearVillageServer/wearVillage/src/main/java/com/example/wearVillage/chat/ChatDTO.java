@@ -1,9 +1,6 @@
 package com.example.wearVillage.chat;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 import java.sql.Timestamp;
@@ -11,6 +8,7 @@ import java.sql.Timestamp;
 @Getter
 @Builder
 @NoArgsConstructor
+@Setter
 @AllArgsConstructor
 public class ChatDTO {
     private Integer CHAT_NUM;

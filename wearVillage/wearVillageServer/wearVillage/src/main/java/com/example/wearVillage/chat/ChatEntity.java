@@ -4,10 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import oracle.sql.TIMESTAMP;
 
 import java.sql.Timestamp;
@@ -17,6 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Setter
 @Table(name="USER_CHAT")
 public class ChatEntity {
     @Id
@@ -28,12 +26,12 @@ public class ChatEntity {
     private String ADDRESSEE;
     @Column(name="MESSAGE")
     private String MESSAGE;
-    @Column(name="CHATROOM")
+    @Column(name="POST_ID")
     private Integer CHATROOM;
     @Column(name="CHAT_DATE")
     private Timestamp CHAT_DATE;
 
-    ChatEntity(ChatDTO chatdto){
+    public ChatEntity(ChatDTO chatdto){
         this.SENDER = chatdto.getSENDER();
         this.CHAT_NUM = chatdto.getCHAT_NUM();
         this.CHATROOM = chatdto.getCHATROOM();

@@ -38,35 +38,7 @@ public class KYHController {
         return "redirect:/";
     }
 
-    @PostMapping(value = "/chat")
-    public String chat(Model model,
-                        HttpSession session,
-                       @RequestParam String postSubtitle,
-                       @RequestParam String postWriterId,
-                       @RequestParam String postPrice,
-                       @RequestParam String postRentDefaultPrice,
-                       @RequestParam String postRentDayPrice,
-                       @RequestParam String postThumbnailUrl,
-                       @RequestParam String postMapInfo,
-                       @RequestParam String postId) {
-        if(session.getAttribute("email")!=null) {
-            model.addAttribute("postSubtitle", postSubtitle);
-            model.addAttribute("postWriterId", postWriterId);
-            model.addAttribute("postPrice", postPrice);
-            model.addAttribute("postRentDefaultPrice", postRentDefaultPrice);
-            model.addAttribute("postRentDayPrice", postRentDayPrice);
-            model.addAttribute("postThumbnailUrl", postThumbnailUrl);
-            model.addAttribute("postMapInfo", postMapInfo);
-            model.addAttribute("postId", postId);
-            model.addAttribute("myId", session.getAttribute("nickname"));
-            model.addAttribute("theme", session.getAttribute("theme"));
-//        List<Map<String, Object>> chatHistory = userDAO.oracle_to_userChat(id, post_id);
-//        model.addAttribute("chat_history", chatHistory);
-            return "chat.html";
-        } else {
-            return "redirect:/login";
-        }
-    }
+
 
     @PostMapping(value = "/chatroom")
     public String chatroom(HttpSession session){
