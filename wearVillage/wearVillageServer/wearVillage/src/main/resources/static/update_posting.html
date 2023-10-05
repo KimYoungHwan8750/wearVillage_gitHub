@@ -10,7 +10,22 @@
     <title>Document</title>
   </head>
   <body>
-  <form action="" th:method="POST" th:object="${postData}" >
+  <form action="" th:method="POST" th:object="${postData}" onsubmit="return check_all()">
+    <script>
+      function check_all(){
+        if(document.querySelector('.ql-editor').innerHTML=='<p><br></p>'){
+          alert("널값안되@~");
+          return false;
+        }
+        if(!document.querySelector('.ql-editor').innerHTML.includes('<img')){
+          alert("이미지넣어라잉")
+          return false;
+        }
+      }
+      if(document.querySelector('.ql-editor').innerHTML=='<p><br></p>'){
+        console.log('ㅋㅋ널임')
+      }
+    </script>
     <div class="post_writer">
       <input
         type="text"
@@ -34,6 +49,7 @@
         "
         name="postSubtitle"
         th:value="*{postSubtitle}"
+        required
       />
     </div>
     <div class="checkbox_select">
@@ -55,6 +71,7 @@
               placeholder="가격을 입력해주세요"
               name="postPrice"
               th:value="*{postPrice}"
+              required
             />
             <label for="posting_price_id" style="font-size: 16px">원</label>
           </div>
@@ -160,11 +177,11 @@
               value="대분류 > 중분류"
               readonly="true"
               name=""
-
+              required
             />
 
-            <input type="text" id="postTagTop_id" name="postTagTop" th:value="*{postTagTop}" hidden/>
-            <input type="text" id="postTagMiddle_id" name="postTagMiddle" th:value="*{postTagMiddle}" hidden/>
+            <input type="text" id="postTagTop_id" name="postTagTop" th:value="*{postTagTop}" hidden required/>
+            <input type="text" id="postTagMiddle_id" name="postTagMiddle" th:value="*{postTagMiddle}" hidden required/>
             <script>
               window.onload = function(){
               let TagTop = document.getElementById('postTagTop_id');
@@ -199,6 +216,7 @@
               readonly="true"
               name="postMapInfo"
               th:value="*{postMapInfo}"
+              required
             />
           </label>
           <input type="text" class="postModifyDate" name="postModifyDate" value="" hidden>
@@ -263,7 +281,7 @@
           ['clean'],
         ],
       },
-      placeholder:'자세한 내용을 입력해 주세요!',
+      placeholder:'',
       theme:'snow',
     };
 
@@ -374,7 +392,8 @@ window.addEventListener('load', function() {
     >
       보내용
     </button>
-    <input type="submit" value="저장하기">
+    <input type="submit" value="저장하기" id="post_gotopost_btn">
+    
 
 
     <!-- 카테고리 선택 -->
@@ -1098,4 +1117,5 @@ window.addEventListener('load', function() {
       });
     }
   </script>
+
 </html>
