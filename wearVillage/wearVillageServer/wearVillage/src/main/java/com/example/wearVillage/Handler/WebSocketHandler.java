@@ -1,6 +1,11 @@
 package com.example.wearVillage.Handler;
 
 
+import com.example.wearVillage.chat.ChatDTO;
+import com.example.wearVillage.chat.ChatService;
+import com.example.wearVillage.chat.ChatroomEntity;
+import lombok.RequiredArgsConstructor;
+import oracle.sql.TIMESTAMP;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -12,17 +17,22 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.sql.Timestamp;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static java.lang.Integer.parseInt;
 
 //@Slf4j
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
     private final JdbcTemplate jdbcTemplate;
+    private final ChatService chatSVC;
     private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
     private static final ConcurrentLinkedQueue<WebSocketSession> sessions= new ConcurrentLinkedQueue<>();
 
-    public WebSocketHandler(JdbcTemplate jdbcTemplate) {
+    public WebSocketHandler(JdbcTemplate jdbcTemplate, ChatService chatSVC) {
         this.jdbcTemplate = jdbcTemplate;
+        this.chatSVC = chatSVC;
     }
 
     // 메세지 처리하는 메소드
@@ -30,11 +40,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
         JSONObject jsonPayload = new JSONObject(payload);
-        String sender = (String) jsonPayload.get("sender");
-        String addressee = (String) jsonPayload.get("addressee");
-        String chatMessage = (String) jsonPayload.get("message");
-        String chatroom = (String) jsonPayload.get("chatroom");
-        System.out.println(jsonPayload.toString());
+        String sender = jsonPayload.getString("sender");
+        String addressee = jsonPayload.getString("addressee");
+        String chatMessage = jsonPayload.getString("message");
+        int chatroom = jsonPayload.getInt("chatroom");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        ChatDTO chatDto = ChatDTO.builder()
+                .CHAT_NUM(chatSVC.maxNumUserChat())
+                .SENDER(sender)
+                .ADDRESSEE(addressee)
+                .MESSAGE(chatMessage)
+                .CHATROOM(chatroom)
+                .CHAT_DATE(null)
+                .build();
+        chatSVC.saveChat(chatDto);
 
 
 

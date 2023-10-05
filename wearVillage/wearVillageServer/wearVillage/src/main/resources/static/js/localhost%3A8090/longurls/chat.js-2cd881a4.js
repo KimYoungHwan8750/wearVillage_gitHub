@@ -69,7 +69,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 "sender":JSON.parse($th_sender),
                 "addressee":JSON.parse($th_addressee),
                 "message":$msg.value,
-                "chatroom":JSON.parse($th_postId)
+                "chatroom":JSON.parse(JSON.parse($th_postId))
             }
 
             let am_or_pm=null;
@@ -101,7 +101,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         let chat_typing_time = am_or_pm+" " +chat_hours+":"+chat_minute;
 
             websocket.send(
-               sendMessage
+               JSON.stringify(sendMessage)
                 );
                 console.log("테스트확인:"+$th_id+"//"+$th_target_id+"//"+$th_post_id)
             

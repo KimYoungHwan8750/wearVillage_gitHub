@@ -4,18 +4,29 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import oracle.sql.NUMBER;
-import oracle.sql.TIMESTAMP;
+
+
+import java.sql.Timestamp;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatDTO {
-    private int CHAT_NUM;
+    private Integer CHAT_NUM;
     private String SENDER;
     private String ADDRESSEE;
     private String MESSAGE;
-    private int CHATROOM;
-    private TIMESTAMP CHAT_DATE;
+    private Integer CHATROOM;
+    private Timestamp CHAT_DATE;
+
+    @Override
+    public String toString(){
+        return CHAT_NUM+":"+
+                SENDER+":"+
+                ADDRESSEE+":"+
+                MESSAGE+":"+
+                CHATROOM+":"+
+                CHAT_DATE;
+    }
 }

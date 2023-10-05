@@ -1,22 +1,37 @@
 package com.example.wearVillage.chat;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import oracle.sql.TIMESTAMP;
 
+import java.sql.Timestamp;
+
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name="USER_CHAT")
 public class ChatEntity {
-    private int CHAT_NUM;
+    @Id
+    @Column(name="CHAT_NUM")
+    private Integer CHAT_NUM;
+    @Column(name="SENDER")
     private String SENDER;
+    @Column(name="ADDRESSEE")
     private String ADDRESSEE;
+    @Column(name="MESSAGE")
     private String MESSAGE;
-    private int CHATROOM;
-    private TIMESTAMP CHAT_DATE;
+    @Column(name="CHATROOM")
+    private Integer CHATROOM;
+    @Column(name="CHAT_DATE")
+    private Timestamp CHAT_DATE;
 
     ChatEntity(ChatDTO chatdto){
         this.SENDER = chatdto.getSENDER();
