@@ -72,7 +72,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 "sender":$th_sender,
                 "addressee":$th_addressee,
                 "message":$msg.value,
-                "chatroom":$th_post
+                "chatroom":$th_postId
             }
 
             let am_or_pm=null;
