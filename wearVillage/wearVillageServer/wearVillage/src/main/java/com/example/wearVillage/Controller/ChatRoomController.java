@@ -4,6 +4,7 @@ import com.example.wearVillage.chat.ChatService;
 import com.example.wearVillage.chat.ChatroomDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -13,13 +14,14 @@ import static java.lang.Integer.parseInt;
 
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class ChatRoomController {
     private final ChatService chatSVC;
     @PostMapping("/createChatroom")
     @ResponseBody
     public boolean createChatroomIfThereIsNo(
             @RequestBody ChatroomDTO chatroomdto){
-        System.out.println("테스트"+chatroomdto.toString());
+        log.info("createChatroomIfThereIsNo 메서드 : "+chatroomdto.toString());
         int chatroom = chatroomdto.getPOST_ID();
         String sender= chatroomdto.getMEMBER1();
         String addressee = chatroomdto.getMEMBER2();

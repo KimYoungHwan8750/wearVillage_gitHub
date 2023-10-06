@@ -65,6 +65,12 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         });
 
         function send() {
+            let sendMessage={
+                "sender":JSON.parse($th_sender),
+                "addressee":JSON.parse($th_addressee),
+                "message":$msg.value,
+                "chatroom":JSON.parse($th_postId)
+            }
             //채팅방이 있는지 조회하고 없으면 생성하고 있으면 채팅 동작
             if(!createChatroomFlag){
                 fetch("/createChatroom",
@@ -80,28 +86,32 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                       ).then(res=>res.json())
                       .then(res=>
                         {
-                            if(res){
                                 createChatroomFlag=true;
-                            }
+                                websocket.send(
+                                    JSON.stringify(sendMessage)
+                                    );
+                                    
+                                    setTimeout(()=>{
+                                    $msg.value='';
+                                    $button_send.style.backgroundColor="#a7a7a7";},5)          
                         })
-            }
-            let sendMessage={
-                "sender":JSON.parse($th_sender),
-                "addressee":JSON.parse($th_addressee),
-                "message":$msg.value,
-                "chatroom":JSON.parse($th_postId)
+            } else {
+                websocket.send(
+                    JSON.stringify(sendMessage)
+                    );
+                    
+                    setTimeout(()=>{
+                    $msg.value='';
+                    $button_send.style.backgroundColor="#a7a7a7";},5)
             }
 
+
             
-            websocket.send(
-               JSON.stringify(sendMessage)
-                );
-                console.log("테스트확인:"+$th_id+"//"+$th_target_id+"//"+$th_post_id)
-            
-            setTimeout(()=>{
-            $msg.value='';
-            $button_send.style.backgroundColor="#a7a7a7";},5)
-        }
+
+    }
+    function websocketSend(){
+
+    }
         function disconnect() {
             // let str = username + ": 님이 채팅을 종료했습니다.";
             // websocket.send(str);
