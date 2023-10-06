@@ -10,4 +10,8 @@ public interface ChatroomDAO {
     boolean createChatroom(String sender, String addressee, int chatroom);
     // 채팅방을 통해 채팅내역 불러오기
     List<ChatDTO> loadingChatHistory(int chatroom, String member1, String member2);
+    List<ChatroomDTO> loadingChatroomList(String nickname);
+
+    Integer maxNumChatroomId();
+    ChatroomDTO searchChatroom(String sender,String addressee, int chatroom);
 }

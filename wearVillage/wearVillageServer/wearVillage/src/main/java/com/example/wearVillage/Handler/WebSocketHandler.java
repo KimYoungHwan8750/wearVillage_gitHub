@@ -53,6 +53,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 .MESSAGE(chatMessage)
                 .CHATROOM(chatroom)
                 .CHAT_DATE(null)
+                .CHAT_ROOM_ID(chatSVC.searchChatroom(sender,addressee,chatroom).getCHAT_ROOM_ID())
                 .build();
         ChatEntity chatEntity = new ChatEntity(chatDto);
         chatSVC.saveChat(chatEntity);

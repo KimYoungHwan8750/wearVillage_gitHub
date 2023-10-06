@@ -14,5 +14,6 @@ public interface ChatService {
     //채팅방 만들기. 채팅방 만들면 true반환
     boolean createChatRoom(String sender, String addressee, int chatroom);
     List<ChatDTO> loadingChatHistory(int chatroom, String member1, String member2);
-
+    ChatroomDTO searchChatroom(String sender, String addressee, int chatroom);
+    List<ChatroomDTO> loadingChatroom(String nickname);
 }
