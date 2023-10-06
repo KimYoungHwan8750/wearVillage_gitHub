@@ -70,7 +70,7 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                         "AND (SENDER = ? OR ADDRESSEE = ?) " +
                         "AND POST_ID = ? " +
                         "ORDER BY CHAT_NUM ASC";
-        List<ChatEntity> chatEntityList = jdbcTemplate.query(sql, new Object[]{member1, member1, member2, member2, chatroom}, new RowMapper<ChatEntity>() {
+        List<ChatEntity> chatEntityList = jdbcTemplate.query(sql, new RowMapper<ChatEntity>() {
             @Override
             public ChatEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
                 ChatEntity chatEntity = new ChatEntity();
@@ -82,7 +82,7 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                 chatEntity.setMESSAGE(rs.getString("MESSAGE"));
                 return chatEntity;
             }
-        });
+        }, new Object[]{member1, member1, member2, member2, chatroom});
         List<ChatDTO> chatdto = chatEntityList.stream()
                         .map(m-> new ChatDTO(m.getCHAT_NUM(),
                                              m.getSENDER(),
@@ -90,7 +90,6 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                                              m.getMESSAGE(),
                                              m.getCHATROOM(),
                                              m.getCHAT_DATE())).toList();
-        System.out.println(chatdto.toString());
         return chatdto;
     }
 
