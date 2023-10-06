@@ -236,6 +236,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 let display_chatTime = document.createElement('span');
                 //display_userChat에 chat_Text와 chat_myText클래스 부여
                 display_chatTime.classList.add('chat_displayTime');
+                display_chatTime.innerText=dateFormater(new Date());
                 display_userChat.classList.add('chat_Text','chat_myText');
                 // 메세지 입력
                 display_userChat.innerText = message;
@@ -258,6 +259,9 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 //display_userChat에 chat_Text와 chat_targetText클래스 부여
                 display_chatTime.classList.add('chat_displayTime');
                 display_userChat.classList.add('chat_Text','chat_targetText');
+                display_chatTime.innerText=dateFormater(new Date());
+
+
                 // 메세지 입력
                 display_userChat.innerText = message;
                 //b를 div의 자식 태그로 설정

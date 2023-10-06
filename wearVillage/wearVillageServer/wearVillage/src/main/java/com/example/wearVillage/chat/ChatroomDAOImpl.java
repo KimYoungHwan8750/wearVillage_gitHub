@@ -12,9 +12,15 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.SimpleFormatter;
 import java.util.stream.Collectors;
 
 @Repository
@@ -52,13 +58,22 @@ public class ChatroomDAOImpl implements ChatroomDAO {
         }
     }
 
-
+    @Override
+    public Integer maxNumChatroomId(){
+        String sql="SELECT MAX(CHAT_ROOM_ID) FROM CHAT_ROOM";
+        Integer result = jdbcTemplate.queryForObject(sql,Integer.class);
+        if(result==null){
+            return 0;
+        } else {
+            return result+1;
+        }
+    }
     @Override
     public boolean createChatroom(String sender, String addressee, int chatroom){
-        String sql = "INSERT INTO CHAT_ROOM VALUES (?,?,?,?,SYSTIMESTAMP)";
+        String sql = "INSERT INTO CHAT_ROOM VALUES (?,?,?,?,SYSTIMESTAMP,?)";
         log.info("채팅방 생성 완료");
         //채팅방이 생성되면 1이 되면서 true반환 그외의 경우엔 false 반환
-        return jdbcTemplate.update(sql,chatroom,sender,addressee," ")==1;
+        return jdbcTemplate.update(sql,chatroom,sender,addressee," ",maxNumChatroomId())==1;
 
     }
 
@@ -89,9 +104,47 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                                              m.getADDRESSEE(),
                                              m.getMESSAGE(),
                                              m.getCHATROOM(),
-                                             m.getCHAT_DATE())).toList();
+                                             m.getCHAT_DATE(),
+                                             m.getCHAT_ROOM_ID())
+                                             ).toList();
         return chatdto;
     }
-
-
+    @Override
+    public ChatroomDTO searchChatroom(String sender, String addressee, int chatroom){
+        String sql = "SELECT * FROM CHAT_ROOM WHERE (MEMBER1 = ? OR MEMBER2 = ?) AND " +
+                     "(MEMBER1 = ? OR MEMBER2 = ?) AND " +
+                     "POST_ID = ?";
+        ChatroomDTO chatDto = jdbcTemplate.queryForObject(sql, new RowMapper<ChatroomDTO>() {
+            @Override
+            public ChatroomDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ChatroomDTO chatroomDTO = new ChatroomDTO();
+                chatroomDTO.setPOST_ID(rs.getInt("POST_ID"));
+                chatroomDTO.setMEMBER1(rs.getString("MEMBER1"));
+                chatroomDTO.setMEMBER1(rs.getString("MEMBER2"));
+                chatroomDTO.setRECENTLY_MSG(rs.getString("RECENTLY_MSG"));
+                chatroomDTO.setRECENTLY_TIME(rs.getTimestamp("RECENTLY_TIME"));
+                chatroomDTO.setCHAT_ROOM_ID(rs.getInt("CHAT_ROOM_ID"));
+                return chatroomDTO;
+            }
+        },new Object[]{sender,sender,addressee,addressee,chatroom});
+        return chatDto;
+    }
+    @Override
+    public List<ChatroomDTO> loadingChatroomList(String nickname){
+        String sql = "SELECT * FROM CHAT_ROOM WHERE MEMBER1=? OR MEMBER2=?";
+        List<ChatroomDTO> chatroomEntities = jdbcTemplate.query(sql, new RowMapper<ChatroomDTO>() {
+            @Override
+            public ChatroomDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ChatroomDTO chatroomDTO = new ChatroomDTO();
+                chatroomDTO.setPOST_ID(rs.getInt("POST_ID"));
+                chatroomDTO.setMEMBER1(rs.getString("MEMBER1"));
+                chatroomDTO.setMEMBER2(rs.getString("MEMBER2"));
+                chatroomDTO.setRECENTLY_MSG(rs.getString("RECENTLY_MSG"));
+                chatroomDTO.setRECENTLY_TIME(rs.getTimestamp("RECENTLY_TIME"));
+                chatroomDTO.setCHAT_ROOM_ID(rs.getInt("CHAT_ROOM_ID"));
+                return chatroomDTO;
+            }
+        },nickname,nickname);
+        return chatroomEntities;
+    }
 }

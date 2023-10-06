@@ -20,4 +20,5 @@ public class ChatroomDTO {
     private String MEMBER2;
     private String RECENTLY_MSG;
     private Timestamp RECENTLY_TIME;
+    private Integer CHAT_ROOM_ID;
 }

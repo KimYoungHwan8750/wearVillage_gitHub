@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="chatroomList_container">
+        <div class="chatroomListBox">
+
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        let $th_chatroomList = [[${chatroomList}]];
+    </script>
+    <script>
+        const $chatroomListBox = document.querySelector('.chatroomListBox');
+        //최근 메세지가 오늘 온 거면 시간으로 표시하고
+        //어제라면 어제라고 표시되고, 그 외라면 날짜로 표시해줌
+            function dateFormater(date){
+            let liveTime = new Date();
+            let amOrPm = '';
+            let hour =date.getHours();
+            let minute =date.getMinutes();
+            let resultString = null;
+            if(liveTime.getFullYear()+liveTime.getDate()==date.getFullYear()+date.getDate()){
+                if(hour>11){
+                amOrPm="오후";
+            }
+            else {
+                amOrPm="오전";
+            }
+            if(hour>12){hour-=12;}
+            if(minute<11){minute="0"+minute;}
+            resultString= amOrPm+" "+hour+":"+minute;
+            
+            } else if (liveTime.getDate==(date.getDate+1)){
+                resultString="어제";
+            } else {
+                resultString = (date.getMonth()+1)+"월 "+date.getDate()+"일";
+            }
+            return resultString;
+            }
+            $th_chatroomList.forEach(element => {
+            let date = new Date(element["recently_TIME"]);
+            let roomInfo_chatDate = document.createElement('div');
+            roomInfo_chatDate.innerText = dateFormater(date);
+            let roomInfo_recentlyMsg = document.createElement('div');
+            roomInfo_recentlyMsg.innerText = element["recently_MSG"];
+            $chatroomListBox.append(roomInfo_chatDate,roomInfo_recentlyMsg);
+
+            
+
+            });
+    </script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import com.example.wearVillage.chat.ChatroomDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -63,5 +64,24 @@ public class ChatRoomController {
         } else {
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/chatroomlist")
+    public String chatroomlist(HttpSession session,Model model){
+        if(session.getAttribute("email")!=null){
+            model.addAttribute("chatroomList",chatSVC.loadingChatroom((String) session.getAttribute("nickname")));
+
+            List<ChatroomDTO> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
+                    .map(m-> new ChatroomDTO(
+                            m.getPOST_ID(),
+                            m.getMEMBER1(),
+                            m.getMEMBER2(),
+                            m.getRECENTLY_MSG(),
+                            m.getRECENTLY_TIME(),
+                            m.getCHAT_ROOM_ID())).toList();
+        } else {
+            return "redirect:/login";
+        }
+        return "chatroomlist.html";
     }
 }

@@ -17,6 +17,7 @@ public class ChatDTO {
     private String MESSAGE;
     private Integer CHATROOM;
     private Timestamp CHAT_DATE;
+    private Integer CHAT_ROOM_ID;
 
     @Override
     public String toString(){
