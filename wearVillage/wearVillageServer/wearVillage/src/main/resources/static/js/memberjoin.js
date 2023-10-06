@@ -7,8 +7,6 @@ let nextpage4 = 0; //생일
 let nextpage5 = 0; //성별
 // 3페이지에서 완료할때
 let nextpage6 = 0; //이메일
-// 3페이지 이메일 체크 플래그
-let email_check_flag = false;
 
 //id_box 인스턴스화
 //id_box.value에 따른 문구출력 = id_text
@@ -45,7 +43,7 @@ const male_box = document.getElementById('male');
 const female_box = document.getElementById('female');
 
 let duplicate_check = false;
-
+let email_check_flag = false;
 //데이터 종합
 
 let profileimg;
@@ -331,7 +329,7 @@ function email_check() {
     email_text.innerText = '올바른 이메일 형식입니다.';
     nextpage6 = 1;
     if(email_check_flag==true){
-        return true;
+      return true;
     }
   } else {
     email_text.style.color = 'rgba(180, 0, 0, 0.600)';

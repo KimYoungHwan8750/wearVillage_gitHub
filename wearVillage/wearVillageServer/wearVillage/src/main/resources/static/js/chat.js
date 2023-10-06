@@ -1,58 +1,38 @@
         let chat_check = false;
+        let user_status=null;
+        //첫 채팅을 쳤을 때 채팅방이 있으면 채팅 진행, 없으면 채팅방 생성
+        let createChatroomFlag = false;
+
+fetch("/userInfo",{method:'POST'}).then(res=>
+    res.json())
+    .then(
+        res=>{
+            if(res!=null){
+                user_status = {
+                    id:res[0]["ID"],
+                    pw:res[0]["PW"],
+                    nickname:res[0]["NICKNAME"],
+                    email:res[0]["EMAIL"],
+                    profileimg:res[0]["PROFILEIMG"],
+                    gender:res[0]["GENDER"],
+                    theme:res[0]["THEME"],
+                    birth:res[0]["BIRTH"]
+                };
+
+            } else{
+            }
+        }
+    )
+    .catch((err)=>{
+        alert("서버에 오류가 발생했습니다. 자세한 사항은 고객 센터에 문의해주세요.\n 오류 내용:"+err)
+    })
+
+
         const $chat_msgArea = document.querySelector(".chat_msgArea");
         const $msg = document.getElementById('msg');
         const $chat_midContent = document.querySelector('.chat_midContent');
         const $button_send = document.getElementById('button-send');
-        // const Encoder = new TextEncoder();
-        // const Decoder = new TextDecoder();
-        JSON.parse($th_chatHistory).forEach(element => {
-            if ($th_id == element["USER_ID"]&&$th_post_id==element["CHATROOM_ID"]) {
-                //div태그 생성
-                let div = document.createElement('div');
-                //div태그에 chat_myTextBox 클래스 부여
-                div.classList.add('chat_myTextBox');
-                //span태그 생성
-                let display_userChat = document.createElement('span');
-                //span태그 생성
-                let display_chatTime = document.createElement('span');
-                //display_userChat에 chat_Text와 chat_myText클래스 부여
-                display_chatTime.classList.add('chat_displayTime');
-                display_userChat.classList.add('chat_Text','chat_myText');
-                // 메세지 입력
-                display_chatTime.innerText = element["CHAT_DATE"];
-                display_userChat.innerText = element["MESSAGE"];
-                //b를 div의 자식 태그로 설정
-                div.append(display_chatTime,display_userChat);
-                //div태그를 chat_msgArea의 자식으로 설정
-                $chat_msgArea.append(div);
-                //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
-                $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
-            } else if($th_post_id==element["CHATROOM_ID"]) {
-                //div태그 생성
-                let div = document.createElement('div');
-                //div태그에 chat_targetTextBox 클래스 부여
-                div.classList.add('chat_targetTextBox');
-                //span태그 생성
-                let display_userChat = document.createElement('span');
-                //span태그 생성
-                let display_chatTime = document.createElement('span');
-                //display_userChat에 chat_Text와 chat_targetText클래스 부여
-                display_chatTime.classList.add('chat_displayTime');
-                display_userChat.classList.add('chat_Text','chat_targetText');
-                // 메세지 입력
-                display_chatTime.innerText = element["CHAT_DATE"];
-                display_userChat.innerText = element["MESSAGE"];
-                //b를 div의 자식 태그로 설정
-                div.append(display_userChat,display_chatTime);
-                //div태그를 chat_msgArea의 자식으로 설정
-                $chat_msgArea.append(div);
-                //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
-                $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
-            }
-            
-        });
-        let chat_time = null;
-        let date; // 날짜 객체 생성
+
         $msg.addEventListener('keydown',()=>{
             setTimeout(()=>{
                 if($msg.value!=''){
@@ -72,9 +52,6 @@
             }
 
         })
-        let username =  'test'; /*[[${username}]]*/// 모델의 username 값을 JavaScript 변수로 가져옴
-
-
 
             websocket = new SockJS("http://localhost:8090/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
             websocket.onmessage = onMessage;
@@ -88,48 +65,53 @@
         });
 
         function send() {
-            let am_or_pm=null;
-            let chat_hours=null;
-            let chat_minute=null;
-            date = new Date();
+            let sendMessage={
+                "sender":JSON.parse($th_sender),
+                "addressee":JSON.parse($th_addressee),
+                "message":$msg.value,
+                "chatroom":JSON.parse($th_postId)
+            }
+            //채팅방이 있는지 조회하고 없으면 생성하고 있으면 채팅 동작
+            if(!createChatroomFlag){
+                fetch("/createChatroom",
+                      {
+                        headers:{"Content-Type":"application/json"},
+                        method:"post",
+                        body:JSON.stringify({
+                        "MEMBER1":JSON.parse($th_sender),
+                        "MEMBER2":JSON.parse($th_addressee),
+                        "POST_ID":JSON.parse($th_postId)
+                      })
+                      }
+                      ).then(res=>res.json())
+                      .then(res=>
+                        {
+                                createChatroomFlag=true;
+                                websocket.send(
+                                    JSON.stringify(sendMessage)
+                                    );
+                                    
+                                    setTimeout(()=>{
+                                    $msg.value='';
+                                    $button_send.style.backgroundColor="#a7a7a7";},5)          
+                        })
+            } else {
+                websocket.send(
+                    JSON.stringify(sendMessage)
+                    );
+                    
+                    setTimeout(()=>{
+                    $msg.value='';
+                    $button_send.style.backgroundColor="#a7a7a7";},5)
+            }
 
-            /*시간이 12시 이후면 오후로 표시*/
-       if(date.getHours()<'13'){
-        am_or_pm ='오전';
-       } else {
-        am_or_pm ='오후';
-       }
-            /*시간이 12시 이후면 시간을 -12해서 오후 시간으로 반환*/
 
-        if(date.getHours()>'11'){
-        chat_hours = date.getHours()-12;
-        } else {
-        chat_hours = date.getHours();
-        }
-
-        /*분 표시*/
-        if(date.getMinutes()<'10'){
-            chat_minute = '0'+date.getMinutes();
-        } else {
-        chat_minute = date.getMinutes();
-
-        }
-        let chat_typing_time = am_or_pm+" " +chat_hours+":"+chat_minute;
-
-            websocket.send(
-                $th_id + "'wearCutLines'" + 
-                $th_target_id + "'wearCutLines'" + 
-                $msg.value + "'wearCutLines'" + 
-                $th_chat_theme + "'wearCutLines'" + 
-                chat_typing_time + "'wearCutLines'" +
-                $th_post_id
-                );
-                console.log("테스트확인:"+$th_id+"//"+$th_target_id+"//"+$th_post_id)
             
-            setTimeout(()=>{
-            $msg.value='';
-            $button_send.style.backgroundColor="#a7a7a7";},5)
-        }
+
+    }
+    function websocketSend(){
+
+    }
         function disconnect() {
             // let str = username + ": 님이 채팅을 종료했습니다.";
             // websocket.send(str);

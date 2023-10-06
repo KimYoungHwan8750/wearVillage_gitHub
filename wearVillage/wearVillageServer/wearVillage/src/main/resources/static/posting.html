@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <link rel="stylesheet" href="css/posting.css" />
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/default}">
 
-    <title>Document</title>
-  </head>
+
   <body>
-    <div class="post_writer">
-      <input
-        type="text"
-        id="post_writer_id_id"
-        style="width: 200px"
-        value="작성자ID"
-      />
-    </div>
+
+    <div layout:fragment="content">
+      <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+      <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+      <link rel="stylesheet" href="css/posting.css" />
+
+
     <div class="post_subtitle">
       <input
         type="text"
@@ -557,7 +551,6 @@
         };
       </script>
     </div>
-  </body>
 
   <!-- 작성 버튼 시작 -->
   <script>
@@ -578,18 +571,18 @@
     let today = new Date();
 
     $('#post_post_id').on('click', function () {
-      POST_ID = '123번';
-      POST_WRITER_ID = $('#post_writer_id').val();
-      POST_SUBTITLE = $('#post_subtitle_id').val();
-      POST_TEXT = $('.ql-editor').val();
-      POST_DATE =
-        today.getFullYear() +
-        '년' +
-        (today.getMonth() + 1) +
-        '월' +
-        today.getDate() +
-        '일';
-      POST_MODIFY_DATE = '1234수정일';
+      // POST_ID = '123번';
+      // POST_WRITER_ID = $('#post_writer_id').val();
+      // POST_SUBTITLE = $('#post_subtitle_id').val();
+      // POST_TEXT = $('.ql-editor').val();
+      // POST_DATE =
+      //   today.getFullYear() +
+      //   '년' +
+      //   (today.getMonth() + 1) +
+      //   '월' +
+      //   today.getDate() +
+      //   '일';
+      // POST_MODIFY_DATE = '1234수정일';
 
       let category = $('#posting_category_id').val();
       let splitCategory = category.split(' > ');
@@ -607,7 +600,7 @@
         postId: '1',
         // postWriterId: $('#post_writer_id').val(),
         // TODO 작성자ID값 수정(세션값으로)
-        postWriterId: '작성자ID',
+        postWriterId: user_status["nickname"],
         postSubtitle: $('#post_subtitle_id').val(),
         postPrice: $('#posting_price_id').val(),
         postRentDefaultPrice: $('#posting_rent_price_id').val(),
@@ -924,4 +917,6 @@
       });
     }
   </script>
+  </div>
+</body>
 </html>

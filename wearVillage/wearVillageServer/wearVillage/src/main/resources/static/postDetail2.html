@@ -140,11 +140,11 @@
             myId.value=user_status['nickname'];
             let goChat_firstStep = await fetch("/userInfo",{method:"post"});
             goChat_firstStep.json().then(res=>
-            $postFormData.submit()
+                    $postFormData.submit()
             )
 
             // {
-              // if(res!=''){
+            // if(res!=''){
             // } else {
             //   if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
             //     location.href="/login";
@@ -160,7 +160,7 @@
           window.onload = function () {
             const $maps3 = document.getElementById('maps3_container');
             $maps3.innerHTML =
-              '<object width="600px;" height="450px;" type="text/html" data="maps3.html"></object>';
+                    '<object width="600px;" height="450px;" type="text/html" data="maps3.html"></object>';
           };
         </script>
         <script th:inline="javascript">
@@ -235,25 +235,25 @@
     }
 
     document
-      .querySelector('.thumb_nail_first img')
-      .addEventListener('click', () => {
-        document.querySelector('.thumb_nail_main img').src =
-          imageElements[0].src;
-      });
+            .querySelector('.thumb_nail_first img')
+            .addEventListener('click', () => {
+              document.querySelector('.thumb_nail_main img').src =
+                      imageElements[0].src;
+            });
 
     document
-      .querySelector('.thumb_nail_second img')
-      .addEventListener('click', () => {
-        document.querySelector('.thumb_nail_main img').src =
-          imageElements[1].src;
-      });
+            .querySelector('.thumb_nail_second img')
+            .addEventListener('click', () => {
+              document.querySelector('.thumb_nail_main img').src =
+                      imageElements[1].src;
+            });
 
     document
-      .querySelector('.thumb_nail_third img')
-      .addEventListener('click', () => {
-        document.querySelector('.thumb_nail_main img').src =
-          imageElements[2].src;
-      });
+            .querySelector('.thumb_nail_third img')
+            .addEventListener('click', () => {
+              document.querySelector('.thumb_nail_main img').src =
+                      imageElements[2].src;
+            });
   </script>
 </div>
 </body>

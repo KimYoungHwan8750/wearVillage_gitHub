@@ -12,6 +12,7 @@ import com.example.wearVillage.Entity.USER_INFO;
 import com.example.wearVillage.PostData;
 
 import com.example.wearVillage.Repository.Repository_USER_INFO;
+import com.example.wearVillage.status.local_or_server;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -55,8 +56,17 @@ public class Controller {
     public String loginSession(@RequestBody Map<String,String> map,HttpServletRequest request) {
         String email = map.get("email");
         HttpSession session = request.getSession();
-        session.setAttribute("email",email);
-        System.out.println(session.getAttribute("email")+"세션 등록 완료");
+        USER_INFO user_info = rep_user_info.findByEMAIL(email).get(0);
+        session.setAttribute("email",user_info.getEMAIL());
+        session.setAttribute("id",user_info.getID());
+        session.setAttribute("pw",user_info.getPW());
+        session.setAttribute("theme",user_info.getTHEME());
+        session.setAttribute("profileimg",user_info.getPROFILEIMG());
+        session.setAttribute("nickname",user_info.getNICKNAME());
+        session.setAttribute("gender",user_info.getGENDER());
+        session.setAttribute("birth",user_info.getBIRTH());
+        System.out.println(session.getAttribute("nickname"));
+        log.info((String) session.getAttribute("nickname")+"님이 로그인하셨습니다.");
 
         return "redirect:/";
     }
@@ -123,8 +133,13 @@ public class Controller {
 
 
     @GetMapping(value ="/posting")
-    public String posting(){
-        return "posting";
+    public String posting(HttpSession session){
+        if(session.getAttribute("email")!=null){
+            return "posting";
+
+        } else {
+            return "redirect:/login";
+        }
     }
 
     @GetMapping(value = "/map_popup")
@@ -160,6 +175,8 @@ public class Controller {
 
         ModelAndView modelAndView = new ModelAndView("postDetail2");
         modelAndView.addObject("post", postData);
+        USER_INFO user_info = rep_user_info.findByNICKNAME(postData.getPostWriterId());
+        modelAndView.addObject("profileimg", "/profileimg?fileName="+user_info.getPROFILEIMG());
 
         return modelAndView;
     }

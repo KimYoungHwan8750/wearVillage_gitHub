@@ -150,7 +150,7 @@
                             <div class="memberjoin_input">
                                 <input type="text" class="memberjoin_bar" id="authCodeBar" placeholder=''>
                                 <label class="memberjoin_ex" for="authCodeBar">인증번호</label>
-                                <input id="timer" type="text" value="3" style="display: none; "/>
+                                <input id="timer" type="text" value="3" style="display: none;"/>
                                 <button id="submitBtn" class = "wearVillageBtn" value="인증하기">인증하기</button>
                                 <script>
                                     const $submitBtn = document.getElementById('submitBtn');
@@ -166,7 +166,7 @@
                                         .then(res=>res.json())
                                             .then(data=>{
                                                 if(data.success){
-                                                email_check_flag = true;
+                                                    email_check_flag = true;
                                                     alert("인증성공");
                                                 }else{
                                                     alert("인증실패");

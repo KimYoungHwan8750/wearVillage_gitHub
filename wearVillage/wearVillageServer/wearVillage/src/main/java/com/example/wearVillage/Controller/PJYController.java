@@ -120,7 +120,7 @@ public class PJYController {
         this.emailService = emailService;
         this.deleteSVC = deleteSVC;
     }
-    
+
     @GetMapping("/mail/send")
     public String mail(){
         return "memberjoin.html";
@@ -166,7 +166,7 @@ public class PJYController {
     private UpdateEntityService updateEntityService;
 
 
-//    @GetMapping("/updateForm/{id}")
+    //    @GetMapping("/updateForm/{id}")
 //    public String viewPost2(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 //        // 게시글 조회
 //        String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
@@ -189,17 +189,17 @@ public class PJYController {
 //            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 //        }
 //    }
-@GetMapping("/edit/{id}")
-public String editPost(@PathVariable("id") Long id, Model model) {
-    // 게시글 조회
-    String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
-    log.info("쿼리호출할게~{}",selectQuery);
-    PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
-    log.info("쿼리호출했어~");
-    model.addAttribute("postData", postData);
-    log.info("쿼리넣었어~{}",postData.getPostId());
-    return "update_posting";  // 수정 폼 페이지 반환
-}
+    @GetMapping("/edit/{id}")
+    public String editPost(@PathVariable("id") Long id, Model model) {
+        // 게시글 조회
+        String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+        log.info("쿼리호출할게~{}",selectQuery);
+        PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
+        log.info("쿼리호출했어~");
+        model.addAttribute("postData", postData);
+        log.info("쿼리넣었어~{}",postData.getPostId());
+        return "update_posting";  // 수정 폼 페이지 반환
+    }
 
     // 게시글 업데이트 요청 처리
     @PostMapping("/edit/{id}")
@@ -222,4 +222,3 @@ public String editPost(@PathVariable("id") Long id, Model model) {
         }
     }
 }
-
