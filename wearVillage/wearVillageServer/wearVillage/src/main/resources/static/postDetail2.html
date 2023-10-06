@@ -1,189 +1,195 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/default}">
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
 
 
-  <body>
-    <div layout:fragment="content">
-      <link rel="stylesheet" href="css/postDetail2.css" />
+<body>
+<div layout:fragment="content">
+  <link rel="stylesheet" href="css/postDetail2.css" />
 
-    <div class="postDetail_super_container">
-      <div class="postDetail_container">
-        <div class="thumb_nail_container">
-          <div class="thumb_nail_main">
-            <img src="img/defaultI_image.png" alt="" />
-          </div>
-          <div class="thumb_nail_list">
-            <div class="thumb_nail_first" id="imageContainer">
-              <a href="#"><img src="img/defaultI_image.png" alt="" /></a>
-            </div>
-            <div class="thumb_nail_second">
-              <a href="#"><img src="img/defaultI_image.png" alt="" /></a>
-            </div>
-            <div class="thumb_nail_third">
-              <a href="#"><img src="img/defaultI_image.png" alt="" /></a>
-            </div>
-          </div>
+  <div class="postDetail_super_container">
+    <div class="postDetail_container">
+      <div class="thumb_nail_container">
+        <div class="thumb_nail_main">
+          <img src="img/defaultI_image.png" alt="" />
         </div>
-        <div class="post_info_container">
-          <div class="post_writer_info">
-            <div class="writerId">
-              <div class="post_writer_container1">
-                <span class="post_writer_img"
-                  ><img th:src="${profileimg}" alt=""
-                /></span>
-                <div class="post_writer_container2">
-                  <span th:text="${post.postWriterId}"></span>
-                  <form th:object ="${post}" class = "postFormData" action="/chat" method= "post" style = "display: none;">
-                    <input th:field="*{postWriterId}">
-                    <input th:field="*{postId}">
-                    <input th:field="*{postSubtitle}">
-                    <input th:field="*{postPrice}">
-                    <input th:field="*{postRentDefaultPrice}">
-                    <input th:field="*{postRentDayPrice}">
-                    <input th:field="*{postMapInfo}">
-                    <input name = "theme">
-                    <input name = "postThumbnailUrl">
-                    <input name = "myId">
-                    <!-- <button class="submit_btn"></button> -->
-                  </form>
-                  <button class="postDetail_chat_button" onclick="goChat()">채팅하기</button>
-                  <button class="test">임시버튼</button>
-
-
-                  <form action="" method="get" th:object="${post}">
-                  <input type="text" id="postId" name="postId" hidden th:value="${post.postId}">
-
-                    <input type="button" value="삭제하기" id="postDetail2_btnDelete" th:data-post-id="${post.postId}"/>
-
-                  </form>
-                </div>
-                <script>
-                  const $delete_button = document.getElementById('postDetail2_btnDelete');
-                  $delete_button.addEventListener('click',(e)=>{
-                    const postId = e.target.dataset.postId;
-                    if(confirm("정말 삭제하시겠습니까?") == true){
-                      alert("삭제하겠습니다.");
-                      globalThis.location.href=`/delete/viewPost2?id=${postId}`;
-                    }
-                    else{
-                      return;
-                    }
-                  })
-                </script>
-              </div>
-              <!-- <div><span th:text="${post.postWriterId}">김영환바보</span></div>
-              <button class="postDetail_chat_button">채팅하기</button> -->
-              <!-- TODO 프로필사진도 따와야함, 조회수 넣어야함 -->
-            </div>
+        <div class="thumb_nail_list">
+          <div class="thumb_nail_first" id="imageContainer">
+            <a href="#"><img src="img/defaultI_image.png" alt="" /></a>
           </div>
-          <div class="post_info_container1">
-            <div class="product_tag">
-              <button
-                class="tag_top_button"
-                disabled="true"
-                th:text="${post.postTagTop}"
-              >
-                태그
-              </button>
-              <button
-                class="tag_middle_button"
-                disabled="true"
-                th:text="${post.postTagMiddle}"
-              >
-                예시
-              </button>
-            </div>
-            <div class="post_subtitle">
-              <h2 th:text="${post.postSubtitle}">
-                제목예시입니다.가나다라마바사.
-              </h2>
-            </div>
+          <div class="thumb_nail_second">
+            <a href="#"><img src="img/defaultI_image.png" alt="" /></a>
           </div>
-          <div class="post_info_container2">
-            <div class="cloth_price">
-              판매 금액: <span th:text="${post.postPrice}">999999</span>\
-            </div>
-            <div class="cloth_price_2">
-              대여 금액: (기본금):
-              <span th:text="${post.postRentDefaultPrice}"></span>원+(일일
-              금액):<span th:text="${post.postRentDayPrice}"></span>원
-            </div>
+          <div class="thumb_nail_third">
+            <a href="#"><img src="img/defaultI_image.png" alt="" /></a>
           </div>
-          <div class="postDetail_container2">
-            <div style="display:flex; font-size:22px; font-weight:bold;">설명</div>
-            <div class="post_text" th:utext="${post.postText}">
-            </div>
-          </div>
-          <script th:object="${post}">
-            let $postWriterId = "[[${post.postSubtitle}]]";
-            let $postId = "[[${post.postId}]]";
-          </script>
-          <script>
-            const $submit_btn = document.querySelector(".submit_btn");
-            const $postDetail_chat_button = document.querySelector(".postDetail_chat_button");
-            const $postFormData = document.querySelector(".postFormData");
-
-            async function goChat(){
-              const thumbnailUrl = document.querySelector('input[name="postThumbnailUrl"]');
-              const myId = document.querySelector('input[name="myId"]');
-              const theme = document.querySelector('input[name="theme"]');
-              theme.value = user_status['theme'];
-              thumbnailUrl.value=imageElements[0].src;
-              myId.value=user_status['nickname'];
-              let goChat_firstStep = await fetch("/userInfo",{method:"post"});
-              goChat_firstStep.json().then(res=>
-              $postFormData.submit()
-              )
-
-              // {         
-                // if(res!=''){
-              // } else {
-              //   if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
-              //     location.href="/login";
-              //   } else {
-
-              //   }
-              // }}
-              
-
-            }</script>
-          <script>
-            let $th_post = "[[${post}]]";
-            window.onload = function () {
-              const $maps3 = document.getElementById('maps3_container');
-              $maps3.innerHTML =
-                '<object width="600px;" height="450px;" type="text/html" data="maps3.html"></object>';
-            };
-          </script>
-          <script th:inline="javascript">
-            /*<![CDATA[*/
-
-            let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
-            console.log(postMaps3Info);
-
-            /*]]>*/
-          </script>
-          <script>
-            localStorage.setItem('MapInfo', postMaps3Info);
-          </script>
-        </div>
-        <div class="maps3_info"style="font-size:22px; font-weight: bold;">거래 가능한 위치
-        <div id="maps3_container"></div>
         </div>
       </div>
+      <div class="post_info_container">
+        <div class="post_writer_info">
+          <div class="writerId">
+            <div class="post_writer_container1">
+                <span class="post_writer_img"
+                ><img th:src="${profileimg}" alt=""
+                /></span>
+              <div class="post_writer_container2">
+                <span th:text="${post.postWriterId}"></span>
+                <form th:object ="${post}" class = "postFormData" action="/chat" method= "post" style = "display: none;">
+                  <input th:field="*{postWriterId}">
+                  <input th:field="*{postId}">
+                  <input th:field="*{postSubtitle}">
+                  <input th:field="*{postPrice}">
+                  <input th:field="*{postRentDefaultPrice}">
+                  <input th:field="*{postRentDayPrice}">
+                  <input th:field="*{postMapInfo}">
+                  <input name = "theme">
+                  <input name = "postThumbnailUrl">
+                  <input name = "myId">
+                  <!-- <button class="submit_btn"></button> -->
+                </form>
+                <button class="postDetail_chat_button" onclick="goChat()">채팅하기</button>
 
-      <!-- <time
-          datetime=""
-          th:text="${#dates.format(post.postDate,'yyyy-MM-dd')}"
-        ></time> -->
+                <form action="" method="get" th:object="${post}">
+                  <input type="text" id="postId" name="postId" hidden th:value="${post.postId}">
+
+                  <input type="button" value="삭제하기" id="postDetail2_btnDelete" th:data-post-id="${post.postId}"/>
+                  <input type="button" value="수정하기" id="postDetail2_btnUpdate" th:data-post-id="${post.postId}"/>
+
+                </form>
+              </div>
+              <script>
+                const $delete_button = document.getElementById('postDetail2_btnDelete');
+                $delete_button.addEventListener('click',(e)=>{
+                  const postId = e.target.dataset.postId;
+                  if(confirm("정말 삭제하시겠습니까?") == true){
+                    alert("삭제하겠습니다.");
+                    globalThis.location.href=`/delete/viewPost2?id=${postId}`;
+                  }
+                  else{
+                    return;
+                  }
+                })
+              </script>
+              <script>
+                const $update_button = document.getElementById('postDetail2_btnUpdate');
+                $update_button.addEventListener('click',(e)=>{
+                  const postId = e.target.dataset.postId;
+                  globalThis.location.href=`/edit/${postId}`;
+                })
+              </script>
+            </div>
+            <!-- <div><span th:text="${post.postWriterId}">김영환바보</span></div>
+            <button class="postDetail_chat_button">채팅하기</button> -->
+            <!-- TODO 프로필사진도 따와야함, 조회수 넣어야함 -->
+          </div>
+        </div>
+        <div class="post_info_container1">
+          <div class="product_tag">
+            <button
+                    class="tag_top_button"
+                    disabled="true"
+                    th:text="${post.postTagTop}"
+            >
+              태그
+            </button>
+            <button
+                    class="tag_middle_button"
+                    disabled="true"
+                    th:text="${post.postTagMiddle}"
+            >
+              예시
+            </button>
+          </div>
+          <div class="post_subtitle">
+            <h2 th:text="${post.postSubtitle}">
+              제목예시입니다.가나다라마바사.
+            </h2>
+          </div>
+        </div>
+        <div class="post_info_container2">
+          <div class="cloth_price">
+            판매 금액: <span th:text="${post.postPrice}">999999</span>\
+          </div>
+          <div class="cloth_price_2">
+            대여 금액: (기본금):
+            <span th:text="${post.postRentDefaultPrice}"></span>원+(일일
+            금액):<span th:text="${post.postRentDayPrice}"></span>원
+          </div>
+        </div>
+        <div class="postDetail_container2">
+          <div style="display:flex; font-size:22px; font-weight:bold;">설명</div>
+          <div class="post_text" th:utext="${post.postText}">
+          </div>
+        </div>
+        <script th:object="${post}">
+          let $postWriterId = "[[${post.postSubtitle}]]";
+          let $postId = "[[${post.postId}]]";
+        </script>
+        <script>
+          const $submit_btn = document.querySelector(".submit_btn");
+          const $postDetail_chat_button = document.querySelector(".postDetail_chat_button");
+          const $postFormData = document.querySelector(".postFormData");
+
+          async function goChat(){
+            const thumbnailUrl = document.querySelector('input[name="postThumbnailUrl"]');
+            const myId = document.querySelector('input[name="myId"]');
+            const theme = document.querySelector('input[name="theme"]');
+            theme.value = user_status['theme'];
+            thumbnailUrl.value=imageElements[0].src;
+            myId.value=user_status['nickname'];
+            let goChat_firstStep = await fetch("/userInfo",{method:"post"});
+            goChat_firstStep.json().then(res=>
+                    $postFormData.submit()
+            )
+
+            // {
+            // if(res!=''){
+            // } else {
+            //   if(confirm("로그인이 필요한 서비스입니다.\n로그인하시겠습니까?")){
+            //     location.href="/login";
+            //   } else {
+
+            //   }
+            // }}
+
+
+          }</script>
+        <script>
+          let $th_post = "[[${post}]]";
+          window.onload = function () {
+            const $maps3 = document.getElementById('maps3_container');
+            $maps3.innerHTML =
+                    '<object width="600px;" height="450px;" type="text/html" data="maps3.html"></object>';
+          };
+        </script>
+        <script th:inline="javascript">
+          /*<![CDATA[*/
+
+          let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
+          console.log(postMaps3Info);
+
+          /*]]>*/
+        </script>
+        <script>
+          localStorage.setItem('MapInfo', postMaps3Info);
+        </script>
+      </div>
+      <div class="maps3_info"style="font-size:22px; font-weight: bold;">거래 가능한 위치
+        <div id="maps3_container"></div>
+      </div>
     </div>
-    <!-- <div th:if="${post == null}">
-      <p>No post found.</p>
-    </div> -->
 
-    <a href="/main">메인화면으로</a>
+    <!-- <time
+        datetime=""
+        th:text="${#dates.format(post.postDate,'yyyy-MM-dd')}"
+      ></time> -->
+  </div>
+  <!-- <div th:if="${post == null}">
+    <p>No post found.</p>
+  </div> -->
+
+  <a href="/main">메인화면으로</a>
   <script th:inline="javascript">
     let imageUrls = [];
     let postTextElement = document.createElement('div');
@@ -229,27 +235,27 @@ layout:decorate="~{layouts/default}">
     }
 
     document
-      .querySelector('.thumb_nail_first img')
-      .addEventListener('click', () => {
-        document.querySelector('.thumb_nail_main img').src =
-          imageElements[0].src;
-      });
+            .querySelector('.thumb_nail_first img')
+            .addEventListener('click', () => {
+              document.querySelector('.thumb_nail_main img').src =
+                      imageElements[0].src;
+            });
 
     document
-      .querySelector('.thumb_nail_second img')
-      .addEventListener('click', () => {
-        document.querySelector('.thumb_nail_main img').src =
-          imageElements[1].src;
-      });
+            .querySelector('.thumb_nail_second img')
+            .addEventListener('click', () => {
+              document.querySelector('.thumb_nail_main img').src =
+                      imageElements[1].src;
+            });
 
     document
-      .querySelector('.thumb_nail_third img')
-      .addEventListener('click', () => {
-        document.querySelector('.thumb_nail_main img').src =
-          imageElements[2].src;
-      });
+            .querySelector('.thumb_nail_third img')
+            .addEventListener('click', () => {
+              document.querySelector('.thumb_nail_main img').src =
+                      imageElements[2].src;
+            });
   </script>
-  </div>
+</div>
 </body>
 
 </html>

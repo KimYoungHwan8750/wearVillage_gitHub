@@ -328,7 +328,9 @@ function email_check() {
     email_text.style.color = 'rgba(0, 120, 0, 0.600)';
     email_text.innerText = '올바른 이메일 형식입니다.';
     nextpage6 = 1;
-    return true;
+    if(email_check_flag==true){
+      return true;
+    }
   } else {
     email_text.style.color = 'rgba(180, 0, 0, 0.600)';
     email_text.innerText = '이메일을 확인해주세요.';
