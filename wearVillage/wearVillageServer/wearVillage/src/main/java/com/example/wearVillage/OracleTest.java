@@ -34,10 +34,6 @@ public class OracleTest
                 COMM NUMBER(7,2) -- float/double
                 DEPTNO NUMBER(2) -- int
             */
-
-            System.out.println("NAME");
-            System.out.println("============================================");
-
             while(rs.next()){
                 //int empno = rs.getInt("empno"); 숫자 대신 컬럼 이름을 적어도 된다.
                 String name = rs.getString("NAME");

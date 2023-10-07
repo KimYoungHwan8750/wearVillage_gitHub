@@ -1,3 +1,6 @@
+### application.properties ###
+# application.properties
+
 HELP.md
 .gradle
 build/
@@ -35,3 +38,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+application-api-key.properties
+application-smtp.properties
+application.properties

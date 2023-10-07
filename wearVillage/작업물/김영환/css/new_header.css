@@ -1,0 +1,189 @@
+*{
+    /* outline: 1px solid red; */
+}
+:root {
+    --search_bar_width:200px;
+    --search_var_height:40px;
+}
+.header_menus{
+    display: none;
+}
+.header_rectangle{
+    display: none;
+}
+.sign_section{
+    height: 20px;
+    font-size: 14px;
+    text-align: right;
+    padding-right: 50px;
+    line-height: 20px;
+}
+.headerContainer{
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+
+
+}
+
+.headerItem2{
+    display: flex;
+    min-width: 650px;
+    font-size: 24px;
+    font-weight: bold;
+    justify-content: space-around;
+    line-height: 60px;
+}
+a{
+    color:inherit;
+    text-decoration: none;
+}
+.headerItem2 > div > a:hover{
+    color: black;
+}
+.header_menu{
+    width: 130px;
+    min-width: 130px;
+    text-align: center;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+
+.header_logo{
+    display: flex;
+    justify-content: end;
+    width: 130px;
+    min-width: 130px;
+    overflow: visible;
+    user-select: none;
+}
+#header_logo_id{
+    overflow: visible;
+    word-break: keep-all;
+}
+
+.header_searchArea{
+    border: 2px solid red;
+    width: var(--search_bar_width);
+    height: var(--search_var_height);
+    margin-top: 10px;
+    border-radius: 13px;
+    line-height: var(--search_var_height);
+    text-indent: 10px;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.5s;
+    font-size: 0px;
+
+}
+.header_searchText{
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 14px;
+    width: calc(var(--search_bar_width) - 25px);
+    text-align: center;
+    line-height: var(--search_var_height);
+    border: none;
+}
+
+.header_searchText:focus{
+    outline: none;
+}
+@media screen and (max-width:1230px) {
+
+    .headerItem2{
+        flex-wrap: wrap;
+    }
+    .header_logo{
+        justify-content: center;
+        width: 100%;
+    }
+    .header_search{
+        display: none;
+    }
+    
+}
+
+@media screen and (max-width:850px) {
+
+.header_menu>a{
+    display: none;
+}
+.headerContainer{
+    display: flex;
+    justify-content: center;
+}
+.headerItem2{
+    min-width: 0px;
+
+}
+
+.test{
+
+}
+
+
+.header_rectangle {
+    display: inline;
+    width: 45px;
+    height: 45px;
+    background-color: red;
+    position: absolute;
+    left: 90px;
+    top: 55px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 1;
+    background-image: url('../img/img_header_tablet_menu_icon.png');
+    background-size: cover;
+}
+            /* 사이드바 메뉴 본문 */
+            .header_menus {
+                display: inline;
+                width: 250px;
+                height: 100%;
+                background-color: rgba(255, 220, 220, 0.900);
+                position: fixed;
+                right: -250px;
+                top: 0;
+                transition: right 0.3s ease-in-out;
+                z-index: 2;
+                overflow-y: auto;
+            }
+
+            /* .menu ul 레이아웃 */
+            .header_menus ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* .menu ul li 레이아웃 */
+            .header_menus ul li {
+                padding: 10px;
+                border-bottom: 1px solid rgba(255, 60, 60, 0.9);
+            }
+
+            /* .menu ul li a 중분류 글자 */
+            .header_menus ul li a {
+                text-decoration: none;
+                color: rgba(230, 30, 30, 0.9);
+                font-size: 18px;
+            }
+
+            /* .menu ul ul li 레이아웃 */
+            .header_menus ul ul li {
+                padding: 10px;
+                border-bottom: 1px solid rgba(255, 120, 120, 0.9);
+            }
+
+            /* .menu ul ul li a 소분류 글자 */
+            .header_menus ul ul li a {
+                text-decoration: none;
+                color: rgba(255, 100, 100, 0.9);
+                font-size: 14px;
+            }
+            /* 사이드바 css 종료 */
+
+}

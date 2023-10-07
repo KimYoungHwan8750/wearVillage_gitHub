@@ -1,0 +1,333 @@
+#result_card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    padding: 5px;
+    margin-top: 10px;
+    margin: auto;
+}
+#result_card {
+    position: relative;
+}
+.imgDeleteBtn {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    background-color: #ef7d7d;
+    color: wheat;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    border-radius: 26px;
+    text-align: center;
+    border: none;
+    display: block;
+    cursor: pointer;
+}
+.ql-toolbar {
+    width: 1000px;
+}
+
+.posting_price_box {
+    width: 170px;
+    height: 35px;
+    line-height: 20px;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 17px;
+}
+.posting_price_info {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    opacity: 1;
+    max-height: 65px; /* 이 값은 실제 내용에 맞게 조정하세요 */
+}
+
+.posting_rent_price_box {
+    width: 170px;
+    height: 35px;
+    line-height: 20px;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+.posting_rent_price_info {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    opacity: 1;
+    max-height: 65px; /* 이 값은 실제 내용에 맞게 조정하세요 */
+}
+.posting_hidden {
+    opacity: 0;
+    max-height: 0;
+    visibility: hidden;
+}
+
+.posting_rent_price2_box {
+    width: 170px;
+    height: 35px;
+    line-height: 20px;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+.posting_prices_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.posting_category_info {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+}
+
+.posting_category_box {
+    width: 250px;
+    height: 35px;
+    line-height: 20px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid gray;
+    font-size: 17px;
+    cursor: pointer;
+}
+#toOracle_btn {
+    visibility: hidden;
+}
+
+#maps_id {
+    cursor: pointer;
+}
+
+.posting_category_button {
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.posting_map_select {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+}
+
+#post_post_id {
+    color: #dc4141;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius:5px;
+    font-weight: bold;
+}
+
+.posting_map_box {
+    width: 300px;
+    height: 30px;
+    line-height: 20px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid gray;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.posting_map_container button {
+    width: 120px;
+    height: 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+.posting_map_container {
+    padding-bottom: 20px;
+}
+
+.category_layer {
+    outline: 1px solid black;
+    display: none;
+    width: 600px;
+    height: 400px;
+}
+
+.category_layer li {
+    list-style-type: none;
+}
+
+.category_content {
+    display: flex;
+    flex-direction: row;
+}
+
+.category_middle ul {
+    display: none;
+    padding: 0px;
+}
+/* TODO 색깔바꾸기 */
+.category_ul_big .selected button {
+    color: #dc4141;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.category_ul_big {
+    outline: 1px solid black;
+    height: 250px;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 20px;
+}
+/* TODO 색깔바꾸기 */
+.category_middle .selected button {
+    color: #dc4141;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.category_footer {
+    margin-top: 15px;
+}
+
+.category_layer {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    /* overflow: auto; Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.category_layer .category_content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 10px;
+    height: auto;
+    border-radius: 5px;
+    width: 450px;
+    height: 350px;
+    box-shadow: 12px 12px 2px rgba(136, 136, 136, 0.2);
+    overflow-y: auto;
+    overflow-x: hidden;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    top: 50%;
+    transform: translate(0, -90%);
+}
+
+.category_content li {
+    width: 150px;
+}
+.category_content ul {
+}
+
+.category_content {
+    display: flex;
+    flex-direction: column;
+}
+
+.category_content_container {
+    display: flex;
+    flex-direction: row;
+}
+.middle_default_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 250px;
+    outline: 1px solid black;
+}
+
+.category_head {
+    width: 120px;
+    height: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+.category_footer {
+    padding: 0px;
+    margin: 0px;
+}
+
+.category_middle {
+    height: 250px;
+    outline: 1px solid black;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+.category_middle ul {
+    margin: 0px;
+    height: 0px;
+}
+
+.category_ul_big {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+.category_ul_big li {
+    display: flex;
+}
+.category_ul_big button {
+    background-color: white;
+    width: 250px;
+    border: none;
+    outline: none;
+    height: 25px;
+    cursor: pointer;
+}
+
+.category_middle button {
+    background-color: white;
+    width: 150px;
+    border: none;
+    outline: none;
+    padding: 0px;
+    margin: 0px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.category_middle li {
+    margin: 0px;
+    padding: 0px;
+    height: 25px;
+}
+
+.select_category_button {
+    border-radius: 5px;
+    width: 150px;
+    height: 25px;
+    color: #dc4141;
+    background-color: #dc41414d;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+.select_category_button:disabled {
+    border-radius: 5px;
+    width: 150px;
+    height: 25px;
+    color: #dc414139;
+    background-color: #dc41411b;
+    border: none;
+    font-weight: bold;
+    cursor: default;
+}

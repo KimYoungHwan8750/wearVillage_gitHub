@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/default}">
+
+
+  <body>
+
+    <div layout:fragment="content">
+      <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+      <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+      <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+      <link rel="stylesheet" href="css/posting.css" />
+
+
+    <div class="post_subtitle">
+      <input
+        type="text"
+        id="post_subtitle_id"
+        style="
+          width: 1000px;
+          height: 40px;
+          font-size: 18px;
+          line-height: 40px;
+          padding: 0px;
+        "
+      />
+    </div>
+    <div class="checkbox_select">
+      <input type="checkbox" id="checkbox_sale_id" checked="true" />
+      <label for="checkbox_sale_id">판매</label>
+      <input type="checkbox" id="checkbox_rent_id" checked="true" />
+      <label for="checkbox_rent_id">대여</label>
+    </div>
+    <div class="posting_info">
+      <div class="posting_prices_container">
+        <div class="posting_price_info">
+          <span class="sale_sale_price">판매 가격</span>
+          <div class="posting_price_container">
+            <input
+              type="text"
+              id="posting_price_id"
+              class="posting_price_box"
+              value=""
+              placeholder="가격을 입력해주세요"
+            />
+            <label for="posting_price_id" style="font-size: 16px">원</label>
+          </div>
+        </div>
+        <div class="posting_rent_price_info">
+          대여 가격
+          <div class="posting_rent_price_container">
+            <input
+              type="text"
+              id="posting_rent_price_id"
+              class="posting_rent_price_box"
+              value=""
+              placeholder="기본 요금"
+            />
+            <label for="posting_rent_price_id" style="font-size: 16px"
+              >원+</label
+            >
+            <input
+              type="text"
+              id="posting_rent_price2_id"
+              class="posting_rent_price2_box"
+              value=""
+              placeholder="일일 요금"
+            />
+            <label for="posting_rent_price2_id" stlye="font-size: 16px"
+              >원</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const $checkbox_sale = document.querySelector('#checkbox_sale_id');
+        const $checkbox_rent = document.querySelector('#checkbox_rent_id');
+        const $posting_sale_price_info = document.querySelector(
+          '.posting_price_info',
+        );
+        const $posting_rent_price_info = document.querySelector(
+          '.posting_rent_price_info',
+        );
+        function updateVisibility() {
+          if ($checkbox_sale.checked) {
+            document.querySelector('.sale_sale_price').innerText = '판매 가격';
+          } else if ($checkbox_rent.checked) {
+            document.querySelector('.sale_sale_price').innerText =
+              '보증금 가격';
+          }
+
+          if ($checkbox_rent.checked) {
+            $posting_rent_price_info.classList.remove('posting_hidden');
+          } else if ($checkbox_sale.checked) {
+            $posting_rent_price_info.classList.add('posting_hidden');
+          }
+        }
+
+        function preventAllUnchecked() {
+          if (!$checkbox_sale.checked && !$checkbox_rent.checked) {
+            alert('하나는 체크되어있어야 합니다');
+            this.checked = true;
+          }
+
+          updateVisibility();
+        }
+
+        $checkbox_sale.addEventListener('change', preventAllUnchecked);
+        $checkbox_rent.addEventListener('change', preventAllUnchecked);
+
+        updateVisibility();
+      </script>
+      <script>
+        const $input = document.querySelector('#posting_price_id');
+        const $input2 = document.querySelector('#posting_rent_price_id');
+        const $input3 = document.querySelector('#posting_rent_price2_id');
+
+        function handleInput(e) {
+          let value = e.target.value;
+          value = Number(value.replaceAll(',', ''));
+          if (isNaN(value)) {
+            alert('숫자만 입력해주세요!');
+            e.target.value = '';
+          } else {
+            const formatValue = value.toLocaleString('ko-KR');
+            e.target.value = formatValue;
+          }
+        }
+
+        $input.addEventListener('keyup', handleInput);
+        $input2.addEventListener('keyup', handleInput);
+        $input3.addEventListener('keyup', handleInput);
+      </script>
+      <div class="posting_category_info">
+        상품 카테고리
+        <div>
+          <label for="category_select_id">
+            <input
+              type="text"
+              id="posting_category_id"
+              class="posting_category_box"
+              value="대분류 > 중분류"
+              readonly="true"
+            />
+          </label>
+          <button class="posting_category_button" id="category_select_id">
+            카테고리 선택
+          </button>
+          <script>
+            $category_btn = document.querySelector('.posting_category_button');
+            $category_btn.addEventListener('click', () => {
+              document.querySelector('.category_layer').style.display = 'block';
+            });
+          </script>
+        </div>
+      </div>
+      <div class="posting_map_select">
+        거래 가능한 위치
+        <div class="posting_map_container">
+          <label for="maps_id">
+            <input
+              type="text"
+              class="posting_map_box"
+              id="posting_map_box_id"
+              value="건물명(풀네임)으로 입력"
+              readonly="true"
+            />
+          </label>
+          <!-- 라벨자바스크립트 -->
+          <script>
+            document
+              .querySelector('.posting_category_box')
+              .addEventListener('focus', () => {
+                document.querySelector('.category_layer').style.display =
+                  'block';
+              });
+          </script>
+          <script>
+            document.querySelector('.posting_map_box').addEventListener(
+              'focus',
+              () => {
+                map_popup();
+              },
+              { once: true },
+            );
+          </script>
+          <button class="maps" id="maps_id" onclick="map_popup()">
+            지도로 불러오기
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="editor" style="width: 1000px; height: 600px"></div>
+    <input type="hidden" id="content_id" name="content" />
+    <div class="form_section">
+      <div class="form_section_title"></div>
+      <!-- <div class="form_section_content">
+    <input
+      type="file"
+      multiple="true"
+      name="uploadFile"
+      style="height: 30px"
+    />
+    <div id="uploadResult"></div>
+  </div> -->
+    </div>
+
+    <button
+      id="toOracle_btn"
+      type="button"
+      value="오라클로 보내기"
+      display="none"
+    >
+      보내용
+    </button>
+    <button id="post_post_id" type="button" value="작성하기">작성하기</button>
+
+    <!-- 카테고리 선택 -->
+    <div class="category_layer">
+      <div class="category_content">
+        <div class="category_head">카테고리 선택</div>
+        <div class="category_content_container">
+          <ul class="category_ul_big">
+            <li class><button onclick="select_button(this)">상의</button></li>
+            <li class><button onclick="select_button(this)">하의</button></li>
+            <li class><button onclick="select_button(this)">아우터</button></li>
+            <li class><button onclick="select_button(this)">원피스</button></li>
+            <li class>
+              <button onclick="select_button(this)">비치웨어</button>
+            </li>
+            <li class><button onclick="select_button(this)">스포츠</button></li>
+            <li class><button onclick="select_button(this)">모자</button></li>
+            <li class><button onclick="select_button(this)">구두</button></li>
+          </ul>
+          <!-- 대분류 선택 자바스크립트(selected부여) -->
+          <script>
+            function select_button(btn) {
+              document.querySelector(
+                '.middle_default_container',
+              ).style.display = 'none';
+              if (document.querySelector('.selected')) {
+                document
+                  .querySelector('.selected')
+                  .classList.remove('selected');
+              }
+              btn.parentElement.classList.add('selected');
+              abc(btn);
+              let selectedItems = document.querySelectorAll(
+                '.category_middle .selected',
+              );
+
+              for (let i = 0; i < selectedItems.length; i++) {
+                selectedItems[i].classList.remove('selected');
+              }
+            }
+          </script>
+
+          <script>
+            const abc = btn => {
+              let listItems = document.querySelectorAll('.category_ul_big li');
+              let middleLists = document.querySelectorAll(
+                '.category_middle ul',
+              );
+
+              for (let i = 0; i < middleLists.length; i++) {
+                middleLists[i].style.display = 'none';
+              }
+
+              for (let i = 0; i < listItems.length; i++) {
+                if (listItems[i].classList.contains('selected')) {
+                  middleLists[i].style.display = 'block';
+                }
+              }
+            };
+          </script>
+          <script>
+            function select_middle_button(btn) {
+              let selectedItems = document.querySelectorAll(
+                '.category_middle .selected',
+              );
+
+              for (let i = 0; i < selectedItems.length; i++) {
+                selectedItems[i].classList.remove('selected');
+              }
+
+              btn.parentElement.classList.add('selected');
+            }
+          </script>
+          <div class="category_middle">
+            <div class="middle_default_container">
+              <div class="category_middle_default">중분류</div>
+            </div>
+            <ul class="category_ul_top">
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  긴소매 티셔츠
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  반소매 티셔츠
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  셔츠/블라우스
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  후드 티셔츠
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  니트/스웨터
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">맨투맨</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">기타 상의</button>
+              </li>
+            </ul>
+            <ul class="category_ul_bot">
+              <li class>
+                <button onclick="select_middle_button(this)">데님팬츠</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">코튼팬츠</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">슈트팬츠</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  트레이닝/조거팬츠
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">숏팬츠</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">기타 하의</button>
+              </li>
+            </ul>
+            <ul class="category_ul_outer">
+              <li class>
+                <button onclick="select_middle_button(this)">후드집업</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  레더/라이더스재킷
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">트래커재킷</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  슈트/블레이저 재킷
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">카디건</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  아노락 재킷
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">플리스</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">패딩</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  기타 아우터
+                </button>
+              </li>
+            </ul>
+            <ul class="category_ul_dress">
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  미니 원피스
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  미디 원피스
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  맥시 원피스
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  기타 원피스
+                </button>
+              </li>
+            </ul>
+            <ul class="category_ul_beach">
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  남성 비치웨어
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  여성 비치웨어
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  기타 비치웨어
+                </button>
+              </li>
+            </ul>
+            <ul class="category_ul_sports">
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  스포츠 상의
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  스포츠 하의
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  트레이닝 재킷
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  기타 스포츠
+                </button>
+              </li>
+            </ul>
+            <ul class="category_ul_hat">
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  캡/야구모자
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">
+                  버킷/사파리햇
+                </button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">비니</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">기타 모자</button>
+              </li>
+            </ul>
+            <ul class="category_ul_shoes">
+              <li class>
+                <button onclick="select_middle_button(this)">구두</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">로퍼</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">힐/펌프스</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">샌들</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">슬리퍼</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">부츠</button>
+              </li>
+              <li class>
+                <button onclick="select_middle_button(this)">기타 신발</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="category_footer">
+          <button
+            class="select_category_button"
+            onclick="select_button_function()"
+            disabled="false"
+          >
+            확인
+          </button>
+        </div>
+      </div>
+
+      <script>
+        setInterval(() => {
+          let a = document.querySelectorAll('.selected');
+          if (a.length >= 2) {
+            document.querySelector('.select_category_button').disabled = false;
+          } else if (a.length == 1) {
+            document.querySelector('.posting_category_box').value =
+              '대분류 > 중분류';
+            document.querySelector('.select_category_button').disabled = true;
+          } else {
+            document.querySelector('.select_category_button').disabled = true;
+          }
+        }, 100);
+      </script>
+      <script>
+        function select_button_function() {
+          let a = document.querySelectorAll('.selected');
+          console.log(a);
+          let b = a[0].innerText + ' > ' + a[1].innerText;
+          console.log(b);
+          document.querySelector('.posting_category_box').value = b;
+          console.log(b);
+        }
+        document
+          .querySelector('.select_category_button')
+          .addEventListener('click', function () {
+            modal.style.display = 'none';
+          });
+      </script>
+      <script>
+        // Get the modal
+        var modal = document.querySelector('.category_layer');
+
+        // Get the button that opens the modal
+        var btn = document.querySelector('.posting_category_button');
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName('close')[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function () {
+          modal.style.display = 'block';
+        };
+
+        // When the user clicks anywhere outside of the modal or on 'X', close it
+        window.onclick = function (event) {
+          if (event.target == modal || event.target == span) {
+            modal.style.display = 'none';
+          }
+        };
+      </script>
+    </div>
+
+  <!-- 작성 버튼 시작 -->
+  <script>
+    let POST_ID;
+    let POST_WRITER_ID;
+    let POST_SUBTITLE;
+    let POST_PRICE;
+    let POST_RENT_DEFAULT_PRICE;
+    let POST_RENT_DAY_PRICE;
+    let POST_TAG_TOP;
+    let POST_TAG_MIDDLE;
+    let POST_MAP_INFO;
+    let POST_TEXT;
+    let POST_IMAGE;
+    let POST_DATE;
+    let POST_MODIFY_DATE;
+
+    let today = new Date();
+
+    $('#post_post_id').on('click', function () {
+      // POST_ID = '123번';
+      // POST_WRITER_ID = $('#post_writer_id').val();
+      // POST_SUBTITLE = $('#post_subtitle_id').val();
+      // POST_TEXT = $('.ql-editor').val();
+      // POST_DATE =
+      //   today.getFullYear() +
+      //   '년' +
+      //   (today.getMonth() + 1) +
+      //   '월' +
+      //   today.getDate() +
+      //   '일';
+      // POST_MODIFY_DATE = '1234수정일';
+
+      let category = $('#posting_category_id').val();
+      let splitCategory = category.split(' > ');
+      let postText = quill.container.firstChild.innerHTML;
+      let parser = new DOMParser();
+      let doc = parser.parseFromString(postText, 'text/html');
+
+      let img = doc.querySelector('img');
+      if (img) {
+        let postImage = img.src;
+        console.log(postImage);
+      }
+
+      let postData = {
+        postId: '1',
+        // postWriterId: $('#post_writer_id').val(),
+        // TODO 작성자ID값 수정(세션값으로)
+        postWriterId: user_status["nickname"],
+        postSubtitle: $('#post_subtitle_id').val(),
+        postPrice: $('#posting_price_id').val(),
+        postRentDefaultPrice: $('#posting_rent_price_id').val(),
+        postRentDayPrice: $('#posting_rent_price2_id').val(),
+
+        postTagTop: splitCategory[0],
+        postTagMiddle: splitCategory[1],
+
+        postMapInfo: $('#posting_map_box_id').val(),
+
+        postText: quill.container.firstChild.innerHTML,
+        postDate:
+          today.getFullYear() +
+          '년' +
+          (today.getMonth() + 1) +
+          '월' +
+          today.getDate() +
+          '일',
+        postModifyDate: '수정일자없음',
+      };
+      if(postData.postTagMiddle=='중분류'){
+        alert('태그는 반드시 골라야합니다!!')
+        return false;
+      }
+      if(!img){
+        alert('이미지를 한장 이상 업로드해주세요!!')
+        return false;
+      }
+      if(postData.postMapInfo=='건물명(풀네임)으로 입력'){
+        alert('거래 가능한 위치를 정해주세요!!')
+        return false;
+      }
+      console.log(typeof postData.postMapInfo);
+      console.log(postData);
+
+      $.ajax({
+        type: 'POST',
+        url: '/postToOracle',
+        data: JSON.stringify(postData),
+        contentType: 'application/json; text/html; charset=utf-8;',
+        success: function (response) {
+          window.location.href = '/posts';
+        },
+        error: function (error) {
+          console.log('Error');
+          alert('서버와의 연결에 실패했습니다.');
+          // Handle error here
+        },
+      });
+    });
+  </script>
+  <!-- 작성 버튼 끝 -->
+
+  <!-- 퀼 시작 -->
+  <script>
+    function quilljsediterInit() {
+      var option = {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+            ['image', 'blockquote', 'code-block'],
+
+            [{ header: 1 }, { header: 2 }], // custom button values
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+            [{ direction: 'rtl' }], // text direction
+
+            [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+
+            [{ align: [] }],
+
+            ['clean'],
+          ],
+        },
+        placeholder: '자세한 내용을 입력해 주세요!',
+        theme: 'snow',
+      };
+
+      quill = new Quill('#editor', option);
+      // quill.on('text-change', function () {
+      //   document.getElementById('quill_html').value =
+      //     quill.container.firstChild.innerHTML;
+      // });
+      quill.on('text-change', () => {
+        document.getElementsByClassName('ql-editor').value =
+          quill.container.firstChild.innerHTML;
+      });
+
+      // Add custom image handler
+      quill.getModule('toolbar').addHandler('image', function () {
+        const fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', '.jpg,.png'); // Accept only images
+        fileInput.click();
+
+        // Listen for file input change events
+        fileInput.addEventListener('change', function () {
+          if (fileInput.files != null && fileInput.files[0] != null) {
+            let formData = new FormData();
+
+            for (let i = 0; i < fileInput.files.length; i++) {
+              formData.append('uploadFile', fileInput.files[i]);
+            }
+
+            $.ajax({
+              url: '/uploadTest',
+              processData: false,
+              contentType: false,
+              data: formData,
+              type: 'POST',
+              dataType: 'json',
+
+              success: function (result) {
+                console.log('Success', result);
+                showUploadImage(result);
+
+                let range = quill.getSelection(true);
+
+                for (let i = 0; i < result.length; i++) {
+                  let obj = result[i];
+                  let filePath = obj.uploadPath.replace(/\\/g, '/') +
+                    '/_' +
+                    obj.uuid +
+                    '_' +
+                    obj.fileName;
+
+                  filePath = encodeURIComponent(filePath);
+
+                  // Insert uploaded image to the editor
+                  quill.insertEmbed(
+                    range.index,
+                    'image',
+                    '/display?fileName=' + filePath,
+                  );
+
+                  range.index++;
+                }
+              },
+              error: function (error) {
+                console.log('Error:', error);
+              },
+            });
+          }
+        });
+      });
+    }
+
+    quilljsediterInit();
+  </script>
+  <!-- 퀼 끝 -->
+
+  <!-- 지도 시작 -->
+  <script>
+    let address_value_flag = false;
+    let address_value;
+    localStorage.clear();
+    setInterval(() => {
+      address_value_flag = localStorage.getItem('address_value_flag');
+      address_value = localStorage.getItem('address_value');
+      if (address_value != '' && address_value_flag == 'true') {
+        const test = document.querySelector('.posting_map_box');
+        test.value = address_value;
+        test.disabled = true;
+        // document.querySelector('.posting_map_box').value = address_value;
+      }
+    }, 100);
+    function map_popup() {
+      window.open('/map_popup', '지도', 'width=748, height=600');
+    }
+  </script>
+  <!-- 지도 끝 -->
+  <script>
+    $("input[type='file']").on('change', function (e) {
+      if ($('.imgDeleteBtn').length > 0) {
+        deleteFile();
+      }
+      // 삭제펑션
+
+      let formData = new FormData();
+      let fileInput = $('input[name="uploadFile"]');
+      let fileList = fileInput[0].files;
+      let fileObj = fileList[0];
+      let fileName = fileObj.name;
+      let fileSize = fileObj.size;
+      let fileType = fileObj.type;
+
+      if (!fileCheck(fileObj.name, fileObj.size)) {
+        return false;
+      }
+
+      for (let i = 0; i < fileList.length; i++) {
+        formData.append('uploadFile', fileList[i]);
+      }
+
+      $.ajax({
+        url: '/uploadTest',
+        processData: false,
+        contentType: false,
+        data: formData,
+        type: 'POST',
+        dataType: 'json',
+        success: function (result) {
+          console.log('Success', result);
+          showUploadImage(result);
+        },
+        error: function (error) {
+          console.log('Error:', error);
+        },
+        // error: function (result) {
+        //   alert('이미지 파일이 아닙니다');
+        // },
+      });
+    });
+
+    let regex = new RegExp('(.*?)\.(jpg|png)$');
+    let maxSize = 51048576;
+
+    function fileCheck(fileName, fileSize) {
+      if (fileSize >= maxSize) {
+        alert('파일 사이즈 초과');
+        return false;
+      }
+      if (!regex.test(fileName)) {
+        alert('파일명 오류');
+        return false;
+      }
+      return true;
+    }
+
+    // 이미지 출력
+
+    let images = [];
+
+    function showUploadImage(uploadResultArr) {
+      if (!uploadResultArr || uploadResultArr.length == 0) {
+        return;
+      }
+
+      let uploadResult = $('#uploadResult');
+
+      for (let i = 0; i < uploadResultArr.length; i++) {
+        let obj = uploadResultArr[i];
+
+        let str = '';
+
+        images.push({
+          uploadPath: obj.uploadPath.replace(/\\/g, '/'),
+          uuid: obj.uuid,
+          fileName: obj.fileName,
+        });
+
+        $('#toOracle_btn').on('click', function () {
+          $.ajax({
+            url: '/letsgo_oracle',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(images), // Send the entire array
+          });
+        });
+
+        let fileCallPath = encodeURIComponent(
+          obj.uploadPath.replace(/\\/g, '/') +
+            '/s_' +
+            obj.uuid +
+            '_' +
+            obj.fileName,
+        );
+
+        // let fileCallPath = encodeURIComponent(
+        //   obj.uploadPath.replace(/\\/g, '/').replace('C:/upload/', '') +
+        //     '/s_' +
+        //     obj.uuid +
+        //     '_' +
+        //     obj.fileName,
+        // );
+        console.log(obj.uploadPath);
+        console.log(obj.uuid);
+        console.log(obj.fileName);
+
+        str += "<div id='result_card'>";
+        str += "<img src='/display?fileName=" + fileCallPath + "'>";
+        str +=
+          "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x<div>";
+        str += '</div>';
+
+        uploadResult.append(str);
+      }
+    }
+
+    $('#uploadResult').on('click', '.imgDeleteBtn', function (e) {
+      deleteFile();
+    });
+
+    function deleteFile() {
+      let targetFile = $('.imgDeleteBtn').data('file');
+      let targetDiv = $('#result_card');
+      $.ajax({
+        url: '/deleteFile',
+        data: { fileName: targetFile },
+        dataType: 'text',
+        type: 'POST',
+        success: function (result) {
+          console.log(result);
+          targetDiv.remove();
+          $("input[type='file']").val('');
+        },
+        error: function (result) {
+          console.log(result);
+          alert('파일 삭제 실패');
+        },
+      });
+    }
+  </script>
+  </div>
+</body>
+</html>

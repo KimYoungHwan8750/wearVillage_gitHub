@@ -1,5 +1,7 @@
 package com.example.wearVillage;
 
+import com.example.wearVillage.status.connect_info;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,9 +14,9 @@ public class DBConnection
     {
         Connection conn = null;
         try {
-            String user = "c##wearVillage";
-            String pw = "wearVillage";
-            String url = "jdbc:oracle:thin:@localhost:1521:xe";
+            String user = connect_info.user;
+            String pw = connect_info.pw;
+            String url = connect_info.url;
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(url, user, pw);
