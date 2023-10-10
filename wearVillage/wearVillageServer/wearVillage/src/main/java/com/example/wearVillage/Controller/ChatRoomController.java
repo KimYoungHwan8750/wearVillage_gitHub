@@ -1,14 +1,18 @@
 package com.example.wearVillage.Controller;
 
+import com.example.wearVillage.chat.ChatDTO;
 import com.example.wearVillage.chat.ChatService;
 import com.example.wearVillage.chat.ChatroomDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -42,7 +46,8 @@ public class ChatRoomController {
                        @RequestParam String postThumbnailUrl,
                        @RequestParam String postMapInfo,
                        @RequestParam String postId) {
-        chatSVC.loadingChatHistory(parseInt(postId),(String) session.getAttribute("nickname"),postWriterId);
+        List<ChatDTO> chat = chatSVC.loadingChatHistory(parseInt(postId),(String) session.getAttribute("nickname"),postWriterId);
+        log.info(chat.toString());
         if(session.getAttribute("email")!=null) {
             model.addAttribute("postSubtitle", postSubtitle);
             model.addAttribute("postWriterId", postWriterId);
@@ -54,10 +59,29 @@ public class ChatRoomController {
             model.addAttribute("postId", postId);
             model.addAttribute("myId", session.getAttribute("nickname"));
             model.addAttribute("theme", session.getAttribute("theme"));
-
+            model.addAttribute("chat_history", chat);
             return "chat.html";
         } else {
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/chatroomlist")
+    public String chatroomlist(HttpSession session,Model model){
+        if(session.getAttribute("email")!=null){
+            model.addAttribute("chatroomList",chatSVC.loadingChatroom((String) session.getAttribute("nickname")));
+
+            List<ChatroomDTO> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
+                    .map(m-> new ChatroomDTO(
+                            m.getPOST_ID(),
+                            m.getMEMBER1(),
+                            m.getMEMBER2(),
+                            m.getRECENTLY_MSG(),
+                            m.getRECENTLY_TIME(),
+                            m.getCHAT_ROOM_ID())).toList();
+        } else {
+            return "redirect:/login";
+        }
+        return "chatroomlist.html";
     }
 }

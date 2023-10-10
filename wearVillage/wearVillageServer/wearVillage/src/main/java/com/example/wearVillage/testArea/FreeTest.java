@@ -3,14 +3,15 @@ package com.example.wearVillage.testArea;
 
 import oracle.sql.TIMESTAMP;
 
+import java.sql.Time;
 import java.sql.Timestamp;
-
+import java.util.function.IntFunction;
 
 
 public class FreeTest {
     public static void main(String[] args) {
-        Timestamp date = new Timestamp(System.currentTimeMillis());
-        System.out.println(date);
+        IntFunction intSum = (xc)->xc+1;
+        System.out.println();
 
     }
 }

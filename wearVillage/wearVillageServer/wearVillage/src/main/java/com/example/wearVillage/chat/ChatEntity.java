@@ -30,6 +30,8 @@ public class ChatEntity {
     private Integer CHATROOM;
     @Column(name="CHAT_DATE")
     private Timestamp CHAT_DATE;
+    @Column(name="CHAT_ROOM_ID")
+    private Integer CHAT_ROOM_ID;
 
     public ChatEntity(ChatDTO chatdto){
         this.SENDER = chatdto.getSENDER();
@@ -38,5 +40,6 @@ public class ChatEntity {
         this.ADDRESSEE = chatdto.getADDRESSEE();
         this.CHAT_DATE = chatdto.getCHAT_DATE();
         this.MESSAGE= chatdto.getMESSAGE();
+        this.CHAT_ROOM_ID = chatdto.getCHAT_ROOM_ID();
     }
 }

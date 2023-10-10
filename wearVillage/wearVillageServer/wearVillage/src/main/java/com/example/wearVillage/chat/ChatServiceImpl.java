@@ -42,4 +42,13 @@ public class ChatServiceImpl implements ChatService{
         return chatroomdao.loadingChatHistory(chatroom,member1,member2);
     }
 
+    @Override
+    public ChatroomDTO searchChatroom(String sender, String addressee, int chatroom){
+        return chatroomdao.searchChatroom(sender,addressee,chatroom);
+    }
+
+    @Override
+    public List<ChatroomDTO> loadingChatroom(String nickname){
+        return chatroomdao.loadingChatroomList(nickname);
+    }
 }
