@@ -59,9 +59,26 @@
   
     <div class="headerItem3"></div>
 </section>
-<div class="header_searchArea">
-    <input class="header_searchText" type="text" placeholder="검색어를 입력해주세요" >
-</div>
+    <form action="/search/${query}" th:method="get" id="searchForm">
+        <div class="header_searchArea">
+            <input class="header_searchText" type="text" placeholder="검색어를 입력해주세요" >
+            <img class="searchImageBtn" src="../img/magnifier.png" style="width:15px; height:15px; padding-right:20px;" onclick="submitSearch()">
+        </div>
+    </form>
+
+    <script>
+        let $searchForm = document.getElementById('searchForm');
+
+        $searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitSearch();
+        });
+
+        function submitSearch() {
+            let query = document.querySelector('.header_searchText').value;
+            window.location.href='/search/'+encodeURIComponent(query);
+        }
+    </script>
 <script layout:fragment="script" src="js/header.js"></script>
 </div>
 
