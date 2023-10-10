@@ -23,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -220,5 +221,45 @@ public class PJYController {
             log.error(e.getMessage());
             return "error";
         }
+    }
+
+    @GetMapping("/search/{query}")
+    public ModelAndView searchQuery(@PathVariable String query, ModelAndView mav, PostData postData){
+        mav.setViewName("searchedPosting");
+
+        NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+
+        StringBuffer sql = new StringBuffer();
+        sql.append("select * from Posting_Table ");
+        sql.append("where POST_SUBTITLE like :query ");
+        sql.append("      or Post_Tag_Top like :query ");
+        sql.append("      or Post_Tag_Middle like :query ");
+
+        Map<String,Object>param = new HashMap<>();
+        param.put("query","%"+query+"%");
+
+        RowMapper mapper = new BeanPropertyRowMapper<>(PostData.class);
+
+        List<PostData> searchedPost = template.query(sql.toString(), param, mapper);
+
+        for (PostData SP : searchedPost) {
+            String postText = SP.getPostText();
+
+            Document doc = Jsoup.parse(postText);
+            Element img = doc.select("img").first();
+
+            if (img != null) {
+                String imgUrl = img.attr("src");
+                SP.setPostThumbnailUrl(imgUrl);
+            }
+        }
+
+        mav.addObject("searchedPost",searchedPost);
+        mav.addObject("postData",postData);
+        log.info("검색결과={}",searchedPost);
+
+
+
+        return mav;
     }
 }
