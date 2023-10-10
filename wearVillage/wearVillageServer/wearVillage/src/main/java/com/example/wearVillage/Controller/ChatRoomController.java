@@ -3,15 +3,19 @@ package com.example.wearVillage.Controller;
 import com.example.wearVillage.chat.ChatDTO;
 import com.example.wearVillage.chat.ChatService;
 import com.example.wearVillage.chat.ChatroomDTO;
+import com.example.wearVillage.chat.ChatroomDTO_toString;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.parser.HttpParser;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -72,13 +76,25 @@ public class ChatRoomController {
             model.addAttribute("chatroomList",chatSVC.loadingChatroom((String) session.getAttribute("nickname")));
 
             List<ChatroomDTO> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
-                    .map(m-> new ChatroomDTO(
-                            m.getPOST_ID(),
-                            m.getMEMBER1(),
-                            m.getMEMBER2(),
-                            m.getRECENTLY_MSG(),
-                            m.getRECENTLY_TIME(),
-                            m.getCHAT_ROOM_ID())).toList();
+                    .map(m-> {
+                        ChatroomDTO_toString chatroomDTO = new ChatroomDTO_toString();
+                        LocalDateTime liveTime = LocalDateTime.now();
+                        LocalDateTime chatroomTime = m.getRECENTLY_TIME().toLocalDateTime();
+                            chatroomDTO.setPOST_ID(m.getPOST_ID());
+                            chatroomDTO.setMEMBER1(m.getMEMBER1());
+                            chatroomDTO.setMEMBER2(m.getMEMBER2());
+                            chatroomDTO.setRECENTLY_MSG(m.getRECENTLY_MSG());
+                            if(liveTime.getYear()==chatroomTime.getYear()&&liveTime.getMonth()==chatroomTime.getMonth()){
+                                if(liveTime.getDayOfYear()-1==chatroomTime.getDayOfYear()){
+                                    chatroomDTO.setRECENTLY_TIME("어제");
+                                } else if (liveTime.getDayOfYear()==chatroomTime.getDayOfYear()) {
+                                    //TODO
+                                }
+                            }
+                            chatroomDTO.setRECENTLY_TIME(m.getRECENTLY_TIME());
+                            chatroomDTO.setCHAT_ROOM_ID(m.getCHAT_ROOM_ID());
+                    return chatroomDTO;
+                    }).toList();
         } else {
             return "redirect:/login";
         }

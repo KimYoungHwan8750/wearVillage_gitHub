@@ -6,6 +6,18 @@
         const $msg = document.getElementById('msg');
         const $chat_midContent = document.querySelector('.chat_midContent');
         const $button_send = document.getElementById('button-send');
+        let whoChatBeforeFromHistory_right = false;
+        let whoChatBeforeFromHistory_left = false;
+        let whoChatBeforeFromLive_right = null;
+        let whoChatBeforeFromLive_left = null;
+        //바로 전 채팅의 시간
+        let whatTimeBeforeFromHistory_left = null;
+        let whatTimeBeforeFromHistory_right = null;
+        //바로 전 채팅이 내 채팅인지 판단
+        let beforeChatisMyChat_left = null;
+        let beforeChatisMyChat_right = null;
+        let firstchat_left= true;
+        let firstchat_right= true;
             /*디자인 관련 스크립트*/ 
 
     const $chat_noticeClose = document.querySelector('.chat_noticeClose');
@@ -14,7 +26,6 @@
     setTimeout(()=>{
         $chat_notice.setAttribute('style','transition:all 2s ease-in; opacity:0;');
     },4000)
-    
         function dateFormater(date){
             let amOrPm = '';
             let hour =date.getHours();
@@ -27,7 +38,7 @@
             }
 
             if(hour>12){hour-=12;}
-            if(minute<11){minute="0"+minute;}
+            if(minute<10){minute="0"+minute;}
 
             return amOrPm+" "+hour+":"+minute;
         }
@@ -55,10 +66,14 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         alert("서버에 오류가 발생했습니다. 자세한 사항은 고객 센터에 문의해주세요.\n 오류 내용:"+err)
     })
     JSON.parse($th_chatHistory).forEach(chatMessage => {
-        console.log(chatMessage);
-        let date= new Date(chatMessage['chat_DATE']);
+        // console.log(chatMessage);
+        // console.log("date:"+date);
+        // console.log("date.getMinutes()"+date.getMinutes());
 
         if (JSON.parse($th_sender) == chatMessage['sender']) {
+            // RIGHT
+            let date= new Date(chatMessage['chat_DATE']);
+
             //div태그 생성
             let div = document.createElement('div');
             //div태그에 chat_myTextBox 클래스 부여
@@ -70,16 +85,32 @@ fetch("/userInfo",{method:'POST'}).then(res=>
             //display_userChat에 chat_Text와 chat_myText클래스 부여
             display_chatTime.classList.add('chat_displayTime');
             display_userChat.classList.add('chat_Text','chat_myText');
-            display_chatTime.innerText = dateFormater(date);
+            if(beforeChatisMyChat_right==true&&firstchat_right==false&&date.getMinutes()==whatTimeBeforeFromHistory_right){
+            } else {
+                display_chatTime.innerText = dateFormater(date);
+            }
             // 메세지 입력
+            if(whoChatBeforeFromHistory_right==false){
+            display_userChat.innerText = chatMessage['message']+'프로필이미지';
+            } else {
             display_userChat.innerText = chatMessage['message'];
+            }
             //b를 div의 자식 태그로 설정
             div.append(display_chatTime,display_userChat);
             //div태그를 chat_msgArea의 자식으로 설정
             $chat_msgArea.append(div);
             //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
             $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
+            whoChatBeforeFromHistory_right=true;
+            whoChatBeforeFromHistory_left=false;
+            beforeChatisMyChat_right = true;
+            beforeChatisMyChat_left=false;
+            whatTimeBeforeFromHistory_right=date.getMinutes();
+            firstchat_right=false;
         } else {
+            //LEFT
+        let date= new Date(chatMessage['chat_DATE']);
+
             //div태그 생성
             let div = document.createElement('div');
             //div태그에 chat_targetTextBox 클래스 부여
@@ -91,17 +122,32 @@ fetch("/userInfo",{method:'POST'}).then(res=>
             //display_userChat에 chat_Text와 chat_targetText클래스 부여
             display_chatTime.classList.add('chat_displayTime');
             display_userChat.classList.add('chat_Text','chat_targetText');
-            display_chatTime.innerText = dateFormater(date);
-
+            if(beforeChatisMyChat_left==true&&firstchat_left==false&&date.getMinutes()==whatTimeBeforeFromHistory_left){
+            } else {
+                display_chatTime.innerText = dateFormater(date);
+            }
 
             // 메세지 입력
-            display_userChat.innerText = chatMessage['message'];
+            if(whoChatBeforeFromHistory_left==false){
+                display_userChat.innerText = chatMessage['message']+'프로필이미지';
+                } else {
+                display_userChat.innerText = chatMessage['message'];
+                }
             //b를 div의 자식 태그로 설정
             div.append(display_userChat,display_chatTime);
             //div태그를 chat_msgArea의 자식으로 설정
             $chat_msgArea.append(div);
             //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
             $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
+            whoChatBeforeFromHistory_right=false;
+            whoChatBeforeFromHistory_left=true;
+            beforeChatisMyChat_right = false;
+            beforeChatisMyChat_left=true;
+            whatTimeBeforeFromHistory_left=date.getMinutes();
+            console.log(whatTimeBeforeFromHistory_left+"왓타임 레프트");
+
+            firstchat_left=false;
+
         }
     
 
@@ -226,6 +272,8 @@ fetch("/userInfo",{method:'POST'}).then(res=>
 
             //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
             if (JSON.parse($th_sender) == sender) {
+                //RIGHT
+                
                 //div태그 생성
                 let div = document.createElement('div');
                 //div태그에 chat_myTextBox 클래스 부여
@@ -236,10 +284,20 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 let display_chatTime = document.createElement('span');
                 //display_userChat에 chat_Text와 chat_myText클래스 부여
                 display_chatTime.classList.add('chat_displayTime');
-                display_chatTime.innerText=dateFormater(new Date());
+                let nowTime = new Date();
+            if(beforeChatisMyChat_right==true&&nowTime.getMinutes()==whatTimeBeforeFromHistory_right){
+            } else {
+                display_chatTime.innerText = dateFormater(nowTime);
+            }
+                //display_chatTime.innerText=dateFormater(nowTime);
                 display_userChat.classList.add('chat_Text','chat_myText');
                 // 메세지 입력
-                display_userChat.innerText = message;
+            if(whoChatBeforeFromHistory_right==false){
+            display_userChat.innerText = message+'프로필이미지';
+            } else {
+            display_userChat.innerText = message;
+            }
+                //display_userChat.innerText = message;
                 console.log(message);
                 //b를 div의 자식 태그로 설정
                 div.append(display_chatTime,display_userChat);
@@ -247,7 +305,16 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 $chat_msgArea.append(div);
                 //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
                 $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
+            whoChatBeforeFromHistory_right=true;
+            whoChatBeforeFromHistory_left=false;
+            beforeChatisMyChat_right = true;
+            beforeChatisMyChat_left=false;
+            whatTimeBeforeFromHistory_right=nowTime.getMinutes();
             } else {
+                //LEFT
+
+                let nowTime = new Date();
+
                 //div태그 생성
                 let div = document.createElement('div');
                 //div태그에 chat_targetTextBox 클래스 부여
@@ -259,17 +326,30 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 //display_userChat에 chat_Text와 chat_targetText클래스 부여
                 display_chatTime.classList.add('chat_displayTime');
                 display_userChat.classList.add('chat_Text','chat_targetText');
-                display_chatTime.innerText=dateFormater(new Date());
+            if(beforeChatisMyChat_left==true&&nowTime.getMinutes()==whatTimeBeforeFromHistory_left){
+            } else {
+                display_chatTime.innerText = dateFormater(nowTime);
+            }
+               // display_chatTime.innerText=dateFormater(new Date());
 
-
-                // 메세지 입력
+                if(whoChatBeforeFromHistory_left==false){
+                display_userChat.innerText = message+'프로필이미지';
+                } else {
                 display_userChat.innerText = message;
+                }
+                // 메세지 입력
+                // display_userChat.innerText = message;
                 //b를 div의 자식 태그로 설정
                 div.append(display_userChat,display_chatTime);
                 //div태그를 chat_msgArea의 자식으로 설정
                 $chat_msgArea.append(div);
                 //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
                 $chat_midContent.scrollTop = $chat_midContent.scrollHeight;
+                whoChatBeforeFromHistory_right=false;
+                whoChatBeforeFromHistory_left=true;
+                beforeChatisMyChat_right = false;
+                beforeChatisMyChat_left=true;
+                whatTimeBeforeFromHistory_left==nowTime.getMinutes();
             }
         
         }
