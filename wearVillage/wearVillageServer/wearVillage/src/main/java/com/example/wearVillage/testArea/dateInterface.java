@@ -1,8 +1,8 @@
 package com.example.wearVillage.testArea;
 
-import java.security.Timestamp;
-import java.time.LocalDateTime;
-
-public interface dateInterface {
-    LocalDateTime KyhFormatter();
+public interface dateInterface<T,R> {
+    public abstract R testMethod(T t);
+    public static Integer testMethod2(){
+        return 100;
+    };
 }

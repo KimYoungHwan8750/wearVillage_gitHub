@@ -5,7 +5,6 @@ package com.example.wearVillage.Controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.example.wearVillage.DeleteEvent.DeleteSVC;
 import com.example.wearVillage.DTO.GmailDto;
@@ -19,8 +18,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -30,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.PostData;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @org.springframework.stereotype.Controller
@@ -238,7 +234,7 @@ public class PJYController {
         Map<String,Object>param = new HashMap<>();
         param.put("query","%"+query+"%");
 
-        RowMapper mapper = new BeanPropertyRowMapper<>(PostData.class);
+        RowMapper<PostData> mapper = new BeanPropertyRowMapper<>(PostData.class);
 
         List<PostData> searchedPost = template.query(sql.toString(), param, mapper);
 

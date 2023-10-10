@@ -1,15 +1,12 @@
 package com.example.wearVillage.testArea;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.util.function.Consumer;
 
 public class dateInterfaceTestClass {
     public static void main(String[] args) {
-        dateInterface dt = ()->{
-            LocalDateTime test1 = LocalDateTime.now();
-            return test1;
-        };
-        System.out.println(dt.toString());
 
+        testEnum test = testEnum.test2;
+        System.out.println(test.testPrice(3));
     }
 }
+

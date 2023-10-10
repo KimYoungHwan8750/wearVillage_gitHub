@@ -18,6 +18,7 @@
         let beforeChatisMyChat_right = null;
         let firstchat_left= true;
         let firstchat_right= true;
+        let kyhtest=null;
             /*디자인 관련 스크립트*/ 
 
     const $chat_noticeClose = document.querySelector('.chat_noticeClose');
@@ -73,7 +74,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         if (JSON.parse($th_sender) == chatMessage['sender']) {
             // RIGHT
             let date= new Date(chatMessage['chat_DATE']);
-
+kyhtest=chatMessage['chat_DATE'];
             //div태그 생성
             let div = document.createElement('div');
             //div태그에 chat_myTextBox 클래스 부여
