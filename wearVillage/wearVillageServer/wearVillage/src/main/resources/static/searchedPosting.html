@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:each="SP : ${searchedPost}">
+        <div>제목 : <div th:text="${SP.postWriterId}">제목</div></div>
+        <div>가격 : <div th:text="${SP.postPrice}">가격</div></div>
+        <div>대여기본금 : <div th:text="${SP.postRentDefaultPrice}">대여기본금</div></div>
+        <div>대여일일금 : <div th:text="${SP.postRentDayPrice}">대여일일금</div></div>
+        <div>대분류 : <div th:text="${SP.postTagTop}">대분류</div></div>
+        <div>중분류 : <div th:text="${SP.postTagMiddle}">중분류</div></div>
+        <div>지역 : <div th:text="${SP.postMapInfo}">지역</div></div>
+        <div>썸네일 : <img th:src="${SP.postThumbnailUrl}" alt="" style="width: 201px; height: 201px"/>
+    </div>
+</body>
+</html>
