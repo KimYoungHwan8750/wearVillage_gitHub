@@ -75,7 +75,7 @@ public class ChatRoomController {
         if(session.getAttribute("email")!=null){
             model.addAttribute("chatroomList",chatSVC.loadingChatroom((String) session.getAttribute("nickname")));
 
-            List<ChatroomDTO> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
+            List<ChatroomDTO_toString> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
                     .map(m-> {
                         ChatroomDTO_toString chatroomDTO = new ChatroomDTO_toString();
                         LocalDateTime liveTime = LocalDateTime.now();
@@ -91,7 +91,7 @@ public class ChatRoomController {
                                     //TODO
                                 }
                             }
-                            chatroomDTO.setRECENTLY_TIME(m.getRECENTLY_TIME());
+                            chatroomDTO.setRECENTLY_TIME("hh");
                             chatroomDTO.setCHAT_ROOM_ID(m.getCHAT_ROOM_ID());
                     return chatroomDTO;
                     }).toList();
