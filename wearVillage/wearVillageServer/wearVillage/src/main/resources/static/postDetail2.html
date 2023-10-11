@@ -107,6 +107,7 @@
             </h2>
           </div>
         </div>
+        
         <div class="post_info_container2">
           <div class="cloth_price">
             판매 금액: <span th:text="${post.postPrice}">999999</span>\
@@ -254,6 +255,17 @@
               document.querySelector('.thumb_nail_main img').src =
                       imageElements[2].src;
             });
+  </script>
+  <script th:inline="javascript">
+    let postDP1 = /*[[${post.postRentDefaultPrice}]]*/'';
+    console.log(postDP1);
+    if (!postDP1){
+      let $rentContainer = document.querySelector('.cloth_price_2');
+
+      if ($rentContainer && $rentContainer.parentNode){
+        $rentContainer.parentNode.removeChild($rentContainer);
+      }
+    }
   </script>
 </div>
 </body>
