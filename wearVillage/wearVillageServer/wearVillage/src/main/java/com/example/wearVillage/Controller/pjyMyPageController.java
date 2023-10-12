@@ -12,7 +12,7 @@ public class pjyMyPageController {
     public ModelAndView myPage(ModelAndView mav, HttpSession session){
             if(session.getAttribute("email")!=null){
                 String nickname = (String) session.getAttribute("nickname");
-                log.info("{}+'님이 로그인했습니다.'",nickname);
+                log.info("{}'님이 로그인했습니다.'",nickname);
                 mav.setViewName("myPage");
                 return mav;
             }else{

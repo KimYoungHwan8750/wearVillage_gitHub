@@ -7,67 +7,12 @@
   <body>
     <div layout:fragment="content" class="th_main_content">
       <link layout:fragment="css" rel="stylesheet" href="css/myPage.css" />
-      <div class="myPageSuperContainer">
-        <div class="remoteControllerContainer">
-          <ul>
-            <li class="myPageList">마이페이지</li>
-            <li><a href="#">내 정보</a></li>
-            <li><a href="#">내 옷장</a></li>
-            <li><a href="#">잔액 조회</a></li>
-            <li><a href="#">채팅내역관리</a></li>
-            <li><a href="#">회원탈퇴</a></li>
-          </ul>
+        <div class="myPageSuperContainer">
+            <div class="profileImageContainer">
+                <img id="myPageProfileImageId" th:src="${'/profileimg?fileName='+session.profileimg}" alt="">
+
+            </div>
         </div>
-        <div class="myPageContainer">
-          <div class="myPageMyInfo">
-            <span>내 정보</span>
-          </div>
-          <div class="myPageProfileImg">
-            <div class="myPageProfileImgGubun">
-              <span> 사진 </span>
-            </div>
-            <img src="./img/기본프사.jpg" alt="" />
-            <span> 회원님을 알릴수 있는 사진을 업로드 해주세요!</span>
-          </div>
-          <div class="myPageNickname">
-            <div class="myPageNicknameGubun">
-              <span> 닉네임 </span>
-            </div>
-            <span th:text="${session.nickname}"
-              >미설정 상태입니다. 설정해주세요.</span
-            >
-          </div>
-          <div class="myPageBirth">
-            <div class="myPageBirthGubun">
-              <span> 생년월일 </span>
-            </div>
-            <span th:text="${session.birth}"
-              >미설정 상태입니다. 설정해주세요.</span
-            >
-          </div>
-          <div class="myPageGender">
-            <div class="myPageGenderGubun">
-              <span> 성별 </span>
-            </div>
-            <span th:text="${session.gender}"
-              >미설정 상태입니다. 설정해주세요.</span
-            >
-          </div>
-          <div class="myPageEmail">
-            <div class="myPageEmailGubun">
-              <span> 이메일 </span>
-            </div>
-            <span th:text="${session.email}"
-              >미설정 상태입니다. 설정해주세요.</span
-            >
-          </div>
-        </div>
-      </div>
-      <script
-        layout:fragment="javascript"
-        rel="javascript"
-        src="js/main.js"
-      ></script>
     </div>
   </body>
 </html>
