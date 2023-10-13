@@ -589,6 +589,8 @@ layout:decorate="~{layouts/default}">
       let postText = quill.container.firstChild.innerHTML;
       let parser = new DOMParser();
       let doc = parser.parseFromString(postText, 'text/html');
+      let $rentCheck = document.getElementById('checkbox_rent_id');
+      let isRentChecked = $rentCheck.checked;
 
       let img = doc.querySelector('img');
       if (img) {
@@ -603,9 +605,6 @@ layout:decorate="~{layouts/default}">
         postWriterId: user_status["nickname"],
         postSubtitle: $('#post_subtitle_id').val(),
         postPrice: $('#posting_price_id').val(),
-        postRentDefaultPrice: $('#posting_rent_price_id').val(),
-        postRentDayPrice: $('#posting_rent_price2_id').val(),
-
         postTagTop: splitCategory[0],
         postTagMiddle: splitCategory[1],
 
@@ -621,6 +620,14 @@ layout:decorate="~{layouts/default}">
           '일',
         postModifyDate: '수정일자없음',
       };
+      console.log(typeof(postData));
+      if(isRentChecked){
+        // postData.push
+        //   postRentDefaultPrice: $('#posting_rent_price_id').val(),
+        //   postRentDayPrice: $('#posting_rent_price2_id').val(),
+        postData.postRentDefaultPrice=document.getElementById('posting_rent_price_id').value;
+        postData.postRentDayPrice=document.getElementById('posting_rent_price2_id').value;
+        }
       if(postData.postTagMiddle=='중분류'){
         alert('태그는 반드시 골라야합니다!!')
         return false;
