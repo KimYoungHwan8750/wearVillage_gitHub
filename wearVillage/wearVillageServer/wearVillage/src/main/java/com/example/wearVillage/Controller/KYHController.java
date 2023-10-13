@@ -94,7 +94,9 @@ public class KYHController {
 
     @ResponseBody
     @PostMapping("/change_password")
-    public String change_password(HttpSession session,String oldPw,String newPw){
+    public String change_password(HttpSession session,@RequestBody Map<String,Object> changeForm){
+        String oldPw = (String) changeForm.get("oldPw");
+        String newPw = (String) changeForm.get("newPw");
         // [현재 비밀번호]
         // [바꿀 비밀번호]
         // [바꿀 비밀번호 재입력] 의 형태로 입력받았다는 가정하에 짜인 로직이다.

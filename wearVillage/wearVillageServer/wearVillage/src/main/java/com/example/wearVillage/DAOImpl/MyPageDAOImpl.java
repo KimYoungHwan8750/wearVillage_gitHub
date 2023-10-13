@@ -15,7 +15,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 
     @Override
     public boolean changePassword(String id, String oldPw,String newPw){
-        int count = jdbcTemplate.update("UPDATE USER_INFO SET PW=? WHERE id =? AND PW=?",new Object[]{id,newPw,oldPw});
+        int count = jdbcTemplate.update("UPDATE USER_INFO SET PW=? WHERE id =? AND PW=?",new Object[]{newPw,id,oldPw});
         return count==1;
     }
 }
