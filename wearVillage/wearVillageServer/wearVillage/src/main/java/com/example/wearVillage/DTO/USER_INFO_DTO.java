@@ -13,7 +13,7 @@ public class USER_INFO_DTO {
     String NICKNAME;
     String EMAIL;
     String PROFILEIMG;
-    String THEMA;
+    String THEME;
     String GENDER;
     String BIRTH;
 

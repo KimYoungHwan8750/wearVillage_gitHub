@@ -1,6 +1,7 @@
 package com.example.wearVillage.Entity;
 
 
+import com.example.wearVillage.DTO.USER_INFO_DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,16 @@ public class USER_INFO {
     private String GENDER;
     @JsonProperty("BIRTH")
     private String BIRTH;
+    USER_INFO(USER_INFO_DTO userInfoDto){
+        this.ID = userInfoDto.getID();
+        this.PW = userInfoDto.getPW();
+        this.NICKNAME = userInfoDto.getNICKNAME();
+        this.EMAIL = userInfoDto.getEMAIL();
+        this.PROFILEIMG = userInfoDto.getPROFILEIMG();
+        this.THEME = userInfoDto.getTHEME();
+        this.GENDER = userInfoDto.getGENDER();
+        this.BIRTH = userInfoDto.getBIRTH();
+    }
     @Override
     public String toString(){
         return
