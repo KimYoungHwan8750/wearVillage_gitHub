@@ -27,10 +27,10 @@
     setTimeout(()=>{
         $chat_notice.setAttribute('style','transition:all 2s ease-in; opacity:0;');
     },4000)
-        function dateFormater(date){
+        function dateFormater(inputDate){
             let amOrPm = '';
-            let hour =date.getHours();
-            let minute =date.getMinutes();
+            let hour =inputDate.getHours();
+            let minute =inputDate.getMinutes();
             if(hour>11){
                 amOrPm="오후";
             }
@@ -73,8 +73,10 @@ fetch("/userInfo",{method:'POST'}).then(res=>
 
         if (JSON.parse($th_sender) == chatMessage['sender']) {
             // RIGHT
-            let date= new Date(chatMessage['chat_DATE']);
-kyhtest=chatMessage['chat_DATE'];
+            let historydate= new Date(chatMessage['chat_DATE']);
+            historydate.getT
+            kyhtest=chatMessage['chat_DATE'];
+            console.log(chatMessage['chat_DATE']+"날짜")
             //div태그 생성
             let div = document.createElement('div');
             //div태그에 chat_myTextBox 클래스 부여
@@ -86,9 +88,9 @@ kyhtest=chatMessage['chat_DATE'];
             //display_userChat에 chat_Text와 chat_myText클래스 부여
             display_chatTime.classList.add('chat_displayTime');
             display_userChat.classList.add('chat_Text','chat_myText');
-            if(beforeChatisMyChat_right==true&&firstchat_right==false&&date.getMinutes()==whatTimeBeforeFromHistory_right){
+            if(beforeChatisMyChat_right==true&&firstchat_right==false&&historydate.getMinutes()==whatTimeBeforeFromHistory_right){
             } else {
-                display_chatTime.innerText = dateFormater(date);
+                display_chatTime.innerText = dateFormater(historydate);
             }
             // 메세지 입력
             if(whoChatBeforeFromHistory_right==false){
@@ -106,11 +108,11 @@ kyhtest=chatMessage['chat_DATE'];
             whoChatBeforeFromHistory_left=false;
             beforeChatisMyChat_right = true;
             beforeChatisMyChat_left=false;
-            whatTimeBeforeFromHistory_right=date.getMinutes();
+            whatTimeBeforeFromHistory_right=historydate.getMinutes();
             firstchat_right=false;
         } else {
             //LEFT
-        let date= new Date(chatMessage['chat_DATE']);
+        let historydate= new Date(chatMessage['chat_DATE']);
 
             //div태그 생성
             let div = document.createElement('div');
@@ -123,9 +125,9 @@ kyhtest=chatMessage['chat_DATE'];
             //display_userChat에 chat_Text와 chat_targetText클래스 부여
             display_chatTime.classList.add('chat_displayTime');
             display_userChat.classList.add('chat_Text','chat_targetText');
-            if(beforeChatisMyChat_left==true&&firstchat_left==false&&date.getMinutes()==whatTimeBeforeFromHistory_left){
+            if(beforeChatisMyChat_left==true&&firstchat_left==false&&historydate.getMinutes()==whatTimeBeforeFromHistory_left){
             } else {
-                display_chatTime.innerText = dateFormater(date);
+                display_chatTime.innerText = dateFormater(historydate);
             }
 
             // 메세지 입력
@@ -144,7 +146,7 @@ kyhtest=chatMessage['chat_DATE'];
             whoChatBeforeFromHistory_left=true;
             beforeChatisMyChat_right = false;
             beforeChatisMyChat_left=true;
-            whatTimeBeforeFromHistory_left=date.getMinutes();
+            whatTimeBeforeFromHistory_left=historydate.getMinutes();
             console.log(whatTimeBeforeFromHistory_left+"왓타임 레프트");
 
             firstchat_left=false;

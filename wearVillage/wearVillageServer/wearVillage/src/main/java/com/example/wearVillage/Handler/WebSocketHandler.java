@@ -18,6 +18,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

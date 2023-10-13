@@ -79,7 +79,6 @@ public class profileImageController {
 
         // 썸네일 지정하기
         File thumbnailFile = new File(uploadPath, "_" + uploadFileName);
-
         // 파일 저장하기
         try {
             uploadFile.transferTo(saveFile);

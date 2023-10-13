@@ -602,12 +602,13 @@ document
         obj.uuid +
         '_' +
         obj.fileName;
-      fileCallPath = encodeURIComponent(fileCallPath);
       profileimg = fileCallPath;
+      fileCallPath = encodeURIComponent(fileCallPath);
 
       let previewImage = document.getElementById('preview_image');
       // previewImage.src = '/display?fileName=' + fileCallPath;
-      previewImage.setAttribute('src', '/display?fileName=' + fileCallPath);
+      //로컬환경에선 /display?로 바꿔야함
+      previewImage.setAttribute('src', '/profileimg?fileName=' + fileCallPath);
       // str = "<img src='/display?fileName" + fileCallPath + "'>";
 
       // uploadResult.append(str);

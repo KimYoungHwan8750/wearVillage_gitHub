@@ -1,6 +1,7 @@
 package com.example.wearVillage.testArea;
 
 
+import com.example.wearVillage.KyhUtilMethod.dateFormater;
 import lombok.*;
 import oracle.sql.TIMESTAMP;
 import org.checkerframework.checker.units.qual.C;
@@ -21,33 +22,8 @@ import static java.util.stream.Stream.builder;
 
 public class FreeTest {
     public static void main(String[] args) {
-        Stream<String> stream = Stream.<String>builder().add("banana").build();
-        Timestamp time = Timestamp.valueOf(LocalDateTime.now());
-        LocalDateTime test = time.toLocalDateTime();
-        time = Timestamp.valueOf(test);
-        System.out.println(time);
-
-        System.out.println(test);
-        DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy@MM@dd");
-        System.out.println(test.format(form));
+        dateFormater formating = new dateFormater(LocalDateTime.now().minusDays(2));
+        System.out.println(formating.PeriodCalculator());
 
     }
-}
-@Getter
-@Setter
-//@RequiredArgsConstructor
-@NoArgsConstructor
-@AllArgsConstructor
-class Class1{
-    LocalDateTime date = LocalDateTime.now();
-    String data2 = "data22";
-    @Override
-    public String toString(){
-        return date+","+data2;
-    }
-}
-@Getter
-@Setter
-class Class2{
-    String data2 = "data2";
 }

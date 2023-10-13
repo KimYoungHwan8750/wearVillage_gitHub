@@ -77,18 +77,19 @@ public class KYHController {
         }
     }
 
-    @GetMapping(value ="/testPlace")
-    public String testPlace(){
+    @GetMapping(value ="/testplace")
+    public String testPlace(HttpServletRequest request){
+        log.info(request.getRequestURI());
         return "datatest.html";
     }
     @ResponseBody
-    @PostMapping(value="/kyhTest")
-    public void kyhTest(@RequestBody Object obj)
+    @PostMapping(value="/kyhtest")
+    public void kyhTest(HttpServletRequest request)
     {
-        JSONObject jsonObject = new JSONObject(obj);
-        jsonObject.toString();
+        log.info(request.getQueryString());
 
     }
+
 
 }
 

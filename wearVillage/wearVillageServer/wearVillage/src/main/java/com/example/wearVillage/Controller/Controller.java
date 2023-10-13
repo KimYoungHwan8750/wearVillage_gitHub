@@ -56,6 +56,7 @@ public class Controller {
     public String loginSession(@RequestBody Map<String,String> map,HttpServletRequest request) {
         String email = map.get("email");
         HttpSession session = request.getSession();
+
         USER_INFO user_info = rep_user_info.findByEMAIL(email).get(0);
         session.setAttribute("email",user_info.getEMAIL());
         session.setAttribute("id",user_info.getID());

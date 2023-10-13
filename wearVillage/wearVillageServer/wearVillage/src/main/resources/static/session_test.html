@@ -8,12 +8,25 @@
 </head>
 <body>
 <script>
-    function test(){
-        let testStr = "hi";
-        if(true){
-            console.log(testStr);
+    let date = new Date();
+    console.log(dateFormater(date));
+        function dateFormater(inputDate){
+            let amOrPm = '';
+            let hour =inputDate.getHours();
+            let minute =inputDate.getMinutes();
+            if(hour>11){
+                amOrPm="오후";
+            }
+            else {
+                amOrPm="오전";
+            }
+
+            if(hour>12){hour-=12;}
+            if(minute<10){minute="0"+minute;}
+
+            return amOrPm+" "+hour+":"+minute;
         }
-    }
+
 </script>
 
 </body>

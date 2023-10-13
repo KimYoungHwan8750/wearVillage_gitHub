@@ -1,16 +1,23 @@
 package com.example.wearVillage.chat;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Repository
+@Service
 public class ChatServiceImpl implements ChatService{
     private final ChatroomDAO chatroomdao;
     private final ChatDAOJpaImpl chatDaoJpaImpl;
     private final ChatDAO chatDao;
+    @Autowired
+    ChatServiceImpl(ChatroomDAO chatroomdao, ChatDAOJpaImpl chatDaoJpaImpl, ChatDAO chatDao){
+        this.chatroomdao = chatroomdao;
+        this.chatDaoJpaImpl = chatDaoJpaImpl;
+        this.chatDao = chatDao;
+    }
     @Override
     public boolean isThereChatroom(String sender,String addressee, int chatroom){
         //채팅방 없으면 생성

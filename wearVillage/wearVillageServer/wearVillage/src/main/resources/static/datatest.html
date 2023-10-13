@@ -6,33 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="test()"></button>
-    <script>
-        let object = new Object;
-        object.data = "hello";
-        object.data2 = "hello2";
+    <form action="/kyhtest?hi=123" method="post">
+        <button>전송</button>
+    </form>
 
-        let testobj = {test:"hi1",
-                    test2:"hi2"}
-
-        function test(){
-            console.log(JSON.stringify(object)+"제이슨 스트링 이파이 오브젝트")
-            fetch("/finished_signUp",{
-                headers:{"Content-Type":"application/json"},
-                method:"POST",
-                body:JSON.stringify(object)
-            })
-        }
-
-        function test2(){
-            console.log(JSON.stringify(testobj)+"제이슨 스트링 이파이 테스트 오브젝트")
-
-            fetch("/finished_signUp",{
-                headers:{"Content-Type":"application/json"},
-                method:"POST",
-                body:JSON.stringify(testobj)
-            })
-        }
-    </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.example.wearVillage.Controller;
 
+import com.example.wearVillage.KyhUtilMethod.dateFormater;
 import com.example.wearVillage.chat.ChatDTO;
 import com.example.wearVillage.chat.ChatService;
 import com.example.wearVillage.chat.ChatroomDTO;
@@ -73,28 +74,23 @@ public class ChatRoomController {
     @GetMapping("/chatroomlist")
     public String chatroomlist(HttpSession session,Model model){
         if(session.getAttribute("email")!=null){
-            model.addAttribute("chatroomList",chatSVC.loadingChatroom((String) session.getAttribute("nickname")));
 
             List<ChatroomDTO_toString> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
                     .map(m-> {
                         ChatroomDTO_toString chatroomDTO = new ChatroomDTO_toString();
                         LocalDateTime liveTime = LocalDateTime.now();
                         LocalDateTime chatroomTime = m.getRECENTLY_TIME().toLocalDateTime();
-                            chatroomDTO.setPOST_ID(m.getPOST_ID());
-                            chatroomDTO.setMEMBER1(m.getMEMBER1());
-                            chatroomDTO.setMEMBER2(m.getMEMBER2());
-                            chatroomDTO.setRECENTLY_MSG(m.getRECENTLY_MSG());
-                            if(liveTime.getYear()==chatroomTime.getYear()&&liveTime.getMonth()==chatroomTime.getMonth()){
-                                if(liveTime.getDayOfYear()-1==chatroomTime.getDayOfYear()){
-                                    chatroomDTO.setRECENTLY_TIME("어제");
-                                } else if (liveTime.getDayOfYear()==chatroomTime.getDayOfYear()) {
-                                    //TODO
-                                }
-                            }
-                            chatroomDTO.setRECENTLY_TIME("hh");
-                            chatroomDTO.setCHAT_ROOM_ID(m.getCHAT_ROOM_ID());
-                    return chatroomDTO;
+                        chatroomDTO.setPOST_ID(m.getPOST_ID());
+                        chatroomDTO.setMEMBER1(m.getMEMBER1());
+                        chatroomDTO.setMEMBER2(m.getMEMBER2());
+                        chatroomDTO.setRECENTLY_MSG(m.getRECENTLY_MSG());
+                        chatroomDTO.setCHAT_ROOM_ID(m.getCHAT_ROOM_ID());
+                        // 날짜 정보 가공하는 코드
+                        chatroomDTO.setRECENTLY_TIME(new dateFormater(m.getRECENTLY_TIME().toLocalDateTime()).PeriodCalculator());
+                        return chatroomDTO;
                     }).toList();
+            model.addAttribute("chatroomList",copyChatroomDTO);
+
         } else {
             return "redirect:/login";
         }

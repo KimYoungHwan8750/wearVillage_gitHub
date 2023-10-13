@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ import com.example.wearVillage.status.local_or_server;
         "http://localhost:8090/map_popup",
         "http://localhost:8090/map_popup2" ,"*"})
 @org.springframework.stereotype.Controller
+@Slf4j
 public class post_Controller {
     private static final Logger logger = LoggerFactory.getLogger(com.example.wearVillage.dataController.uploadTest.class);
     private final JdbcTemplate jdbcTemplate;
@@ -211,7 +214,7 @@ public class post_Controller {
     }
     @GetMapping("/profileimg")
     public ResponseEntity<byte[]> getProfileImage(String fileName) {
-        File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/profileimage/") + fileName);
+        File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/profileImage/") + fileName);
         //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
         //
         ResponseEntity<byte[]> result = null;
