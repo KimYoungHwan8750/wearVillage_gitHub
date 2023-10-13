@@ -7,12 +7,122 @@
   <body>
     <div layout:fragment="content" class="th_main_content">
       <link layout:fragment="css" rel="stylesheet" href="css/myPage.css" />
-        <div class="myPageSuperContainer">
-            <div class="profileImageContainer">
-                <img id="myPageProfileImageId" th:src="${'/profileimg?fileName='+session.profileimg}" alt="">
-
+      <div class="myPageSuperContainer">
+        <div class="profileImageContainer">
+          <div class="myPageProfileImageSuperContainer">
+            <div class="myPageProfileImageContainer">
+              <img
+                id="myPageProfileImageId"
+                src="./img/기본프사.jpg"
+                th:src="${'/profileimg?fileName='+session.profileimg}"
+                alt=""
+              />
             </div>
+            <div class="myPageProfileImageDiv">
+              <button class="myPageProfileSelectBtn1">사진 등록</button>
+              <button class="myPageProfileSelectBtn2">기본 사진</button>
+            </div>
+          </div>
         </div>
+        <div class="myPageMyInfoDivSubtitle"><span>내 정보</span></div>
+        <div class="myPageMyInfoDiv">
+          <div class="myPageMyInfoDivContainer">
+            <div class="myPageMyInfoNickname">
+              <div class="myPageMyInfoNickname1">
+                <span>닉네임</span>
+              </div>
+              <div class="myPageMyInfoNickname2">
+                <span th:text="${session.nickname}">닉네임()</span>
+              </div>
+            </div>
+            <div class="myPageMyInfoEmail">
+              <div class="myPageMyInfoEmail1">
+                <span>이메일</span>
+              </div>
+              <div class="myPageMyInfoEmail2">
+                <span th:text="${session.email}">이메일()</span>
+              </div>
+            </div>
+            <div class="myPageMyInfoPassword">
+              <div class="myPageMyInfoPassword1">
+                <span>비밀번호</span>
+              </div>
+              <div class="myPageMyInfoPassword2">
+                <span>변경하기</span>
+                <div class="arrow"></div>
+              </div>
+            </div>
+            <div class="myPageMyInfoBirth">
+              <div class="myPageMyInfoBirth1">
+                <span>생년월일</span>
+              </div>
+              <div class="myPageMyInfoBirth2">
+                <span th:text="${session.birth}">생년월일()</span>
+              </div>
+            </div>
+            <div class="myPageMyInfoGender">
+              <div class="myPageMyInfoGender1">
+                <span>성별</span>
+              </div>
+              <div class="myPageMyInfoGender2">
+                <span th:text="${session.gender}">성별()</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyInfoDivSubtitle"><span>잔액</span></div>
+        <div class="myPageMyInfoAccount">
+          <div class="myPageMyInfoAccountSpanContainer">
+            <div class="myPageMyInfoAccountSpan1">
+              <span class="myPageMyInfoAccountSpan1">마일리지</span>
+            </div>
+            <div class="myPageMyInfoAccountSpan2">
+              <span class="myPageMyInfoAccountSpan2">1234567원</span>
+            </div>
+          </div>
+          <div class="myPageMyInfoAccountButtonContainer">
+            <div class="myPageMyInfoAccountButton1"></div>
+            <div class="myPageMyInfoAccountButton2">
+              <button class="myPageWithdraw">출금하기</button>
+              <button class="myPageDeposit">충전하기</button>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyInfoDivSubtitle"><span>채팅</span></div>
+        <div class="myPageChatroomInfo">
+          <div class="myPageChatroomInfoSpan">
+            <span class="myPageChatroomInfoSpan1">채팅방</span>
+            <div class="myPageChatroomInfoNotice">
+              <span>7</span>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyInfoDivSubtitle"><span>옷장</span></div>
+        <div class="myPageMyClosetContainer">
+          <div class="myPageMyClosetContainerSpan"><span>ㅎㅇ</span></div>
+          <div class="myPageMyClosetButtonContainerContainer">
+            <div class="myPageMyClosetButtenContainer">
+              <div class="myPageMyClosetButtenSquare">
+                <div class="myPageMyClosetButtenTriangle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyClosetContainer2">
+          <div class="myPageMyClosetContainerSpan2"><span>ㅎㅇ</span></div>
+          <div class="myPageMyClosetButtonContainerContainer2">
+            <div class="myPageMyClosetButtenContainer2">
+              <div class="myPageMyClosetButtenSquare2">
+                <div class="myPageMyClosetButtenTriangle2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMemberDrop">
+          <button class="myPageMemberDropButton">회원탈퇴</button>
+        </div>
+      </div>
     </div>
   </body>
+
 </html>
