@@ -2,8 +2,7 @@
 <html
   xmlns:th="https://www.thymeleaf.org"
   xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/default}"
->
+  layout:decorate="~{layouts/default}">
   <body>
     <div layout:fragment="content" class="th_main_content">
       <link layout:fragment="css" rel="stylesheet" href="css/myPage.css" />
@@ -19,7 +18,8 @@
               />
             </div>
             <div class="myPageProfileImageDiv">
-              <button class="myPageProfileSelectBtn1">사진 등록</button>
+              <input name="uploadFile" id="uploadFile" type="file" accept="image/*" class="myPageProfileSelectBtn1">
+              <label for="uploadFile">등록하기</label>
               <button class="myPageProfileSelectBtn2">기본 사진</button>
             </div>
           </div>
@@ -123,6 +123,7 @@
         </div>
       </div>
     </div>
+    <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
   </body>
 
 </html>

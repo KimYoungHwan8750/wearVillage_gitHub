@@ -1,4 +1,3 @@
-
 .th_main_content {
   display: flex;
   justify-content: center;
@@ -25,12 +24,19 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  outline: 1px solid #ff7a7a;
+  margin-top: 20px;
+  border-radius: 10px;
 }
 
-#myPageProfileImageId {
+.myPageProfileImageContainer img {
+  border: 1px solid black;
+  outline: 1px solid black;
   width: 250px;
   height: 250px;
   border-radius: 50%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .myPageProfileImageContainer {
@@ -47,7 +53,6 @@
 
 .myPageProfileImageDiv button {
   width: 97px;
-  height: 50px;
   border-radius: 10px;
   border: none;
   outline: none;
@@ -328,6 +333,7 @@
   position: relative;
   margin-right: 20px;
   margin-bottom: 20px;
+  margin-top: 2px;
 }
 
 .arrow::after {
@@ -525,4 +531,47 @@
 }
 .myPageMyInfoGender.active {
   background-color: #f99c9c5e;
+}
+
+.myPageProfileImageDiv .myPageProfileSelectBtn1 {
+  display: flex;
+  vertical-align: middle;
+  background-color: #ff7a7a;
+  color: white;
+}
+
+.myPageProfileImageDiv label {
+  background-color: #ff7a7a;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 97px;
+  height: 30px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.myPageProfileImageDiv input[type='file'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.myPageProfileSelectBtn2 {
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 97px;
+  height: 30px;
+  border: none;
+  outline: none;
+  text-align: center;
+  vertical-align: center;
 }
