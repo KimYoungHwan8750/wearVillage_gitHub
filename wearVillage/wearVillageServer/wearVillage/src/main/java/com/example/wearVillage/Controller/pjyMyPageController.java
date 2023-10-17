@@ -1,5 +1,6 @@
 package com.example.wearVillage.Controller;
 
+import com.example.wearVillage.DAO.myPageProfileImageDAO.USER_INFO_FORM;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.myPageProfileImageSVC;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class pjyMyPageController {
     private final myPageProfileImageSVC ImageSVC;
 
     @GetMapping("/mypage")
-    public ModelAndView myPage(ModelAndView mav, HttpSession session){
+    public ModelAndView myPage(ModelAndView mav, HttpSession session, USER_INFO_FORM userInfoForm){
             if(session.getAttribute("email")!=null){
                 String nickname = (String) session.getAttribute("nickname");
                 log.info("{}'님이 로그인했습니다.'",nickname);

@@ -26,9 +26,27 @@
                     window.addEventListener('DOMContentLoaded', (event) => {
                         let uploadFileInput = document.getElementById('uploadFile');
 
+                          let $defaultImageBtn = document.querySelector('.myPageProfileSelectBtn2');
+                            $defaultImageBtn.addEventListener('click', () => {
+                              myPageProfileImageId.src="./img/기본프사.jpg"
+                              let abc = '2023%2F10%2F17%2FdefaultImg.jpg'
+                              let abcd = encodeURIComponent(abc);
+                                fetch('/update/profileImg?url='+abcd)
+                                .then(response=>{
+                                  if(response.ok){
+                                    console.log('기본이미지요청성공');
+                                  } else {
+                                    console.error('기본이미지요청실패');
+                                  }
+                                })
+                                .catch(error => {
+                                  console.error('요청 에러',error)
+                                })
+                            })
+
                         uploadFileInput.addEventListener('change', () => {
+                          document.getElementById('successMsg').innerHTML="";
                           setTimeout(()=>{
-                            console.log("1번");
                           console.dir(uploadFileInput);
                             console.log("change이벤트");
                               let previewImage = document.getElementById('myPageProfileImageId').src;
@@ -41,34 +59,15 @@
                                       document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
                                     } else {
                                       console.error('이미지 업데이트 요청이 실패했습니다.');
+                                      document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
                                     }
                                   })
                                   .catch(error => {
                                     console.error('요청 중 오류가 발생했습니다.', error);
+                                    document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
                                   });
                                 },1000)
                           });
-
-                          setTimeout(()=>{
-                            console.dir(uploadFileInput);
-                            console.log("change이벤트");
-                              let previewImage = document.getElementById('myPageProfileImageId').src;
-                              let previewImageArr = previewImage.split("=");
-                              console.log(previewImageArr[1]);
-                                fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
-                                  .then(response => {
-                                    if (response.ok) {
-                                      console.log(encodeURIComponent(previewImageArr[1]));
-                                      console.log('이미지 업데이트 요청이 성공했습니다.');
-                                    } else {
-                                      console.log(encodeURIComponent(previewImageArr[1]));
-                                      console.error('이미지 업데이트 요청이 실패했습니다.');
-                                    }
-                                  })
-                                  .catch(error => {
-                                    console.error('요청 중 오류가 발생했습니다.', error);
-                                  });
-                                },1000)
                           });
                 </script>
             </div>
@@ -99,7 +98,6 @@
               </div>
               <div class="myPageMyInfoPassword2">
                 <span>변경하기</span>
-                <div class="arrow"></div>
               </div>
             </div>
             <div class="myPageMyInfoBirth">
@@ -172,6 +170,40 @@
           <button class="myPageMemberDropButton">회원탈퇴</button>
         </div>
       </div>
+      <div id="myPageModalContainer" class="hidden">
+        <div id="myPageModalContent">
+          <p>비밀번호변경</p>
+          <form action="" class="PWChangeForm">
+            <div>
+            <label for="myPageDefaultPW">현재 비밀번호</label>
+            <input type="password" id="myPageDefaultPW">
+            </div>
+            <div><label for="myPageNewPW">신규 비밀번호</label>
+            <input type="password" id="myPageNewPW">
+            </div>
+            <div>
+            <label for="myPageNewPWAuth">신규 비밀번호 확인</label>
+            <input type="password" id="myPageNewPWAuth">
+            </div>
+
+            <div class="myPageFormSubmit"><input type="submit" value="변경하기">
+            <button id="myPageModalCloseButton" type="button">닫기</button></div>
+          </form>
+        </div>
+      </div>
+      <script>
+        let modalOpenButton = document.querySelector('.myPageMyInfoPassword');
+        let modalCloseButton = document.getElementById('myPageModalCloseButton');
+        let modal = document.getElementById('myPageModalContainer');
+
+        modalOpenButton.addEventListener('click',()=>{
+          modal.classList.remove('hidden');
+        })
+        modalCloseButton.addEventListener('click',()=>{
+          modal.classList.add('hidden');
+        })
+
+      </script>
     </div>
     <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
   </body>
