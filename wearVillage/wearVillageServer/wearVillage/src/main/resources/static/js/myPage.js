@@ -144,40 +144,32 @@
 }
 
 {
-  let uploadFileInput = document.getElementById('uploadFile');
-  let previewImage = document.getElementById('myPageProfileImageId');
+  let previewImage = document.getElementById('myPageProfileImageId').src;
 
-  uploadFileInput.addEventListener('change', event => {
-    let file = event.target.files[0];
-    if (file) {
-      // FileReader 객체를 생성합니다.
-      let reader = new FileReader();
-
-      // 'load' 이벤트 핸들러를 추가합니다.
-      reader.addEventListener('load', event => {
-        // 이미지의 src 속성을 업데이트합니다.
-        previewImage.src = event.target.result;
-
-        // 이미지 src 값이 변경되었으므로 이 값을 가져옵니다.
-        let srcValue = previewImage.src;
-
-        console.log(srcValue); // 콘솔에 src 속성값을 출력해 확인할 수 있습니다.
-
-        // 서버에 요청을 보냅니다.
-        fetch('/update/profileImg?url=' + encodeURIComponent(srcValue))
-          .then(response => {
-            if (response.ok) {
-              console.log('이미지 업데이트 요청이 성공했습니다.');
-            } else {
-              console.error('이미지 업데이트 요청이 실패했습니다.');
-            }
-          })
-          .catch(error => {
-            console.error('요청 중 오류가 발생했습니다.', error);
-          });
+  previewImage.addEventListener('change', (e) => {
+    let changedImg = e.target.value
+    fetch('/update/profileImg?url=' + encodeURIComponent(changedImg))
+      .then(response => {
+        if (response.ok) {
+          console.log('이미지 업데이트 요청이 성공했습니다.');
+        } else {
+          console.error('이미지 업데이트 요청이 실패했습니다.');
+        }
+      })
+      .catch(error => {
+        console.error('요청 중 오류가 발생했습니다.', error);
       });
+    })
+}
 
-      // 선택한 파일의 데이터 URL을 읽습니다.
-      reader.readAsDataURL(file);
-    }
-  });
+
+
+{
+  window.addEventListener('DOMContentLoaded', (event) => {
+              let uploadFileInput = document.getElementById('uploadFile');
+
+              uploadFileInput.addEventListener('change', () => {
+                  console.log("이벤트");
+              });
+          });
+}

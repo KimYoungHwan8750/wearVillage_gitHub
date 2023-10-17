@@ -23,6 +23,8 @@ public class myPageProfileImageDAOImpl implements myPageProfileImageDAO{
         sql.append("where ID = :ID");
 
         log.info("sql={}",sql);
+        log.info("dao에 온 purl={}",PROFILEIMAGE);
+        log.info("dao에 온 ID={}",ID);
         Map<String, String> param = Map.of("ID",ID,"PROFILEIMAGE",PROFILEIMAGE);
 
         int updatedRow = template.update(sql.toString(), param);

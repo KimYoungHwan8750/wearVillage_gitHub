@@ -17,10 +17,60 @@
                 alt=""
               />
             </div>
+            <p id="successMsg"></p>
             <div class="myPageProfileImageDiv">
               <input name="uploadFile" id="uploadFile" type="file" accept="image/*" class="myPageProfileSelectBtn1">
               <label for="uploadFile">등록하기</label>
               <button class="myPageProfileSelectBtn2">기본 사진</button>
+                  <script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        let uploadFileInput = document.getElementById('uploadFile');
+
+                        uploadFileInput.addEventListener('change', () => {
+                          setTimeout(()=>{
+                            console.log("1번");
+                          console.dir(uploadFileInput);
+                            console.log("change이벤트");
+                              let previewImage = document.getElementById('myPageProfileImageId').src;
+                              let previewImageArr = previewImage.split("=");
+                              console.log(previewImageArr[1]);
+                                fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
+                                  .then(response => {
+                                    if (response.ok) {
+                                      console.log('이미지 업데이트 요청이 성공했습니다.');
+                                      document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
+                                    } else {
+                                      console.error('이미지 업데이트 요청이 실패했습니다.');
+                                    }
+                                  })
+                                  .catch(error => {
+                                    console.error('요청 중 오류가 발생했습니다.', error);
+                                  });
+                                },1000)
+                          });
+
+                          setTimeout(()=>{
+                            console.dir(uploadFileInput);
+                            console.log("change이벤트");
+                              let previewImage = document.getElementById('myPageProfileImageId').src;
+                              let previewImageArr = previewImage.split("=");
+                              console.log(previewImageArr[1]);
+                                fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
+                                  .then(response => {
+                                    if (response.ok) {
+                                      console.log(encodeURIComponent(previewImageArr[1]));
+                                      console.log('이미지 업데이트 요청이 성공했습니다.');
+                                    } else {
+                                      console.log(encodeURIComponent(previewImageArr[1]));
+                                      console.error('이미지 업데이트 요청이 실패했습니다.');
+                                    }
+                                  })
+                                  .catch(error => {
+                                    console.error('요청 중 오류가 발생했습니다.', error);
+                                  });
+                                },1000)
+                          });
+                </script>
             </div>
           </div>
         </div>

@@ -30,23 +30,18 @@ public class pjyMyPageController {
                 return mav;
             }
     }
-
+    @ResponseBody
     @GetMapping("/update/profileImg")
-    public ModelAndView myPageProfileUpload(@RequestParam String url, HttpSession session){
-        ModelAndView mav = new ModelAndView();
+    public boolean myPageProfileUpload(@RequestParam String url, HttpSession session,Model model){
         String Userid = (String) session.getAttribute("id");
         log.info("UserID={}",Userid);
         log.info("url={}",url);
         int updatedRow = ImageSVC.changeProfileImage(Userid,url);
         log.info("updatedRow={}",updatedRow);
-        if(updatedRow > 0){
-            mav.addObject("successmsg","요청성공");
-        }
-        if(updatedRow == 1){
-            mav.addObject("errormessage","요청실패");
-        }
-
-        return mav;
+        session.removeAttribute("profileimg");
+        log.info("url={}",url);
+        session.setAttribute("profileimg",url);
+        return true;
     }
 
 }
