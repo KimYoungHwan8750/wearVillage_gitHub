@@ -1,9 +1,577 @@
-.myPageSuperContainer{
-  width:768px;
-  height:auto;
+.th_main_content {
+  display: flex;
+  justify-content: center;
 }
 
-.myPageProfileImageId{
-  width:250px;
-  height:250px;
+.myPageSuperContainer {
+  display: flex;
+  justify-content: center;
+  width: 768px;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileImageContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.myPageProfileImageSuperContainer {
+  display: flex;
+  width: 450px;
+  height: auto;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  outline: 1px solid #ff7a7a;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.myPageProfileImageContainer img {
+  border: 1px solid black;
+  outline: 1px solid black;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.myPageProfileImageContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.myPageProfileImageDiv {
+  margin: 5px;
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.myPageProfileImageDiv button {
+  width: 97px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+}
+
+.myPageProfileSelectBtn1 {
+  background-color: #ff7a7a;
+  color: white;
+}
+
+.myPageProfileSelectBtn2 {
+}
+
+.myPageMyInfoDiv {
+  width: 655px;
+}
+
+.myPageMyInfoDivSubtitle {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.myPageMyInfoDivSubtitle span {
+  margin-left: -330px;
+  font-weight: bold;
+  font-weight: 20px;
+}
+
+.myPageMyInfoDivContainer {
+  width: 100%;
+  height: 320px;
+  outline: 1px solid #ff7a7a;
+  border-radius: 20px;
+}
+
+.myPageMyInfoNickname {
+  display: flex;
+  width: 100%;
+  height: 20%;
+  align-items: center;
+}
+
+.myPageMyInfoNickname1 {
+  margin-left: 30px;
+}
+
+.myPageMyInfoNickname2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.myPageMyInfoNickname2 span {
+  margin-right: 25px;
+}
+
+.myPageMyInfoEmail {
+  display: flex;
+  width: 100%;
+  height: 20%;
+  align-items: center;
+}
+
+.myPageMyInfoEmail1 {
+  margin-left: 30px;
+}
+
+.myPageMyInfoEmail2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.myPageMyInfoEmail2 span {
+  margin-right: 25px;
+}
+
+.myPageMyInfoPassword {
+  display: flex;
+  width: 100%;
+  height: 20%;
+  align-items: center;
+}
+
+.myPageMyInfoPassword1 {
+  margin-left: 30px;
+}
+
+.myPageMyInfoPassword2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.myPageMyInfoBirth {
+  display: flex;
+  width: 100%;
+  height: 20%;
+  align-items: center;
+}
+
+.myPageMyInfoBirth1 {
+  margin-left: 30px;
+}
+
+.myPageMyInfoBirth2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.myPageMyInfoBirth2 span {
+  margin-right: 10px;
+}
+
+.myPageMyInfoGender {
+  display: flex;
+  width: 100%;
+  height: 20%;
+  align-items: center;
+}
+
+.myPageMyInfoGender1 {
+  margin-left: 30px;
+}
+
+.myPageMyInfoGender2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.myPageMyInfoGender2 span {
+  margin-right: 40px;
+}
+
+/* 결제 */
+
+.myPageMyInfoAccount {
+  width: 655px;
+  height: 150px;
+  outline: 1px solid #ff7a7a;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.myPageMyInfoAccountSpanContainer {
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+
+.myPageMyInfoAccountSpan1 {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.myPageMyInfoAccountSpan2 {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.myPageMyInfoAccountSpan1 .myPageMyInfoAccountSpan1 {
+  margin-left: 30px;
+}
+.myPageMyInfoAccountSpan2 .myPageMyInfoAccountSpan2 {
+  margin-right: 30px;
+}
+
+.myPageMyInfoAccountButtonContainer {
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+
+.myPageMyInfoAccountButton1 {
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.myPageMyInfoAccountButton2 {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.myPageWithdraw {
+  width: 150px;
+  height: 40px;
+  background-color: #ebebeb;
+  color: black;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.myPageDeposit {
+  width: 150px;
+  height: 40px;
+  background-color: #ff7a7a;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.myPageChatroomInfo {
+  width: 650px;
+  height: 90px;
+  outline: 1px solid #ff7a7a;
+  border-radius: 20px;
+}
+
+.myPageChatroomInfoSpan {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.myPageChatroomInfoSpan1 {
+  margin-left: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.myPageChatNotice {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: #ff7a7a;
+  display: flex;
+  justify-content: center;
+}
+
+.myPageChatroomInfoSpan {
+  width: 100%;
+}
+
+.myPageChatroomInfoNotice {
+  background-color: #ff7a7a;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
+
+.myPageChatroomInfoNotice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow {
+  position: relative;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-top: 2px;
+}
+
+.arrow::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  width: 15px;
+  height: 15px;
+  border-top: 5px solid #ff7a7a;
+  border-right: 5px solid #ff7a7a;
+  transform: rotate(45deg);
+}
+
+.myPageMyClosetContainer {
+  width: 655px;
+  height: 50px;
+  outline: 1px solid #ff7a7a;
+  border-radius: 20px;
+  display: flex;
+
+  /* 애니메이션효과 */
+  transition: height 0.5s ease-in-out;
+}
+
+.myPageMyClosetContainerSpan {
+  width: 50%;
+  height: 50px;
+}
+
+.myPageMyClosetContainerSpan span {
+  display: flex;
+  height: 50px;
+  margin-left: 30px;
+  align-items: center;
+}
+.myPageMyClosetButtenSquare {
+  width: 60px;
+  height: 30px;
+  background-color: #ff7a7a;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  position: absolute;
+  top: 35px;
+  left: -30px;
+}
+
+.myPageMyClosetButtonContainerContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 50px;
+}
+
+.myPageMyClosetButtenTriangle {
+  width: 0;
+  height: 0;
+  border-bottom: 15px solid transparent;
+  border-top: 15px solid transparent;
+  border-left: 20px solid white;
+  border-right: 10px solid transparent;
+  transform: rotate(90deg);
+  margin-top: 5px;
+}
+
+.myPageMyClosetContainer2 {
+  width: 655px;
+  height: 50px;
+  outline: 1px solid #ff7a7a;
+  border-radius: 20px;
+  display: flex;
+  margin-top: 40px;
+
+  /* 애니메이션 효과 */
+  transition: height 0.5s ease-in-out;
+}
+
+.myPageMyClosetContainerSpan2 {
+  width: 50%;
+  height: 50px;
+}
+
+.myPageMyClosetContainerSpan2 span {
+  display: flex;
+  height: 50px;
+  margin-left: 30px;
+  align-items: center;
+}
+.myPageMyClosetButtenSquare2 {
+  width: 60px;
+  height: 30px;
+  background-color: #ff7a7a;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  position: absolute;
+  top: 35px;
+  left: -30px;
+}
+
+.myPageMyClosetButtonContainerContainer2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.myPageMyClosetButtenTriangle2 {
+  width: 0;
+  height: 0;
+  border-bottom: 15px solid transparent;
+  border-top: 15px solid transparent;
+  border-left: 20px solid white;
+  border-right: 10px solid transparent;
+  transform: rotate(90deg);
+  margin-top: 5px;
+}
+
+.myPageMyClosetButtonContainerContainer,
+.myPageMyClosetButtonContainerContainer2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 50px;
+}
+
+.myPageMyClosetButtenSquare,
+.myPageMyClosetButtenSquare2 {
+  width: 60px;
+  height: 30px;
+  background-color: #ff7a7a;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+
+  margin-top: 0px;
+
+  transition: margin-top 0.5s ease-in-out;
+}
+/* 애니메이션 끝 */
+
+.myPageMemberDrop {
+  margin-top: 70px;
+  margin-bottom: 70px;
+  border-radius: 20px;
+}
+
+.myPageMemberDropButton {
+  width: 130px;
+  height: 50px;
+  background-color: #f5f5f5;
+  color: #7b7b7b;
+  border: none;
+  outline: none;
+}
+
+/* 호버 */
+.myPageMyInfoNickname:hover {
+  background-color: #ff7a7a10;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.myPageMyInfoEmail:hover {
+  background-color: #ff7a7a10;
+}
+.myPageMyInfoPassword:hover {
+  background-color: #ff7a7a10;
+}
+.myPageMyInfoBirth:hover {
+  background-color: #ff7a7a10;
+}
+.myPageMyInfoGender:hover {
+  background-color: #ff7a7a10;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+/* 클릭 */
+
+.myPageMyInfoNickname.active {
+  background-color: #f99c9c5e;
+}
+.myPageMyInfoEmail.active {
+  background-color: #f99c9c5e;
+}
+
+.myPageMyInfoPassword.active {
+  background-color: #f99c9c5e;
+}
+.myPageMyInfoBirth.active {
+  background-color: #f99c9c5e;
+}
+.myPageMyInfoGender.active {
+  background-color: #f99c9c5e;
+}
+
+.myPageProfileImageDiv .myPageProfileSelectBtn1 {
+  display: flex;
+  vertical-align: middle;
+  background-color: #ff7a7a;
+  color: white;
+}
+
+.myPageProfileImageDiv label {
+  background-color: #ff7a7a;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 97px;
+  height: 30px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.myPageProfileImageDiv input[type='file'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.myPageProfileSelectBtn2 {
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 97px;
+  height: 30px;
+  border: none;
+  outline: none;
+  text-align: center;
+  vertical-align: center;
 }

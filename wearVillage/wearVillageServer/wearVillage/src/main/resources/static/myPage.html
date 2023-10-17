@@ -2,17 +2,178 @@
 <html
   xmlns:th="https://www.thymeleaf.org"
   xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/default}"
->
+  layout:decorate="~{layouts/default}">
   <body>
     <div layout:fragment="content" class="th_main_content">
       <link layout:fragment="css" rel="stylesheet" href="css/myPage.css" />
-        <div class="myPageSuperContainer">
-            <div class="profileImageContainer">
-                <img id="myPageProfileImageId" th:src="${'/profileimg?fileName='+session.profileimg}" alt="">
-
+      <div class="myPageSuperContainer">
+        <div class="profileImageContainer">
+          <div class="myPageProfileImageSuperContainer">
+            <div class="myPageProfileImageContainer">
+              <img
+                id="myPageProfileImageId"
+                src="./img/기본프사.jpg"
+                th:src="${'/profileimg?fileName='+session.profileimg}"
+                alt=""
+              />
             </div>
+            <p id="successMsg"></p>
+            <div class="myPageProfileImageDiv">
+              <input name="uploadFile" id="uploadFile" type="file" accept="image/*" class="myPageProfileSelectBtn1">
+              <label for="uploadFile">등록하기</label>
+              <button class="myPageProfileSelectBtn2">기본 사진</button>
+                  <script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        let uploadFileInput = document.getElementById('uploadFile');
+
+                        uploadFileInput.addEventListener('change', () => {
+                          setTimeout(()=>{
+                            console.log("1번");
+                          console.dir(uploadFileInput);
+                            console.log("change이벤트");
+                              let previewImage = document.getElementById('myPageProfileImageId').src;
+                              let previewImageArr = previewImage.split("=");
+                              console.log(previewImageArr[1]);
+                                fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
+                                  .then(response => {
+                                    if (response.ok) {
+                                      console.log('이미지 업데이트 요청이 성공했습니다.');
+                                      document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
+                                    } else {
+                                      console.error('이미지 업데이트 요청이 실패했습니다.');
+                                    }
+                                  })
+                                  .catch(error => {
+                                    console.error('요청 중 오류가 발생했습니다.', error);
+                                  });
+                                },1000)
+                          });
+
+                          setTimeout(()=>{
+                            console.dir(uploadFileInput);
+                            console.log("change이벤트");
+                              let previewImage = document.getElementById('myPageProfileImageId').src;
+                              let previewImageArr = previewImage.split("=");
+                              console.log(previewImageArr[1]);
+                                fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
+                                  .then(response => {
+                                    if (response.ok) {
+                                      console.log(encodeURIComponent(previewImageArr[1]));
+                                      console.log('이미지 업데이트 요청이 성공했습니다.');
+                                    } else {
+                                      console.log(encodeURIComponent(previewImageArr[1]));
+                                      console.error('이미지 업데이트 요청이 실패했습니다.');
+                                    }
+                                  })
+                                  .catch(error => {
+                                    console.error('요청 중 오류가 발생했습니다.', error);
+                                  });
+                                },1000)
+                          });
+                </script>
+            </div>
+          </div>
         </div>
+        <div class="myPageMyInfoDivSubtitle"><span>내 정보</span></div>
+        <div class="myPageMyInfoDiv">
+          <div class="myPageMyInfoDivContainer">
+            <div class="myPageMyInfoNickname">
+              <div class="myPageMyInfoNickname1">
+                <span>닉네임</span>
+              </div>
+              <div class="myPageMyInfoNickname2">
+                <span th:text="${session.nickname}">닉네임()</span>
+              </div>
+            </div>
+            <div class="myPageMyInfoEmail">
+              <div class="myPageMyInfoEmail1">
+                <span>이메일</span>
+              </div>
+              <div class="myPageMyInfoEmail2">
+                <span th:text="${session.email}">이메일()</span>
+              </div>
+            </div>
+            <div class="myPageMyInfoPassword">
+              <div class="myPageMyInfoPassword1">
+                <span>비밀번호</span>
+              </div>
+              <div class="myPageMyInfoPassword2">
+                <span>변경하기</span>
+                <div class="arrow"></div>
+              </div>
+            </div>
+            <div class="myPageMyInfoBirth">
+              <div class="myPageMyInfoBirth1">
+                <span>생년월일</span>
+              </div>
+              <div class="myPageMyInfoBirth2">
+                <span th:text="${session.birth}">생년월일()</span>
+              </div>
+            </div>
+            <div class="myPageMyInfoGender">
+              <div class="myPageMyInfoGender1">
+                <span>성별</span>
+              </div>
+              <div class="myPageMyInfoGender2">
+                <span th:text="${session.gender}">성별()</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyInfoDivSubtitle"><span>잔액</span></div>
+        <div class="myPageMyInfoAccount">
+          <div class="myPageMyInfoAccountSpanContainer">
+            <div class="myPageMyInfoAccountSpan1">
+              <span class="myPageMyInfoAccountSpan1">마일리지</span>
+            </div>
+            <div class="myPageMyInfoAccountSpan2">
+              <span class="myPageMyInfoAccountSpan2">1234567원</span>
+            </div>
+          </div>
+          <div class="myPageMyInfoAccountButtonContainer">
+            <div class="myPageMyInfoAccountButton1"></div>
+            <div class="myPageMyInfoAccountButton2">
+              <button class="myPageWithdraw">출금하기</button>
+              <button class="myPageDeposit">충전하기</button>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyInfoDivSubtitle"><span>채팅</span></div>
+        <div class="myPageChatroomInfo">
+          <div class="myPageChatroomInfoSpan">
+            <span class="myPageChatroomInfoSpan1">채팅방</span>
+            <div class="myPageChatroomInfoNotice">
+              <span>7</span>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyInfoDivSubtitle"><span>옷장</span></div>
+        <div class="myPageMyClosetContainer">
+          <div class="myPageMyClosetContainerSpan"><span>ㅎㅇ</span></div>
+          <div class="myPageMyClosetButtonContainerContainer">
+            <div class="myPageMyClosetButtenContainer">
+              <div class="myPageMyClosetButtenSquare">
+                <div class="myPageMyClosetButtenTriangle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMyClosetContainer2">
+          <div class="myPageMyClosetContainerSpan2"><span>ㅎㅇ</span></div>
+          <div class="myPageMyClosetButtonContainerContainer2">
+            <div class="myPageMyClosetButtenContainer2">
+              <div class="myPageMyClosetButtenSquare2">
+                <div class="myPageMyClosetButtenTriangle2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="myPageMemberDrop">
+          <button class="myPageMemberDropButton">회원탈퇴</button>
+        </div>
+      </div>
     </div>
+    <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
   </body>
+
 </html>
