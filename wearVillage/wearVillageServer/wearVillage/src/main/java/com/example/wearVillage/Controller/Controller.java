@@ -53,10 +53,9 @@ public class Controller {
 
     //로그인에 성공할 시 메인화면으로 이동
     @PostMapping(value = "/login_createSession")
-    public String loginSession(@RequestBody Map<String,String> map,HttpServletRequest request) {
+    public String loginSession(@RequestBody Map<String,String> map,HttpSession session) {
         String email = map.get("email");
-        HttpSession session = request.getSession();
-
+        session.invalidate();
         USER_INFO user_info = rep_user_info.findByEMAIL(email).get(0);
         session.setAttribute("email",user_info.getEMAIL());
         session.setAttribute("id",user_info.getID());

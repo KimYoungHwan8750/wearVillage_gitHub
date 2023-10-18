@@ -7,26 +7,12 @@
     <title>Document</title>
 </head>
 <body>
+    <form action="">
+    <img id = "imgbox" src="./img/boot.png" alt="">
+    
 <script>
-    let date = new Date();
-    console.log(dateFormater(date));
-        function dateFormater(inputDate){
-            let amOrPm = '';
-            let hour =inputDate.getHours();
-            let minute =inputDate.getMinutes();
-            if(hour>11){
-                amOrPm="오후";
-            }
-            else {
-                amOrPm="오전";
-            }
-
-            if(hour>12){hour-=12;}
-            if(minute<10){minute="0"+minute;}
-
-            return amOrPm+" "+hour+":"+minute;
-        }
-
+    const selectorTest = document.querySelector("img[src^='./img/'");
+    console.log(selectorTest)
 </script>
 
 </body>

@@ -131,7 +131,7 @@ public class ChatroomDAOImpl implements ChatroomDAO {
     }
     @Override
     public List<ChatroomDTO> loadingChatroomList(String nickname){
-        String sql = "SELECT * FROM CHAT_ROOM WHERE MEMBER1=? OR MEMBER2=?";
+        String sql = "SELECT * FROM CHAT_ROOM INNER JOIN POSTING_TABLE ON CHAT_ROOM.POST_ID = POSTING_TABLE.POST_ID WHERE MEMBER1=? OR MEMBER2=?";
         List<ChatroomDTO> chatroomEntities = jdbcTemplate.query(sql, new RowMapper<ChatroomDTO>() {
             @Override
             public ChatroomDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -142,6 +142,12 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                 chatroomDTO.setRECENTLY_MSG(rs.getString("RECENTLY_MSG"));
                 chatroomDTO.setRECENTLY_TIME(rs.getTimestamp("RECENTLY_TIME"));
                 chatroomDTO.setCHAT_ROOM_ID(rs.getInt("CHAT_ROOM_ID"));
+                chatroomDTO.setPOST_WRITER_ID(rs.getString("POST_WRITER_ID"));
+                chatroomDTO.setPOST_SUBTITLE(rs.getString("POST_SUBTITLE"));
+                chatroomDTO.setPOST_RENT_DEFAULT_PRICE(rs.getString("POST_RENT_DEFAULT_PRICE"));
+                chatroomDTO.setPOST_RENT_DAY_PRICE(rs.getString("POST_RENT_DAY_PRICE"));
+                chatroomDTO.setPOST_MAP_INFO(rs.getString("POST_MAP_INFO"));
+//                chatroomDTO.setPOST_THUMBNAIL_IMG(rs.getString("POST_TEXT"));
                 return chatroomDTO;
             }
         },nickname,nickname);

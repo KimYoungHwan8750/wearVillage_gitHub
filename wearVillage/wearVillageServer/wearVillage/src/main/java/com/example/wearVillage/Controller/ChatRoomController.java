@@ -1,6 +1,9 @@
 package com.example.wearVillage.Controller;
 
+import com.example.wearVillage.DTO.USER_INFO_DTO;
+import com.example.wearVillage.Entity.USER_INFO;
 import com.example.wearVillage.KyhUtilMethod.dateFormater;
+import com.example.wearVillage.Repository.Repository_USER_INFO;
 import com.example.wearVillage.chat.ChatDTO;
 import com.example.wearVillage.chat.ChatService;
 import com.example.wearVillage.chat.ChatroomDTO;
@@ -26,6 +29,7 @@ import static java.lang.Integer.parseInt;
 @Slf4j
 public class ChatRoomController {
     private final ChatService chatSVC;
+    private final Repository_USER_INFO repositoryUserInfo;
     @PostMapping("/createChatroom")
     @ResponseBody
     public boolean createChatroomIfThereIsNo(
@@ -87,6 +91,15 @@ public class ChatRoomController {
                         chatroomDTO.setCHAT_ROOM_ID(m.getCHAT_ROOM_ID());
                         // 날짜 정보 가공하는 코드
                         chatroomDTO.setRECENTLY_TIME(new dateFormater(m.getRECENTLY_TIME().toLocalDateTime()).PeriodCalculator());
+                        chatroomDTO.setPOST_WRITER_ID(m.getPOST_WRITER_ID());
+                        chatroomDTO.setPOST_SUBTITLE(m.getPOST_SUBTITLE());
+                        chatroomDTO.setPOST_PRICE(m.getPOST_PRICE());
+                        chatroomDTO.setPOST_RENT_DEFAULT_PRICE(m.getPOST_RENT_DEFAULT_PRICE());
+                        chatroomDTO.setPOST_RENT_DAY_PRICE(m.getPOST_RENT_DAY_PRICE());
+                        chatroomDTO.setPOST_MAP_INFO(m.getPOST_MAP_INFO());
+                        chatroomDTO.setPOST_THUMBNAIL_IMG(repositoryUserInfo.findByNICKNAME(m.getPOST_WRITER_ID()).getPROFILEIMG());
+                        log.info(m.getPOST_WRITER_ID()+"POST_WRITER_ID");
+                        log.info(repositoryUserInfo.findByNICKNAME(m.getPOST_WRITER_ID()).getPROFILEIMG()+"POST_WRITER_ID_REP");
                         return chatroomDTO;
                     }).toList();
             model.addAttribute("chatroomList",copyChatroomDTO);

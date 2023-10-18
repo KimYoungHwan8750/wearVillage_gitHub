@@ -21,4 +21,13 @@ public class ChatroomDTO {
     private String RECENTLY_MSG;
     private Timestamp RECENTLY_TIME;
     private Integer CHAT_ROOM_ID;
+    private String POST_WRITER_ID;
+    private String POST_SUBTITLE;
+    private String POST_PRICE;
+    private String POST_RENT_DEFAULT_PRICE;
+    private String POST_RENT_DAY_PRICE;
+    private String POST_MAP_INFO;
+    private String POST_THUMBNAIL_IMG;
+
+
 }

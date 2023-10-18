@@ -4,16 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/chatroomlist.css">
 </head>
 <body>
 
-    <div class="chatroomList_container" th:each="list : ${chatroomList}">
-        <div class="chatroomListBox" th:text="${list.RECENTLY_TIME}">
-            시간
-        </div>
-        <div class="chatroomList" th:text="${list.RECENTLY_MSG}">
+    <div class="chatroomList_container" >
+        <div class = "chatroomBox"th:each="list : ${chatroomList}">
+            <form class="chatroomForm">
+        <!-- <div th:text="${list.POST_ID}">1</div> -->
+        <!-- <div th:text="${list.MEMBER1}">2</div>
+        <div th:text="${list.MEMBER2}">3</div>
+        <div th:text="${list.CHAT_ROOM_ID}">4</div> -->
+        <img class="chatroom_thumbnail_img"th:src="'/display?fileName='+${list.POST_THUMBNAIL_IMG}">
+
+        <div class="chatroom_item" th:text="${list.POST_SUBTITLE}"></div>
+        <div class="chatroom_item" th:text="'최근 메세지: '+${list.RECENTLY_MSG}">
             최근메세지
         </div>
+        <div class="chatroom_item" th:text="${list.RECENTLY_TIME}">
+            시간
+        </div>
+    </form>
+    </div>
+
+    <div class="chatroomBox">
+        <form class="chatroomForm" action="">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>
+            시간
+        </div>
+        <div>
+            최근메세지
+        </div>
+    </form>
+    </div>
+
     </div>
 
 </body>

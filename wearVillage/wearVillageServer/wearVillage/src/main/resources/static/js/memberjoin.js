@@ -56,7 +56,9 @@ function create_user() {
   email_check();
   nickname_check();
   birth_check();
-  let dataForm = {
+  let dataForm;
+  if(profileimg!=null){
+  dataForm = {
     "ID": id_box.value,
     "PW": pw_box.value,
     "EMAIL": email_box.value,
@@ -66,6 +68,18 @@ function create_user() {
     "PROFILEIMG": profileimg,
     "THEME": gendercheck(),
   };
+} else {
+  dataForm = {
+    "ID": id_box.value,
+    "PW": pw_box.value,
+    "EMAIL": email_box.value,
+    "GENDER": gendercheck(),
+    "BIRTH": inputbirth.value,
+    "NICKNAME": nickname_box.value,
+    "PROFILEIMG": encodeURIComponent("2023/10/17/defaultImg.jpg"),
+    "THEME": gendercheck(),
+  };
+}
   if (
     id_check() &&
     pw_check1() &&
