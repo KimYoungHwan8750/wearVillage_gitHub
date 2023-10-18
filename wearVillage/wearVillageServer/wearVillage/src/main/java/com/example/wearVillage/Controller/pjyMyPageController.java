@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -104,11 +105,16 @@ public class pjyMyPageController {
         log.info("getNewPW={}",getNewPW);
         if(findedPW.equals(getPW)){
             log.info("요청성공,changePWSVC개시");
-            changePWSVC.changePW(userId,form);
+            int changedRow = changePWSVC.changePW(userId,form);
+            if(changedRow == 0){
+                return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
+            }
             return ResponseEntity.ok().build();
+        }else{
+            log.info("요청실패");
+            return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다. 확인해주세요.");
         }
-        log.info("요청실패");
-        return ResponseEntity.badRequest().body()
+
     }
 
     @ResponseBody
