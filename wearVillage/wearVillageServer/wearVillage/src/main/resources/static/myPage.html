@@ -173,24 +173,66 @@
       <div id="myPageModalContainer" class="hidden">
         <div id="myPageModalContent">
           <p>비밀번호변경</p>
-          <form th:action="@{/update/changePW}" class="PWChangeForm" method="POST">
+          <form id="PWChangeForm" th:action="@{/update/changePW}" method="post" th:object="${changeUserPWForm}">
             <div>
-            <label for="myPageDefaultPW">현재 비밀번호</label>
-            <input type="password" id="myPageDefaultPW" name="PW">
-            </div>
-            <div><label for="myPageNewPW">신규 비밀번호</label>
-            <input type="password" id="myPageNewPW">
+              <label for="PW">현재 비밀번호</label>
+              <input type="password" id="PW" name="PW">
+              <span id="oldPwError"></span>
             </div>
             <div>
-            <label for="myPageNewPWAuth">신규 비밀번호 확인</label>
-            <input type="password" id="myPageNewPWAuth" name="newPW">
-              <p th:if="${#fields.hasErrors('changeUserPWForm.newPW')}" th:errors="*{changeUserPWForm.newPW}">에러p</p>
-
+              <label for="newPW">신규 비밀번호</label>
+              <input type="password" id="newPW" name="newPW">
+              <span id="newPwError"></span>
             </div>
-
-            <div class="myPageFormSubmit"><input type="submit" value="변경하기">
-            <button id="myPageModalCloseButton" type="button">닫기</button></div>
+            <div>
+              <label for="myPageNewPWConfirm">신규 비밀번호 확인</label>
+              <input type="password" id="myPageNewPWConfirm">
+            </div>
+            <button type='submit'>변경하기</button>
+            <button type="button" id="myPageModalCloseButton">취소</button>
+            <span id="errorMessage"></span>
           </form>
+          <script>
+            document.getElementById('PWChangeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let currentPW = document.getElementById('PW').value;
+            let newPW = document.getElementById('newPW').value;
+
+            let changeUserPWForm = {
+              PW: currentPW,
+              newPW : newPW
+            };
+            console.log(currentPW);
+            console.log(newPW);
+            console.log(changeUserPWForm);
+
+            fetch('/update/changePW',{
+              method:'POST',
+              headers: {
+                'Content-Type' : 'application/json'
+              },
+              body: JSON.stringify(changeUserPWForm)
+            })
+            .then(res=>{
+              if(!res.ok) throw res;
+              return res.json();
+            })
+            .then(data=>{
+              document.getElementById('myPageModalContainer').classList.add('hidden');
+              alert("비밀번호 변경 완료");
+            })
+            .catch(err=>{
+              err.text().then(errorMessage=>{
+                alert("에러 :"+errorMessage);
+                document.getElementById('errorMessage').innerText=errorMessage
+              })
+            })
+
+            })
+
+          </script>
+
         </div>
       </div>
       <script>
@@ -207,29 +249,11 @@
 
       </script>
       <script>
-        document.querySelector(".PWChangeForm").addEventListener("submit", function(e) {
-            e.preventDefault();
+        document.getElementById('PWChangeForm').addEventListener('submit', function(event) {
+          event.preventDefault();
+          
+        })
 
-            var url = this.getAttribute('action');
-            var formData = new FormData(this);
-
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json()) // assuming server responds with json
-            .then(data => {
-                if (data.error) {
-                    alert(data.error); // display the error message from server
-                } else {
-                    alert("Password changed successfully.");
-                }
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-              alert('An error occurred. Please try again.');
-            });
-        });
       </script>
     </div>
     <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
