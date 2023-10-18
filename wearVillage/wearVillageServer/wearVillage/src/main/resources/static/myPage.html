@@ -200,12 +200,14 @@
             let newPW = document.getElementById('newPW').value;
 
             let changeUserPWForm = {
+              pw: currentPW,
               PW: currentPW,
               newPW : newPW
             };
             console.log(currentPW);
             console.log(newPW);
             console.log(changeUserPWForm);
+            console.log(JSON.stringify(changeUserPWForm));
 
             fetch('/update/changePW',{
               method:'POST',
@@ -245,13 +247,6 @@
         })
         modalCloseButton.addEventListener('click',()=>{
           modal.classList.add('hidden');
-        })
-
-      </script>
-      <script>
-        document.getElementById('PWChangeForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          
         })
 
       </script>

@@ -1,6 +1,7 @@
 package com.example.wearVillage.Controller;
 
 import com.example.wearVillage.DAO.myPagePWChangeDAO.ChangeUserPWForm;
+import com.example.wearVillage.DAO.myPagePWChangeDAO.myPagePWChangeDTO;
 import com.example.wearVillage.DAO.myPagePWChangeDAO.myPagePWChangeSVC;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.USER_INFO_FORM;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.myPageProfileImageSVC;
@@ -92,19 +93,22 @@ public class pjyMyPageController {
 
     @ResponseBody
     @PostMapping("/update/changePW")
-    public ResponseEntity<?> changePW(HttpSession session, @Valid ChangeUserPWForm form,BindingResult bindingResult){
+    public ResponseEntity<?> changePW(HttpSession session, @Valid @RequestBody ChangeUserPWForm form,BindingResult bindingResult){
         String userId = (String) session.getAttribute("id");
         String findedPW = changePWSVC.getPWbyID(userId);
-        String getPW = form.getNewPW();
+        String getPW = form.getPW();
+        String getNewPW = form.getNewPW();
         log.info("{}",bindingResult);
-        log.info("{}",form);
+        log.info("{}",findedPW);
         log.info("getPW={}",getPW);
+        log.info("getNewPW={}",getNewPW);
         if(findedPW.equals(getPW)){
             log.info("요청성공,changePWSVC개시");
             changePWSVC.changePW(userId,form);
+            return ResponseEntity.ok().build();
         }
         log.info("요청실패");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.badRequest().body()
     }
 
     @ResponseBody
