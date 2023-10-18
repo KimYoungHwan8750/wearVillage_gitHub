@@ -2,10 +2,10 @@
 <html
   xmlns:th="https://www.thymeleaf.org"
   xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/default}">
+  layout:decorate="~{/layouts/default}">
   <body>
     <div layout:fragment="content" class="th_main_content">
-      <link layout:fragment="css" rel="stylesheet" href="css/myPage.css" />
+      <link layout:fragment="css" rel="stylesheet" href="/css/myPage.css" />
       <div class="myPageSuperContainer">
         <div class="profileImageContainer">
           <div class="myPageProfileImageSuperContainer">
@@ -173,17 +173,19 @@
       <div id="myPageModalContainer" class="hidden">
         <div id="myPageModalContent">
           <p>비밀번호변경</p>
-          <form action="" class="PWChangeForm">
+          <form th:action="@{/update/changePW}" class="PWChangeForm" method="POST">
             <div>
             <label for="myPageDefaultPW">현재 비밀번호</label>
-            <input type="password" id="myPageDefaultPW">
+            <input type="password" id="myPageDefaultPW" name="PW">
             </div>
             <div><label for="myPageNewPW">신규 비밀번호</label>
             <input type="password" id="myPageNewPW">
             </div>
             <div>
             <label for="myPageNewPWAuth">신규 비밀번호 확인</label>
-            <input type="password" id="myPageNewPWAuth">
+            <input type="password" id="myPageNewPWAuth" name="newPW">
+              <p th:if="${#fields.hasErrors('changeUserPWForm.newPW')}" th:errors="*{changeUserPWForm.newPW}">에러p</p>
+
             </div>
 
             <div class="myPageFormSubmit"><input type="submit" value="변경하기">
@@ -203,6 +205,31 @@
           modal.classList.add('hidden');
         })
 
+      </script>
+      <script>
+        document.querySelector(".PWChangeForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            var url = this.getAttribute('action');
+            var formData = new FormData(this);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) // assuming server responds with json
+            .then(data => {
+                if (data.error) {
+                    alert(data.error); // display the error message from server
+                } else {
+                    alert("Password changed successfully.");
+                }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.');
+            });
+        });
       </script>
     </div>
     <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
