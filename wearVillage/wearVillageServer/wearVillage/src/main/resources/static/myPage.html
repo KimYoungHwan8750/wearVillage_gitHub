@@ -6,6 +6,7 @@
   <body>
     <div layout:fragment="content" class="th_main_content">
       <link layout:fragment="css" rel="stylesheet" href="/css/myPage.css" />
+      <link rel="stylesheet" href="css/myPage.css">
       <div class="myPageSuperContainer">
         <div class="profileImageContainer">
           <div class="myPageProfileImageSuperContainer">
@@ -141,7 +142,7 @@
           <div class="myPageChatroomInfoSpan">
             <span class="myPageChatroomInfoSpan1">채팅방</span>
             <div class="myPageChatroomInfoNotice">
-              <span>7</span>
+              <span th:text="${countedPost}"></span>
             </div>
           </div>
         </div>
@@ -172,7 +173,7 @@
       </div>
       <div id="myPageModalContainer" class="hidden">
         <div id="myPageModalContent">
-          <p>비밀번호변경</p>
+          <div style="height:45px;"><p class="myPageModalContentP">비밀번호변경</p></div>
           <form id="PWChangeForm" th:action="@{/update/changePW}" method="post" th:object="${changeUserPWForm}">
             <div>
               <label for="PW">현재 비밀번호</label>
@@ -185,12 +186,15 @@
               <span id="newPwError"></span>
             </div>
             <div>
-              <label for="myPageNewPWConfirm">신규 비밀번호 확인</label>
-              <input type="password" id="myPageNewPWConfirm">
+              <label for="newPWConfirm">비밀번호 확인</label>
+              <input type="password" id="newPWConfirm">
             </div>
-            <button type='submit'>변경하기</button>
+            <p id="errorMessage" stlye="color:red;"></p>
+            <div class="myPageSubmitButtonDiv">
+            <button type='submit' id="myPageModalCloseButtonSubmit">변경하기</button>
             <button type="button" id="myPageModalCloseButton">취소</button>
-            <span id="errorMessage"></span>
+            </div>
+
           </form>
           <script>
             document.getElementById('PWChangeForm').addEventListener('submit', function(event) {
@@ -198,12 +202,14 @@
 
             let currentPW = document.getElementById('PW').value;
             let newPW = document.getElementById('newPW').value;
+            let newPWConfirm = document.getElementById('newPWConfirm').value;
 
             let changeUserPWForm = {
               pw: currentPW,
-              PW: currentPW,
-              newPW : newPW
+              newPW : newPW,
+              newPWConfirm : newPWConfirm
             };
+
             console.log(currentPW);
             console.log(newPW);
             console.log(changeUserPWForm);
@@ -217,16 +223,22 @@
               body: JSON.stringify(changeUserPWForm)
             })
             .then(res=>{
-              if(!res.ok) throw res;
-              return res.json();
+              if(!res.ok){
+                throw res;
+              } else {
+                document.getElementById('myPageModalContainer').classList.add('hidden');
+                alert("비밀번호 변경 완료");
+                document.getElementById('PW').value = '';
+                document.getElementById('newPW').value = '';
+                document.getElementById('newPWConfirm').value = '';
+
+                return res.json();
+              }
             })
-            .then(data=>{
-              document.getElementById('myPageModalContainer').classList.add('hidden');
-              alert("비밀번호 변경 완료");
-            })
+            .then(data=>console.log(data)
+            )
             .catch(err=>{
               err.text().then(errorMessage=>{
-                alert("에러 :"+errorMessage);
                 document.getElementById('errorMessage').innerText=errorMessage
               })
             })
@@ -236,6 +248,95 @@
           </script>
 
         </div>
+      </div>
+      <div id="myPageModalContainer2" class="hidden">
+        <div id="myPageModalContent2">
+         <div style="height:45px;"><p class="myPageModalContentP">결제하기</p></div>
+          <div>
+            <label for="miliage">결제금액</label>
+            <select id="miliage">
+              <option value="10000">1만원</option>
+              <option value="20000">2만원</option>
+              <option value="30000">3만원</option>
+              <option value="40000">4만원</option>
+              <option value="50000">5만원</option>
+              <option value="1000000">100만원</option>
+            </select>
+          </div>
+          <button type="button" onclick="paymentTest()" id="myPagePaymentButton">카카오페이 결제하기</button>
+          <button type="button" id="myPageModalCloseButton2">취소하기</button>
+        </div>
+        <script>
+
+          let modal2OpenButton = document.querySelector('.myPageDeposit');
+          let modal2CloseButton = document.getElementById('myPageModalCloseButton2');
+          let modal2 = document.getElementById('myPageModalContainer2');
+
+          modal2OpenButton.addEventListener('click',()=>{
+            modal2.classList.remove('hidden');
+          })
+          modal2CloseButton.addEventListener('click',()=>{
+            modal2.classList.add('hidden');
+          })
+        </script>
+        
+
+<!-- TODO 모달넣기 -->
+
+        <script th:inline="javascript">
+          function paymentTest(){
+            console.log("시작");
+            
+            let partnerOrderIdSession = /*[[${userId}]]*/;
+            let mileagePrice = document.getElementById('miliage').value;
+
+
+            let kapiTid = '';
+            let next_url = '';
+            const url = 'https://kapi.kakao.com/v1/payment/ready';
+            const kapiKey = '692233cc4da58b010398bb53afb7ff57';
+            const option = {
+              method : 'POST',
+              headers : {
+                'Authorization': `KakaoAK ${kapiKey}`,
+                'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8',
+                'accept' : 'application/json',
+              },
+              body : new URLSearchParams({
+                cid : 'TC0ONETIME',
+                partner_order_id : '1',
+                partner_user_id : partnerOrderIdSession,
+                item_name : 'mileage',
+                quantity : '1',
+                total_amount : mileagePrice,
+                tax_free_amount : '0',
+                approval_url : 'http://localhost:8090/successKapi',
+                cancel_url : 'http://localhost:8090',
+                fail_url : 'http://localhost:8090',
+              })
+            };
+
+
+            fetch(url,option)
+            .then(res=>res.json())
+            .then(data=>{
+              console.log("res json"+data);
+              kapiTid = data['tid'];
+              next_url = data['next_redirect_pc_url'];
+              console.log(next_url);
+              console.log(kapiTid);
+              var popupWidth = 500;
+              var popupHeight = 600;
+              var popupX = (window.screen.width / 2) - (popupWidth / 2);
+              var popupY= (window.screen.height / 2) - (popupHeight / 2) - 30;
+              localStorage.setItem("tid",kapiTid);
+              let popupOption = `top=${popupY}, left=${popupX}, width=${popupWidth}px, height=${popupHeight}px, status=no, menubar=no,toolbar=no,fullscreen=no, location=no,directories=no`;
+              window.open(next_url,"카카오결제인증",popupOption);
+
+              modal2.classList.add('hidden');
+            })
+          }
+        </script>
       </div>
       <script>
         let modalOpenButton = document.querySelector('.myPageMyInfoPassword');
