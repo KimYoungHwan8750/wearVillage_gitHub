@@ -55,7 +55,6 @@ public class Controller {
     @PostMapping(value = "/login_createSession")
     public String loginSession(@RequestBody Map<String,String> map,HttpSession session) {
         String email = map.get("email");
-        session.invalidate();
         USER_INFO user_info = rep_user_info.findByEMAIL(email).get(0);
         session.setAttribute("email",user_info.getEMAIL());
         session.setAttribute("id",user_info.getID());
@@ -65,7 +64,6 @@ public class Controller {
         session.setAttribute("nickname",user_info.getNICKNAME());
         session.setAttribute("gender",user_info.getGENDER());
         session.setAttribute("birth",user_info.getBIRTH());
-        System.out.println(session.getAttribute("nickname"));
         log.info((String) session.getAttribute("nickname")+"님이 로그인하셨습니다.");
 
         return "redirect:/";

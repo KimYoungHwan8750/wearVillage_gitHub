@@ -294,7 +294,7 @@
             let kapiTid = '';
             let next_url = '';
             const url = 'https://kapi.kakao.com/v1/payment/ready';
-            const kapiKey = '692233cc4da58b010398bb53afb7ff57';
+            const kapiKey = /*[[${kapiApiKey}]]*/ 'default';
             const option = {
               method : 'POST',
               headers : {

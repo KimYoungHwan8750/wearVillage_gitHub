@@ -8,9 +8,14 @@ import com.example.wearVillage.DAO.myPagePaymentDAO.PaymentForm;
 import com.example.wearVillage.DAO.myPagePaymentDAO.PaymentSVC;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.USER_INFO_FORM;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.myPageProfileImageSVC;
+import com.google.j2objc.annotations.Property;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -19,8 +24,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -38,6 +49,10 @@ public class pjyMyPageController {
     private final myPageCountPostSVC countPostSVC;
     private final PaymentSVC paymentSVC;
 
+    @Value("${kapi.apikey}")
+    private String kapiApiKey;
+
+
     @GetMapping("/mypage")
     public ModelAndView myPage(ModelAndView mav, HttpSession session, USER_INFO_FORM userInfoForm,
             @ModelAttribute ChangeUserPWForm changeUserPWForm) {
@@ -46,6 +61,8 @@ public class pjyMyPageController {
             String nickname = (String) session.getAttribute("nickname");
             log.info("{}'님이 로그인했습니다.'", nickname);
             int countedPost = countPostSVC.countPost(userId,nickname);
+
+            mav.addObject("kapiApiKey",kapiApiKey);
             mav.addObject("countedPost",countedPost);
             mav.addObject("userId",userId);
             mav.setViewName("myPage");
@@ -165,4 +182,12 @@ public class pjyMyPageController {
         paymentSVC.paymentDateToDB(paymentForm);
         return "myPage";
     }
+
+    @GetMapping("/testPayment")
+    public String testPayment(){
+
+        return "testMyPage";
+    }
+
+
 }
