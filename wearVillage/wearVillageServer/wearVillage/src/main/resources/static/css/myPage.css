@@ -170,7 +170,7 @@
 }
 
 .myPageMyInfoBirth2 span {
-  margin-right: 10px;
+  margin-right: 25px;
 }
 
 .myPageMyInfoGender {
@@ -192,7 +192,7 @@
 }
 
 .myPageMyInfoGender2 span {
-  margin-right: 40px;
+  margin-right: 25px;
 }
 
 /* 결제 */
@@ -574,4 +574,258 @@
   outline: none;
   text-align: center;
   vertical-align: center;
+}
+
+.myPageProfileImageSuperContainer #successMsg {
+  width: 28.75px;
+}
+
+.myPageMyInfoPassword2 span {
+  margin-right: 25px;
+}
+
+
+
+
+
+
+
+
+
+#myPageModalCloseButton {
+  cursor: pointer;
+}
+
+#myPageModalContainer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#myPageModalContent {
+  position: absolute;
+  background-color: #ffffff;
+  width: 330px;
+  height: 260px;
+  padding: 15px;
+}
+
+#myPageModalContainer.hidden {
+  display: none;
+}
+
+.PWChangeForm {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+}
+
+.PWChangeForm div {
+  margin-top:3px;
+  margin-bottom: 3px;
+}
+
+
+.myPageModalContentP {
+    font-weight:bold;
+      text-align:center;
+      width:277px;
+      height:45px;
+}
+
+#myPageModalContent {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border-radius:10px;
+    background-color: white;
+    border:2px solid #ff7a7a;
+}
+
+.myPageSubmitButtonDiv {
+      margin-left:auto;
+      margin-right:auto;
+}
+
+#PWChangeForm div {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+#errorMessage {
+    color:red;
+    height:45px;
+    margin-top:5px;
+    margin-bottom:5px;
+    font-weight:normal;
+    text-align:center;
+    width:277px;
+}
+
+#PWChangeForm {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+input[type="password"] {
+  border: 1px solid #ff7a7a;
+  border-radius: 5px;
+  line-height:23px;
+  
+}
+
+input[type="password"]:focus {
+  transition: all 1s;
+  border: 1px solid red;
+  background-color: #f99c9c1a;
+  border-radius: 5px;
+  outline:none;
+}
+
+#myPageModalCloseButtonSubmit{
+    width: 97px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  background-color: #ff7a7a;
+  color: white;
+  cursor:pointer;
+}
+
+#myPageModalCloseButton {
+    width: 97px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+
+  background-color: #f5f5f5;
+  color: #7b7b7b;
+}
+
+/* 결제 */
+
+
+
+
+
+
+
+
+
+
+#myPageModalCloseButton2 {
+  cursor: pointer;
+}
+
+#myPageModalContainer2 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#myPageModalContent2 {
+  position: absolute;
+  background-color: #ffffff;
+  width: 330px;
+  height: 260px;
+  padding: 15px;
+}
+
+#myPageModalContainer2.hidden {
+  display: none;
+}
+
+
+.myPageModalContentP {
+    font-weight:bold;
+      text-align:center;
+      width:277px;
+      height:45px;
+}
+
+#myPageModalContent {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border-radius:10px;
+    background-color: white;
+    border:2px solid #ff7a7a;
+}
+
+.myPageSubmitButtonDiv {
+      margin-left:auto;
+      margin-right:auto;
+}
+
+#PWChangeForm div {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+#errorMessage {
+    color:red;
+    height:45px;
+    margin-top:5px;
+    margin-bottom:5px;
+    font-weight:normal;
+    text-align:center;
+    width:277px;
+}
+
+#PWChangeForm {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+input[type="password"] {
+  border: 1px solid #ff7a7a;
+  border-radius: 5px;
+  line-height:23px;
+  
+}
+
+input[type="password"]:focus {
+  transition: all 1s;
+  border: 1px solid red;
+  background-color: #f99c9c1a;
+  border-radius: 5px;
+  outline:none;
+}
+
+#myPagePaymentButton{
+    width: 97px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  background-color: #ff7a7a;
+  color: white;
+  cursor:pointer;
+}
+
+#myPageModalCloseButton2 {
+    width: 97px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+
+  background-color: #f5f5f5;
+  color: #7b7b7b;
 }
