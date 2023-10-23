@@ -7,12 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="">
-    <img id = "imgbox" src="./img/boot.png" alt="">
+    <button onclick="testM()"></button>
+    <input id="pp"name="hi"type="text">
+    <div id="test1"><script>console.log("Hi")</script></div>
+    
     
 <script>
-    const selectorTest = document.querySelector("img[src^='./img/'");
-    console.log(selectorTest)
+    function testM(){
+        let $test1 = document.getElementById("test1");
+        $test1.innerHTML='<button type="text">전송</button>'
+    }
 </script>
 
 </body>
