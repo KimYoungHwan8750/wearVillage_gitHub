@@ -7,49 +7,12 @@
 <body>
     테스트용입니다.
     <form action="">
-        <button type="button" onclick="requestPay()">결제하기</button>
+
     </form>
-    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
     <script>
 
     </script>
-    <script>
-        function requestPay(){
-                let IMP = window.IMP;
-        IMP.init('imp48151348')
-            IMP.request_pay({
-                pg: "tosspay",
-                pay_method: "card",
-                merchant_uid: "123461",
-                name: "miliage",
-                amount: 10000,
-                buyer_email:"asd123@naver.com",
-                buyer_name:"홍길동",
-                buyer_tel:"010-1234-1234",
-                buyer_addr:"안드로메다행성",
-                buyer_postcode:"01111"
-            }, function(res){
-                console.log(res);
-                    let url = "/verifyIamport/"+res.imp_uid;
-                    let option = {
-                        method:'POST',
-                        body:JSON.stringify({
-                            ID:res.buyer_email,
-                            amount:res.paid_amount
-                        }),
-                    };
-                    fetch(url,option).then(data=>data.json())
-                    .then(data=>{
-                        console.log("res="+res);
-                        console.log("data="+data);
-                        if(res.paid_amount == data.response.amount){
-                            alert("결제, 검증 성공");
-                        } else {
-                            alert("결제 실패");
-                        }
-                    })
-            })
-        }
-    </script>
+    
 </body>
 </html>

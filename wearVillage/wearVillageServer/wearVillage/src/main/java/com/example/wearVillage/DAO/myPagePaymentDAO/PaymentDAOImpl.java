@@ -16,7 +16,6 @@ import java.util.Map;
 public class PaymentDAOImpl implements PaymentDAO{
 
     private final NamedParameterJdbcTemplate template;
-    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public int paymentDateToDB(PaymentForm paymentForm) {
