@@ -42,3 +42,7 @@ out/
 application-api-key.properties
 application-smtp.properties
 application.properties
+
+
+### JS API KEY ###
+api-keys.js
