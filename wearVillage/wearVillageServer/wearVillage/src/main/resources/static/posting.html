@@ -18,65 +18,25 @@ layout:decorate="~{layouts/default}">
         type="text"
         id="post_subtitle_id"
         style="
-          width: 1000px;
+          width: 983px;
           height: 40px;
           font-size: 18px;
           line-height: 40px;
           padding: 0px;
+          padding-left:5px;
+          margin:15px;
+          border-radius:5px;
         "
+        placeholder=" 제목을 입력해주세요"
       />
     </div>
-    <div class="checkbox_select">
-      <input type="checkbox" id="checkbox_sale_id" checked="true" />
-      <label for="checkbox_sale_id">판매</label>
-      <input type="checkbox" id="checkbox_rent_id" checked="true" />
-      <label for="checkbox_rent_id">대여</label>
-    </div>
-    <div class="posting_info">
-      <div class="posting_prices_container">
-        <div class="posting_price_info">
-          <span class="sale_sale_price">판매 가격</span>
-          <div class="posting_price_container">
-            <input
-              type="text"
-              id="posting_price_id"
-              class="posting_price_box"
-              value=""
-              placeholder="가격을 입력해주세요"
-            />
-            <label for="posting_price_id" style="font-size: 16px">원</label>
-          </div>
-        </div>
-        <div class="posting_rent_price_info">
-          대여 가격
-          <div class="posting_rent_price_container">
-            <input
-              type="text"
-              id="posting_rent_price_id"
-              class="posting_rent_price_box"
-              value=""
-              placeholder="기본 요금"
-            />
-            <label for="posting_rent_price_id" style="font-size: 16px"
-              >원+</label
-            >
-            <input
-              type="text"
-              id="posting_rent_price2_id"
-              class="posting_rent_price2_box"
-              value=""
-              placeholder="일일 요금"
-            />
-            <label for="posting_rent_price2_id" stlye="font-size: 16px"
-              >원</label
-            >
-          </div>
-        </div>
-      </div>
 
-      <script>
+    <div class="posting_info">
+
+
+      <script type="module">
         const $checkbox_sale = document.querySelector('#checkbox_sale_id');
-        const $checkbox_rent = document.querySelector('#checkbox_rent_id');
+        var $checkbox_rent = document.querySelector('#checkbox_rent_id');
         const $posting_sale_price_info = document.querySelector(
           '.posting_price_info',
         );
@@ -112,7 +72,7 @@ layout:decorate="~{layouts/default}">
 
         updateVisibility();
       </script>
-      <script>
+      <script type="module">
         const $input = document.querySelector('#posting_price_id');
         const $input2 = document.querySelector('#posting_rent_price_id');
         const $input3 = document.querySelector('#posting_rent_price2_id');
@@ -133,62 +93,118 @@ layout:decorate="~{layouts/default}">
         $input2.addEventListener('keyup', handleInput);
         $input3.addEventListener('keyup', handleInput);
       </script>
-      <div class="posting_category_info">
-        상품 카테고리
-        <div>
-          <label for="category_select_id">
-            <input
-              type="text"
-              id="posting_category_id"
-              class="posting_category_box"
-              value="대분류 > 중분류"
-              readonly="true"
-            />
-          </label>
-          <button class="posting_category_button" id="category_select_id">
-            카테고리 선택
-          </button>
-          <script>
-            $category_btn = document.querySelector('.posting_category_button');
-            $category_btn.addEventListener('click', () => {
-              document.querySelector('.category_layer').style.display = 'block';
-            });
-          </script>
+      <div style="    height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid gray;
+    margin: 5px;
+    border-radius: 15px;
+    padding: 5px;
+    width:50%;">
+        <div class="posting_category_info">
+          상품 카테고리
+          <div>
+            <label for="category_select_id">
+              <input
+                type="text"
+                id="posting_category_id"
+                class="posting_category_box"
+                value="대분류 > 중분류"
+                readonly="true"
+              />
+            </label>
+            <button class="posting_category_button" id="category_select_id">
+              카테고리 선택
+            </button>
+            <script>
+              $category_btn = document.querySelector('.posting_category_button');
+              $category_btn.addEventListener('click', () => {
+                document.querySelector('.category_layer').style.display = 'block';
+              });
+            </script>
+          </div>
+        </div>
+        <div class="posting_map_select">
+          거래 가능한 위치
+          <div class="posting_map_container">
+            <label for="maps_id">
+              <input
+                type="text"
+                class="posting_map_box"
+                id="posting_map_box_id"
+                value="건물명(풀네임)으로 입력"
+                readonly="true"
+              />
+            </label>
+            <!-- 라벨자바스크립트 -->
+            <script>
+              document
+                .querySelector('.posting_category_box')
+                .addEventListener('focus', () => {
+                  document.querySelector('.category_layer').style.display =
+                    'block';
+                });
+            </script>
+            <script>
+              document.querySelector('.posting_map_box').addEventListener(
+                'focus',
+                () => {
+                  map_popup();
+                },
+                { once: true },
+              );
+            </script>
+            <button class="maps" id="maps_id" onclick="map_popup()">
+              지도로 불러오기
+            </button>
+          </div>
         </div>
       </div>
-      <div class="posting_map_select">
-        거래 가능한 위치
-        <div class="posting_map_container">
-          <label for="maps_id">
+      <div class="posting_prices_container" style="height:170px;">
+        <div class="checkbox_select">
+          <input type="checkbox" id="checkbox_sale_id" checked="true" />
+          <label for="checkbox_sale_id">판매</label>
+          <input type="checkbox" id="checkbox_rent_id" checked="true" />
+          <label for="checkbox_rent_id">대여</label>
+        </div>
+        <div class="posting_price_info">
+          <span class="sale_sale_price">판매 가격</span>
+          <div class="posting_price_container">
             <input
-              type="text"
-              class="posting_map_box"
-              id="posting_map_box_id"
-              value="건물명(풀네임)으로 입력"
-              readonly="true"
+                    type="text"
+                    id="posting_price_id"
+                    class="posting_price_box"
+                    value=""
+                    placeholder="가격을 입력해주세요"
             />
-          </label>
-          <!-- 라벨자바스크립트 -->
-          <script>
-            document
-              .querySelector('.posting_category_box')
-              .addEventListener('focus', () => {
-                document.querySelector('.category_layer').style.display =
-                  'block';
-              });
-          </script>
-          <script>
-            document.querySelector('.posting_map_box').addEventListener(
-              'focus',
-              () => {
-                map_popup();
-              },
-              { once: true },
-            );
-          </script>
-          <button class="maps" id="maps_id" onclick="map_popup()">
-            지도로 불러오기
-          </button>
+            <label for="posting_price_id" style="font-size: 16px">원</label>
+          </div>
+        </div>
+        <div class="posting_rent_price_info">
+          대여 가격
+          <div class="posting_rent_price_container">
+            <input
+                    type="text"
+                    id="posting_rent_price_id"
+                    class="posting_rent_price_box"
+                    value=""
+                    placeholder="기본 요금"
+            />
+            <label for="posting_rent_price_id" style="font-size: 16px"
+            >원+</label
+            >
+            <input
+                    type="text"
+                    id="posting_rent_price2_id"
+                    class="posting_rent_price2_box"
+                    value=""
+                    placeholder="일일 요금"
+            />
+            <label for="posting_rent_price2_id" stlye="font-size: 16px"
+            >원</label
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -640,6 +656,25 @@ layout:decorate="~{layouts/default}">
         alert('거래 가능한 위치를 정해주세요!!')
         return false;
       }
+      let $postSubs = document.getElementById('post_subtitle_id');
+      let $postSubsLeng = $postSubs.value.length;
+      let $rentPriceBox = document.querySelector('.posting_rent_price_box');
+      let $checkbox_rent = document.getElementById('checkbox_rent_id');
+      if($checkbox_rent.checked){
+        if(!$rentPriceBox.value){
+          alert("대여 가격을 입력해주세요!!");
+          return false;
+        }
+      }
+      if($postSubsLeng >= 21){
+        alert("제목은 20글자 이하로 작성해주세요!!");
+        return false;
+      }
+
+
+
+
+
       console.log(typeof postData.postMapInfo);
       console.log(postData);
 
@@ -653,7 +688,7 @@ layout:decorate="~{layouts/default}">
         },
         error: function (error) {
           console.log('Error');
-          alert('서버와의 연결에 실패했습니다.');
+          alert('빈칸없이 모두 기입해주세요!!');
           // Handle error here
         },
       });
