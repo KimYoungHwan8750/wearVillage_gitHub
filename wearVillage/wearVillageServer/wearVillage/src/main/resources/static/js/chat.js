@@ -96,7 +96,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
             if(whoChatBeforeFromHistory_right==false){
             display_userChat.innerText = chatMessage['message']+'프로필이미지';
             } else {
-            display_userChat.innerText = chatMessage['message'];
+            display_userChat.innerText = decodeURIComponent(chatMessage['message']);
             }
             //b를 div의 자식 태그로 설정
             div.append(display_chatTime,display_userChat);
@@ -132,9 +132,9 @@ fetch("/userInfo",{method:'POST'}).then(res=>
 
             // 메세지 입력
             if(whoChatBeforeFromHistory_left==false){
-                display_userChat.innerText = chatMessage['message']+'프로필이미지';
+                display_userChat.innerText = decodeURIComponent(chatMessage['message'])+'프로필이미지';
                 } else {
-                display_userChat.innerText = chatMessage['message'];
+                display_userChat.innerText = decodeURIComponent(chatMessage['message']);
                 }
             //b를 div의 자식 태그로 설정
             div.append(display_userChat,display_chatTime);
@@ -195,7 +195,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
             let sendMessage={
                 "sender":JSON.parse($th_sender),
                 "addressee":JSON.parse($th_addressee),
-                "message":$msg.value,
+                "message":encodeURIComponent($msg.value),
                 "chatroom":JSON.parse($th_postId)
             }
             //채팅방이 있는지 조회하고 없으면 생성하고 있으면 채팅 동작
@@ -296,9 +296,9 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 display_userChat.classList.add('chat_Text','chat_myText');
                 // 메세지 입력
             if(whoChatBeforeFromHistory_right==false){
-            display_userChat.innerText = message+'프로필이미지';
+            display_userChat.innerText = decodeURIComponent(message)+'프로필이미지';
             } else {
-            display_userChat.innerText = message;
+            display_userChat.innerText = decodeURIComponent(message);
             }
                 //display_userChat.innerText = message;
                 console.log(message);
@@ -336,9 +336,9 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                // display_chatTime.innerText=dateFormater(new Date());
 
                 if(whoChatBeforeFromHistory_left==false){
-                display_userChat.innerText = message+'프로필이미지';
+                display_userChat.innerText = decodeURIComponent(message)+'프로필이미지';
                 } else {
-                display_userChat.innerText = message;
+                display_userChat.innerText = decodeURIComponent(message);
                 }
                 // 메세지 입력
                 // display_userChat.innerText = message;

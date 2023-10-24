@@ -131,7 +131,7 @@ public class ChatroomDAOImpl implements ChatroomDAO {
     }
     @Override
     public List<ChatroomDTO> loadingChatroomList(String nickname){
-        String sql = "SELECT * FROM CHAT_ROOM INNER JOIN POSTING_TABLE ON CHAT_ROOM.POST_ID = POSTING_TABLE.POST_ID WHERE MEMBER1=? OR MEMBER2=?";
+        String sql = "SELECT * FROM CHAT_ROOM INNER JOIN POSTING_TABLE ON CHAT_ROOM.POST_ID = POSTING_TABLE.POST_ID WHERE MEMBER1=? OR MEMBER2=? ORDER BY RECENTLY_TIME DESC";
         List<ChatroomDTO> chatroomEntities = jdbcTemplate.query(sql, new RowMapper<ChatroomDTO>() {
             @Override
             public ChatroomDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

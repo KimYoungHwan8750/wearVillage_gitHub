@@ -6,43 +6,51 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/chatroomlist.css">
 </head>
-<body>
-
+<body class="chatroomBody">
+    <div class="chatroomlist_header">채팅방</div>
     <div class="chatroomList_container" >
-        <div class = "chatroomBox"th:each="list : ${chatroomList}">
-            <form class="chatroomForm">
+        <div class = "chatroomBox" th:each="list : ${chatroomList}">
+            <form class="chatroomForm" action="/chat" method="post">
         <!-- <div th:text="${list.POST_ID}">1</div> -->
         <!-- <div th:text="${list.MEMBER1}">2</div>
         <div th:text="${list.MEMBER2}">3</div>
         <div th:text="${list.CHAT_ROOM_ID}">4</div> -->
-        <img class="chatroom_thumbnail_img"th:src="'/display?fileName='+${list.POST_THUMBNAIL_IMG}">
+        <img class="chatroom_thumbnail_img" src="img/1.jpg" th:src="'/display?fileName='+${list.POST_THUMBNAIL_IMG}">
+            <div class="chatroomInfo">
+        <div class="chatroom_item chatroom_item1" th:text="${list.POST_SUBTITLE}">
+            일이삼사오육칠팔구공일이삼사오육
+        </div>
+        <div class ="chatroom_item chatroom_item2_root">
+            <div class="chatroom_item chatroom_item2" th:text="${list.RECENTLY_MSG}">
+                이거 3만원에ssssss 팔아주시면 안 되나요? 제발 부탁드려요 이이이잉.. 나 가지고 싶어~~zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz제발융ㄹㅇ량ㄴㄹ
+            </div>
+            <div class="chatroom_item chatroom_item3_root" >
+                
+                <div th:text="${list.RECENTLY_TIME}">오후 5:59</div>
+            </div>
+        </div>
 
-        <div class="chatroom_item" th:text="${list.POST_SUBTITLE}"></div>
-        <div class="chatroom_item" th:text="'최근 메세지: '+${list.RECENTLY_MSG}">
-            최근메세지
-        </div>
-        <div class="chatroom_item" th:text="${list.RECENTLY_TIME}">
-            시간
-        </div>
+
+    </div>
+    <input type="text" name="postId" th:value="${list.POST_ID}">
+    <input type="text" name="postWriterId" th:value="${list.POST_WRITER_ID}">
+
     </form>
     </div>
 
-    <div class="chatroomBox">
-        <form class="chatroomForm" action="">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>
-            시간
-        </div>
-        <div>
-            최근메세지
-        </div>
-    </form>
-    </div>
+
 
     </div>
+<script>
+    const $chatroomForm = document.querySelectorAll(".chatroomForm");
+    $chatroomForm.forEach(ele => {
+        ele.addEventListener('click',()=>{
+        ele.submit();
+    })
+        
+    });
 
+
+</script>
 </body>
 </html>

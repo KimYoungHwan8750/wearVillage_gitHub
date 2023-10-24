@@ -18,6 +18,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,13 +49,13 @@ public class ChatRoomController {
     @PostMapping(value = "/chat")
     public String chat(Model model,
                        HttpSession session,
-                       @RequestParam String postSubtitle,
+                       @RequestParam(required = false)String postSubtitle,
                        @RequestParam String postWriterId,
-                       @RequestParam String postPrice,
-                       @RequestParam String postRentDefaultPrice,
-                       @RequestParam String postRentDayPrice,
-                       @RequestParam String postThumbnailUrl,
-                       @RequestParam String postMapInfo,
+                       @RequestParam(required = false) String postPrice,
+                       @RequestParam(required = false) String postRentDefaultPrice,
+                       @RequestParam(required = false) String postRentDayPrice,
+                       @RequestParam(required = false) String postThumbnailUrl,
+                       @RequestParam(required = false) String postMapInfo,
                        @RequestParam String postId) {
         List<ChatDTO> chat = chatSVC.loadingChatHistory(parseInt(postId),(String) session.getAttribute("nickname"),postWriterId);
         log.info(chat.toString());
@@ -81,13 +83,14 @@ public class ChatRoomController {
 
             List<ChatroomDTO_toString> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
                     .map(m-> {
+                        String msg = URLDecoder.decode(m.getRECENTLY_MSG(), StandardCharsets.UTF_8);
                         ChatroomDTO_toString chatroomDTO = new ChatroomDTO_toString();
                         LocalDateTime liveTime = LocalDateTime.now();
                         LocalDateTime chatroomTime = m.getRECENTLY_TIME().toLocalDateTime();
                         chatroomDTO.setPOST_ID(m.getPOST_ID());
                         chatroomDTO.setMEMBER1(m.getMEMBER1());
                         chatroomDTO.setMEMBER2(m.getMEMBER2());
-                        chatroomDTO.setRECENTLY_MSG(m.getRECENTLY_MSG());
+                        chatroomDTO.setRECENTLY_MSG(msg);
                         chatroomDTO.setCHAT_ROOM_ID(m.getCHAT_ROOM_ID());
                         // 날짜 정보 가공하는 코드
                         chatroomDTO.setRECENTLY_TIME(new dateFormater(m.getRECENTLY_TIME().toLocalDateTime()).PeriodCalculator());
@@ -99,10 +102,11 @@ public class ChatRoomController {
                         chatroomDTO.setPOST_MAP_INFO(m.getPOST_MAP_INFO());
                         chatroomDTO.setPOST_THUMBNAIL_IMG(repositoryUserInfo.findByNICKNAME(m.getPOST_WRITER_ID()).getPROFILEIMG());
                         log.info(m.getPOST_WRITER_ID()+"POST_WRITER_ID");
-                        log.info(repositoryUserInfo.findByNICKNAME(m.getPOST_WRITER_ID()).getPROFILEIMG()+"POST_WRITER_ID_REP");
                         return chatroomDTO;
                     }).toList();
             model.addAttribute("chatroomList",copyChatroomDTO);
+            ;
+            model.addAttribute("myId",session.getAttribute("nickname"));
 
         } else {
             return "redirect:/login";

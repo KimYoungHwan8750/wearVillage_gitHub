@@ -1,25 +1,111 @@
-.chatroomList_container{
-    max-width: 768px;
-    width: 768px;
-    display: flex;
-    flex-direction: column;
+.chatroomBody{
+    margin: 0;
+    padding: 0;
 }
-.chatroomBox{
-    border: 1px solid #C6C6C6;
-    border-radius: 15px;
-    padding: 10px;
-    margin: 10px;
+
+.chatroomlist_header{
+    position: fixed;
+    max-width: 100%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    font: bold;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color:rgb(0, 0, 0);
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    box-shadow:1px 1px 5px 1px rgb(183, 183, 183);
+}
+.chatroomList_container{
+    /* background-color: grey; */
+    width: 100%;
+    max-width: 768px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 60px;
+}
+.chatroomBox{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    /* outline: 1px solid red; */
+}
+.chatroomBox:hover{
+    background-color: #f5f5f5;
+    cursor:pointer;
 }
 .chatroomForm{
     display: flex;
 }
+.chatroomForm>input{
+    display: none;
+}
+.chatroomInfo{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    min-width: 75%;
+    /* outline:1px solid red; */
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.nickname{
+    font-size: 10px;
+}
+.chatroom_item1{
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.chatroom_item2_root{
+    display: flex;
+}
+.chatroom_item2{
+    display: -webkit-box;
+    width: 70%;
+    max-width: 400px;
+    -webkit-box-orient: vertical;
+    color:#7A7A7A;
+    font-size: 14px;
+    margin-top: 5px;
+    word-break: break-all;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.chatroom_item3_root{
+    font-size: 12px;
+    width: 60px;
+    color:#7A7A7A;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+
+        
+}
 
 .chatroom_thumbnail_img{
     height: 75px;
+    min-height: 75px;
+    min-width: 75px;
     width: 75px;
     object-fit: cover;
-    border-radius: 50px;
-    border: 1px solid #606060;
+    border-radius: 25px;
+    margin-left: 10px;
+}
+
+
+@media (max-width:768px){
+    
 }
