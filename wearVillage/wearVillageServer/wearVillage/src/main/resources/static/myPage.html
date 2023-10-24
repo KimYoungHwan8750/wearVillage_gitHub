@@ -207,11 +207,17 @@
         <div class="myPageMyInfoDivSubtitle"><span>채팅</span></div>
         <div class="myPageChatroomInfo">
           <div class="myPageChatroomInfoSpan">
-            <span class="myPageChatroomInfoSpan1">채팅방</span>
+            <span class="myPageChatroomInfoSpan1">채팅목록 보기</span>
             <div class="myPageChatroomInfoNotice">
               <span th:text="${countedPost}"></span>
             </div>
           </div>
+          <script>
+            let $myPageChatRoomInfoSpan = document.querySelector('.myPageChatroomInfoSpan');
+            $myPageChatRoomInfoSpan.addEventListener('click',()=>{
+              globalThis.location.href="/chatroomlist"
+            })
+          </script>
         </div>
         <div class="myPageMyInfoDivSubtitle"><span>옷장</span></div>
         <div class="myPageMyClosetContainer">
@@ -318,8 +324,8 @@
       </div>
       <div id="myPageModalContainer2" class="hidden">
         <div id="myPageModalContent2">
-         <div style="height:45px;"><p class="myPageModalContentP">결제하기</p></div>
-          <div>
+         <div style="height:45px; margin-bottom:20px;"><p class="myPageModalContentP">결제하기</p></div>
+          <div class="paymentAmonut">
             <label for="miliage">결제금액</label>
             <select id="miliage">
               <option value="10000">1만원</option>
@@ -330,8 +336,10 @@
               <option value="1000000">100만원</option>
             </select>
           </div>
-          <button type="button" onclick="paymentTest()" id="myPagePaymentButton">카카오페이 결제하기</button>
-          <button type="button" onclick="requestPay()">토스페이 결제하기</button>
+          <div class="payButtonDiv">
+          <button type="button" onclick="paymentTest()" id="myPagePaymentButton"><img src="./img/kakao_symbol.png" alt="" style="width:15px; height:15px;">카카오페이</button>
+          <button type="button" onclick="requestPay()" id="myPageTossPaymentButton"><img src="./img/Toss_Symbol_Primary.png" alt="" style="width:15px; height:15px;">토스페이</button>
+          </div>
           <button type="button" id="myPageModalCloseButton2">취소하기</button>
         </div>
         <script>
