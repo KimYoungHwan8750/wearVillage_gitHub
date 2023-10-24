@@ -7,6 +7,73 @@
     <div layout:fragment="content" class="th_main_content">
       <link layout:fragment="css" rel="stylesheet" href="/css/myPage.css" />
       <link rel="stylesheet" href="css/myPage.css">
+      <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+        <script th:inline="javascript">
+        function requestPay(){
+          let tossPayIdSession = /*[[${userId}]]*/;
+          let tossPayEmail = /*[[${email}]]*/;
+          let tossMileagePrice = document.getElementById('miliage').value;
+          let tossDateTime = new Date();
+
+                let IMP = window.IMP;
+        IMP.init('imp48151348')
+            IMP.request_pay({
+                pg: "tosspay",
+                pay_method: "card",
+                merchant_uid: "merchant_"+tossDateTime.getTime(),
+                name: "miliage",
+                amount: tossMileagePrice,
+                buyer_email:tossPayEmail,
+                buyer_name:tossPayIdSession,
+                buyer_tel:"010-1234-1234",
+                buyer_addr:"안드로메다행성",
+                buyer_postcode:"1"
+            }, function(res){
+                console.log(res);
+                    let url = "/verifyIamport/"+res.imp_uid;
+                    let option = {
+                        method:'POST',
+                        body:JSON.stringify({
+                            ID:res.buyer_email,
+                            amount:res.paid_amount
+                        }),
+                    };
+                    fetch(url,option).then(data=>data.json())
+                    .then(data=>{
+                        console.log("res="+res);
+                        console.log("data="+data);
+                        if(res.paid_amount == data.response.amount){
+                          console.log(JSON.stringify(data));
+
+                          let tossName = data.response['buyerName'];
+                          let tossEmail = data.response['buyerEmail'];
+                          let tossAmount = data.response['amount'];
+                          let tossTradeTime = data.response['paidAt'];
+                          let tossMid = data.response['merchantUid'];
+
+                          let formData = new FormData();
+                          formData.append("tossName",tossName);
+                          formData.append("tossEmail",tossEmail);
+                          formData.append("tossAmount",tossAmount);
+                          formData.append("tossTradeTime",tossTradeTime);
+                          formData.append("tossMid",tossMid);
+
+                          let url = 'http://localhost:8090/tossPaymentSave'
+                          let option = {
+                            method:'POST',
+                            body:formData,
+                          };
+                          console.log(option.body);
+
+                          fetch(url,option).then(console.log("DB에 요청성공"));
+                          alert("결제, 검증, 저장 성공");
+                        } else {
+                            alert("결제 실패");
+                        }
+                    })
+            })
+        }
+    </script>
       <div class="myPageSuperContainer">
         <div class="profileImageContainer">
           <div class="myPageProfileImageSuperContainer">
@@ -126,7 +193,7 @@
               <span class="myPageMyInfoAccountSpan1">마일리지</span>
             </div>
             <div class="myPageMyInfoAccountSpan2">
-              <span class="myPageMyInfoAccountSpan2">1234567원</span>
+              <span class="myPageMyInfoAccountSpan2" th:text="${miliage}">123원</span>
             </div>
           </div>
           <div class="myPageMyInfoAccountButtonContainer">
@@ -140,11 +207,17 @@
         <div class="myPageMyInfoDivSubtitle"><span>채팅</span></div>
         <div class="myPageChatroomInfo">
           <div class="myPageChatroomInfoSpan">
-            <span class="myPageChatroomInfoSpan1">채팅방</span>
+            <span class="myPageChatroomInfoSpan1">채팅목록 보기</span>
             <div class="myPageChatroomInfoNotice">
               <span th:text="${countedPost}"></span>
             </div>
           </div>
+          <script>
+            let $myPageChatRoomInfoSpan = document.querySelector('.myPageChatroomInfoSpan');
+            $myPageChatRoomInfoSpan.addEventListener('click',()=>{
+              globalThis.location.href="/chatroomlist"
+            })
+          </script>
         </div>
         <div class="myPageMyInfoDivSubtitle"><span>옷장</span></div>
         <div class="myPageMyClosetContainer">
@@ -251,8 +324,8 @@
       </div>
       <div id="myPageModalContainer2" class="hidden">
         <div id="myPageModalContent2">
-         <div style="height:45px;"><p class="myPageModalContentP">결제하기</p></div>
-          <div>
+         <div style="height:45px; margin-bottom:20px;"><p class="myPageModalContentP">결제하기</p></div>
+          <div class="paymentAmonut">
             <label for="miliage">결제금액</label>
             <select id="miliage">
               <option value="10000">1만원</option>
@@ -263,7 +336,10 @@
               <option value="1000000">100만원</option>
             </select>
           </div>
-          <button type="button" onclick="paymentTest()" id="myPagePaymentButton">카카오페이 결제하기</button>
+          <div class="payButtonDiv">
+          <button type="button" onclick="paymentTest()" id="myPagePaymentButton"><img src="./img/kakao_symbol.png" alt="" style="width:15px; height:15px;">카카오페이</button>
+          <button type="button" onclick="requestPay()" id="myPageTossPaymentButton"><img src="./img/Toss_Symbol_Primary.png" alt="" style="width:15px; height:15px;">토스페이</button>
+          </div>
           <button type="button" id="myPageModalCloseButton2">취소하기</button>
         </div>
         <script>
@@ -294,7 +370,7 @@
             let kapiTid = '';
             let next_url = '';
             const url = 'https://kapi.kakao.com/v1/payment/ready';
-            const kapiKey = '692233cc4da58b010398bb53afb7ff57';
+            const kapiKey = /*[[${kapiApiKey}]]*/ 'default';
             const option = {
               method : 'POST',
               headers : {
@@ -337,6 +413,7 @@
             })
           }
         </script>
+        
       </div>
       <script>
         let modalOpenButton = document.querySelector('.myPageMyInfoPassword');

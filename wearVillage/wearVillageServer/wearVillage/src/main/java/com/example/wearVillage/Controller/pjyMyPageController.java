@@ -1,6 +1,8 @@
 package com.example.wearVillage.Controller;
 
 import com.example.wearVillage.DAO.getPostCount.myPageCountPostSVC;
+import com.example.wearVillage.DAO.myPageGetMiliageDAO.MyPageGetMiliageForm;
+import com.example.wearVillage.DAO.myPageGetMiliageDAO.MyPageGetMiliageSVC;
 import com.example.wearVillage.DAO.myPagePWChangeDAO.ChangeUserPWForm;
 import com.example.wearVillage.DAO.myPagePWChangeDAO.myPagePWChangeDTO;
 import com.example.wearVillage.DAO.myPagePWChangeDAO.myPagePWChangeSVC;
@@ -8,19 +10,33 @@ import com.example.wearVillage.DAO.myPagePaymentDAO.PaymentForm;
 import com.example.wearVillage.DAO.myPagePaymentDAO.PaymentSVC;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.USER_INFO_FORM;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.myPageProfileImageSVC;
+import com.example.wearVillage.DAO.myPageTossPaymentDAO.TossPaymentForm;
+import com.example.wearVillage.DAO.myPageTossPaymentDAO.TossPaymentSVC;
+import com.google.j2objc.annotations.Property;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -37,15 +53,31 @@ public class pjyMyPageController {
     private final myPagePWChangeSVC changePWSVC;
     private final myPageCountPostSVC countPostSVC;
     private final PaymentSVC paymentSVC;
+    private final TossPaymentSVC tossPaymentSVC;
+    private final MyPageGetMiliageSVC myPageGetMiliageSVC;
+
+    @Value("${kapi.apikey}")
+    private String kapiApiKey;
+
 
     @GetMapping("/mypage")
-    public ModelAndView myPage(ModelAndView mav, HttpSession session, USER_INFO_FORM userInfoForm,
+    public ModelAndView myPage(ModelAndView mav, HttpSession session, USER_INFO_FORM userInfoForm, MyPageGetMiliageForm myPageGetMiliageForm,
             @ModelAttribute ChangeUserPWForm changeUserPWForm) {
         if (session.getAttribute("email") != null) {
             String userId = (String) session.getAttribute("id");
             String nickname = (String) session.getAttribute("nickname");
+            String email = (String) session.getAttribute("email");
             log.info("{}'님이 로그인했습니다.'", nickname);
             int countedPost = countPostSVC.countPost(userId,nickname);
+            Integer miliage = myPageGetMiliageSVC.getMiliage(userId,myPageGetMiliageForm);
+
+            int amount = miliage;
+            DecimalFormat df = new DecimalFormat("###,###");
+            String money = df.format(amount);
+
+            mav.addObject("miliage",money);
+            mav.addObject("email",email);
+            mav.addObject("kapiApiKey",kapiApiKey);
             mav.addObject("countedPost",countedPost);
             mav.addObject("userId",userId);
             mav.setViewName("myPage");
@@ -165,4 +197,12 @@ public class pjyMyPageController {
         paymentSVC.paymentDateToDB(paymentForm);
         return "myPage";
     }
+
+    @PostMapping("/tossPaymentSave")
+    public String tossPaymentToDB(@ModelAttribute TossPaymentForm tossPaymentForm){
+        tossPaymentSVC.tossPaymentToDB(tossPaymentForm);
+        return "myPage";
+    }
+
+
 }
