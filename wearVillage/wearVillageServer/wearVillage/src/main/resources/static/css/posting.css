@@ -1,3 +1,19 @@
+.content {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+
+.posting_info {
+    display: flex;
+    height: 170px;
+    width: 1000px;
+    align-items: center;
+    justify-content: space-around;
+}
+
 #result_card img {
   max-width: 100%;
   height: auto;
@@ -78,8 +94,15 @@
 }
 
 .posting_prices_container {
-  display: flex;
-  flex-direction: column;
+      height: 170px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid gray;
+      margin: 5px;
+      border-radius: 15px;
+      padding: 5px;
+      width:50%;
 }
 
 .posting_category_info {
@@ -330,4 +353,8 @@
   border: none;
   font-weight: bold;
   cursor: default;
+}
+
+.ql-toolbar.ql-snow {
+    margin-top:20px;
 }

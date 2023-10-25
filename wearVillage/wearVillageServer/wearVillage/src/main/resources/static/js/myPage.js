@@ -145,20 +145,21 @@
 
 {
   let previewImage = document.getElementById('myPageProfileImageId').src;
-
-  previewImage.addEventListener('change', (e) => {
-    let changedImg = e.target.value
-    fetch('/update/profileImg?url=' + encodeURIComponent(changedImg))
-      .then(response => {
-        if (response.ok) {
-          console.log('이미지 업데이트 요청이 성공했습니다.');
-        } else {
-          console.error('이미지 업데이트 요청이 실패했습니다.');
-        }
-      })
-      .catch(error => {
-        console.error('요청 중 오류가 발생했습니다.', error);
-      });
+    window.addEventListener('domcontentloaded',()=>{
+      previewImage.addEventListener('change', (e) => {
+        let changedImg = e.target.value
+        fetch('/update/profileImg?url=' + encodeURIComponent(changedImg))
+          .then(response => {
+            if (response.ok) {
+              console.log('이미지 업데이트 요청이 성공했습니다.');
+            } else {
+              console.error('이미지 업데이트 요청이 실패했습니다.');
+            }
+          })
+          .catch(error => {
+            console.error('요청 중 오류가 발생했습니다.', error);
+          });
+        })
     })
 }
 
