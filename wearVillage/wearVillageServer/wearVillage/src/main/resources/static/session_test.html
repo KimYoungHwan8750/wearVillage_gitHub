@@ -7,16 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="testM()"></button>
-    <input id="pp"name="hi"type="text">
-    <div id="test1"><script>console.log("Hi")</script></div>
+    <div class="testCls">
+    라마 가 나 다 ㄹ매나램ㄴ래ㅏ ㅁ라마
+    람ㄴ란ㅁ란마 라마
+    ㅇㅁ나림나ㅔㄹㄴㅁ라마라앰나앤망ㅁㄴ라마라라마마라마라마
+    ㅁㄴ암낢나랄마라마</div>
     
     
 <script>
-    function testM(){
-        let $test1 = document.getElementById("test1");
-        $test1.innerHTML='<button type="text">전송</button>'
-    }
+    let $testCls = document.querySelector('.testCls');
+    let str = $testCls.innerText.replaceAll('라마','<mark>라마</mark>');
+    $testCls.innerHTML =str;
 </script>
 
 </body>
