@@ -46,7 +46,7 @@
 .post_writer_info {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   width: 600px;
   height: 70px;
   margin-left: 20px;

@@ -50,7 +50,6 @@
 
                 console.log("이메일"+emailPayment);
                 let gotoDBUrl = 'http://localhost:8090/paymentSave'
-                /*추가된 코드*/
                 let kyhFormData = new FormData();
                 kyhFormData.append("AID",aidPayment);
                 kyhFormData.append("ID",userIdPayment);
@@ -59,8 +58,6 @@
                 kyhFormData.append("total",totalPayment);
                 kyhFormData.append("createdTime",createdTimePayment);
                 kyhFormData.append("approvedTime",approveTimePayment);
-                /*추가된 코드 끝*/
-
                 let gotoDBOption = {
                     method : 'POST',
                     body : kyhFormData,
@@ -68,11 +65,12 @@
 
                 fetch(gotoDBUrl,gotoDBOption).then(console.log("요청성공"));
                 alert("결제가 완료되었습니다");
+                localStorage.setItem("paymentOk",1);
                 window.close();
             }
            )
 
-            
+
         
     </script>
 </body>

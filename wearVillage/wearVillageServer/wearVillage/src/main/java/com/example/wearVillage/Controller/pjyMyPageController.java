@@ -1,10 +1,10 @@
 package com.example.wearVillage.Controller;
 
-import com.example.wearVillage.DAO.getPostCount.myPageCountPostSVC;
+import com.example.wearVillage.DAO.getChatPostCount.myPageCountPostSVC;
 import com.example.wearVillage.DAO.myPageGetMiliageDAO.MyPageGetMiliageForm;
 import com.example.wearVillage.DAO.myPageGetMiliageDAO.MyPageGetMiliageSVC;
+import com.example.wearVillage.DAO.myPageGetMyPostCountsDAO.myPageGetPostCountSVC;
 import com.example.wearVillage.DAO.myPagePWChangeDAO.ChangeUserPWForm;
-import com.example.wearVillage.DAO.myPagePWChangeDAO.myPagePWChangeDTO;
 import com.example.wearVillage.DAO.myPagePWChangeDAO.myPagePWChangeSVC;
 import com.example.wearVillage.DAO.myPagePaymentDAO.PaymentForm;
 import com.example.wearVillage.DAO.myPagePaymentDAO.PaymentSVC;
@@ -12,34 +12,18 @@ import com.example.wearVillage.DAO.myPageProfileImageDAO.USER_INFO_FORM;
 import com.example.wearVillage.DAO.myPageProfileImageDAO.myPageProfileImageSVC;
 import com.example.wearVillage.DAO.myPageTossPaymentDAO.TossPaymentForm;
 import com.example.wearVillage.DAO.myPageTossPaymentDAO.TossPaymentSVC;
-import com.google.j2objc.annotations.Property;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,6 +39,7 @@ public class pjyMyPageController {
     private final PaymentSVC paymentSVC;
     private final TossPaymentSVC tossPaymentSVC;
     private final MyPageGetMiliageSVC myPageGetMiliageSVC;
+    private final myPageGetPostCountSVC myPageGetCountsSVC;
 
     @Value("${kapi.apikey}")
     private String kapiApiKey;

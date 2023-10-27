@@ -46,3 +46,6 @@ application.properties
 
 ### JS API KEY ###
 api-keys.js
+
+### portOne API Controller
+IamportApiController.java
