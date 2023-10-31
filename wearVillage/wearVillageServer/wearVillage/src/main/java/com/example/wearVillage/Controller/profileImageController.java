@@ -23,7 +23,7 @@ import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.status.local_or_server;
 
 @org.springframework.stereotype.Controller
-public class profileImageController {
+public class profileImageController{
 
     @PostMapping(value="/uploadProfileImage", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadProfileImage(MultipartFile uploadFile) {

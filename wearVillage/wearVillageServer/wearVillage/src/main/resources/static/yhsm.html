@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        .container {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            margin-top: 300px;
+        }
+
+        .container .wrap {
+            border: 1px solid #222;
+            width: 400px;
+            padding: 20px;
+            border-radius: 20px;
+            display: grid;
+        }
+
+        .container .wrap #result {
+            color: red;
+            padding:10px;
+        }
+
+        .container .wrap .email {
+            margin: 20px;
+        }
+
+        .container .wrap .email_input {
+            margin: 20px;
+        }
+
+        .container .wrap .number {
+            display : none;
+        }
+
+        .container .wrap .sendbtn {
+            display : none;
+        }
+        .number_input {
+            display : none;
+        }
+        .btn {
+            background-color: slateblue;
+            color : white;
+            width:70px;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-left: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="wrap">
+        <h3>아이디 찾기</h3>
+        <div class="input">
+            <span class="email" id="email">이메일 입력</span>
+            <input type="email" class="email_input" id="email_input" />
+        </div>
+        <input type="text" class="number_input" id="number">
+        <span id="result"></span>
+        <button class="sendbtn" id="sendbtn1"></button>
+        <button class="sendbtn" id="sendbtn2"></button>
+        <button class="btn" id="btn">전송</button>
+    </div>
+</div>
+
+<script>
+    let userEmail;
+    document.querySelector('.btn').addEventListener('click', ()=>{
+        // 입력된 이메일 가져오기
+        userEmail = document.getElementById('email_input').value;
+
+        // 이메일 값을 객체에 담기
+        const userData = userEmail;
+
+        // 백엔드로 이메일 값 전송
+        fetch('https://wearvillage.store/mail/find', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: userData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status==="Success") {
+
+                    // 이메일과 일치하는 아이디가 있을 때
+                    // 결과를 화면에 출력
+                    document.getElementById('sendbtn1').style.display = 'block'; // 버튼을 표시
+                    document.getElementById('result').textContent = data.divMessage;
+                    document.getElementById('sendbtn1').textContent = `${data.body}로 인증번호 보내기`;
+                } else {
+                    // 이메일과 일치하는 아이디가 없을 때
+                    document.getElementById('result').textContent = data.divMessage;
+                    document.getElementById('result').textContent = '일치하는 아이디가 없습니다.';
+                }
+            })
+            .catch(error => {
+                // 에러 처리
+                console.error('에러 발생:', error);
+            });
+    });
+
+    document.getElementById('sendbtn1').addEventListener('click', ()=>{
+
+        document.getElementById('email').style.display = 'none';
+        document.getElementById('email_input').style.display = 'none';
+        document.getElementById('number').setAttribute("style","display:block");
+        document.getElementById('sendbtn1').style.display = 'none';
+        document.getElementById('sendbtn2').style.display = 'block';
+        document.getElementById('sendbtn2').textContent = '인증번호 입력';
+        document.getElementById('result').textContent = '';
+
+    });
+
+    document.getElementById('sendbtn2').addEventListener('click', ()=>{
+        console.log("버튼2 작동");
+
+        numberCk = document.getElementById('number').value;
+
+        let form = new FormData();
+        form.append("address",userEmail);
+        form.append("content","");
+        form.append("title","");
+        fetch('https://wearvillage.store/mail/send2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: form,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "Success") {
+                    document.getElementById('sendbtn2').style.display = 'none';
+                    document.getElementById('result').textContent = `아이디 : ${data.body}`;
+                }
+            })
+    });
+</script>
+</body>
+</html>
