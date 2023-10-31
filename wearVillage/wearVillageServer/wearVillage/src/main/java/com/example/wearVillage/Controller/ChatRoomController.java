@@ -57,23 +57,30 @@ public class ChatRoomController {
                        @RequestParam(required = false) String postThumbnailUrl,
                        @RequestParam(required = false) String postMapInfo,
                        @RequestParam String postId) {
-        List<ChatDTO> chat = chatSVC.loadingChatHistory(parseInt(postId),(String) session.getAttribute("nickname"),postWriterId);
-        log.info(chat.toString());
-        if(session.getAttribute("email")!=null) {
-            model.addAttribute("postSubtitle", postSubtitle);
-            model.addAttribute("postWriterId", postWriterId);
-            model.addAttribute("postPrice", postPrice);
-            model.addAttribute("postRentDefaultPrice", postRentDefaultPrice);
-            model.addAttribute("postRentDayPrice", postRentDayPrice);
-            model.addAttribute("postThumbnailUrl", postThumbnailUrl);
-            model.addAttribute("postMapInfo", postMapInfo);
-            model.addAttribute("postId", postId);
-            model.addAttribute("myId", session.getAttribute("nickname"));
-            model.addAttribute("theme", session.getAttribute("theme"));
-            model.addAttribute("chat_history", chat);
-            return "chat.html";
-        } else {
-            return "redirect:/login";
+        try {
+            List<ChatDTO> chat = chatSVC.loadingChatHistory(parseInt(postId), (String) session.getAttribute("nickname"), postWriterId);
+            log.info(chat.toString());
+            model.addAttribute("postUserInfo",repositoryUserInfo.findByNICKNAME(postWriterId));
+            if(session.getAttribute("email")!=null) {
+                model.addAttribute("postSubtitle", postSubtitle);
+                model.addAttribute("postWriterId", postWriterId);
+                model.addAttribute("postPrice", postPrice);
+                model.addAttribute("postRentDefaultPrice", postRentDefaultPrice);
+                model.addAttribute("postRentDayPrice", postRentDayPrice);
+                model.addAttribute("postThumbnailUrl", postThumbnailUrl);
+                model.addAttribute("postMapInfo", postMapInfo);
+                model.addAttribute("postId", postId);
+                model.addAttribute("myId", session.getAttribute("nickname"));
+                model.addAttribute("theme", session.getAttribute("theme"));
+                model.addAttribute("chat_history", chat);
+                return "chat.html";
+            } else {
+                return "redirect:/login";
+            }
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return "main.html";
+
         }
     }
 

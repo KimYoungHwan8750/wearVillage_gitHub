@@ -1,15 +1,15 @@
 :root{
-    /*타이핑하는 영역 진한 색깔*/
+    /*Ã­Æ’â‚¬Ã¬ÂÂ´Ã­â€¢â€˜Ã­â€¢ËœÃ«Å â€ Ã¬ËœÂÃ¬â€”Â­ Ã¬Â§â€žÃ­â€¢Å“ Ã¬Æ’â€°ÃªÂ¹â€*/
 
     --msgZoneColor: rgb(255, 231, 231);
-    /*디스플레이 영역 색깔*/
+    /*Ã«â€â€Ã¬Å Â¤Ã­â€Å’Ã«Â Ë†Ã¬ÂÂ´ Ã¬ËœÂÃ¬â€”Â­ Ã¬Æ’â€°ÃªÂ¹â€*/
 
     --displayZoneColor:rgb(255, 246, 246);
-    /*스크롤바 색깔*/
+    /*Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€ Ã¬Æ’â€°ÃªÂ¹â€*/
     --scrollbarsColor:rgb(232, 55, 55);
-    /*타이핑 커서 색깔*/
+    /*Ã­Æ’â‚¬Ã¬ÂÂ´Ã­â€¢â€˜ Ã¬Â»Â¤Ã¬â€žÅ“ Ã¬Æ’â€°ÃªÂ¹â€*/
     --caretColor:rgb(232, 55, 55);
-    }
+}
 
 html{
     width: 100%;
@@ -38,10 +38,17 @@ body{
     background-color: rgba(104, 107, 255, 0.089);
 }
 .chat_bottomContent_item1{
-    
+
 }
 .chat_bottomContent_item2{}
 .chat_bottomContent_item3{}
+.chat_profileImg{
+    max-width: 40px;
+    max-height: 40px;
+    border-radius:20px;
+    margin-right:10px;
+
+}
 
 
 .chat_msgArea_outZone{
@@ -161,7 +168,7 @@ body{
     cursor: pointer;
 }
 
-/*채팅 텍스트 박스*/
+/*Ã¬Â±â€žÃ­Å’â€¦ Ã­â€¦ÂÃ¬Å Â¤Ã­Å Â¸ Ã«Â°â€¢Ã¬Å Â¤*/
 
 .chat_myTextBox{
     display: flex;
@@ -174,8 +181,8 @@ body{
 }
 .chat_Text{
     border-radius: 8px;
-    margin-top:15px;
-    margin-bottom: 15px;
+    margin-top:5px;
+    margin-bottom: 5px;
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
@@ -210,7 +217,10 @@ body{
 .chat_displayTime{
     font-size: 12px;
     margin-top: auto;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     margin-left: 5px;
     margin-right: 5px;
+}
+.target_SecondChat{
+    margin-left: 49px;
 }
