@@ -27,22 +27,7 @@
     setTimeout(()=>{
         $chat_notice.setAttribute('style','transition:all 2s ease-in; opacity:0;');
     },4000)
-        function dateFormater(inputDate){
-            let amOrPm = '';
-            let hour =inputDate.getHours();
-            let minute =inputDate.getMinutes();
-            if(hour>11){
-                amOrPm="오후";
-            }
-            else {
-                amOrPm="오전";
-            }
 
-            if(hour>12){hour-=12;}
-            if(minute<10){minute="0"+minute;}
-
-            return amOrPm+" "+hour+":"+minute;
-        }
 fetch("/userInfo",{method:'POST'}).then(res=>
     res.json())
     .then(
