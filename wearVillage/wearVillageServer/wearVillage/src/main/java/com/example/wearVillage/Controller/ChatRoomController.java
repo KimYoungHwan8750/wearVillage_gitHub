@@ -22,7 +22,9 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
 
@@ -56,9 +58,19 @@ public class ChatRoomController {
                        @RequestParam(required = false) String postRentDayPrice,
                        @RequestParam(required = false) String postThumbnailUrl,
                        @RequestParam(required = false) String postMapInfo,
-                       @RequestParam String postId) {
+                       @RequestParam String postId,
+                       @RequestParam(required = false) String member1,
+                       @RequestParam(required = false) String member2) {
+        log.info("member1={}",member1);
+        log.info("member2={}",member2);
+
+        String[] arr = new String[]{member1,member2};
+        Object[] test = Arrays.stream(arr).filter(m->{
+            return !m.equals(postWriterId);
+        }).toArray();
+        log.info("3={}",test[0].toString());
         try {
-            List<ChatDTO> chat = chatSVC.loadingChatHistory(parseInt(postId), (String) session.getAttribute("nickname"), postWriterId);
+            List<ChatDTO> chat = chatSVC.loadingChatHistory(parseInt(postId), (String) test[0], postWriterId);
             log.info(chat.toString());
             model.addAttribute("postUserInfo",repositoryUserInfo.findByNICKNAME(postWriterId));
             if(session.getAttribute("email")!=null) {
