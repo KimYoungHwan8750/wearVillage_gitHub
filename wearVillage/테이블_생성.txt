@@ -83,15 +83,15 @@ CREATE TABLE USER_CHAT(
 
 
 /*유저 인포*/
-CREATE TABLE USER_INFO(
-	ID varChar2(40) PRIMARY KEY,
-	PW varChar2(40),
-	NICKNAME varChar2(20),
-	EMAIL varChar2(60),
-	PROFILEIMG varChar2(400),
-	THEME varChar2(20),
-	GENDER varChar2(10),
-	BIRTH varChar2(20)
+create table USER_INFO(
+    ID         VARCHAR2(40) not null primary key,
+    PW         VARCHAR2(40) not null,
+    NICKNAME   VARCHAR2(20) not null,
+    EMAIL      VARCHAR2(60) not null,
+    PROFILEIMG VARCHAR2(400) not null,
+    THEME      VARCHAR2(20) not null,
+    GENDER     VARCHAR2(10) not null,
+    BIRTH      VARCHAR2(20) not null
 )
 
 
