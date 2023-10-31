@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+    <style>
+        :root {
+            --c: #ff6b81;
+        }
+        .PostDetailHeart svg {
+            width: 40;
+            /*상대포지션*/
+            position: relative;
+            /*z-index: 10;*/
+            animation-duration: 3s;
+            animation-name: heartBling;
+            animation-iteration-count: infinite;
+        }
+
+        .PostDetailHeart #heart {
+            /*색 보충*/
+            fill: #eee;
+
+            /*stroke속성은 선, 문자, 원소등의 테두리에대해서 디자인 가능*/
+            stroke: var(--c);
+            /*선의 넓이*/
+            stroke-width: 40px;
+            /*선을 점선으로 설정, 점선의 길이 설정*/
+            stroke-dasharray: 3000;
+            /*displacement of line*/
+            stroke-dashoffset: 3000;
+            /*끝점은 둥글게*/
+            stroke-linecap: round;
+        }
+
+        .PostDetailHeart {
+            position: relative;
+            width:40px;
+            height:40px;
+        }
+
+        .PostDetailHeart span {
+            display: block;
+            width: 12px;
+            height: 12px;
+            background-color: transparent;
+            border-radius: 50%;
+            /*절대적 포지션: center*/
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            /*각 방향의 쉐도우 설정*/
+            /*var함수로 쉐도우 컬러 설정*/
+            box-shadow: 0 -40px 0 var(--c),
+            0 40px 0 var(--c),
+            -40px 0 0 var(--c),
+            40px 0 0 var(--c),
+            -30px -30px 0 var(--c),
+            30px -30px 0 var(--c),
+            30px 30px 0 var(--c),
+            -30px 30px 0 var(--c);
+        }
+
+        #PostDetailCheckbox:checked + svg #heart{
+            /*애니메이션실행: 애니메이션이름, 실행시간, 선형 마지막 정지한 프레임*/
+            animation: drawHeart 1s linear forwards;
+        }
+
+        #PostDetailCheckbox:checked ~ span{
+            /*애니메이션실행: 애니메이션이름, 실행시간, 선형 마지막 정지한 프레임*/
+            animation: blink 0.5s ease-in-out forwards;
+            /*애니메이션 딜레이*/
+            animation-delay: 0.8s ;
+        }
+
+        #PostDetailCheckbox:checked + svg{
+             /*애니메이션실행: 애니메이션이름, 실행시간, 선형 마지막 정지한 프레임*/
+            animation: beat 1s linear forwards;;
+        }
+        .PostDetailHeart label{
+            /*마우스 heart로 이동시 마우스 커서변동*/
+            cursor: pointer;
+        }
+
+        @keyframes drawHeart{
+            0%{
+                stroke-dashoffset: 2600;
+            }
+            80%{
+                fill: #eee;
+                stroke-dashoffset: 0;
+            }
+            100%{
+                fill: var(--c);
+                stroke-dashoffset: 0;
+            }
+
+        }
+        /*점 애니메이션*/
+        @keyframes blink{
+            0%{
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0.8;
+            }
+            80%{
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100%{
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /*두근두근 애니메이션*/
+        @keyframes beat {
+            0%{
+                transform: scale(1);
+            }
+            70%{
+                transform: scale(1);
+            }
+            80%{
+                transform: scale(1.2);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+
+        @keyframes heartBling {
+            0% { transform: scale( 1.3 ); }
+            33% { transform: scale( 0.9 ); }
+            66% { transform: scale( 1.3 ); }
+            100% { transform: scale( 0.9 ); }
+        }
+
+        /* 래퍼 */
+        .PostDetailWrapper {
+            width:768px;
+        }
+
+        /* 메인 인포 컨테이너(가격, 하트, 공유) */
+        .MainInfoContainer {
+            display:flex;
+            height:50px;
+        }
+
+        .MainInfoIconContainer {
+            display:flex;
+            justify-content: flex-end;
+            width:100%;
+        }
+
+        .PriceSpanContainer {
+            display:flex;
+            width:20%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .PriceSpanContainer span {
+            font-size: 16px;
+            font-weight:bold;
+            line-height:16px;
+        }
+
+        #PostPriceSpan {
+            color:red;
+            font-size:22px;
+            line-height:22px;
+        }
+
+        .ShareLinkIcon {
+            margin: 0 10px;
+        }
+
+        .SubInfoContainer {
+            display:flex;
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        .SubInfoContainer div {
+            margin: 0 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="PostDetailWrapper">
+        <div>
+            <div class="MainImgContainer">
+                <img src="./img/sampeMain.jpg" alt="" style="max-width:100%;">
+            </div>
+        </div>
+        <div>
+            <div class="MainInfoContainer">
+                <div class="PriceSpanContainer">
+                    <span id="PostPriceSpan">13,000</span><span>원</span>
+                </div>
+                <div class="MainInfoIconContainer">
+                    <div class="PostDetailHeart">
+                        <label for="PostDetailCheckbox">
+                            <input type="checkbox" id="PostDetailCheckbox" hidden>
+                            <svg t="1689815540548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2271"><path d="M742.4 101.12A249.6 249.6 0 0 0 512 256a249.6 249.6 0 0 0-230.72-154.88C143.68 101.12 32 238.4 32 376.32c0 301.44 416 546.56 480 546.56s480-245.12 480-546.56c0-137.92-111.68-275.2-249.6-275.2z" fill="#231F20" p-id="2272" id="heart"></path></svg>
+                        <span></span>
+                        </label>
+                    </div>
+                    <div>
+                        <img src="./img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
+                    </div>
+                </div>
+            </div>
+            <div class="SubInfoContainer">
+                <div>
+                    <span>제품정보</span>
+                </div>
+                <div>
+                    <span>제품종류(아우터)</span>
+                    <span>코튼 셔츠</span>
+                </div>
+                <div>
+                    <span>대여료</span>
+                    <span>4,000</span>
+                    <span>원</span>
+                </div>
+                <div>
+                    <span>일일요금</span>
+                    <span>1,500</span>
+                    <span>원</span>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:40px;">
+            <div class="PostSubtitleContainer">
+                <span>포스팅 제목</span>
+            </div>
+            <div class="PostTextContainer">
+                <img src="./img/sampleSub2.jpg" alt="" style="max-width:100%;">
+                <span>김영환 ㅄ</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
