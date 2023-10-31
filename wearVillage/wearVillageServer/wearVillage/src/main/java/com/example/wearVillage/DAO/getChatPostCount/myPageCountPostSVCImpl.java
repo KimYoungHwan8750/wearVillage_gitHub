@@ -1,4 +1,4 @@
-package com.example.wearVillage.DAO.getPostCount;
+package com.example.wearVillage.DAO.getChatPostCount;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

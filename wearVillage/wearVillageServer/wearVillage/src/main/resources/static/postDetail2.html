@@ -6,7 +6,7 @@
 
 <body>
 <div layout:fragment="content">
-  <link rel="stylesheet" href="css/postDetail2.css" />
+  <link rel="stylesheet" href="./css/postDetail2.css" />
 
   <div class="postDetail_super_container">
     <div class="postDetail_container">
@@ -55,7 +55,6 @@
 
                   <input type="button" value="삭제하기" id="postDetail2_btnDelete" th:data-post-id="${post.postId}"/>
                   <input type="button" value="수정하기" id="postDetail2_btnUpdate" th:data-post-id="${post.postId}"/>
-
                 </form>
               </div>
               <script>
@@ -79,9 +78,6 @@
                 })
               </script>
             </div>
-            <!-- <div><span th:text="${post.postWriterId}">김영환바보</span></div>
-            <button class="postDetail_chat_button">채팅하기</button> -->
-            <!-- TODO 프로필사진도 따와야함, 조회수 넣어야함 -->
           </div>
         </div>
         <div class="post_info_container1">
@@ -195,7 +191,6 @@
     <p>No post found.</p>
   </div> -->
 
-  <a href="/main">메인화면으로</a>
   <script th:inline="javascript">
     let imageUrls = [];
     let postTextElement = document.createElement('div');

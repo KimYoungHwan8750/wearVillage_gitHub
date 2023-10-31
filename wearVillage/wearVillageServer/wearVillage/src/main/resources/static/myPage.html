@@ -8,7 +8,8 @@
       <link layout:fragment="css" rel="stylesheet" href="/css/myPage.css" />
       <link rel="stylesheet" href="css/myPage.css">
       <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-        <script th:inline="javascript">
+
+      <script th:inline="javascript">
         function requestPay(){
           let tossPayIdSession = /*[[${userId}]]*/;
           let tossPayEmail = /*[[${email}]]*/;
@@ -408,6 +409,8 @@
               localStorage.setItem("tid",kapiTid);
               let popupOption = `top=${popupY}, left=${popupX}, width=${popupWidth}px, height=${popupHeight}px, status=no, menubar=no,toolbar=no,fullscreen=no, location=no,directories=no`;
               window.open(next_url,"카카오결제인증",popupOption);
+
+
 
               modal2.classList.add('hidden');
             })
