@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
             display_chatTime.innerText=dateFormater(new Date());
 
             if(whoChatBeforeFromHistory_left==false){
-                display_userChat.innerText = decodeURIComponent(message)+'프로필이미지';
+                display_userChat.innerText = decodeURIComponent(message);
             } else {
                 display_userChat.innerText = decodeURIComponent(message);
             }
