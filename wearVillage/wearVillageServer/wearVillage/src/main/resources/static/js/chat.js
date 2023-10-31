@@ -88,10 +88,13 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         //display_userChat에 chat_Text와 chat_myText클래스 부여
         display_chatTime.classList.add('chat_displayTime');
         display_userChat.classList.add('chat_Text','chat_myText');
-        if(beforeChatisMyChat_right==true&&firstchat_right==false&&historydate.getMinutes()==whatTimeBeforeFromHistory_right){
-        } else {
-            display_chatTime.innerText = dateFormater(historydate);
-        }
+        display_chatTime.innerText = dateFormater(historydate);
+        display_chatTime.style.display="none";
+
+        // if(beforeChatisMyChat_right==true&&firstchat_right==false&&historydate.getMinutes()==whatTimeBeforeFromHistory_right){
+        // } else {
+        //     display_chatTime.innerText = dateFormater(historydate);
+        // }
         // 메세지 입력
         if(whoChatBeforeFromHistory_right==false){
             display_userChat.innerText = chatMessage['message']+'프로필이미지';
@@ -128,10 +131,14 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         let display_profileImg = document.createElement('img');
         display_profileImg.setAttribute('src','/profileimg?fileName='+$th_postUserInfo.PROFILEIMG);
         display_profileImg.classList.add("chat_profileImg");
-        if(beforeChatisMyChat_left==true&&firstchat_left==false&&historydate.getMinutes()==whatTimeBeforeFromHistory_left){
-        } else {
             display_chatTime.innerText = dateFormater(historydate);
-        }
+        display_chatTime.style.display="none";
+
+
+        // if(beforeChatisMyChat_left==true&&firstchat_left==false&&historydate.getMinutes()==whatTimeBeforeFromHistory_left){
+        // } else {
+        //     display_chatTime.innerText = dateFormater(historydate);
+        // }
         display_userChat.innerText = decodeURIComponent(chatMessage['message']);
 
         // 메세지 입력
@@ -162,7 +169,40 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
 
 
 });
+document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
 
+        if (e.previousElementSibling != null) {
+            if (e.previousElementSibling.lastChild.textContent === e.lastChild.textContent) {
+                e.lastChild.style.display = "block";
+            }
+        }
+    }
+)
+
+document.querySelectorAll('.chat_myTextBox').forEach(e=> {
+        if (e.previousElementSibling == null&&e.nextElementSibling == null) {
+            e.firstChild.style.display="block";
+        } else if(e.previousElementSibling != null &&e.nextElementSibling!=null&&e.nextElementSibling.firstChild.textContent===e.firstChild.textContent){
+        } else if(e.previousElementSibling!=null&&e.previousElementSibling.firstChild.textContent===e.firstChild.textContent){
+            e.firstChild.style.display="block";
+        } else if(e.nextElementSibling==null){
+            e.firstChild.style.display="block";
+        }
+    }
+)
+
+document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
+        if (e.previousElementSibling == null&&e.nextElementSibling == null) {
+            e.lastChild.style.display="block";
+        } else if(e.previousElementSibling != null &&e.nextElementSibling!=null&&e.nextElementSibling.lastChild.textContent===e.lastChild.textContent){
+        } else if(e.previousElementSibling!=null&&e.previousElementSibling.lastChild.textContent===e.lastChild.textContent){
+            e.lastChild.style.display="block";
+        } else if(e.nextElementSibling==null){
+            e.lastChild.style.display="block";
+
+        }
+    }
+)
 
 
 $msg.addEventListener('keydown',()=>{
@@ -177,6 +217,7 @@ $msg.addEventListener('keydown',()=>{
 })
 
 document.addEventListener('DOMContentLoaded', function() {
+
     $msg.addEventListener('keydown',(evt)=>{
         let $msg_notEnter_notWordSpace = $msg.value.replace(/\n*/g,'').replace(/\s*/g,"");
         if(evt.key=='Enter'&&$msg_notEnter_notWordSpace!=''&&evt.shiftKey==false){
@@ -300,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 display_chatTime.innerText = dateFormater(nowTime);
             }
-            //display_chatTime.innerText=dateFormater(nowTime);
+            display_chatTime.innerText=dateFormater(nowTime);
             display_userChat.classList.add('chat_Text','chat_myText');
             // 메세지 입력
             if(whoChatBeforeFromHistory_right==false){
@@ -312,6 +353,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(message);
             //b를 div의 자식 태그로 설정
             div.append(display_chatTime,display_userChat);
+            display_chatTime.style.display="none";
+
             //div태그를 chat_msgArea의 자식으로 설정
             $chat_msgArea.append(div);
             //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
@@ -341,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 display_chatTime.innerText = dateFormater(nowTime);
             }
-            // display_chatTime.innerText=dateFormater(new Date());
+            display_chatTime.innerText=dateFormater(new Date());
 
             if(whoChatBeforeFromHistory_left==false){
                 display_userChat.innerText = decodeURIComponent(message)+'프로필이미지';
@@ -351,7 +394,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // 메세지 입력
             // display_userChat.innerText = message;
             //b를 div의 자식 태그로 설정
+
             div.append(display_userChat,display_chatTime);
+            display_chatTime.style.display="none";
+
             //div태그를 chat_msgArea의 자식으로 설정
             $chat_msgArea.append(div);
             //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
@@ -363,10 +409,35 @@ document.addEventListener('DOMContentLoaded', function() {
             whatTimeBeforeFromHistory_left==nowTime.getMinutes();
         }
 
+        document.querySelectorAll('.chat_myTextBox').forEach(e=> {
+                if (e.previousElementSibling == null&&e.nextElementSibling == null) {
+                    e.firstChild.style.display="block";
+                } else if(e.previousElementSibling != null &&e.nextElementSibling!=null&&e.nextElementSibling.firstChild.textContent===e.firstChild.textContent){
+                    e.firstChild.style.display="none";
+
+                } else if(e.previousElementSibling!=null&&e.previousElementSibling.firstChild.textContent===e.firstChild.textContent){
+                    e.firstChild.style.display="block";
+                } else if(e.nextElementSibling==null){
+                    e.firstChild.style.display="block";
+
+                }
+            }
+        )
+
+        document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
+                if (e.previousElementSibling == null&&e.nextElementSibling == null) {
+                    e.lastChild.style.display="block";
+                } else if(e.previousElementSibling != null &&e.nextElementSibling!=null&&e.nextElementSibling.lastChild.textContent===e.lastChild.textContent){
+                    e.lastChild.style.display="none";
+
+                } else if(e.previousElementSibling!=null&&e.previousElementSibling.lastChild.textContent===e.lastChild.textContent){
+                    e.lastChild.style.display="block";
+                } else if(e.nextElementSibling==null){
+                    e.lastChild.style.display="block";
+
+                }
+            }
+        )
+
     }
 });
-
-
-
-
-
