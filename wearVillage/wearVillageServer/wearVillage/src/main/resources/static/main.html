@@ -71,6 +71,13 @@
                         (선착순 1000명)</p>
                 </div>
             </section>
+        <script>
+            var alertMsg = "${alertMsg}";
+            if(alertMsg != null && alertMsg != ""){
+                alert(alertMsg);
+                window.close();
+            }
+        </script>
 
 
         <script layout:fragment="javascript" rel="javascript" src="js/main.js"></script>

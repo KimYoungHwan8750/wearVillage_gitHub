@@ -70,6 +70,13 @@ public class Controller {
         return "redirect:/";
     }
 
+    /**
+     *
+     * @param email 이메일
+     * @param profile_img 이미지
+     * @param model 모델
+     * @return 모델값
+     */
 
     //로그인 방식에 따라 회원가입 양식을 자동으로 채워주는 API
     @PostMapping(value = "/createUser")
@@ -77,9 +84,10 @@ public class Controller {
 
             return "memberjoin.html";
     }
+
+
     @ResponseBody
     @PostMapping("/use_api")
-
     public Boolean use_api(@RequestBody Map<String,String> map, HttpSession session) {
         String email = map.get("email");
         log.info(email);
@@ -90,6 +98,7 @@ public class Controller {
             return false;
         }
     }
+
 
     // 옷빌리지 회원가입 (외부 API 사용 X)
     @GetMapping(value = "/createUser")
@@ -151,8 +160,6 @@ public class Controller {
         return "maps2.html";
     }
 
-
-
     @GetMapping("/viewPost")
     public ModelAndView viewPost(@RequestParam Integer id) {
         // 게시글 조회
@@ -172,7 +179,7 @@ public class Controller {
         String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
         PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
 
-        ModelAndView modelAndView = new ModelAndView("PostDetail3");
+        ModelAndView modelAndView = new ModelAndView("PostDetail2");
         modelAndView.addObject("post", postData);
         USER_INFO user_info = rep_user_info.findByNICKNAME(postData.getPostWriterId());
         modelAndView.addObject("profileimg", "/profileimg?fileName="+user_info.getPROFILEIMG());

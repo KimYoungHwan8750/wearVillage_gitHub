@@ -1,6 +1,8 @@
 package com.example.wearVillage.Controller;
 
 import com.example.wearVillage.DAO.getChatPostCount.myPageCountPostSVC;
+import com.example.wearVillage.DAO.myPageDeleteDAO.DeleteAccountSVC;
+import com.example.wearVillage.DAO.myPageDeleteDAO.IdDeleteForm;
 import com.example.wearVillage.DAO.myPageGetMiliageDAO.MyPageGetMiliageForm;
 import com.example.wearVillage.DAO.myPageGetMiliageDAO.MyPageGetMiliageSVC;
 import com.example.wearVillage.DAO.myPageGetMyPostCountsDAO.myPageGetPostCountSVC;
@@ -40,6 +42,7 @@ public class pjyMyPageController {
     private final TossPaymentSVC tossPaymentSVC;
     private final MyPageGetMiliageSVC myPageGetMiliageSVC;
     private final myPageGetPostCountSVC myPageGetCountsSVC;
+    private final DeleteAccountSVC deleteAccountSVC;
 
     @Value("${kapi.apikey}")
     private String kapiApiKey;
@@ -189,5 +192,24 @@ public class pjyMyPageController {
         return "myPage";
     }
 
+    @GetMapping("/deleteId")
+    public String gotoDelete(){
+        return "deleteId";
+    }
 
+    @PostMapping("/deleteId")
+    public ModelAndView deleteAccount(HttpSession session, IdDeleteForm idDeleteForm){
+        ModelAndView mav = new ModelAndView("main");
+        String sid = (String) session.getAttribute("id");
+        log.info(sid);
+        log.info(idDeleteForm.getId());
+        if(sid.equals(idDeleteForm.getId())){
+            deleteAccountSVC.DeleteAccount(idDeleteForm.getId());
+            mav.addObject("alertMsg","성공적으로 삭제되었습니다.");
+        } else {
+            mav.addObject("errMessage","아이디를 정확히 입력해주세요");
+            mav.setViewName("redirect:/myPage/deleteId");
+        }
+        return mav;
+    }
 }

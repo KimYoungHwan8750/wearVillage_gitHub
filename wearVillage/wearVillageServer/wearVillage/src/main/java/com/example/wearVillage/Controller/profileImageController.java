@@ -27,7 +27,6 @@ public class profileImageController{
 
     @PostMapping(value="/uploadProfileImage", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadProfileImage(MultipartFile uploadFile) {
-
         File checkfile = new File(uploadFile.getOriginalFilename());
         String type = null;
         try {

@@ -88,11 +88,11 @@
                         </div>
                     </div>
                     <div class="find">
-            <a href="#" class="find_id">
+            <a href="#" class="find_id" onclick="popupFindId();">
                 <span class="noto_regular">아이디찾기&nbsp;</span>
             </a>
             <b class="login_stick">|</b>
-            <a href="#" class="find_pw">
+            <a href="#" class="find_pw" onclick="popupFindPw();">
                 <span class="noto_regular">비밀번호찾기&nbsp;</span>
             </a>
         <b class="login_stick">|</b>
@@ -103,6 +103,15 @@
     </div>
 </div>
 </div>
+    <script>
+        function popupFindId(){
+            window.open("/login/findId","아이디 찾기","width=500, height=500");
+        };
+
+        function popupFindPw(){
+            window.open("/login/findPw","비밀번호 찾기","width=500, height=500");
+        };
+    </script>
 <script>
     
             $(document).on("click", "#naverLogin", function () {
