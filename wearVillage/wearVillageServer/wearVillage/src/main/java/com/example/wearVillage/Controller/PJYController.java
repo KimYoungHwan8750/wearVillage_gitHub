@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.wearVillage.DAO.findIDPW.FindIdForm;
+import com.example.wearVillage.DAO.findIDPW.FindPwForm;
+import com.example.wearVillage.DAO.findIDPW.FindSVC;
+import com.example.wearVillage.DAO.findIDPW.NewPwForm;
 import com.example.wearVillage.DeleteEvent.DeleteSVC;
 import com.example.wearVillage.DTO.GmailDto;
 import com.example.wearVillage.Service.EmailService;
@@ -13,6 +17,7 @@ import com.example.wearVillage.UpdateEvent.UpdateEntityService;
 import com.example.wearVillage.UpdateEvent.UpdateRequest;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,13 +35,14 @@ import com.example.wearVillage.PostData;
 
 @Slf4j
 @org.springframework.stereotype.Controller
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 
 public class PJYController {
 
     private final JdbcTemplate jdbcTemplate;
     private final EmailService emailService;
     private final DeleteSVC deleteSVC;
+    private final FindSVC findSVC;
 
     @GetMapping("/posts")
     public ModelAndView listPosts(@RequestParam(defaultValue = "0") int page,
@@ -112,11 +118,7 @@ public class PJYController {
 
 
 
-    public PJYController(EmailService emailService, JdbcTemplate jdbcTemplate, DeleteSVC deleteSVC) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.emailService = emailService;
-        this.deleteSVC = deleteSVC;
-    }
+
 
     @GetMapping("/mail/send")
     public String mail(){
@@ -265,11 +267,10 @@ public class PJYController {
     }
 
     @PostMapping("/login/findId")
-    public ModelAndView findIdByEmail(){
+    public ModelAndView findIdByEmail(FindIdForm findIdForm){
         ModelAndView mav = new ModelAndView("findedId");
-
-
-
+        String findedId = findSVC.findId(findIdForm.getEmail());
+        mav.addObject("findedId",findedId);
         return mav;
     }
 
@@ -279,5 +280,46 @@ public class PJYController {
         ModelAndView mav = new ModelAndView("findPw");
 
         return mav;
+    }
+
+    @PostMapping("/login/findPw")
+    public ModelAndView findPwByIdAndEmail(HttpSession session,FindPwForm findPwForm){
+        ModelAndView mav = new ModelAndView("findPwAuth");
+        String AuthCode = findSVC.findPwByIdAndPw(findPwForm.getId(),findPwForm.getEmail());
+        //조회에 실패한 경우
+        if(AuthCode == "조회 실패"){
+            mav.setViewName("findPw");
+            mav.addObject("errMessage","회원 정보를 찾을수 없습니다.");
+            return mav;
+            //메일 발송이 불가능한 경우
+        } else if(AuthCode == "메일 발송 불가능"){
+            mav.setViewName("findPw");
+            mav.addObject("errMessage","현재 메일 서비스가 불가능합니다.");
+            return mav;
+            //메일 발송
+        } else {
+            session.setAttribute("id",findPwForm.getId());
+            session.setAttribute("email",findPwForm.getEmail());
+            session.setAttribute("AuthCode",AuthCode);
+            return mav;
+        }
+    }
+
+    @PostMapping("/login/tempPw")
+    public ModelAndView setTempPw(HttpSession session,NewPwForm newPwForm){
+        ModelAndView mav = new ModelAndView("findPwAuth");
+        GmailDto dto = new GmailDto();
+        dto.setAddress(newPwForm.getEmail());
+        try {
+            String tempPw = Integer.toString(emailService.sendPwMail(dto,session));
+            findSVC.setTempPw(newPwForm.getEmail(), newPwForm.getId(), tempPw);
+            mav.addObject("success","임시 비밀번호 발급 성공");
+            mav.addObject("status",1);
+            return mav;
+        } catch (MessagingException e) {
+            mav.addObject("failed","임시 비밀번호 발급 실패");
+            mav.addObject("status",1);
+            return mav;
+        }
     }
 }
