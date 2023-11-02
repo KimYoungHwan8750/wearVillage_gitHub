@@ -190,11 +190,8 @@ public class PJYController {
     public String editPost(@PathVariable("id") Long id, Model model) {
         // 게시글 조회
         String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
-        log.info("쿼리호출할게~{}",selectQuery);
         PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
-        log.info("쿼리호출했어~");
         model.addAttribute("postData", postData);
-        log.info("쿼리넣었어~{}",postData.getPostId());
         return "update_posting";  // 수정 폼 페이지 반환
     }
 
@@ -255,6 +252,31 @@ public class PJYController {
         log.info("검색결과={}",searchedPost);
 
 
+
+        return mav;
+    }
+
+    //아이디 찾기
+    @GetMapping("/login/findId")
+    public ModelAndView findId(){
+        ModelAndView mav = new ModelAndView("findId");
+
+        return mav;
+    }
+
+    @PostMapping("/login/findId")
+    public ModelAndView findIdByEmail(){
+        ModelAndView mav = new ModelAndView("findedId");
+
+
+
+        return mav;
+    }
+
+    //비밀번호 찾기
+    @GetMapping("/login/findPw")
+    public ModelAndView findPw(){
+        ModelAndView mav = new ModelAndView("findPw");
 
         return mav;
     }
