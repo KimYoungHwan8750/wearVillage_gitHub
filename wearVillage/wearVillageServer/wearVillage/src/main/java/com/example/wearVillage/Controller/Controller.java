@@ -16,6 +16,7 @@ import com.example.wearVillage.status.local_or_server;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -191,6 +192,8 @@ public class Controller {
     public String healthy_check(){
         return "main.html";
     }
+
+
 
 
 }
