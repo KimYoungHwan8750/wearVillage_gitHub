@@ -22,7 +22,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
 
@@ -56,23 +57,43 @@ public class ChatRoomController {
                        @RequestParam(required = false) String postRentDayPrice,
                        @RequestParam(required = false) String postThumbnailUrl,
                        @RequestParam(required = false) String postMapInfo,
-                       @RequestParam String postId) {
+                       @RequestParam String postId,
+                       @RequestParam(required = false) String member1,
+                       @RequestParam(required = false) String member2) {
+        List<ChatDTO> chat;
+        Map<String,String> map = new HashMap<>();
+
+        if(member1==null||member2==null){
+            chat = chatSVC.loadingChatHistory(parseInt(postId), (String) session.getAttribute("nickname"), postWriterId);
+            map.put("myId",(String) session.getAttribute("nickname"));
+            map.put("targetId",postWriterId);
+        } else {
+            if(member1.equals(session.getAttribute("nickname"))){
+                map.put("myId",member1);
+                map.put("targetId",member2);
+            } else {
+                map.put("myId",member2);
+                map.put("targetId",member1);
+            }
+            chat = chatSVC.loadingChatHistory(parseInt(postId), map.get("myId"), map.get("targetId"));
+
+        }
         try {
-            List<ChatDTO> chat = chatSVC.loadingChatHistory(parseInt(postId), (String) session.getAttribute("nickname"), postWriterId);
-            log.info(chat.toString());
-            model.addAttribute("postUserInfo",repositoryUserInfo.findByNICKNAME(postWriterId));
+            model.addAttribute("chat_history", chat);
+
+            model.addAttribute("postUserInfo",repositoryUserInfo.findByNICKNAME(map.get("targetId")).getPROFILEIMG());
+            model.addAttribute("myUserInfo",repositoryUserInfo.findByNICKNAME(map.get("myId")).getPROFILEIMG());
             if(session.getAttribute("email")!=null) {
                 model.addAttribute("postSubtitle", postSubtitle);
-                model.addAttribute("postWriterId", postWriterId);
+                model.addAttribute("postWriterId", map.get("targetId"));
                 model.addAttribute("postPrice", postPrice);
                 model.addAttribute("postRentDefaultPrice", postRentDefaultPrice);
                 model.addAttribute("postRentDayPrice", postRentDayPrice);
                 model.addAttribute("postThumbnailUrl", postThumbnailUrl);
                 model.addAttribute("postMapInfo", postMapInfo);
                 model.addAttribute("postId", postId);
-                model.addAttribute("myId", session.getAttribute("nickname"));
+                model.addAttribute("myId", map.get("myId"));
                 model.addAttribute("theme", session.getAttribute("theme"));
-                model.addAttribute("chat_history", chat);
                 return "chat.html";
             } else {
                 return "redirect:/login";
@@ -108,7 +129,6 @@ public class ChatRoomController {
                         chatroomDTO.setPOST_RENT_DAY_PRICE(m.getPOST_RENT_DAY_PRICE());
                         chatroomDTO.setPOST_MAP_INFO(m.getPOST_MAP_INFO());
                         chatroomDTO.setPOST_THUMBNAIL_IMG(repositoryUserInfo.findByNICKNAME(m.getPOST_WRITER_ID()).getPROFILEIMG());
-                        log.info(m.getPOST_WRITER_ID()+"POST_WRITER_ID");
                         return chatroomDTO;
                     }).toList();
             model.addAttribute("chatroomList",copyChatroomDTO);
