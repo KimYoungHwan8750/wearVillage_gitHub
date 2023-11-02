@@ -242,7 +242,7 @@
           </div>
         </div>
         <div class="myPageMemberDrop">
-          <button class="myPageMemberDropButton">회원탈퇴</button>
+          <button class="myPageMemberDropButton" onclick="popupDeleteId();" style="cursor:pointer;">회원탈퇴</button>
         </div>
       </div>
       <div id="myPageModalContainer" class="hidden">
@@ -430,6 +430,11 @@
           modal.classList.add('hidden');
         })
 
+      </script>
+      <script>
+        function popupDeleteId(){
+          window.open("/deleteId","회원 삭제","width=500, height=500");
+        };
       </script>
     </div>
     <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>

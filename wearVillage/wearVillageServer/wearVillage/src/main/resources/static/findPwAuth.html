@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/login/tempPw" method="POST" id="AuthSubmitForm" th:if="${status!=1}">
+    <label for="mailCode">메일 인증번호</label><input type="text" id="mailCode" name="mailCode">
+    <input type="hidden" id="email" name="email">
+    <input type="hidden" id="id" name="id">
+    <input type="submit" value="인증하기">
+</form>
+<div th:if="${success}" th:text="${success}"></div>
+<div th:if="${failed}" th:text="${failed}"></div>
+<script th:inline="javascript">
+    let $mailCode = document.getElementById('mailCode');
+    let $AuthCode = /*[[${session.AuthCode}]]*/;
+    let $emailInput = document.getElementById('email');
+    let $email = /*[[${session.email}]]*/;
+    let $idInput = document.getElementById('id');
+    let $id = /*[[${session.id}]]*/;
+    let $Frm = document.getElementById('AuthSubmitForm');
+    $Frm.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        if($AuthCode === $mailCode.value){
+            $emailInput.value = $email;
+            $idInput.value = $id;
+            $mailCode.disabled=true;
+            $Frm.submit();
+        } else {
+            alert("인증번호가 틀립니다.");
+        }
+    })
+
+
+
+</script>
+</body>
+</html>

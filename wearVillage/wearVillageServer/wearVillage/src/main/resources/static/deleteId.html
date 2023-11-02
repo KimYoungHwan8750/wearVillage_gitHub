@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>계정 삭제</title>
+</head>
+<body>
+<form action="" method="POST" id="deleteAccount">
+    <label for="id">확인을 위해 회원님의 아이디를 입력해주세요.</label><input type="text" id="id" name="id">
+    <input type="submit">
+</form>
+<script>
+    let $Frm = document.getElementById('deleteAccount');
+    $Frm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    if(confirm("삭제하시겠습니까?"){
+            $Frm.submit();
+        } else {
+            return;
+        }
+    })
+</script>
+</body>
+</html>
