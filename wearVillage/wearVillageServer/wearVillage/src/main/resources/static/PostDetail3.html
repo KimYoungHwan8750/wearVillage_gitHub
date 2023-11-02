@@ -7,18 +7,59 @@
 <body>
     <div layout:fragment="content">
         <link rel="stylesheet" href="./css/PostDetail3.css">
+        <script th:inline="javascript">
+            window.onload = function(){
+
+                // div(postTextEle)에 이미지배열 추가
+                let imgUrls = [];
+                let postTextEle = document.createElement('div');
+                postTextEle.innerHTML = /*[[${post.postText}]]*/ 'default';
+
+                // div의 이미지태그를 imgUrls에 하나씩 넣는다.
+                let imgEle = postTextEle.getElementsByTagName('img');
+                for (let i = 0; i < imgEle.length; i++){
+                    let imgUrl = imgEle[i].getAttribute('src');
+                    imgUrls.push(imgUrl);
+                }
+
+                //이미지배열에 이미지 넣기
+                let $imgContainer = document.getElementById('imgContainer');
+                for (let j = 0; j < imgUrls.length; j++){
+                    let imgTag = document.createElement('img');
+                    imgTag.setAttribute('src',imgUrls[j]);
+                }
+
+                let $ThumbMain = document.getElementById('ThumbMain');
+                if(imgEle.length > 0){
+                    $ThumbMain.src = imgEle[0].src;
+                }
+
+                $ThumbMain.addEventListener('animationend', function() {
+                    this.style.animation = '';
+                });
+
+                let imgIndex = 0;
+                setInterval(function(){
+                    imgIndex = (imgIndex + 1) % imgUrls.length;
+                    $ThumbMain.src = imgUrls[imgIndex];
+                    $ThumbMain.style.animation="fadein 1.5s"
+                }, 3000);
+            }
+        </script>
         <div class="PostDetailWrapper">
             <div>
                 <div class="MainImgContainer">
-                    <img src="./img/sampeMain.jpg" alt="" style="max-width:100%; border-radius: 15px; border:2px solid rgba(0,0,0,0.2);">
+                    <img src="" alt="" style="max-width:100%; border-radius: 15px; border:2px solid rgba(0,0,0,0.2);" id="ThumbMain">
+                    <div id="imgContainer">
+                    </div>
                 </div>
             </div>
             <div>
                 <div class="MainInfoContainer">
                     <div class="PriceSpanContainer">
-                        <p class="PostWriterIdP">작성자 아이디</p>
-                        <p class="PostSubtitleP">제목가나다라마바사아자차카</p>
-                        <p><span id="PostPriceSpan">13,000</span><span>원</span></p>
+                        <p class="PostWriterIdP" th:text="${post.postWriterId}">작성자 아이디</p>
+                        <p class="PostSubtitleP" th:text="${post.postSubtitle}">제목가나다라마바사아자차카</p>
+                        <p><span id="PostPriceSpan" th:text="${post.postPrice}">13,000</span><span>원</span></p>
 
                     </div>
                     <div class="MainInfoIconContainer">
@@ -39,35 +80,53 @@
                         <span>제품정보</span>
                     </div>
                     <div>
-                        <span>제품종류(아우터)</span>
-                        <span>코튼 셔츠</span>
+                        <!-- <span th:text="${post.postTagTop}"><button th:text="${post.postTagTop}" disabled></button></span>
+                        <span th:text="${post.postTagMiddle}"><button th:text="${postTagMiddle}" disabled></button></span> -->
+                        <span><button th:text="${post.postTagTop}" disabled></button></span>
+                        <span><button th:text="${post.postTagMiddle}" disabled></button></span>                        
                     </div>
-                    <div>
+                    <div th:if="${post.postRentDefaultPrice}">
                         <span>대여료</span>
-                        <span>4,000</span>
+                        <!-- <span th:text="${post.postRentDefaultPrice}"><button th:text="${post.postRentDefaultPrice}" disabled></button></span> -->
+                        <span><button th:text="${post.postRentDefaultPrice}" disabled></button></span>
                         <span>원</span>
                     </div>
-                    <div>
+                    <div th:if="${post.postRentDayPrice}">
                         <span>일일요금</span>
-                        <span>1,500</span>
+                        <!-- <span th:text="${post.postRentDayPrice}"><button th:text="${post.postRentDayPrice}"></button></span> -->
+                        <span><button th:text="${post.postRentDayPrice}" disabled></button></span>
                         <span>원</span>
                     </div>
                 </div>
             </div>
             <div class="PostTextWrapperDiv">
-                <div class="PostTextContainer">
+                <div class="PostTextContainer" th:utext="${post.postText}">
                     <img src="./img/sampleSub2.jpg" alt="" style="max-width:100%;">
-                    <span>김영환 ㅄ</span>
+                    <span></span>
                 </div>
             </div>
             <div style="margin-top:40px;">
+<!--                <script>-->
+<!--                    window.onload = function () {-->
+<!--                        const $maps3 = document.getElementById('maps3_container');-->
+<!--                        $maps3.innerHTML =-->
+<!--                                '<object width="768px;" height="450px;" type="text/html" data="maps3.html"></object>';-->
+<!--                      };-->
+<!--                </script>-->
+<!--                <script th:inline="javascript">-->
+<!--                    let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';-->
+<!--                    localStorage.setItem('MapInfo', postMaps3Info);-->
+<!--                </script>-->
                 <div class="PostMapInfoSpan">
                     <p>거래 가능 지역</p>
                 </div>
-                <div class="PostMapInfo">
+                <div class="PostMapInfo" id="maps3_container">
                 </div>
             </div>
         </div>
     </div>
+
+
+
 </body>
 </html>
