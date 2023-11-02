@@ -81,7 +81,8 @@ public class ChatRoomController {
         try {
             model.addAttribute("chat_history", chat);
 
-            model.addAttribute("postUserInfo",repositoryUserInfo.findByNICKNAME(postWriterId));
+            model.addAttribute("postUserInfo",repositoryUserInfo.findByNICKNAME(map.get("targetId")).getPROFILEIMG());
+            model.addAttribute("myUserInfo",repositoryUserInfo.findByNICKNAME(map.get("myId")).getPROFILEIMG());
             if(session.getAttribute("email")!=null) {
                 model.addAttribute("postSubtitle", postSubtitle);
                 model.addAttribute("postWriterId", map.get("targetId"));

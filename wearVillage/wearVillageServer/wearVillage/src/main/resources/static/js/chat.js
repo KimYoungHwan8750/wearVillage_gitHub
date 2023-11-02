@@ -94,13 +94,20 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         //     display_chatTime.innerText = dateFormater(historydate);
         // }
         // 메세지 입력
+        // let display_profileImg = document.createElement('img');
+        // display_profileImg.setAttribute('src','/profileimg?fileName='+$th_myUserInfo);
+        // display_profileImg.classList.add("chat_profileImg");
         if(whoChatBeforeFromHistory_right==false){
             display_userChat.innerText = decodeURIComponent(chatMessage['message']);
+            div.append(display_chatTime,display_userChat);
+
         } else {
             display_userChat.innerText = decodeURIComponent(chatMessage['message']);
+            div.append(display_chatTime,display_userChat);
+
+
         }
         //b를 div의 자식 태그로 설정
-        div.append(display_chatTime,display_userChat);
         //div태그를 chat_msgArea의 자식으로 설정
         $chat_msgArea.append(div);
         //새로운 채팅이 올라올 때마다 스크롤 최하단으로 갱신
@@ -127,7 +134,7 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         display_chatTime.classList.add('chat_displayTime');
         display_userChat.classList.add('chat_Text','chat_targetText');
         let display_profileImg = document.createElement('img');
-        display_profileImg.setAttribute('src','/profileimg?fileName='+$th_postUserInfo.PROFILEIMG);
+        display_profileImg.setAttribute('src','/profileimg?fileName='+$th_postUserInfo);
         display_profileImg.classList.add("chat_profileImg");
             display_chatTime.innerText = dateFormater(historydate);
 
@@ -142,8 +149,8 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         if(whoChatBeforeFromHistory_left==false){
             div.append(display_profileImg,display_userChat,display_chatTime);
         } else {
-            div.classList.add("target_SecondChat")
             div.append(display_userChat,display_chatTime);
+
         }
 
         //b를 div의 자식 태그로 설정
@@ -156,7 +163,6 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         beforeChatisMyChat_right = false;
         beforeChatisMyChat_left=true;
         whatTimeBeforeFromHistory_left=historydate.getMinutes();
-        console.log(whatTimeBeforeFromHistory_left+"왓타임 레프트");
 
         firstchat_left=false;
 
@@ -169,7 +175,21 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
 document.querySelectorAll('.chat_myTextBox').forEach(e=> {
         e.firstChild.style.display="block";
         if (e.previousElementSibling!=null&&e.previousElementSibling.firstChild.textContent===e.firstChild.textContent){
-            e.previousElementSibling.firstChild.style.display="none";
+            e.previousElementSibling.firstChild.style.visibility="hidden";
+        }
+
+        if(e.previousElementSibling==null||!e.previousElementSibling.classList.contains("chat_myTextBox")||e.previousElementSibling.classList.contains("chat_myTextBox")&&e.previousElementSibling.firstChild.textContent!==e.firstChild.textContent){
+            let display_profileImg = document.createElement('img');
+            display_profileImg.setAttribute('src','/profileimg?fileName='+$th_myUserInfo);
+            display_profileImg.classList.add("chat_profileImg");
+            if(e.childElementCount===2) {
+                e.appendChild(display_profileImg);
+            }
+        }
+
+        if(e.childElementCount===2){
+            e.classList.add("my_SecondChat")
+
         }
     }
 )
@@ -177,8 +197,23 @@ document.querySelectorAll('.chat_myTextBox').forEach(e=> {
 document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
         e.firstChild.style.display = "block";
         if (e.previousElementSibling != null && e.previousElementSibling.lastChild.textContent === e.lastChild.textContent) {
-            e.previousElementSibling.lastChild.style.display = "none";
+            e.previousElementSibling.lastChild.style.visibility = "hidden";
         }
+
+    if(e.previousElementSibling==null||!e.previousElementSibling.classList.contains("chat_targetTextBox")||e.previousElementSibling.classList.contains("chat_targetTextBox")&&e.previousElementSibling.lastChild.textContent!==e.lastChild.textContent){
+        let display_profileImg = document.createElement('img');
+        display_profileImg.setAttribute('src','/profileimg?fileName='+$th_postUserInfo);
+        display_profileImg.classList.add("chat_profileImg");
+        if(e.childElementCount===2) {
+            e.prepend(display_profileImg);
+        }
+    }
+
+    if(e.childElementCount===2){
+        e.classList.add("target_SecondChat")
+
+
+    }
     }
 )
 
@@ -218,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let sendMessage={
             "sender":JSON.parse($th_sender),
             "addressee":JSON.parse($th_addressee),
-            "message":encodeURIComponent($msg.value),
+            "message":encodeURIComponent($msg.value).replace(/[']/g,escape),
             "chatroom":JSON.parse($th_postId)
         }
         //채팅방이 있는지 조회하고 없으면 생성하고 있으면 채팅 동작
@@ -309,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
             //span태그 생성
             let display_chatTime = document.createElement('span');
             let display_profileImg = document.createElement('img');
-            display_profileImg.setAttribute('src','/profileimg?fileName='+user_status.profileimg);
+            display_profileImg.setAttribute('src','/profileimg?fileName='+$th_myUserInfo);
             display_profileImg.classList.add("chat_profileImg");
             //display_userChat에 chat_Text와 chat_myText클래스 부여
             display_chatTime.classList.add('chat_displayTime');
@@ -324,14 +359,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if(whoChatBeforeFromHistory_right==false){
                 display_userChat.innerText = decodeURIComponent(message);
                 div.classList.add("firstMessage");
+                div.append(display_chatTime,display_userChat,display_profileImg);
+
 
             } else {
                 display_userChat.innerText = decodeURIComponent(message);
+                div.append(display_chatTime,display_userChat);
+                div.classList.add("my_SecondChat")
+
             }
             //display_userChat.innerText = message;
             console.log(message);
             //b를 div의 자식 태그로 설정
-            div.append(display_chatTime,display_userChat);
 
             //div태그를 chat_msgArea의 자식으로 설정
             $chat_msgArea.append(div);
@@ -358,6 +397,9 @@ document.addEventListener('DOMContentLoaded', function() {
             //display_userChat에 chat_Text와 chat_targetText클래스 부여
             display_chatTime.classList.add('chat_displayTime');
             display_userChat.classList.add('chat_Text','chat_targetText');
+            let display_profileImg = document.createElement('img');
+            display_profileImg.setAttribute('src','/profileimg?fileName='+$th_postUserInfo);
+            display_profileImg.classList.add("chat_profileImg");
             if(beforeChatisMyChat_left==true&&nowTime.getMinutes()==whatTimeBeforeFromHistory_left){
             } else {
                 display_chatTime.innerText = dateFormater(nowTime);
@@ -367,14 +409,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if(whoChatBeforeFromHistory_left==false){
                 display_userChat.innerText = decodeURIComponent(message);
                 div.classList.add("firstMessage");
+                div.append(display_profileImg,display_userChat,display_chatTime);
+
             } else {
                 display_userChat.innerText = decodeURIComponent(message);
+                div.classList.add("target_SecondChat");
+                div.append(display_userChat,display_chatTime);
+
+
             }
             // 메세지 입력
             // display_userChat.innerText = message;
             //b를 div의 자식 태그로 설정
 
-            div.append(display_userChat,display_chatTime);
 
             //div태그를 chat_msgArea의 자식으로 설정
             $chat_msgArea.append(div);
@@ -389,17 +436,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelectorAll('.chat_myTextBox').forEach(e=> {
             e.firstChild.style.display="block";
+            let createImgFlag=true;
             if (e.previousElementSibling!=null&&e.previousElementSibling.firstChild.textContent===e.firstChild.textContent){
                     e.previousElementSibling.firstChild.style.display="none";
                 }
+                if(e.childElementCount===2){
+                    e.classList.add("my_SecondChat")
+                }
+                if(e.previousElementSibling==null||!e.previousElementSibling.classList.contains("chat_myTextBox")||e.previousElementSibling.classList.contains("chat_myTextBox")&&e.previousElementSibling.firstChild.textContent!==e.firstChild.textContent){
+                    let display_profileImg = document.createElement('img');
+                    display_profileImg.setAttribute('src','/profileimg?fileName='+$th_myUserInfo);
+                    display_profileImg.classList.add("chat_profileImg");
+                    if(e.childElementCount===2) {
+                        e.classList.remove("my_SecondChat");
+                        e.appendChild(display_profileImg);
+
+
+                    }
+
+                }
+
+
         }
         )
 
         document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
                 e.firstChild.style.display = "block";
-                if (e.previousElementSibling != null && e.previousElementSibling.lastChild.textContent === e.lastChild.textContent) {
+            let createImgFlag=true;
+
+            if (e.previousElementSibling != null && e.previousElementSibling.lastChild.textContent === e.lastChild.textContent) {
                     e.previousElementSibling.lastChild.style.display = "none";
                 }
+            if(e.childElementCount===2){
+                e.classList.add("target_SecondChat")
+            }
+
+            if(e.previousElementSibling==null||!e.previousElementSibling.classList.contains("chat_targetTextBox")||e.previousElementSibling.classList.contains("chat_targetTextBox")&&e.previousElementSibling.lastChild.textContent!==e.lastChild.textContent){
+                let display_profileImg = document.createElement('img');
+                display_profileImg.setAttribute('src','/profileimg?fileName='+$th_postUserInfo);
+                display_profileImg.classList.add("chat_profileImg");
+                if(e.childElementCount===2) {
+                    e.classList.remove("target_SecondChat");
+                    e.prepend(display_profileImg);
+
+                }
+            }
+
+
+
             }
         )
     }
