@@ -203,12 +203,20 @@ public class pjyMyPageController {
         String sid = (String) session.getAttribute("id");
         log.info(sid);
         log.info(idDeleteForm.getId());
-        if(sid.equals(idDeleteForm.getId())){
-            deleteAccountSVC.DeleteAccount(idDeleteForm.getId());
-            mav.addObject("alertMsg","성공적으로 삭제되었습니다.");
-        } else {
-            mav.addObject("errMessage","아이디를 정확히 입력해주세요");
-            mav.setViewName("redirect:/myPage/deleteId");
+        if(deleteAccountSVC.howMuchmiliage(idDeleteForm.getId())){
+            if(sid.equals(idDeleteForm.getId())){
+                deleteAccountSVC.DeleteAccount(idDeleteForm.getId());
+                mav.addObject("alertMsg","성공적으로 삭제되었습니다.");
+            } else {
+                mav.addObject("errMessage","아이디를 정확히 입력해주세요");
+                mav.setViewName("deleteId");
+            }
+        } else if (!deleteAccountSVC.howMuchmiliage(idDeleteForm.getId())){
+            mav.addObject("errMessage","남은 마일리지가 있을시 회원 탈퇴가 불가능합니다.");
+            mav.setViewName("deleteId");
+        } else if (deleteAccountSVC.howMuchmiliage(idDeleteForm.getId()) == null){
+            mav.addObject("errMessage","오류가 발생했습니다. 관리자에게 문의해주세요.");
+            mav.setViewName("deleteId");
         }
         return mav;
     }
