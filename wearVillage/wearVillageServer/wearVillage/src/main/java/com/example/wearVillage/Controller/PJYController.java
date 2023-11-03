@@ -282,6 +282,7 @@ public class PJYController {
         return mav;
     }
 
+
     @PostMapping("/login/findPw")
     public ModelAndView findPwByIdAndEmail(HttpSession session,FindPwForm findPwForm){
         ModelAndView mav = new ModelAndView("findPwAuth");
