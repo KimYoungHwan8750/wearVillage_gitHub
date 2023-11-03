@@ -432,8 +432,14 @@
 
       </script>
       <script>
+
+
         function popupDeleteId(){
-          window.open("/deleteId","회원 삭제","width=500, height=500");
+          var _width = '476';
+          var _height = '340';
+          var _left = Math.ceil(( window.screen.width - _width )/2);
+          var _top = Math.ceil(( window.screen.height - _height )/2);
+            window.open("/deleteId","회원 삭제",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
         };
       </script>
     </div>

@@ -4,26 +4,97 @@
     <meta charset="UTF-8">
     <title>계정 삭제</title>
     <style>
-        .errMessage {
+
+        #deleteAccount {
+            display:flex;
+            flex-direction:column;
+            width:450px;
+            height:310px;
+            align-items:center;
+            border: 2px solid gray;
+        }
+
+        #deleteAccount label {
+            font-size:12px;
+            width:100%;
+            text-align:center;
+            margin-top : 10px;
+            margin-bottom : 10px;
+        }
+
+        #errMessage {
             color:red;
-            font-size:22px;
+            font-size:14px;
             font-weight:bold;
         }
+
+        .noteNotice {
+            background-color:#FFE2E2;
+            width:100%;
+            text-align:center;
+            padding-top:10px;
+            padding-bottom:10px;
+            margin-top:10px;
+            color:red;
+        }
+
+        #withdrawalInput:disabled {
+            background-color:#f2f2f281;
+            color:#f367675e;
+            border:none;
+            border-radius:5px;
+            height:25px;
+            margin-top : 20px;
+            padding-left:10px;
+            padding-right:10px;
+        }
+
+        #withdrawalInput {
+            background-color:#F8F8F8;
+            color:#DE0000;
+            border:none;
+            border-radius:5px;
+            height:25px;
+            margin-top : 20px;
+            padding-left:10px;
+            padding-right:10px;
+            border:1.5px solid black;
+        }
+
+        #id {
+            color:red;
+        }
+
     </style>
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <body>
 <form action="" method="POST" id="deleteAccount">
-    <label for="id">확인을 위해 회원님의 아이디를 입력해주세요.</label><input type="text" id="id" name="id">
-    <input type="submit">
-    <p th:if="${errMessage}" th:text="${errMessage}" id="errMessage"></p>
+    <div class="noteNotice"><span>※반드시 주의사항들을 숙지해주세요!※</span></div>
+    <label for="id">회원 탈퇴를 하시는 경우, 회원님의 정보는 1년간 보관되며 그 이후에 삭제됩니다.</label>
+    <label for="id">회원 탈퇴를 하신 경우, 같은 아이디와 닉네임으로는 재가입이 불가능합니다.</label>
+    <label for="id">정말로 탈퇴를 원하시는 경우, 회원님의 아이디를 입력하신후</label>
+    <label for="id">아래의 버튼을 눌러주세요.</label><input type="text" id="id" name="id" oninput="lengthCheck();" autocomplete="off">
+    <input type="submit" value="주의사항들을 숙지하였으며, 회원 탈퇴에 동의합니다." id="withdrawalInput" disabled>
+    <p th:if="${errMessage}" th:text="${errMessage}" id="errMessage">에러에요</p>
 </form>
 <script>
+
+    function lengthCheck(){
+        let $id = document.getElementById('id');
+        let $withdrawBtn = document.getElementById('withdrawalInput');
+
+        if($id.value.length > 4){
+            $withdrawBtn.disabled=false;
+        } else if($id.value.length <= 4){
+            $withdrawBtn.disabled=true;
+        }
+    }
     let $Frm = document.getElementById('deleteAccount');
     $Frm.addEventListener('submit',(e)=>{
     e.preventDefault();
-    if(confirm("삭제하시겠습니까?")){
+    if(confirm("정말로 탈퇴하시겠습니까?")){
             $Frm.submit();
         } else {
             return false;

@@ -40,19 +40,18 @@ public class DeleteAccountDAOImpl implements DeleteAccountDAO {
         StringBuffer sql = new StringBuffer();
         sql.append("select miliage from user_wallet ");
         sql.append( "where id = :id ");
+        // asd123 , asd12
 
         Map<String,String> param = Map.of("id",id);
 
         try{
             int miliage = template.queryForObject(sql.toString(),param,int.class);
-            if(miliage > 0){
-                return false;
-            } else if(miliage == 0){
+            if(miliage == 0){
                 return true;
             } else {
-                return null;
+                return false;
             }
-        } catch (EmptyResultDataAccessException e){
+        } catch (Exception e){
             return null;
         }
     }
