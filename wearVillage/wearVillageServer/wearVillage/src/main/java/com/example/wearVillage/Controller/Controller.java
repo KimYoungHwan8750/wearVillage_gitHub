@@ -179,7 +179,7 @@ public class Controller {
         String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
         PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
 
-        ModelAndView modelAndView = new ModelAndView("PostDetail2");
+        ModelAndView modelAndView = new ModelAndView("PostDetail3");
         modelAndView.addObject("post", postData);
         USER_INFO user_info = rep_user_info.findByNICKNAME(postData.getPostWriterId());
         modelAndView.addObject("profileimg", "/profileimg?fileName="+user_info.getPROFILEIMG());
