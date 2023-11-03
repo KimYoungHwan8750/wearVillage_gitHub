@@ -114,6 +114,20 @@
                 </div>
             </div>
             <div style="margin-top:40px;">
+<<<<<<< HEAD
+=======
+                <script>
+                    window.onload = function () {
+                        const $maps3 = document.getElementById('maps3_container');
+                        $maps3.innerHTML =
+                                '<object width="768px;" height="450px;" type="text/html" data="maps3.html"></object>';
+                      };
+                </script>
+                <script th:inline="javascript">
+                    let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
+                    localStorage.setItem('MapInfo', postMaps3Info);
+                 </script>
+>>>>>>> be5cb2d1d89a0ce8217c3572148dff940987f661
                 <div class="PostMapInfoSpan">
                     <p>거래 가능 지역</p>
                 </div>

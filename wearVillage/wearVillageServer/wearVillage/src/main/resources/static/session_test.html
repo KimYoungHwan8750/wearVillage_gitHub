@@ -5,18 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .plusXBtn{
+            width: 70px;
+            height: 70px;
+            background-color:rgb(255, 113, 113);
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+
+            transition: all 0.5s;
+
+        }
+        .plusXBtn:hover{
+            transform: rotate(45deg);
+            background-color: rgb(79, 79, 79);
+            .vertical_line{
+                background-color: rgb(255, 255, 255);
+            }
+            .horizontal_line{
+                background-color: rgb(255, 255, 255);
+            }
+        }
+        .vertical_line{
+            position: absolute;
+            width: 45px;
+            height: 8px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+
+        .horizontal_line{
+            position: absolute;
+            width: 8px;
+            height: 45px;
+            background-color: white;
+            border-radius: 5px;
+
+        }
+
+    </style>
 </head>
 <body>
-    <form action="" class="formData">
-        <input type="text" name="v1">
-        <input type="text" name="v2">
-        <input type="text" name="v3">
-        <button type="submit">전송</button>
-    </form>
-    <div class="container helllo hi">
-        <div class="Test">1</div></div>
-    <div class="Test">2</div>
-    <div>3</div>
+    <div class="plusXBtn">
+        <div class="vertical_line"></div>
+        <div class="horizontal_line"></div>
+    </div>
 
     
     
