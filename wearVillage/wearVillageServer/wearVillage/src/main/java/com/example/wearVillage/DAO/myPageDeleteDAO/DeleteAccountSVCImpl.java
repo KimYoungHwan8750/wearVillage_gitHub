@@ -14,4 +14,9 @@ public class DeleteAccountSVCImpl implements DeleteAccountSVC {
     public Boolean DeleteAccount(String id) {
         return deleteAccountDAO.DeleteAccount(id);
     }
+
+    @Override
+    public Boolean howMuchmiliage(String id) {
+        return deleteAccountDAO.howMuchmiliage(id);
+    }
 }
