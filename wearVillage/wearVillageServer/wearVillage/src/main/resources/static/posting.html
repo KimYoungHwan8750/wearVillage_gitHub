@@ -10,7 +10,7 @@ layout:decorate="~{layouts/default}">
       <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
       <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
       <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-      <link rel="stylesheet" href="css/posting.css" />
+      <link rel="stylesheet" th:href="#{contentPath}+'css/posting.css'" />
 
 
     <div class="post_subtitle">
@@ -514,8 +514,33 @@ layout:decorate="~{layouts/default}">
           </button>
         </div>
       </div>
-
       <script>
+        let editMode="new";
+      </script>
+<script th:inline="javascript" th:if="${editMode=='edit'}">
+  /**
+   * TODO 포스팅 타임리프 작업 중
+   * 영환이 작업 존
+   *
+   */
+  editMode = 'edit';
+    let th_postData = [[${postData}]];
+    $('#post_subtitle_id').val(th_postData.postSubtitle);
+    $("#posting_category_id").val(th_postData.postTagTop+" > "+th_postData.postTagMiddle )
+    $("#posting_price_id").val(th_postData.postPrice);
+    $("#posting_rent_price_id").val(th_postData.postRentDefaultPrice);
+    $("#posting_rent_price2_id").val(th_postData.postRentDayPrice);
+    $("#posting_map_box_id").val(th_postData.postMapInfo)
+    $(".ql-editor ql-blank").innerHTML=th_postData.postText
+
+
+
+  /**
+   * 영환이 작업 존 끝
+   */
+</script>
+      <script>
+
         setInterval(() => {
           let a = document.querySelectorAll('.selected');
           if (a.length >= 2) {
@@ -614,7 +639,7 @@ layout:decorate="~{layouts/default}">
         console.log(postImage);
       }
 
-      let postData = {
+      let postData = editMode==='new'?{
         postId: '1',
         // postWriterId: $('#post_writer_id').val(),
         // TODO 작성자ID값 수정(세션값으로)
@@ -635,6 +660,27 @@ layout:decorate="~{layouts/default}">
           today.getDate() +
           '일',
         postModifyDate: '수정일자없음',
+      }:{
+        postId: th_postData.postId,
+        // postWriterId: $('#post_writer_id').val(),
+        // TODO 작성자ID값 수정(세션값으로)
+        postWriterId: user_status["nickname"],
+        postSubtitle: $('#post_subtitle_id').val(),
+        postPrice: $('#posting_price_id').val(),
+        postImage: "",
+        postTagTop: splitCategory[0],
+        postTagMiddle: splitCategory[1],
+
+        postMapInfo: $('#posting_map_box_id').val(),
+
+        postText: quill.container.firstChild.innerHTML,
+        postDate: th_postData.postDate,
+        postModifyDate:           today.getFullYear() +
+                '년' +
+                (today.getMonth() + 1) +
+                '월' +
+                today.getDate() +
+                '일',
       };
       console.log(typeof(postData));
       if(isRentChecked){
@@ -680,7 +726,7 @@ layout:decorate="~{layouts/default}">
 
       $.ajax({
         type: 'POST',
-        url: '/postToOracle',
+        url: editMode!=='edit'?'/postToOracle':'/edit',
         data: JSON.stringify(postData),
         contentType: 'application/json; text/html; charset=utf-8;',
         success: function (response) {
@@ -726,10 +772,16 @@ layout:decorate="~{layouts/default}">
       };
 
       quill = new Quill('#editor', option);
+
+      quill.container.firstChild.innerHTML= editMode==="new"?"":th_postData.postText;
+
+
       // quill.on('text-change', function () {
       //   document.getElementById('quill_html').value =
       //     quill.container.firstChild.innerHTML;
       // });
+
+      // TODO 포스트 수정 하는 중
       quill.on('text-change', () => {
         document.getElementsByClassName('ql-editor').value =
           quill.container.firstChild.innerHTML;

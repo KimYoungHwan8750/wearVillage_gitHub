@@ -27,14 +27,14 @@ public class ExceptionControllerAdvice {
         return mav;
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleAll500error(Exception ex){
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("exception", ex);
-        mav.setViewName("500errorPage");
-        return mav;
-    }
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(Exception.class)
+//    public ModelAndView handleAll500error(Exception ex){
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("exception", ex);
+//        mav.setViewName("500errorPage");
+//        return mav;
+//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
