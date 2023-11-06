@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/findId.css">
 </head>
 <body>
-    <div>
-        <span>가입하실때 등록하신 이메일을 입력해주세요.</span>
-    </div>
-    <form action="" method="POST">
-        <label for="email">이메일</label><input type="text" id="email" name="email">
+    <form action="" method="POST" id="findIdForm">
+            <div class="noteNotice"><span>아이디 찾기</span></div>
+            <label for="email">회원님의 아이디를 찾기 위하여</label>
+            <label for="email">회원가입시 등록하신 이메일을 입력해주세요</label>
+        <p><input type="text" id="email" name="email" autocomplete="off" placeholder="example@example.com"></p>
         <input type="submit" value="아이디 찾기">
     </form>
 </body>

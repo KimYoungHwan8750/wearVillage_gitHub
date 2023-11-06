@@ -105,11 +105,19 @@
 </div>
     <script>
         function popupFindId(){
-            window.open("/login/findId","아이디 찾기","width=500, height=500");
+            var _width = '480';
+            var _height = '275';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+                window.open("/login/findId","아이디 찾기",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
         };
 
         function popupFindPw(){
-            window.open("/login/findPw","비밀번호 찾기","width=500, height=500");
+            var _width = '480';
+            var _height = '275';
+            var _left = Math.ceil(( window.screen.width - _width )/2);
+            var _top = Math.ceil(( window.screen.height - _height )/2);
+                window.open("/login/findPw","비밀번호 찾기",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
         };
     </script>
 <script>

@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>아이디찾기</title>
+    <link rel="stylesheet" href="/css/findedId.css">
+        <script>
+        function closeFunction(){
+            window.close();
+        }
+    </script>
 </head>
 <body>
-    <p>아이디는 <span th:text="${findedId}" style="font-weight:bold; font-size:22px;"></span> 입니다</p>
+
+    </div>
+    <form action="" method="POST" id="findIdForm">
+            <div class="noteNotice"><span>아이디 조회 결과</span></div>
+            <label for=""><img src="./img/기본프사.jpg" alt=""></label>
+            <label for="">고객님께서 가입하신 아이디는 <span th:text="${findedId}"></span>입니다.</label>
+        <input type="button" value="닫기" onclick="closeFunction();" style="cursor:pointer">
+    </form>
 </body>
 </html>
