@@ -314,11 +314,13 @@ public class PJYController {
         try {
             String tempPw = Integer.toString(emailService.sendPwMail(dto,session));
             findSVC.setTempPw(newPwForm.getEmail(), newPwForm.getId(), tempPw);
-            mav.addObject("success","임시 비밀번호 발급 성공");
+            mav.addObject("resultSubtitle","임시 비밀번호 발급 성공");
+            mav.addObject("resultMsg","임시 비밀번호 발급 성공에 성공했습니다. 메일을 확인해주세요.");
             mav.addObject("status",1);
             return mav;
         } catch (MessagingException e) {
-            mav.addObject("failed","임시 비밀번호 발급 실패");
+            mav.addObject("resultSubtitle","임시 비밀번호 발급 실패");
+            mav.addObject("resultMsg","임시 비밀번호 발급 실패했습니다. 한번더 확인해주세요.");
             mav.addObject("status",1);
             return mav;
         }
