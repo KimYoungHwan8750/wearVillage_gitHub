@@ -2,140 +2,126 @@
 <html xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
-    <meta charset="UTF-8">
-    <title>상세보기</title>
+<meta charset="UTF-8">
+<title>상세보기</title>
 <body>
-    <div layout:fragment="content">
-        <link rel="stylesheet" href="./css/PostDetail3.css">
-        <script th:inline="javascript">
-            window.onload = function(){
+<div layout:fragment="content">
+    <link rel="stylesheet" href="./css/PostDetail3.css">
+    <script th:inline="javascript">
+        window.onload = function(){
 
-                // div(postTextEle)에 이미지배열 추가
-                let imgUrls = [];
-                let postTextEle = document.createElement('div');
-                postTextEle.innerHTML = /*[[${post.postText}]]*/ 'default';
+            // div(postTextEle)에 이미지배열 추가
+            let imgUrls = [];
+            let postTextEle = document.createElement('div');
+            postTextEle.innerHTML = /*[[${post.postText}]]*/ 'default';
 
-                // div의 이미지태그를 imgUrls에 하나씩 넣는다.
-                let imgEle = postTextEle.getElementsByTagName('img');
-                for (let i = 0; i < imgEle.length; i++){
-                    let imgUrl = imgEle[i].getAttribute('src');
-                    imgUrls.push(imgUrl);
-                }
-
-                //이미지배열에 이미지 넣기
-                let $imgContainer = document.getElementById('imgContainer');
-                for (let j = 0; j < imgUrls.length; j++){
-                    let imgTag = document.createElement('img');
-                    imgTag.setAttribute('src',imgUrls[j]);
-                }
-
-                let $ThumbMain = document.getElementById('ThumbMain');
-                if(imgEle.length > 0){
-                    $ThumbMain.src = imgEle[0].src;
-                }
-
-                $ThumbMain.addEventListener('animationend', function() {
-                    this.style.animation = '';
-                });
-
-                let imgIndex = 0;
-                setInterval(function(){
-                    imgIndex = (imgIndex + 1) % imgUrls.length;
-                    $ThumbMain.src = imgUrls[imgIndex];
-                    $ThumbMain.style.animation="fadein 1.5s"
-                }, 3000);
+            // div의 이미지태그를 imgUrls에 하나씩 넣는다.
+            let imgEle = postTextEle.getElementsByTagName('img');
+            for (let i = 0; i < imgEle.length; i++){
+                let imgUrl = imgEle[i].getAttribute('src');
+                imgUrls.push(imgUrl);
             }
 
-            window.addEventListener('DOMContentLoaded', function() {
-                // maps3 관련 코드
-                const $maps3 = document.getElementById('maps3_container');
-                $maps3.innerHTML = '<object width="768px;" height="450px;" type="text/html" data="maps3.html"></object>';
-                let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
-                localStorage.setItem('MapInfo', postMaps3Info);
-            });
-        </script>
-        <div class="PostDetailWrapper">
-            <div>
-                <div class="MainImgContainer">
-                    <img src="" alt="" style="max-width:100%; border-radius: 15px; border:2px solid rgba(0,0,0,0.2);" id="ThumbMain">
-                    <div id="imgContainer">
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="MainInfoContainer">
-                    <div class="PriceSpanContainer">
-                        <p class="PostWriterIdP" th:text="${post.postWriterId}">작성자 아이디</p>
-                        <p class="PostSubtitleP" th:text="${post.postSubtitle}">제목가나다라마바사아자차카</p>
-                        <p><span id="PostPriceSpan" th:text="${post.postPrice}">13,000</span><span>원</span></p>
+            //이미지배열에 이미지 넣기
+            let $imgContainer = document.getElementById('imgContainer');
+            for (let j = 0; j < imgUrls.length; j++){
+                let imgTag = document.createElement('img');
+                imgTag.setAttribute('src',imgUrls[j]);
+            }
 
-                    </div>
-                    <div class="MainInfoIconContainer">
-                        <div class="PostDetailHeart">
-                            <label for="PostDetailCheckbox">
-                                <input type="checkbox" id="PostDetailCheckbox" hidden>
-                                <svg t="1689815540548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2271"><path d="M742.4 101.12A249.6 249.6 0 0 0 512 256a249.6 249.6 0 0 0-230.72-154.88C143.68 101.12 32 238.4 32 376.32c0 301.44 416 546.56 480 546.56s480-245.12 480-546.56c0-137.92-111.68-275.2-249.6-275.2z" fill="#231F20" p-id="2272" id="heart"></path></svg>
-                            <span></span>
-                            </label>
-                        </div>
-                        <div>
-                            <img src="./img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
-                        </div>
-                    </div>
-                </div>
-                <div class="SubInfoContainer">
-                    <div>
-                        <span>제품정보</span>
-                    </div>
-                    <div>
-                        <!-- <span th:text="${post.postTagTop}"><button th:text="${post.postTagTop}" disabled></button></span>
-                        <span th:text="${post.postTagMiddle}"><button th:text="${postTagMiddle}" disabled></button></span> -->
-                        <span><button th:text="${post.postTagTop}" disabled></button></span>
-                        <span><button th:text="${post.postTagMiddle}" disabled></button></span>                        
-                    </div>
-                    <div th:if="${post.postRentDefaultPrice}">
-                        <span>대여료</span>
-                        <!-- <span th:text="${post.postRentDefaultPrice}"><button th:text="${post.postRentDefaultPrice}" disabled></button></span> -->
-                        <span><button th:text="${post.postRentDefaultPrice}" disabled></button></span>
-                        <span>원</span>
-                    </div>
-                    <div th:if="${post.postRentDayPrice}">
-                        <span>일일요금</span>
-                        <!-- <span th:text="${post.postRentDayPrice}"><button th:text="${post.postRentDayPrice}"></button></span> -->
-                        <span><button th:text="${post.postRentDayPrice}" disabled></button></span>
-                        <span>원</span>
-                    </div>
-                </div>
-            </div>
-            <div class="PostTextWrapperDiv">
-                <div class="PostTextContainer" th:utext="${post.postText}">
-                    <img src="./img/sampleSub2.jpg" alt="" style="max-width:100%;">
-                    <span></span>
-                </div>
-            </div>
-            <div style="margin-top:40px;">
-<<<<<<< HEAD
-=======
-                <script>
-                    window.onload = function () {
-                        const $maps3 = document.getElementById('maps3_container');
-                        $maps3.innerHTML =
-                                '<object width="768px;" height="450px;" type="text/html" data="maps3.html"></object>';
-                      };
-                </script>
-                <script th:inline="javascript">
-                    let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
-                    localStorage.setItem('MapInfo', postMaps3Info);
-                 </script>
->>>>>>> be5cb2d1d89a0ce8217c3572148dff940987f661
-                <div class="PostMapInfoSpan">
-                    <p>거래 가능 지역</p>
-                </div>
-                <div class="PostMapInfo" id="maps3_container">
+            let $ThumbMain = document.getElementById('ThumbMain');
+            if(imgEle.length > 0){
+                $ThumbMain.src = imgEle[0].src;
+            }
+
+            $ThumbMain.addEventListener('animationend', function() {
+                this.style.animation = '';
+            });
+
+            let imgIndex = 0;
+            setInterval(function(){
+                imgIndex = (imgIndex + 1) % imgUrls.length;
+                $ThumbMain.src = imgUrls[imgIndex];
+                $ThumbMain.style.animation="fadein 1.5s"
+            }, 3000);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            // maps3 관련 코드
+            const $maps3 = document.getElementById('maps3_container');
+            $maps3.innerHTML = '<object width="768px;" height="450px;" type="text/html" data="maps3.html"></object>';
+            let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
+            localStorage.setItem('MapInfo', postMaps3Info);
+        });
+    </script>
+    <div class="PostDetailWrapper">
+        <div>
+            <div class="MainImgContainer">
+                <img src="" alt="" style="max-width:100%; border-radius: 15px; border:2px solid rgba(0,0,0,0.2);" id="ThumbMain">
+                <div id="imgContainer">
                 </div>
             </div>
         </div>
+        <div>
+            <div class="MainInfoContainer">
+                <div class="PriceSpanContainer">
+                    <p class="PostWriterIdP" th:text="${post.postWriterId}">작성자 아이디</p>
+                    <p class="PostSubtitleP" th:text="${post.postSubtitle}">제목가나다라마바사아자차카</p>
+                    <p><span id="PostPriceSpan" th:text="${post.postPrice}">13,000</span><span>원</span></p>
+
+                </div>
+                <div class="MainInfoIconContainer">
+                    <div class="PostDetailHeart">
+                        <label for="PostDetailCheckbox">
+                            <input type="checkbox" id="PostDetailCheckbox" hidden>
+                            <svg t="1689815540548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2271"><path d="M742.4 101.12A249.6 249.6 0 0 0 512 256a249.6 249.6 0 0 0-230.72-154.88C143.68 101.12 32 238.4 32 376.32c0 301.44 416 546.56 480 546.56s480-245.12 480-546.56c0-137.92-111.68-275.2-249.6-275.2z" fill="#231F20" p-id="2272" id="heart"></path></svg>
+                            <span></span>
+                        </label>
+                    </div>
+                    <div>
+                        <img src="./img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
+                    </div>
+                </div>
+            </div>
+            <div class="SubInfoContainer">
+                <div>
+                    <span>제품정보</span>
+                </div>
+                <div>
+                    <!-- <span th:text="${post.postTagTop}"><button th:text="${post.postTagTop}" disabled></button></span>
+                    <span th:text="${post.postTagMiddle}"><button th:text="${postTagMiddle}" disabled></button></span> -->
+                    <span><button th:text="${post.postTagTop}" disabled></button></span>
+                    <span><button th:text="${post.postTagMiddle}" disabled></button></span>
+                </div>
+                <div th:if="${post.postRentDefaultPrice}">
+                    <span>대여료</span>
+                    <!-- <span th:text="${post.postRentDefaultPrice}"><button th:text="${post.postRentDefaultPrice}" disabled></button></span> -->
+                    <span><button th:text="${post.postRentDefaultPrice}" disabled></button></span>
+                    <span>원</span>
+                </div>
+                <div th:if="${post.postRentDayPrice}">
+                    <span>일일요금</span>
+                    <!-- <span th:text="${post.postRentDayPrice}"><button th:text="${post.postRentDayPrice}"></button></span> -->
+                    <span><button th:text="${post.postRentDayPrice}" disabled></button></span>
+                    <span>원</span>
+                </div>
+            </div>
+        </div>
+        <div class="PostTextWrapperDiv">
+            <div class="PostTextContainer" th:utext="${post.postText}">
+                <img src="./img/sampleSub2.jpg" alt="" style="max-width:100%;">
+                <span></span>
+            </div>
+        </div>
+        <div style="margin-top:40px;">
+            <div class="PostMapInfoSpan">
+                <p>거래 가능 지역</p>
+            </div>
+            <div class="PostMapInfo" id="maps3_container">
+            </div>
+        </div>
     </div>
+</div>
 
 
 

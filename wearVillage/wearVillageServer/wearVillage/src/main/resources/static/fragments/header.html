@@ -3,6 +3,8 @@
 
 
 <div th:fragment="header" class="header_fragment">
+
+    <div class="testZone"></div>
         <link layout:fragment="css" rel="stylesheet" th:href="#{contentPath}+'css/header.css'">
 <section class="sign_section">
     <a class = "header_login_link" th:href="#{contentPath}+login"><img class = "header_login_img"
@@ -16,6 +18,8 @@
         <span class="header_login_text"></span>
     </a>
 </section>
+
+
 <section class="headerContainer">
     <div class="header_menus"  >
         <div class="header_mobileSearch">

@@ -5,13 +5,31 @@
     <title>Title</title>
 </head>
 <body>
-    테스트용입니다.
-    <form action="">
-
-    </form>
+<input class="input_box" type="file" accept="image/jpg">
+<img class="output_box">
 
     <script>
+        let $output_box = document.querySelector(".output_box");
 
+        let $input_box = document.querySelector(".input_box");
+        $input_box.addEventListener("change", function () {
+            console.log(this.files[0]); // 파일 정보가 표시됨.
+            // $output_box.src = this.files[0];
+            // 파일이 여러개라면 반복문으로 처리해줘야한다.
+            let file = new FileReader();
+            file.readAsArrayBuffer(this.files[0]);
+            file.onload = function () {
+                let view = new Uint8Array(this.result);
+                console.log(view);
+                console.log(this.result)
+                // let blob = new Blob(this.result[["Int8Array"]],{type:"image/jpg"})
+                // $output_box.src=window.URL.createObjectURL(blob);
+                // console.log(blob)
+                // console.log(window.btoa(this.result));
+                // $output_box.src=window.btoa(this.result);
+                // $output_box.src = window.URL.createObjectURL(this.result);
+            };
+        });
     </script>
     
 </body>
