@@ -17,46 +17,88 @@ fetch(`/getModal`,options)
 .then(res=>res.text())
 .then(res=>{dom.innerHTML=res;
     let $plusXBtn = document.querySelector('.plusXBtn');
+    let $plusXBtn_root = document.querySelector('.plusXBtn_root');
     let $nav_modal = document.querySelector('.nav_modal');
     let $vertical_line = document.querySelector('.vertical_line');
     let $horizontal_line = document.querySelector('.horizontal_line');
+
     let isHold;
-    let isIng;
+    let closeFlag;
+    let on = false;
 
     let myEventListener = (doc,ele,evt)=>{
         ele.forEach(element => {
             doc.addEventListener(element,evt)
         });
     }
+    myEventListener($plusXBtn,["click"],openModal)
 
-    myEventListener($plusXBtn,["click"],holdModal)
-    myEventListener($plusXBtn,["mouseenter"],openModal)
+    myEventListener($plusXBtn,["mouseenter"],tempOpenModal)
     myEventListener($plusXBtn,["mouseleave"],leaveCloseModal)
-    myEventListener($plusXBtn,["click"],clickCloseModal)
     document.onclick=function(e){
-        if(e.target.parentElement===$nav_modal){
-        } else if(e.target===$nav_modal){
+        if(e.target===$plusXBtn){
+
+
+
+        } else if(e.target.parentElement===$plusXBtn){
+
+
+
+
+        }else if(e.target.parentElement===$plusXBtn_root){
+        } else if(e.target===$plusXBtn_root){
         } else {
-            clickCloseModal();
+        clickCloseModal();
+        on=false;
+        isHold=false;
+
         }
     }
     function holdModal(){
-        openModal();
-        isHold=true;
+
     }
     function openModal(){
-        $nav_modal.setAttribute("style",
-            `opacity:1;
+        if(!on) {
+            $nav_modal.setAttribute("style",
+                `opacity:1;
         transition:opacity 0.5s;
         top:-${$nav_modal.offsetHeight}px`);
 
-        $horizontal_line.style=
+            $horizontal_line.style =
+        `transform:rotate(45deg);
+        transition:all 0.5s;`;
+            $vertical_line.style =
             `transform:rotate(45deg);
         transition:all 0.5s;`;
-        $vertical_line.style=
-            `transform:rotate(45deg);
+            $plusXBtn.style = `
+        background-color: rgb(59, 59, 59);
+        top:${top};
+        left:${left};
+        bottom:${bottom};
+        right:${right};`
+            isHold=true;
+        } else {
+            isHold=false;
+            clickCloseModal();
+        }
+        on = !on;
+
+
+    }
+    function tempOpenModal(){
+
+            $nav_modal.setAttribute("style",
+                `opacity:1;
+        transition:opacity 0.5s;
+        top:-${$nav_modal.offsetHeight}px`);
+
+            $horizontal_line.style =
+                `transform:rotate(45deg);
         transition:all 0.5s;`;
-        $plusXBtn.style = `
+            $vertical_line.style =
+                `transform:rotate(45deg);
+        transition:all 0.5s;`;
+            $plusXBtn.style = `
         background-color: rgb(59, 59, 59);
         top:${top};
         left:${left};
@@ -64,8 +106,12 @@ fetch(`/getModal`,options)
         right:${right};`
 
 
+
+
     }
     function leaveCloseModal(){
+        if(!isHold) {
+
             $nav_modal.style.opacity = "0";
             $horizontal_line.style.transform = "none";
             $vertical_line.style.transform = "none";
@@ -78,10 +124,12 @@ fetch(`/getModal`,options)
         right:${right};
        
         `;
+
+        }
     }
 
-    function clickCloseModal(){
-            isHold = false;
+    function clickCloseModal() {
+
             $nav_modal.style.opacity = "0";
             $horizontal_line.style.transform = "none";
             $vertical_line.style.transform = "none";
@@ -95,6 +143,8 @@ fetch(`/getModal`,options)
        
         `;
         }
+
+
 
 });
 

@@ -1,17 +1,19 @@
 
     <style>
-        .plusXBtn{
-            position: relative;
-            width: 70px;
-            height: 70px;
-            background-color:rgb(255, 113, 113);
-            border-radius: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .plusXBtn_root {
+            position: fixed;
             font-size: 40px;
 
 
+        }
+        .plusXBtn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:rgb(255, 113, 113);
+            border-radius: 50px;
+            width: 70px;
+            height: 70px;
         }
 
         .vertical_line{
@@ -53,14 +55,14 @@
             color:black;
             border: 1px solid rgb(59, 59, 59);
         }
-        img{
+        .nav_modal>img{
             width: 50px;
             height: 50px;
         }
 
     </style>
 
-    <div class="plusXBtn" th:style="${offSet}">
+    <div class="plusXBtn_root" th:style="${offSet}">
         <div class="nav_modal" >
 
             <img class="modal_Item modal_Item1" src="img/bikini.png">
@@ -69,8 +71,11 @@
 
 
         </div>
-        <div class="vertical_line"></div>
-        <div class="horizontal_line"></div>
+        <div class="plusXBtn">
+            <div class="vertical_line"></div>
+            <div class="horizontal_line"></div>
+        </div>
+
     </div>
 
 
