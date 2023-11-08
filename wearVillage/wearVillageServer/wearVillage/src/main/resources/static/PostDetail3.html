@@ -11,6 +11,7 @@
         import {getModal} from "../js/postDetailModal.js";
         getModal(document.querySelector('.PDModal'),{"top":"90%","left":"75%"})
     </script>
+    
     <script th:inline="javascript">
         window.onload = function(){
 
@@ -58,9 +59,82 @@
             localStorage.setItem('MapInfo', postMaps3Info);
         });
     </script>
+    <form th:object ="${post}" class = "postFormData" action="/chat" method= "post" style = "display: none;">
+        <input th:field="*{postWriterId}">
+        <input th:field="*{postId}">
+        <input th:field="*{postSubtitle}">
+        <input th:field="*{postPrice}">
+        <input th:field="*{postRentDefaultPrice}">
+        <input th:field="*{postRentDayPrice}">
+        <input th:field="*{postMapInfo}">
+        <input name = "theme" value="${theme}">
+        <input name = "postThumbnailUrl" th:value="${postThumbnailUrl}">
+        <input name = "myId" th:value="${myId}">
+        <!-- <button class="submit_btn"></button> -->
+    </form>
     <div class="PostDetailWrapper">
         <div class="PDModal">
 
+                    <div>
+
+<!--채팅 로직 스크립트-->
+            <script>
+            const $postDetail_chat_button = document.querySelector(".modal_Item4");
+            const $postFormData = document.querySelector(".postFormData");
+
+            async function goChat(){
+            console.log(user_status);
+                let thumbnailUrl = document.querySelector('input[name="postThumbnailUrl"]');
+                let myId = document.querySelector('input[name="myId"]');
+                let theme = document.querySelector('input[name="theme"]');
+                let $post_writer_id=document.querySelector('input[name="postWriterId"]')
+                theme.value = user_status['theme']||'';
+<!--                thumbnailUrl.value=imageElements[0].src||'';-->
+                myId.value=user_status['nickname'];
+                if(myId.value==$post_writer_id.value){
+                  var _width = '800';
+                  var _height = '1000';
+                  var _left = Math.ceil(( window.screen.width - _width )/2);
+                  var _top = Math.ceil(( window.screen.height - _height )/2);
+                    window.open("/chatroomlist","채팅창",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
+                } else {
+                console.log("채팅2 콘솔")
+                let goChat_firstStep = await fetch("/userInfo",{method:"post"});
+                goChat_firstStep.json().then(res=>
+                        $postFormData.submit()
+                )}
+        }
+    </script>
+<!--삭제 로직-->
+            <script>
+                function letDelete(){
+                    let $num = window.location.search;
+                    $num = $num.replace(/[^0-9]/g,'');
+                    console.log($num);
+                    if(confirm("정말 삭제하시겠습니까?")){
+                        globalThis.location.href=`/delete/viewPost2?id=${$num}`;
+                        alert("삭제되었습니다.");
+                    } else {
+                        alert("취소하겠습니다.");
+                        return;
+                    }
+                }
+
+                function letUpdate(){
+                    let $num = window.location.search;
+                    $num = $num.replace(/[^0-9]/g,'');
+                    console.log($num);
+                    if(confirm("수정하시겠습니까?")){
+                        globalThis.location.href=`/edit/${$num}`;
+                    } else {
+                        alert("취소하겠습니다.");
+                        return;
+                    }
+                }
+
+
+            </script>
+        </div>
         </div>
         <div>
             <div class="MainImgContainer">
@@ -120,17 +194,18 @@
                 <span></span>
             </div>
         </div>
-        <div style="margin-top:40px;">
-            <div class="PostMapInfoSpan">
-                <p>거래 가능 지역</p>
-            </div>
-            <div class="PostMapInfo" id="maps3_container">
-            </div>
-        </div>
+<!--        <div style="margin-top:40px;">-->
+<!--            <div class="PostMapInfoSpan">-->
+<!--                <p>거래 가능 지역</p>-->
+<!--            </div>-->
+<!--            <div class="PostMapInfo" id="maps3_container">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        채팅 히든 인풋 -->
+
     </div>
 </div>
-
-
+<!--채팅-->
 
 </body>
 </html>

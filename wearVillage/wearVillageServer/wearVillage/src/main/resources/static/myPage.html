@@ -216,7 +216,11 @@
           <script>
             let $myPageChatRoomInfoSpan = document.querySelector('.myPageChatroomInfoSpan');
             $myPageChatRoomInfoSpan.addEventListener('click',()=>{
-              globalThis.location.href="/chatroomlist"
+              var _width = '800';
+                  var _height = '1000';
+                  var _left = Math.ceil(( window.screen.width - _width )/2);
+                  var _top = Math.ceil(( window.screen.height - _height )/2);
+                    window.open("/chatroomlist","채팅창",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
             })
           </script>
         </div>
@@ -418,30 +422,30 @@
         </script>
         
       </div>
-<!--      <script>-->
-<!--        let modalOpenButton = document.querySelector('.myPageMyInfoPassword');-->
-<!--        let modalCloseButton = document.getElementById('myPageModalCloseButton');-->
-<!--        let modal = document.getElementById('myPageModalContainer');-->
+      <script>
+        let modalOpenButton = document.querySelector('.myPageMyInfoPassword');
+        let modalCloseButton = document.getElementById('myPageModalCloseButton');
+        let modal = document.getElementById('myPageModalContainer');
 
-<!--        modalOpenButton.addEventListener('click',()=>{-->
-<!--          modal.classList.remove('hidden');-->
-<!--        })-->
-<!--        modalCloseButton.addEventListener('click',()=>{-->
-<!--          modal.classList.add('hidden');-->
-<!--        })-->
+        modalOpenButton.addEventListener('click',()=>{
+          modal.classList.remove('hidden');
+        })
+        modalCloseButton.addEventListener('click',()=>{
+          modal.classList.add('hidden');
+        })
 
-<!--      </script>-->
-<!--      <script>-->
+      </script>
+      <script>
 
 
-<!--        function popupDeleteId(){-->
-<!--          var _width = '476';-->
-<!--          var _height = '340';-->
-<!--          var _left = Math.ceil(( window.screen.width - _width )/2);-->
-<!--          var _top = Math.ceil(( window.screen.height - _height )/2);-->
-<!--            window.open("/deleteId","회원 삭제",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);-->
-<!--        }-->
-<!--      </script>-->
+        function popupDeleteId(){
+          var _width = '476';
+          var _height = '340';
+          var _left = Math.ceil(( window.screen.width - _width )/2);
+          var _top = Math.ceil(( window.screen.height - _height )/2);
+            window.open("/deleteId","회원 삭제",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
+        }
+      </script>
     </div>
     <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
   </body>
