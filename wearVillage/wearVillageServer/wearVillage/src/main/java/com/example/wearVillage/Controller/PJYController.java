@@ -13,8 +13,10 @@ import com.example.wearVillage.DAO.findIDPW.NewPwForm;
 import com.example.wearVillage.DeleteEvent.DeleteSVC;
 import com.example.wearVillage.DTO.GmailDto;
 import com.example.wearVillage.Service.EmailService;
+import com.example.wearVillage.UpdateEvent.UpdateEntityRepository;
 import com.example.wearVillage.UpdateEvent.UpdateEntityService;
 import com.example.wearVillage.UpdateEvent.UpdateRequest;
+import com.example.wearVillage.UpdateEvent.posting_table;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,7 @@ public class PJYController {
     private final EmailService emailService;
     private final DeleteSVC deleteSVC;
     private final FindSVC findSVC;
+    private final UpdateEntityRepository updateEntityRepository;
 
     @GetMapping("/posts")
     public ModelAndView listPosts(@RequestParam(defaultValue = "0") int page,
@@ -189,32 +192,53 @@ public class PJYController {
 //        }
 //    }
     @GetMapping("/edit/{id}")
-    public String editPost(@PathVariable("id") Long id, Model model) {
+    public String editPost(@PathVariable("id") Long id, Model model,HttpSession session) {
         // 게시글 조회
-        String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
-        PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
-        model.addAttribute("postData", postData);
-        return "update_posting";  // 수정 폼 페이지 반환
+        if(session.getAttribute("email")!=null) {
+            String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
+            PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
+            model.addAttribute("postData", postData);
+            model.addAttribute("editMode","edit");
+            return "posting.html";  // 수정 폼 페이지 반환
+        } else {
+            return "redirect:/login";
+        }
     }
 
+
+//
+//    // 게시글 업데이트 요청 처리
+//    @PostMapping("/edit")
+//    public String updatePost(@PathVariable int id, @ModelAttribute UpdateRequest updateRequest) {
+//        try {
+//            updateEntityService.updatePost(id,
+//                    updateRequest.getPostSubtitle(),
+//                    updateRequest.getPostPrice(),
+//                    updateRequest.getPostRentDefaultPrice(),
+//                    updateRequest.getPostRentDayPrice(),
+//                    updateRequest.getPostTagTop(),
+//                    updateRequest.getPostTagMiddle(),
+//                    updateRequest.getPostMapInfo(),
+//                    updateRequest.getPostText(),
+//                    updateRequest.getPostModifyDate());
+//            return "redirect:/posts";
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//            return "error";
+//        }
+//    }
+
+
     // 게시글 업데이트 요청 처리
-    @PostMapping("/edit/{id}")
-    public String updatePost(@PathVariable int id, @ModelAttribute UpdateRequest updateRequest) {
+    @PostMapping("/edit")
+    @ResponseBody
+    public String updatePost(@RequestBody posting_table postData) {
         try {
-            updateEntityService.updatePost(id,
-                    updateRequest.getPostSubtitle(),
-                    updateRequest.getPostPrice(),
-                    updateRequest.getPostRentDefaultPrice(),
-                    updateRequest.getPostRentDayPrice(),
-                    updateRequest.getPostTagTop(),
-                    updateRequest.getPostTagMiddle(),
-                    updateRequest.getPostMapInfo(),
-                    updateRequest.getPostText(),
-                    updateRequest.getPostModifyDate());
-            return "redirect:/posts";
+            updateEntityRepository.save(postData);
+            return "수정 성공!";
         } catch (Exception e) {
-            log.error(e.getMessage());
-            return "error";
+            log.error("에러내용={}",e.getMessage());
+            return "수정 실패.";
         }
     }
 
@@ -314,11 +338,13 @@ public class PJYController {
         try {
             String tempPw = Integer.toString(emailService.sendPwMail(dto,session));
             findSVC.setTempPw(newPwForm.getEmail(), newPwForm.getId(), tempPw);
-            mav.addObject("success","임시 비밀번호 발급 성공");
+            mav.addObject("resultSubtitle","임시 비밀번호 발급 성공");
+            mav.addObject("resultMsg","임시 비밀번호 발급 성공에 성공했습니다. 메일을 확인해주세요.");
             mav.addObject("status",1);
             return mav;
         } catch (MessagingException e) {
-            mav.addObject("failed","임시 비밀번호 발급 실패");
+            mav.addObject("resultSubtitle","임시 비밀번호 발급 실패");
+            mav.addObject("resultMsg","임시 비밀번호 발급 실패했습니다. 한번더 확인해주세요.");
             mav.addObject("status",1);
             return mav;
         }

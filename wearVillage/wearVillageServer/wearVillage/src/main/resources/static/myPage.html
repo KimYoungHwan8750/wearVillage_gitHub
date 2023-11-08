@@ -1,449 +1,443 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="https://www.thymeleaf.org"
-  xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layouts/default}">
-  <body>
-    <div layout:fragment="content" class="th_main_content">
-      <link layout:fragment="css" rel="stylesheet" href="/css/myPage.css" />
-      <link rel="stylesheet" href="css/myPage.css">
-      <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/layouts/default}">
+<body>
+<div layout:fragment="content" class="th_main_content">
+  <link layout:fragment="css" rel="stylesheet" href="/css/myPage.css" />
+  <link rel="stylesheet" href="css/myPage.css">
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-      <script th:inline="javascript">
-        function requestPay(){
-          let tossPayIdSession = /*[[${userId}]]*/;
-          let tossPayEmail = /*[[${email}]]*/;
-          let tossMileagePrice = document.getElementById('miliage').value;
-          let tossDateTime = new Date();
+  <script th:inline="javascript">
+    function requestPay(){
+      let tossPayIdSession = /*[[${userId}]]*/;
+      let tossPayEmail = /*[[${email}]]*/;
+      let tossMileagePrice = document.getElementById('miliage').value;
+      let tossDateTime = new Date();
 
-                let IMP = window.IMP;
-        IMP.init('imp48151348')
-            IMP.request_pay({
-                pg: "tosspay",
-                pay_method: "card",
-                merchant_uid: "merchant_"+tossDateTime.getTime(),
-                name: "miliage",
-                amount: tossMileagePrice,
-                buyer_email:tossPayEmail,
-                buyer_name:tossPayIdSession,
-                buyer_tel:"010-1234-1234",
-                buyer_addr:"안드로메다행성",
-                buyer_postcode:"1"
-            }, function(res){
-                console.log(res);
-                    let url = "/verifyIamport/"+res.imp_uid;
-                    let option = {
+            let IMP = window.IMP;
+    IMP.init('imp48151348')
+        IMP.request_pay({
+            pg: "tosspay",
+            pay_method: "card",
+            merchant_uid: "merchant_"+tossDateTime.getTime(),
+            name: "miliage",
+            amount: tossMileagePrice,
+            buyer_email:tossPayEmail,
+            buyer_name:tossPayIdSession,
+            buyer_tel:"010-1234-1234",
+            buyer_addr:"안드로메다행성",
+            buyer_postcode:"1"
+        }, function(res){
+            console.log(res);
+                let url = "/verifyIamport/"+res.imp_uid;
+                let option = {
+                    method:'POST',
+                    body:JSON.stringify({
+                        ID:res.buyer_email,
+                        amount:res.paid_amount
+                    }),
+                };
+                fetch(url,option).then(data=>data.json())
+                .then(data=>{
+                    console.log("res="+res);
+                    console.log("data="+data);
+                    if(res.paid_amount == data.response.amount){
+                      console.log(JSON.stringify(data));
+
+                      let tossName = data.response['buyerName'];
+                      let tossEmail = data.response['buyerEmail'];
+                      let tossAmount = data.response['amount'];
+                      let tossTradeTime = data.response['paidAt'];
+                      let tossMid = data.response['merchantUid'];
+
+                      let formData = new FormData();
+                      formData.append("tossName",tossName);
+                      formData.append("tossEmail",tossEmail);
+                      formData.append("tossAmount",tossAmount);
+                      formData.append("tossTradeTime",tossTradeTime);
+                      formData.append("tossMid",tossMid);
+
+                      let url = 'http://localhost:8090/tossPaymentSave'
+                      let option = {
                         method:'POST',
-                        body:JSON.stringify({
-                            ID:res.buyer_email,
-                            amount:res.paid_amount
-                        }),
-                    };
-                    fetch(url,option).then(data=>data.json())
-                    .then(data=>{
-                        console.log("res="+res);
-                        console.log("data="+data);
-                        if(res.paid_amount == data.response.amount){
-                          console.log(JSON.stringify(data));
+                        body:formData,
+                      };
+                      console.log(option.body);
 
-                          let tossName = data.response['buyerName'];
-                          let tossEmail = data.response['buyerEmail'];
-                          let tossAmount = data.response['amount'];
-                          let tossTradeTime = data.response['paidAt'];
-                          let tossMid = data.response['merchantUid'];
+                      fetch(url,option).then(console.log("DB에 요청성공"));
+                      alert("결제, 검증, 저장 성공");
+                    } else {
+                        alert("결제 실패");
+                    }
+                })
+        })
+    }
+  </script>
+  <div class="myPageSuperContainer">
+    <div class="profileImageContainer">
+      <div class="myPageProfileImageSuperContainer">
+        <div class="myPageProfileImageContainer">
+          <img
+                  id="myPageProfileImageId"
+                  src="./img/기본프사.jpg"
+                  th:src="${'/profileimg?fileName='+session.profileimg}"
+                  alt=""
+          />
+        </div>
+        <p id="successMsg"></p>
+        <div class="myPageProfileImageDiv">
+          <input name="uploadFile" id="uploadFile" type="file" accept="image/*" class="myPageProfileSelectBtn1">
+          <label for="uploadFile">등록하기</label>
+          <button class="myPageProfileSelectBtn2">기본 사진</button>
+          <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                let uploadFileInput = document.getElementById('uploadFile');
 
-                          let formData = new FormData();
-                          formData.append("tossName",tossName);
-                          formData.append("tossEmail",tossEmail);
-                          formData.append("tossAmount",tossAmount);
-                          formData.append("tossTradeTime",tossTradeTime);
-                          formData.append("tossMid",tossMid);
-
-                          let url = 'http://localhost:8090/tossPaymentSave'
-                          let option = {
-                            method:'POST',
-                            body:formData,
-                          };
-                          console.log(option.body);
-
-                          fetch(url,option).then(console.log("DB에 요청성공"));
-                          alert("결제, 검증, 저장 성공");
-                        } else {
-                            alert("결제 실패");
-                        }
+                  let $defaultImageBtn = document.querySelector('.myPageProfileSelectBtn2');
+                    $defaultImageBtn.addEventListener('click', () => {
+                      myPageProfileImageId.src="./img/기본프사.jpg"
+                      let abc = '2023%2F10%2F17%2FdefaultImg.jpg'
+                      let abcd = encodeURIComponent(abc);
+                        fetch('/update/profileImg?url='+abcd)
+                        .then(response=>{
+                          if(response.ok){
+                            console.log('기본이미지요청성공');
+                          } else {
+                            console.error('기본이미지요청실패');
+                          }
+                        })
+                        .catch(error => {
+                          console.error('요청 에러',error)
+                        })
                     })
-            })
-        }
-    </script>
-      <div class="myPageSuperContainer">
-        <div class="profileImageContainer">
-          <div class="myPageProfileImageSuperContainer">
-            <div class="myPageProfileImageContainer">
-              <img
-                id="myPageProfileImageId"
-                src="./img/기본프사.jpg"
-                th:src="${'/profileimg?fileName='+session.profileimg}"
-                alt=""
-              />
-            </div>
-            <p id="successMsg"></p>
-            <div class="myPageProfileImageDiv">
-              <input name="uploadFile" id="uploadFile" type="file" accept="image/*" class="myPageProfileSelectBtn1">
-              <label for="uploadFile">등록하기</label>
-              <button class="myPageProfileSelectBtn2">기본 사진</button>
-                  <script>
-                    window.addEventListener('DOMContentLoaded', (event) => {
-                        let uploadFileInput = document.getElementById('uploadFile');
 
-                          let $defaultImageBtn = document.querySelector('.myPageProfileSelectBtn2');
-                            $defaultImageBtn.addEventListener('click', () => {
-                              myPageProfileImageId.src="./img/기본프사.jpg"
-                              let abc = '2023%2F10%2F17%2FdefaultImg.jpg'
-                              let abcd = encodeURIComponent(abc);
-                                fetch('/update/profileImg?url='+abcd)
-                                .then(response=>{
-                                  if(response.ok){
-                                    console.log('기본이미지요청성공');
-                                  } else {
-                                    console.error('기본이미지요청실패');
-                                  }
-                                })
-                                .catch(error => {
-                                  console.error('요청 에러',error)
-                                })
-                            })
-
-                        uploadFileInput.addEventListener('change', () => {
-                          document.getElementById('successMsg').innerHTML="";
-                          setTimeout(()=>{
-                          console.dir(uploadFileInput);
-                            console.log("change이벤트");
-                              let previewImage = document.getElementById('myPageProfileImageId').src;
-                              let previewImageArr = previewImage.split("=");
-                              console.log(previewImageArr[1]);
-                                fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
-                                  .then(response => {
-                                    if (response.ok) {
-                                      console.log('이미지 업데이트 요청이 성공했습니다.');
-                                      document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
-                                    } else {
-                                      console.error('이미지 업데이트 요청이 실패했습니다.');
-                                      document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
-                                    }
-                                  })
-                                  .catch(error => {
-                                    console.error('요청 중 오류가 발생했습니다.', error);
-                                    document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
-                                  });
-                                },1000)
+                uploadFileInput.addEventListener('change', () => {
+                  document.getElementById('successMsg').innerHTML="";
+                  setTimeout(()=>{
+                  console.dir(uploadFileInput);
+                    console.log("change이벤트");
+                      let previewImage = document.getElementById('myPageProfileImageId').src;
+                      let previewImageArr = previewImage.split("=");
+                      console.log(previewImageArr[1]);
+                        fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
+                          .then(response => {
+                            if (response.ok) {
+                              console.log('이미지 업데이트 요청이 성공했습니다.');
+                              document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
+                            } else {
+                              console.error('이미지 업데이트 요청이 실패했습니다.');
+                              document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
+                            }
+                          })
+                          .catch(error => {
+                            console.error('요청 중 오류가 발생했습니다.', error);
+                            document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
                           });
-                          });
-                </script>
-            </div>
-          </div>
-        </div>
-        <div class="myPageMyInfoDivSubtitle"><span>내 정보</span></div>
-        <div class="myPageMyInfoDiv">
-          <div class="myPageMyInfoDivContainer">
-            <div class="myPageMyInfoNickname">
-              <div class="myPageMyInfoNickname1">
-                <span>닉네임</span>
-              </div>
-              <div class="myPageMyInfoNickname2">
-                <span th:text="${session.nickname}">닉네임()</span>
-              </div>
-            </div>
-            <div class="myPageMyInfoEmail">
-              <div class="myPageMyInfoEmail1">
-                <span>이메일</span>
-              </div>
-              <div class="myPageMyInfoEmail2">
-                <span th:text="${session.email}">이메일()</span>
-              </div>
-            </div>
-            <div class="myPageMyInfoPassword">
-              <div class="myPageMyInfoPassword1">
-                <span>비밀번호</span>
-              </div>
-              <div class="myPageMyInfoPassword2">
-                <span>변경하기</span>
-              </div>
-            </div>
-            <div class="myPageMyInfoBirth">
-              <div class="myPageMyInfoBirth1">
-                <span>생년월일</span>
-              </div>
-              <div class="myPageMyInfoBirth2">
-                <span th:text="${session.birth}">생년월일()</span>
-              </div>
-            </div>
-            <div class="myPageMyInfoGender">
-              <div class="myPageMyInfoGender1">
-                <span>성별</span>
-              </div>
-              <div class="myPageMyInfoGender2">
-                <span th:text="${session.gender}">성별()</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="myPageMyInfoDivSubtitle"><span>잔액</span></div>
-        <div class="myPageMyInfoAccount">
-          <div class="myPageMyInfoAccountSpanContainer">
-            <div class="myPageMyInfoAccountSpan1">
-              <span class="myPageMyInfoAccountSpan1">마일리지</span>
-            </div>
-            <div class="myPageMyInfoAccountSpan2">
-              <span class="myPageMyInfoAccountSpan2" th:text="${miliage}">123원</span>
-            </div>
-          </div>
-          <div class="myPageMyInfoAccountButtonContainer">
-            <div class="myPageMyInfoAccountButton1"></div>
-            <div class="myPageMyInfoAccountButton2">
-              <button class="myPageWithdraw">출금하기</button>
-              <button class="myPageDeposit">충전하기</button>
-            </div>
-          </div>
-        </div>
-        <div class="myPageMyInfoDivSubtitle"><span>채팅</span></div>
-        <div class="myPageChatroomInfo">
-          <div class="myPageChatroomInfoSpan">
-            <span class="myPageChatroomInfoSpan1">채팅목록 보기</span>
-            <div class="myPageChatroomInfoNotice">
-              <span th:text="${countedPost}"></span>
-            </div>
-          </div>
-          <script>
-            let $myPageChatRoomInfoSpan = document.querySelector('.myPageChatroomInfoSpan');
-            $myPageChatRoomInfoSpan.addEventListener('click',()=>{
-              globalThis.location.href="/chatroomlist"
-            })
+                        },1000)
+                  });
+                  });
           </script>
         </div>
-        <div class="myPageMyInfoDivSubtitle"><span>옷장</span></div>
-        <div class="myPageMyClosetContainer">
-          <div class="myPageMyClosetContainerSpan"><span>ㅎㅇ</span></div>
-          <div class="myPageMyClosetButtonContainerContainer">
-            <div class="myPageMyClosetButtenContainer">
-              <div class="myPageMyClosetButtenSquare">
-                <div class="myPageMyClosetButtenTriangle"></div>
-              </div>
-            </div>
+      </div>
+    </div>
+    <div class="myPageMyInfoDivSubtitle"><span>내 정보</span></div>
+    <div class="myPageMyInfoDiv">
+      <div class="myPageMyInfoDivContainer">
+        <div class="myPageMyInfoNickname">
+          <div class="myPageMyInfoNickname1">
+            <span>닉네임</span>
+          </div>
+          <div class="myPageMyInfoNickname2">
+            <span th:text="${session.nickname}">닉네임()</span>
           </div>
         </div>
-        <div class="myPageMyClosetContainer2">
-          <div class="myPageMyClosetContainerSpan2"><span>ㅎㅇ</span></div>
-          <div class="myPageMyClosetButtonContainerContainer2">
-            <div class="myPageMyClosetButtenContainer2">
-              <div class="myPageMyClosetButtenSquare2">
-                <div class="myPageMyClosetButtenTriangle2"></div>
-              </div>
-            </div>
+        <div class="myPageMyInfoEmail">
+          <div class="myPageMyInfoEmail1">
+            <span>이메일</span>
+          </div>
+          <div class="myPageMyInfoEmail2">
+            <span th:text="${session.email}">이메일()</span>
           </div>
         </div>
-        <div class="myPageMemberDrop">
-          <button class="myPageMemberDropButton" onclick="popupDeleteId();" style="cursor:pointer;">회원탈퇴</button>
+        <div class="myPageMyInfoPassword">
+          <div class="myPageMyInfoPassword1">
+            <span>비밀번호</span>
+          </div>
+          <div class="myPageMyInfoPassword2">
+            <span>변경하기</span>
+          </div>
+        </div>
+        <div class="myPageMyInfoBirth">
+          <div class="myPageMyInfoBirth1">
+            <span>생년월일</span>
+          </div>
+          <div class="myPageMyInfoBirth2">
+            <span th:text="${session.birth}">생년월일()</span>
+          </div>
+        </div>
+        <div class="myPageMyInfoGender">
+          <div class="myPageMyInfoGender1">
+            <span>성별</span>
+          </div>
+          <div class="myPageMyInfoGender2">
+            <span th:text="${session.gender}">성별()</span>
+          </div>
         </div>
       </div>
-      <div id="myPageModalContainer" class="hidden">
-        <div id="myPageModalContent">
-          <div style="height:45px;"><p class="myPageModalContentP">비밀번호변경</p></div>
-          <form id="PWChangeForm" th:action="@{/update/changePW}" method="post" th:object="${changeUserPWForm}">
-            <div>
-              <label for="PW">현재 비밀번호</label>
-              <input type="password" id="PW" name="PW">
-              <span id="oldPwError"></span>
-            </div>
-            <div>
-              <label for="newPW">신규 비밀번호</label>
-              <input type="password" id="newPW" name="newPW">
-              <span id="newPwError"></span>
-            </div>
-            <div>
-              <label for="newPWConfirm">비밀번호 확인</label>
-              <input type="password" id="newPWConfirm">
-            </div>
-            <p id="errorMessage" stlye="color:red;"></p>
-            <div class="myPageSubmitButtonDiv">
-            <button type='submit' id="myPageModalCloseButtonSubmit">변경하기</button>
-            <button type="button" id="myPageModalCloseButton">취소</button>
-            </div>
-
-          </form>
-          <script>
-            document.getElementById('PWChangeForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let currentPW = document.getElementById('PW').value;
-            let newPW = document.getElementById('newPW').value;
-            let newPWConfirm = document.getElementById('newPWConfirm').value;
-
-            let changeUserPWForm = {
-              pw: currentPW,
-              newPW : newPW,
-              newPWConfirm : newPWConfirm
-            };
-
-            console.log(currentPW);
-            console.log(newPW);
-            console.log(changeUserPWForm);
-            console.log(JSON.stringify(changeUserPWForm));
-
-            fetch('/update/changePW',{
-              method:'POST',
-              headers: {
-                'Content-Type' : 'application/json'
-              },
-              body: JSON.stringify(changeUserPWForm)
-            })
-            .then(res=>{
-              if(!res.ok){
-                throw res;
-              } else {
-                document.getElementById('myPageModalContainer').classList.add('hidden');
-                alert("비밀번호 변경 완료");
-                document.getElementById('PW').value = '';
-                document.getElementById('newPW').value = '';
-                document.getElementById('newPWConfirm').value = '';
-
-                return res.json();
-              }
-            })
-            .then(data=>console.log(data)
-            )
-            .catch(err=>{
-              err.text().then(errorMessage=>{
-                document.getElementById('errorMessage').innerText=errorMessage
-              })
-            })
-
-            })
-
-          </script>
-
+    </div>
+    <div class="myPageMyInfoDivSubtitle"><span>잔액</span></div>
+    <div class="myPageMyInfoAccount">
+      <div class="myPageMyInfoAccountSpanContainer">
+        <div class="myPageMyInfoAccountSpan1">
+          <span class="myPageMyInfoAccountSpan1">마일리지</span>
+        </div>
+        <div class="myPageMyInfoAccountSpan2">
+          <span class="myPageMyInfoAccountSpan2" th:text="${miliage}">123원</span>
         </div>
       </div>
-      <div id="myPageModalContainer2" class="hidden">
-        <div id="myPageModalContent2">
-         <div style="height:45px; margin-bottom:20px;"><p class="myPageModalContentP">결제하기</p></div>
-          <div class="paymentAmonut">
-            <label for="miliage">결제금액</label>
-            <select id="miliage">
-              <option value="10000">1만원</option>
-              <option value="20000">2만원</option>
-              <option value="30000">3만원</option>
-              <option value="40000">4만원</option>
-              <option value="50000">5만원</option>
-              <option value="1000000">100만원</option>
-            </select>
-          </div>
-          <div class="payButtonDiv">
-          <button type="button" onclick="paymentTest()" id="myPagePaymentButton"><img src="./img/kakao_symbol.png" alt="" style="width:15px; height:15px;">카카오페이</button>
-          <button type="button" onclick="requestPay()" id="myPageTossPaymentButton"><img src="./img/Toss_Symbol_Primary.png" alt="" style="width:15px; height:15px;">토스페이</button>
-          </div>
-          <button type="button" id="myPageModalCloseButton2">취소하기</button>
+      <div class="myPageMyInfoAccountButtonContainer">
+        <div class="myPageMyInfoAccountButton1"></div>
+        <div class="myPageMyInfoAccountButton2">
+          <button class="myPageWithdraw">출금하기</button>
+          <button class="myPageDeposit">충전하기</button>
         </div>
-        <script>
-
-          let modal2OpenButton = document.querySelector('.myPageDeposit');
-          let modal2CloseButton = document.getElementById('myPageModalCloseButton2');
-          let modal2 = document.getElementById('myPageModalContainer2');
-
-          modal2OpenButton.addEventListener('click',()=>{
-            modal2.classList.remove('hidden');
-          })
-          modal2CloseButton.addEventListener('click',()=>{
-            modal2.classList.add('hidden');
-          })
-        </script>
-        
-
-<!-- TODO 모달넣기 -->
-
-        <script th:inline="javascript">
-          function paymentTest(){
-            console.log("시작");
-            
-            let partnerOrderIdSession = /*[[${userId}]]*/;
-            let mileagePrice = document.getElementById('miliage').value;
-
-
-            let kapiTid = '';
-            let next_url = '';
-            const url = 'https://kapi.kakao.com/v1/payment/ready';
-            const kapiKey = /*[[${kapiApiKey}]]*/ 'default';
-            const option = {
-              method : 'POST',
-              headers : {
-                'Authorization': `KakaoAK ${kapiKey}`,
-                'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8',
-                'accept' : 'application/json',
-              },
-              body : new URLSearchParams({
-                cid : 'TC0ONETIME',
-                partner_order_id : '1',
-                partner_user_id : partnerOrderIdSession,
-                item_name : 'mileage',
-                quantity : '1',
-                total_amount : mileagePrice,
-                tax_free_amount : '0',
-                approval_url : 'http://localhost:8090/successKapi',
-                cancel_url : 'http://localhost:8090',
-                fail_url : 'http://localhost:8090',
-              })
-            };
-
-
-            fetch(url,option)
-            .then(res=>res.json())
-            .then(data=>{
-              console.log("res json"+data);
-              kapiTid = data['tid'];
-              next_url = data['next_redirect_pc_url'];
-              console.log(next_url);
-              console.log(kapiTid);
-              var popupWidth = 500;
-              var popupHeight = 600;
-              var popupX = (window.screen.width / 2) - (popupWidth / 2);
-              var popupY= (window.screen.height / 2) - (popupHeight / 2) - 30;
-              localStorage.setItem("tid",kapiTid);
-              let popupOption = `top=${popupY}, left=${popupX}, width=${popupWidth}px, height=${popupHeight}px, status=no, menubar=no,toolbar=no,fullscreen=no, location=no,directories=no`;
-              window.open(next_url,"카카오결제인증",popupOption);
-
-
-
-              modal2.classList.add('hidden');
-            })
-          }
-        </script>
-        
+      </div>
+    </div>
+    <div class="myPageMyInfoDivSubtitle"><span>채팅</span></div>
+    <div class="myPageChatroomInfo">
+      <div class="myPageChatroomInfoSpan">
+        <span class="myPageChatroomInfoSpan1">채팅목록 보기</span>
+        <div class="myPageChatroomInfoNotice">
+          <span th:text="${countedPost}"></span>
+        </div>
       </div>
       <script>
-        let modalOpenButton = document.querySelector('.myPageMyInfoPassword');
-        let modalCloseButton = document.getElementById('myPageModalCloseButton');
-        let modal = document.getElementById('myPageModalContainer');
-
-        modalOpenButton.addEventListener('click',()=>{
-          modal.classList.remove('hidden');
+        let $myPageChatRoomInfoSpan = document.querySelector('.myPageChatroomInfoSpan');
+        $myPageChatRoomInfoSpan.addEventListener('click',()=>{
+          globalThis.location.href="/chatroomlist"
         })
-        modalCloseButton.addEventListener('click',()=>{
-          modal.classList.add('hidden');
-        })
-
-      </script>
-      <script>
-
-
-        function popupDeleteId(){
-          var _width = '476';
-          var _height = '340';
-          var _left = Math.ceil(( window.screen.width - _width )/2);
-          var _top = Math.ceil(( window.screen.height - _height )/2);
-            window.open("/deleteId","회원 삭제",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
-        };
       </script>
     </div>
-    <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
-  </body>
+    <div class="myPageMyInfoDivSubtitle"><span>옷장</span></div>
+    <div class="myPageMyClosetContainer">
+      <div class="myPageMyClosetContainerSpan"><span>ㅎㅇ</span></div>
+      <div class="myPageMyClosetButtonContainerContainer">
+        <div class="myPageMyClosetButtenContainer">
+          <div class="myPageMyClosetButtenSquare">
+            <div class="myPageMyClosetButtenTriangle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="myPageMyClosetContainer2">
+      <div class="myPageMyClosetContainerSpan2"><span>ㅎㅇ</span></div>
+      <div class="myPageMyClosetButtonContainerContainer2">
+        <div class="myPageMyClosetButtenContainer2">
+          <div class="myPageMyClosetButtenSquare2">
+            <div class="myPageMyClosetButtenTriangle2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="myPageMemberDrop">
+      <button class="myPageMemberDropButton" onclick="popupDeleteId();" style="cursor:pointer;">회원탈퇴</button>
+    </div>
+  </div>
+  <div id="myPageModalContainer" class="hidden">
+    <div id="myPageModalContent">
+      <div style="height:45px;"><p class="myPageModalContentP">비밀번호변경</p></div>
+      <form id="PWChangeForm" th:action="@{/update/changePW}" method="post" th:object="${changeUserPWForm}">
+        <div>
+          <label for="PW">현재 비밀번호</label>
+          <input type="password" id="PW" name="PW">
+          <span id="oldPwError"></span>
+        </div>
+        <div>
+          <label for="newPW">신규 비밀번호</label>
+          <input type="password" id="newPW" name="newPW">
+          <span id="newPwError"></span>
+        </div>
+        <div>
+          <label for="newPWConfirm">비밀번호 확인</label>
+          <input type="password" id="newPWConfirm">
+        </div>
+        <p id="errorMessage" stlye="color:red;"></p>
+        <div class="myPageSubmitButtonDiv">
+          <button type='submit' id="myPageModalCloseButtonSubmit">변경하기</button>
+          <button type="button" id="myPageModalCloseButton">취소</button>
+        </div>
+
+      </form>
+      <script>
+        document.getElementById('PWChangeForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        let currentPW = document.getElementById('PW').value;
+        let newPW = document.getElementById('newPW').value;
+        let newPWConfirm = document.getElementById('newPWConfirm').value;
+
+        let changeUserPWForm = {
+          pw: currentPW,
+          newPW : newPW,
+          newPWConfirm : newPWConfirm
+        };
+
+        console.log(currentPW);
+        console.log(newPW);
+        console.log(changeUserPWForm);
+        console.log(JSON.stringify(changeUserPWForm));
+
+        fetch('/update/changePW',{
+          method:'POST',
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify(changeUserPWForm)
+        })
+        .then(res=>{
+          if(!res.ok){
+            throw res;
+          } else {
+            document.getElementById('myPageModalContainer').classList.add('hidden');
+            alert("비밀번호 변경 완료");
+            document.getElementById('PW').value = '';
+            document.getElementById('newPW').value = '';
+            document.getElementById('newPWConfirm').value = '';
+
+            return res.json();
+          }
+        })
+        .then(data=>console.log(data)
+        )
+        .catch(err=>{
+          err.text().then(errorMessage=>{
+            document.getElementById('errorMessage').innerText=errorMessage
+          })
+        })
+
+        })
+
+      </script>
+
+    </div>
+  </div>
+  <div id="myPageModalContainer2" class="hidden">
+    <div id="myPageModalContent2">
+      <div style="height:45px; margin-bottom:20px;"><p class="myPageModalContentP">결제하기</p></div>
+      <div class="paymentAmonut">
+        <label for="miliage">결제금액</label>
+        <select id="miliage">
+          <option value="10000">1만원</option>
+          <option value="20000">2만원</option>
+          <option value="30000">3만원</option>
+          <option value="40000">4만원</option>
+          <option value="50000">5만원</option>
+          <option value="1000000">100만원</option>
+        </select>
+      </div>
+      <div class="payButtonDiv">
+        <button type="button" onclick="paymentTest()" id="myPagePaymentButton"><img src="./img/kakao_symbol.png" alt="" style="width:15px; height:15px;">카카오페이</button>
+        <button type="button" onclick="requestPay()" id="myPageTossPaymentButton"><img src="./img/Toss_Symbol_Primary.png" alt="" style="width:15px; height:15px;">토스페이</button>
+      </div>
+      <button type="button" id="myPageModalCloseButton2">취소하기</button>
+    </div>
+    <script>
+
+      let modal2OpenButton = document.querySelector('.myPageDeposit');
+      let modal2CloseButton = document.getElementById('myPageModalCloseButton2');
+      let modal2 = document.getElementById('myPageModalContainer2');
+
+      modal2OpenButton.addEventListener('click',()=>{
+        modal2.classList.remove('hidden');
+      })
+      modal2CloseButton.addEventListener('click',()=>{
+        modal2.classList.add('hidden');
+      })
+    </script>
+
+
+    <!-- TODO 모달넣기 -->
+
+    <script th:inline="javascript">
+      function paymentTest(){
+        console.log("시작");
+
+        let partnerOrderIdSession = /*[[${userId}]]*/;
+        let mileagePrice = document.getElementById('miliage').value;
+
+
+        let kapiTid = '';
+        let next_url = '';
+        const url = 'https://kapi.kakao.com/v1/payment/ready';
+        const kapiKey = /*[[${kapiApiKey}]]*/ 'default';
+        const option = {
+          method : 'POST',
+          headers : {
+            'Authorization': `KakaoAK ${kapiKey}`,
+            'Content-type' : 'application/x-www-form-urlencoded;charset=utf-8',
+            'accept' : 'application/json',
+          },
+          body : new URLSearchParams({
+            cid : 'TC0ONETIME',
+            partner_order_id : '1',
+            partner_user_id : partnerOrderIdSession,
+            item_name : 'mileage',
+            quantity : '1',
+            total_amount : mileagePrice,
+            tax_free_amount : '0',
+            approval_url : 'http://localhost:8090/successKapi',
+            cancel_url : 'http://localhost:8090',
+            fail_url : 'http://localhost:8090',
+          })
+        };
+
+
+        fetch(url,option)
+        .then(res=>res.json())
+        .then(data=>{
+          console.log("res json"+data);
+          kapiTid = data['tid'];
+          next_url = data['next_redirect_pc_url'];
+          console.log(next_url);
+          console.log(kapiTid);
+          var popupWidth = 500;
+          var popupHeight = 600;
+          var popupX = (window.screen.width / 2) - (popupWidth / 2);
+          var popupY= (window.screen.height / 2) - (popupHeight / 2) - 30;
+          localStorage.setItem("tid",kapiTid);
+          let popupOption = `top=${popupY}, left=${popupX}, width=${popupWidth}px, height=${popupHeight}px, status=no, menubar=no,toolbar=no,fullscreen=no, location=no,directories=no`;
+          window.open(next_url,"카카오결제인증",popupOption);
+
+
+
+          modal2.classList.add('hidden');
+        })
+      }
+    </script>
+
+  </div>
+  <script>
+    let modalOpenButton = document.querySelector('.myPageMyInfoPassword');
+    let modalCloseButton = document.getElementById('myPageModalCloseButton');
+    let modal = document.getElementById('myPageModalContainer');
+
+    modalOpenButton.addEventListener('click',()=>{
+      modal.classList.remove('hidden');
+    })
+    modalCloseButton.addEventListener('click',()=>{
+      modal.classList.add('hidden');
+    })
+
+  </script>
+  <script>
+    function popupDeleteId(){
+      window.open("/deleteId","회원 삭제","width=500, height=500");
+    };
+  </script>
+</div>
+<script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
+</body>
 
 </html>

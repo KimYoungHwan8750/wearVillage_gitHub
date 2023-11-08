@@ -1,0 +1,54 @@
+
+#findIdForm {
+  display:flex;
+  flex-direction:column;
+  width: 450px;
+  height: 250px;
+  align-items:center;
+  border:2px solid gray;
+}
+
+#findIdForm label {
+  font-size:12px;
+  width:100%;
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+        
+.noteNotice {
+    background-color:#FFE2E2;
+    width:100%;
+    text-align:center;
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-top:10px;
+    color:black;
+    font-weight:bold;
+    border-bottom:1px solid #FF6161;
+    border-top:1px solid #FF6161;
+}
+
+#findIdForm input[type="text"] {
+  border-radius:10px;
+  font-size:18px;
+  height:28px;
+  line-height:18px;
+  text-align:center;
+  border:1px solid gray;
+}
+
+#findIdForm input[type="button"] {
+  border-radius:10px;
+  border:none;
+  width:25%;
+  height:26px;
+  background-color: #FFE2E2;
+  font-weight:bold;
+}
+
+#findIdForm img {
+  width:100px;
+  height:100px;
+  border-radius:50%;
+}

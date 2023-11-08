@@ -3,6 +3,7 @@ package com.example.wearVillage.Controller;
 import com.example.wearVillage.DAO.MyPageDAO;
 import com.example.wearVillage.DAO.userChatDAO;
 import com.example.wearVillage.DTO.USER_INFO_DTO;
+import com.example.wearVillage.DTO.getModalVO;
 import com.example.wearVillage.Entity.USER_INFO;
 
 import com.example.wearVillage.Repository.Repository_USER_INFO;
@@ -39,6 +40,19 @@ public class KYHController {
         return "redirect:/";
     }
 
+    @PostMapping(value="/getModal")
+    public String getModal(Model model,@ModelAttribute getModalVO vo){
+        log.info(vo.toString());
+        StringBuffer str = new StringBuffer();
+        str.append("top:"+vo.getTop()+";");
+        str.append("left:"+vo.getLeft()+";");
+        str.append("bottom:"+vo.getBottom()+";");
+        str.append("right:"+vo.getRight()+";");
+
+        model.addAttribute("offSet",str);
+
+        return "postDetailModal.html";
+    }
 
 
     @PostMapping(value = "/chatroom")

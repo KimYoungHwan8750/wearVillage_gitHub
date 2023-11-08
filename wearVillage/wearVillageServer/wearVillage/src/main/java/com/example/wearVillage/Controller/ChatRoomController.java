@@ -132,7 +132,6 @@ public class ChatRoomController {
                         return chatroomDTO;
                     }).toList();
             model.addAttribute("chatroomList",copyChatroomDTO);
-            ;
             model.addAttribute("myId",session.getAttribute("nickname"));
 
         } else {
