@@ -1,6 +1,7 @@
 //1페이지에서 2페이지 갈때 확인용
 let nextpage1 = 0; //아이디
 let nextpage2 = 0; //비번
+let nextpage7 = 0; //비밀번호 확인
 //2페이지에서 3페이지 갈때 확인용
 let nextpage3 = 0; //닉네임
 let nextpage4 = 0; //생일
@@ -23,6 +24,8 @@ const pw_box = document.getElementById('pw_box');
 const pw_text = document.getElementById('pw_text');
 const pw_text2 = document.getElementById('pw_text2');
 
+const pwCheckBox = document.getElementById('pwCheckBox');//비밀번호확인 박스
+const pwCheck = document.getElementById('pw_test'); //비밀번호확인 텍스트
 //nickname_box 인스턴스화
 //nickname_box.value에 따른 문구출력 = nickname_text
 //id_box에 입력된 값 사용 nickname_box.value
@@ -37,7 +40,7 @@ const email_text = document.getElementById('email_text');
 const id_check_btn = document.getElementById('id_check_btn');
 
 //생일
-const birth_box = document.getElementById('birthday');
+// const birth_box = document.getElementById('birthday');
 //성별
 const male_box = document.getElementById('male');
 const female_box = document.getElementById('female');
@@ -50,14 +53,29 @@ let profileimg;
 function gendercheck() {
   return document.querySelector('input[name="gender"]:checked').value;
 }
+
+let $memberjoin_lastbtn = document.getElementById("memberjoin_lastbtn");
+$memberjoin_lastbtn.addEventListener("click", create_user);
 function create_user() {
+  console.log("유저 생성 이벤트1")
   id_check();
+  console.log("유저 생성 이벤트 ID")
+
   pw_check();
+  console.log("유저 생성 이벤트 PW")
+
   email_check();
+  console.log("유저 생성 이벤트 EMAIL")
+
   nickname_check();
+  console.log("유저 생성 이벤트 NICKNAME")
+
   birth_check();
+  console.log("유저 생성 이벤트BIRTH")
+
   let dataForm;
   if(profileimg!=null){
+    console.log("유저 생성 IF 1")
   dataForm = {
     "ID": id_box.value,
     "PW": pw_box.value,
@@ -69,6 +87,8 @@ function create_user() {
     "THEME": gendercheck(),
   };
 } else {
+    console.log("유저 생성 IF 2")
+
   dataForm = {
     "ID": id_box.value,
     "PW": pw_box.value,
@@ -87,11 +107,15 @@ function create_user() {
     email_check() &&
     duplicate_check == true
   ) {
+    console.log("fetch")
+
     fetch('/finished_signUp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataForm),
-    }).then(res=>res.text()).then(res=>res=='ok'?location.href='/':alert("회원가입에 실패했습니다.\n자세한 사항은 고객센터에 문의해주세요."));
+    }).then(res=>res.text()).then(res=>{    console.log("유저 생성 이벤트2"); res==='ok'?location.href='/':alert("회원가입에 실패했습니다.\n자세한 사항은 고객센터에 문의해주세요.");
+
+    });
   }
 };
 //   function create_user() {
@@ -298,7 +322,36 @@ function pw_check1() {
     nextpage2 = 1;
     return true;
   }
+  
+  
 }
+//비밀번호 확인
+pwCheckBox.addEventListener('input', pw_test);
+function pw_test() {
+  let pw_value_check = pw_box.value; //비밀번호 박스
+  let pwTest_value_check = pwCheckBox.value; //비밀번호확인 박스
+  var pwtest = pwTest_value_check;
+  // 8자리보다 작으면 오류
+  if(pwtest < 8 ){
+    pwCheck.style.color = "rgba(100, 100, 100, 0.6)";
+    pwCheck.textContent = '비밀번호를 재입력 해주세요.'
+    nextpage7 = 0;
+    return;
+  }
+  // 비밀번호와 같지않으면 오류 아니면 일치
+  if(pwTest_value_check != pw_value_check){
+    pwCheck.style.color = "rgba(180, 0, 0, 0.600)";
+    pwCheck.textContent = '비밀번호와 일치하게 입력해주세요.'
+    nextpage7 = 0;
+    return;
+  }else{
+   pwCheck.style.color = "rgba(0, 120, 0, 0.600)";
+    pwCheck.textContent = '비밀번호와 일치합니다.'
+    nextpage7 = 1;
+  }
+}
+
+
 
 nickname_box.addEventListener('input', nickname_check);
 function nickname_check() {
@@ -381,9 +434,13 @@ const inputbirth = document.getElementById('birthday');
 // 입력된 값을 가져옵니다.
 inputbirth.addEventListener('input', birth_check);
 
+const memberjoin_birth_error = document.getElementById('memberjoin_birth_error');
 function birth_check() {
+
+
+
   const birthValue = inputbirth.value;
-  memberjoin_birth_error.textContent = "\u00a0";
+  // memberjoin_birth_error.textContent = "\u00a0";
 
   // 입력된 값이 숫자인지 확인합니다.
   if (!isNaN(birthValue)) {
@@ -405,23 +462,29 @@ function birth_check() {
         day >= 1 &&
         day <= 31;
 
-      if (!birthDate || birthDate.length < 8) {
+      if (!birthDate ) {//|| birthDate.length < 8
         // alert("올바른 날짜를 입력하세요 (19500101부터 20301231까지).");
-        memberjoin_birth_error.textContent = '올바른 날짜를 입력하세요.'; // 입력 필드를 비웁니다.
+        memberjoin_birth_error.style.color = 'rgba(180, 0, 0, 0.600)';
+        memberjoin_birth_error.textContent = '올바른 날짜를 입력하세요.'; 
         nextpage4 = 0;
+        return;
       }
 
       if (birthDate) {
-        memberjoin_birth_error.textContent = "\u00a0";
+        memberjoin_birth_error.style.color = 'rgba(0, 120, 0, 0.600)';
+        memberjoin_birth_error.textContent = "올바른 날짜입니다.";
         nextpage4 = 1;
       }
     } else {
-      memberjoin_birth_error.textContent = '올바른 날짜를 입력하세요.'; // 입력 필드를 비웁니다.
+      memberjoin_birth_error.style.color = 'rgba(180, 0, 0, 0.600)';
+      memberjoin_birth_error.textContent = "올바른 날짜를 입력하세요."; 
       nextpage4 = 0;
+      return;
     }
-    if(memberjoin_birth_error.textContent != '올바른 날짜를 입력하세요.'){
-      return true;
-    }
+    // if(memberjoin_birth_error.textContent != '올바른 날짜를 입력하세요.'){
+    //   nextpage4 = 0;
+    //   return true;
+    // }
   }
 }
 //생일 숫자만 최대 8자 입력가능
@@ -448,6 +511,23 @@ function checkRadio() {
 }
 
 // -----------------------------------탭으로 다음 페이지 가는거 막기 시작-----------------------------------
+// 아이디 페이지 다음 버튼
+const button0 = document.getElementById('nextbtn0');
+// 버튼에 포커스가 들어왔을 때 이벤트 핸들러를 추가합니다.
+button0.addEventListener('focus', function () {
+  // 탭 키를 눌렀을 때 기본 동작을 막습니다.
+  function preventTab(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+    }
+  }
+  // 탭 키를 누르는 이벤트 핸들러를 추가합니다.
+  document.addEventListener('keydown', preventTab);
+  // 버튼에서 포커스가 빠져나갈 때 탭 키를 막는 이벤트 핸들러를 제거합니다.
+  button0.addEventListener('blur', function () {
+    document.removeEventListener('keydown', preventTab);
+  });
+});
 // 첫페이지 다음 버튼
 const button = document.getElementById('nextbtn');
 // 버튼에 포커스가 들어왔을 때 이벤트 핸들러를 추가합니다.
@@ -483,22 +563,43 @@ button2.addEventListener('focus', function () {
     document.removeEventListener('keydown', preventTab);
   });
 });
+// -----------------------------------/탭으로 다음 페이지 가는거 막기 종료-----------------------------------
 
 // 화면 다음 버튼 흔들기
+const shakeButton0 = document.getElementById('nextbtn0');
 const shakeButton1 = document.getElementById('nextbtn');
 const shakeButton2 = document.getElementById('nextbtn2');
 
-// -----------------------------------/탭으로 다음 페이지 가는거 막기 종료-----------------------------------
 // 화면 1~3페이지 전환 버튼
 let currentSlide = 1;
 const slider = document.querySelector('.full');
 
 // 각 버튼에 대한 클릭 이벤트 리스너를 따로 정의합니다.
-shakeButton1.addEventListener('click', function () {
-  if (currentSlide < 3 && nextpage1 == 1 && nextpage2 == 1 ) {// 
+shakeButton0.addEventListener('click', function () {
+  if (currentSlide < 4 && nextpage1 == 1) {// && nextpage1 == 1
     currentSlide++;
     slider.style.transform = `translateX(-${
-      (currentSlide - 1) * 33.33333333
+      (currentSlide - 1) * 25
+    }%)`;
+    memberjoin_nextbtn_error0.innerText = '';
+  } else {
+    memberjoin_nextbtn_error0.innerText = '입력칸을 확인해주세요.';
+    //버튼 흔들기
+    shakeButton0.classList.add('shake');
+
+    // 흔들린 후 0.5초 후에 흔들림 클래스를 제거합니다.
+    setTimeout(function () {
+      shakeButton0.classList.remove('shake');
+    }, 500);
+    id_check();
+    if(nextpage1 == 0 ){id_box.focus();} 
+  }
+});
+shakeButton1.addEventListener('click', function () {
+  if (currentSlide < 4 && nextpage2 == 1 && nextpage7 == 1) {//&& nextpage2 == 1 && nextpage7 == 1
+    currentSlide++;
+    slider.style.transform = `translateX(-${
+      (currentSlide - 1) * 25
     }%)`;
     memberjoin_nextbtn_error1.innerText = '';
   } else {
@@ -510,19 +611,18 @@ shakeButton1.addEventListener('click', function () {
     setTimeout(function () {
       shakeButton1.classList.remove('shake');
     }, 500);
-    id_check();
     pw_check1();
+    if(nextpage7 == 0 ){pwCheckBox.focus();} 
     if(nextpage2 == 0 ){pw_box.focus();} 
-    if(nextpage1 == 0 ){id_box.focus();} 
   }
 });
 
         var input = document.getElementById("myInput");
 shakeButton2.addEventListener('click', function () {
-  if (currentSlide < 3  && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1 ) {// 
+  if (currentSlide < 4 && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1) {// && nextpage3 == 1 && nextpage4 == 1 && nextpage5 == 1
     currentSlide++;
     slider.style.transform = `translateX(-${
-      (currentSlide - 1) * 33.33333333
+      (currentSlide - 1) * 25
     }%)`;
     memberjoin_nextbtn_error2.innerText = '';
   } else {
@@ -538,11 +638,12 @@ shakeButton2.addEventListener('click', function () {
   }
 });
 
+// 뒤로가기 버튼
 function prevSlide() {
   if (currentSlide > 1) {
     currentSlide--;
     slider.style.transform = `translateX(-${
-      (currentSlide - 1) * 33.33333333
+      (currentSlide - 1) * 25
     }%)`;
 
     memberjoin_nextbtn_error3.innerText = '';
