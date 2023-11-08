@@ -69,6 +69,7 @@ public class KYHController {
     @ResponseBody
     @PostMapping(value = "/userInfo")
     public List<USER_INFO> userId(HttpSession session) throws IndexOutOfBoundsException{
+        log.info("응애 애기정연 왔쪄");
         try {
             String email = (String) session.getAttribute("email");
             return rep_user_info.findByEMAIL(email);

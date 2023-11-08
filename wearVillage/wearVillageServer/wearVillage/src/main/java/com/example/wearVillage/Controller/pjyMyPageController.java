@@ -220,6 +220,7 @@ public class pjyMyPageController {
             mav.addObject("errMessage","아이디를 정확히 입력해주세요");
             mav.setViewName("deleteId");
         }
+        session.invalidate();
         return mav;
     }
 }

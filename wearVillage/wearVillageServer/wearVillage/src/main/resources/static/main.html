@@ -75,6 +75,7 @@
             var alertMsg = /*[[${alertMsg}]]*/;
             if(alertMsg != null && alertMsg != ""){
                 alert(alertMsg);
+                window.opener.location.href = "/";
                 window.close();
             }
         </script>

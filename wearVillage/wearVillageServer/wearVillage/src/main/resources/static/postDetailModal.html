@@ -47,17 +47,40 @@
         }
         .modal_Item{
             font-size: 16px;
-            margin-bottom: 20px;
-            margin-left: auto;
-            margin-right:5px;
+            margin-bottom: 15px;
+            margin-left: 50px;
+            margin-right:15px;
         }
         .nav_modal>*{
             color:black;
             border: 1px solid rgb(59, 59, 59);
         }
-        .nav_modal>img{
-            width: 50px;
-            height: 50px;
+
+        .modal_Item {
+            border:2px solid white;
+            font-size:20px;
+            border-radius:10px;
+            width:120px;
+            height:50px;
+            font-weight:bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            cursor:pointer;
+            text-align:center;
+        }
+
+        .modal_Item1 {
+            background-color:#FF6D6D;
+            color:white;
+        }
+
+        .modal_Item2 {
+            background-color:#FFC0C0;
+            color:#FF4545;
+        }
+
+        .modal_Item3 {
+            background-color:#C0C0C0;
+            color:#555555;
         }
 
     </style>
@@ -65,9 +88,13 @@
     <div class="plusXBtn_root" th:style="${offSet}">
         <div class="nav_modal" >
 
-            <img class="modal_Item modal_Item1" src="img/bikini.png">
-            <img class="modal_Item modal_Item2" src="img/boot.png">
-            <img class="modal_Item modal_Item3" src="img/1.jpg">
+            <button class="modal_Item modal_Item4" onclick="goChat()">채팅하기</button>
+<!--            <img class="modal_Item modal_Item1" src="img/bikini.png">-->
+            <button class="modal_Item modal_Item3">구매하기</button>
+<!--            <img class="modal_Item modal_Item2" src="img/boot.png">-->
+            <button class="modal_Item modal_Item2" onclick="letUpdate()">수정하기</button>
+<!--            <img class="modal_Item modal_Item3" src="img/1.jpg">-->
+            <button class="modal_Item modal_Item1" onclick="letDelete()">삭제하기</button>
 
 
         </div>
