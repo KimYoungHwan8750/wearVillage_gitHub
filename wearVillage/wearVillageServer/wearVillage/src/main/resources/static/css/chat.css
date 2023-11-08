@@ -101,27 +101,49 @@ body{
     position: relative;
     width: 100%;
     max-width: 100%;
-    height: 85%;
+    height: 80%;
     max-height: 85%;
     overflow-y: scroll;
 }
 .chat_bottom_nav{
-    position: absolute;
+    display: flex;
+    padding-left: 50px;
+    height: 200px;
+    min-height: 40px;
+    max-height: 40px;
+    width: 100%;
+    margin-bottom: auto;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #9d9d9d;
+
+
 
 }
 
-.chat_bottom_nav>img{
+.chat_bottom_nav>*{
+    cursor: pointer;
+    margin: auto 0 auto 10px;
+
+}
+
+.chat_bottom_nav_img{
     width: 30px;
     height: 30px;
 }
+
 .chat_bottomContent{
     display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
     position: relative;
     border-top: 1px solid rgba(0,0,0,0.3);
+    background-color: white;
     width: 100%;
     max-width: 100%;
-    height: 15%;
-    max-height: 15%;
+    height: 20%;
+    max-height: 20%;
     /* background-color: var(--msgZoneColor); */
     align-items: center;
     overflow: hidden;
@@ -132,15 +154,16 @@ body{
 
 #msg{
     resize: none;
-    width: 100%;
-    padding-left: 5%;
+    width: 80%;
+    height:10%;
     border: 0px;
     word-wrap: break-word;
     font-size: 16px;
     caret-color: var(--caretColor);
     background-color: white;
-    padding:20px;
+    padding:0 0px 40px 20px;
     /* border: 1px solid rgba(0,0,0,0.4); */
+    margin: 0 10% auto 0;
 }
 #msg:active{
     cursor: default;
@@ -161,11 +184,12 @@ body{
     border: 0px;
     border-radius: 10px;
     min-width: 50px;
-    width: 5%;
-    height: 35%;
-    margin-right: 3%;
+    width: 50px;
+    height: 50px;
+    margin-left: 1%;
     color:white;
     font-size: 18px;
+    top:45%
 }
 #button-send:hover{
     cursor: pointer;

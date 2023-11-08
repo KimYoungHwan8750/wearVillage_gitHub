@@ -128,22 +128,23 @@
           const $postDetail_chat_button = document.querySelector(".postDetail_chat_button");
           const $postFormData = document.querySelector(".postFormData");
 
-          async function goChat(){
+          async function goChat() {
             const thumbnailUrl = document.querySelector('input[name="postThumbnailUrl"]');
             const myId = document.querySelector('input[name="myId"]');
             const theme = document.querySelector('input[name="theme"]');
-            const $post_writer_id=document.querySelector('input[name="postWriterId"]')
+            const $post_writer_id = document.querySelector('input[name="postWriterId"]')
             theme.value = user_status['theme'];
-            thumbnailUrl.value=imageElements[0].src;
-            myId.value=user_status['nickname'];
-            if(myId.value==$post_writer_id.value){
-              window.open("/chatroomlist","채팅창");
+            thumbnailUrl.value = imageElements[0].src;
+            myId.value = user_status['nickname'];
+            if (myId.value == $post_writer_id.value) {
+              window.open("/chatroomlist", "채팅창");
             } else {
-            let goChat_firstStep = await fetch("/userInfo",{method:"post"});
-            goChat_firstStep.json().then(res=>
-                    $postFormData.submit()
-            )
+              let goChat_firstStep = await fetch("/userInfo", {method: "post"});
+              goChat_firstStep.json().then(res =>
+                      $postFormData.submit()
+              )
             }
+          }
 
             // {
             // if(res!=''){
@@ -156,7 +157,7 @@
             // }}
 
 
-          }</script>
+          </script>
         <script>
           let $th_post = "[[${post}]]";
           window.onload = function () {
