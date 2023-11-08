@@ -1,0 +1,87 @@
+
+    <style>
+        .plusXBtn_root {
+            position: fixed;
+            font-size: 40px;
+
+
+        }
+        .plusXBtn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:rgb(255, 113, 113);
+            border-radius: 50px;
+            width: 70px;
+            height: 70px;
+        }
+
+        .vertical_line{
+            position: absolute;
+            width: 45px;
+            height: 8px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+
+        .horizontal_line{
+            position: absolute;
+            width: 8px;
+            height: 45px;
+            background-color: white;
+            border-radius: 5px;
+
+        }
+        .nav_modal{
+            position: absolute;
+            left:-115%;
+            display: flex;
+            opacity: 0;
+            flex-direction: column-reverse;
+            max-width: 150px;
+            width: 150px;
+            text-align: right;
+            justify-content: right;
+            justify-items: right;
+        }
+        .modal_Item{
+            font-size: 16px;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right:5px;
+        }
+        .nav_modal>*{
+            color:black;
+            border: 1px solid rgb(59, 59, 59);
+        }
+        .nav_modal>img{
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
+
+    <div class="plusXBtn_root" th:style="${offSet}">
+        <div class="nav_modal" >
+
+            <img class="modal_Item modal_Item1" src="img/bikini.png">
+            <img class="modal_Item modal_Item2" src="img/boot.png">
+            <img class="modal_Item modal_Item3" src="img/1.jpg">
+
+
+        </div>
+        <div class="plusXBtn">
+            <div class="vertical_line"></div>
+            <div class="horizontal_line"></div>
+        </div>
+
+    </div>
+
+
+    
+    
+<script>
+
+    
+</script>
