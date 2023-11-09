@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.wearVillage.DAO.ProductBuyDAO.ProductBuyDAO;
+import com.example.wearVillage.DAO.ProductBuyDAO.ProductBuyForm;
 import com.example.wearVillage.DAO.findIDPW.FindIdForm;
 import com.example.wearVillage.DAO.findIDPW.FindPwForm;
 import com.example.wearVillage.DAO.findIDPW.FindSVC;
@@ -34,6 +36,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.PostData;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Slf4j
 @org.springframework.stereotype.Controller
@@ -46,7 +50,8 @@ public class PJYController {
     private final DeleteSVC deleteSVC;
     private final FindSVC findSVC;
     private final UpdateEntityRepository updateEntityRepository;
-
+    private final ProductBuyDAO productBuyDAO;
+//DAO - > SVC 수정필
     @GetMapping("/posts")
     public ModelAndView listPosts(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "16") int size,
@@ -347,6 +352,35 @@ public class PJYController {
             mav.addObject("resultMsg","임시 비밀번호 발급 실패했습니다. 한번더 확인해주세요.");
             mav.addObject("status",1);
             return mav;
+        }
+    }
+
+    @PostMapping("/buyCall")
+    public ModelAndView buyCall(@ModelAttribute ProductBuyForm productBuyForm, RedirectView redirectView){
+        ModelAndView mav = new ModelAndView();
+        log.info("pF={}",productBuyForm);
+        ProductBuyForm madeForm = productBuyDAO.readyToTrade(productBuyForm);
+        log.info("madeForm = {}",madeForm);
+        if(1==0){
+            mav.addObject("errMessage","로그인 해주세요");
+            mav.setViewName("PostDetail3");
+            return mav;
+        } else {
+            log.info("madeForm탐");
+            mav.addObject("madeForm",madeForm.toString());
+            mav.setViewName("redirect:/product");
+            return mav;
+        }
+    }
+
+    @GetMapping("/product")
+    public String buyProduct(Model model){
+        log.info("buy들옴");
+        Object madeForm = model.getAttribute("madeForm");
+        if(madeForm == null){
+            return "error/404";
+        } else{
+            return "PostDetail3";
         }
     }
 }
