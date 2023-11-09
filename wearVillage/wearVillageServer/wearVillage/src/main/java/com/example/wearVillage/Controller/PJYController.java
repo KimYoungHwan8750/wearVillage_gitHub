@@ -355,32 +355,44 @@ public class PJYController {
         }
     }
 
+    @ResponseBody
     @PostMapping("/buyCall")
-    public ModelAndView buyCall(@ModelAttribute ProductBuyForm productBuyForm, RedirectView redirectView){
-        ModelAndView mav = new ModelAndView();
+    public ProductBuyForm buyCall(@ModelAttribute ProductBuyForm productBuyForm){
         log.info("pF={}",productBuyForm);
         ProductBuyForm madeForm = productBuyDAO.readyToTrade(productBuyForm);
         log.info("madeForm = {}",madeForm);
-        if(1==0){
-            mav.addObject("errMessage","로그인 해주세요");
-            mav.setViewName("PostDetail3");
-            return mav;
+        if(madeForm.getBuyerId().isEmpty()){
+            return null;
         } else {
             log.info("madeForm탐");
-            mav.addObject("madeForm",madeForm.toString());
-            mav.setViewName("redirect:/product");
-            return mav;
+            return madeForm;
         }
     }
 
     @GetMapping("/product")
-    public String buyProduct(Model model){
+    public String buyProduct(Model model,HttpSession session){
         log.info("buy들옴");
         Object madeForm = model.getAttribute("madeForm");
+        log.info("madeForm = {}",madeForm);
         if(madeForm == null){
             return "error/404";
         } else{
-            return "PostDetail3";
+            session.setAttribute("madeForm",madeForm);
+            return "productControllPannel";
         }
+    }
+
+    @PostMapping("/tradeCall")
+    public ModelAndView tradeCall(ProductBuyForm productBuyForm){
+        ModelAndView mav = new ModelAndView();
+        String result = productBuyDAO.trade(productBuyForm);
+        if(result.equals("구매 완료")){
+            log.info("구매완료");
+            mav.addObject("productInfo",productBuyForm);
+            mav.setViewName("tradeToChat");
+        }else{
+            log.info("구매실패");
+        }
+        return mav;
     }
 }

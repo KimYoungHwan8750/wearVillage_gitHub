@@ -60,7 +60,7 @@
         });
     </script>
     <form th:object ="${post}" class = "postFormData" action="/chat" method= "post" style = "display: none;">
-        <input th:field="*{postWriterId}" name="sellerId" >
+        <input th:value="${Id}" name="sellerId" >
         <input th:field="*{postId}" name="postId">
         <input th:field="*{postSubtitle}">
         <input th:field="*{postPrice}" name="price">
@@ -107,7 +107,7 @@
     </script>
 <!--삭제 로직-->
         </div>
-            <script>
+            <script th:inline="javascript">
                 function letDelete(){
                     let $num = window.location.search;
                     $num = $num.replace(/[^0-9]/g,'');
@@ -134,22 +134,67 @@
                 }
 
                 function buyCall(){
+
+<!--로컬스토리지에 채팅에 필요한 정보를 담는다.-->
+
+                let $buyerName = /*[[${session.nickname}]]*/ 'default';
+                let $sellerName = /*[[${post.postWriterId}]]*/ 'default';
+                let $pid = /*[[${post.postId}]]*/ 'default';
+                let $mapInfo = /*[[${post.postMapInfo}]]*/ 'default';
+
+                localStorage.setItem("$buyerName",$buyerName);
+                localStorage.setItem("$sellerName",$sellerName);
+                localStorage.setItem("$pid",$pid);
+                localStorage.setItem("$mapInfo",$mapInfo);
+
+<!-- 구매 폼 전송에 필요한 정보를 담는다.-->
+
                     let $frm = document.querySelector('.postFormData');
                     let formData = new FormData();
                     formData.append("tradeId",1);
                     formData.append("buyerId",$frm.myId.value);
-                    formData.append("sellerId",$frm.postWriterId.value);
+                    formData.append("sellerId",$frm.sellerId.value);
                     formData.append("price",$frm.postPrice.value);
                     formData.append("rentDefaultPrice",$frm.postRentDefaultPrice.value);
                     formData.append("rentDayPrice",$frm.postRentDayPrice.value);
                     formData.append("postId",$frm.postId.value);
+
+<!-- 페치 보내고 팝업창 열어서 정보 전달한다.-->
 
                     let url = `/buyCall`;
                     let option = {
                         method : 'POST',
                         body : formData,
                     };
-                    fetch(url,option).then(res=>console.log(res)).then(res=>res.json());
+                    fetch(url,option).then(res=>res.json()).then(res=>{
+                    console.log(res);
+                    console.log(res['tradeId']);
+                    let $tradeId = res['tradeId'];
+                    console.log($tradeId);
+                    let $postId = res['postId'];
+                    let $buyerId = res['buyerId'];
+                    let $sellerId = res['sellerId'];
+                    let $price = res['price'];
+                    let $rentDefaultPrice = res['rentDefaultPrice'];
+                    let $rentDayPrice = res['rentDayPrice'];
+                    let $tradeDate = res['tradeDate'];
+                    window.name = "parent";
+                    var _width = '800';
+                    var _height = '700';
+                    var _left = Math.ceil(( window.screen.width - _width )/2);
+                    var _top = Math.ceil(( window.screen.height - _height )/2);
+                    child = window.open("productControllPannel.html","구매,대여",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
+                    child.onload = function(){
+                        child.document.getElementById('tradeId').value = $tradeId;
+                        child.document.getElementById('postId').value = $postId;
+                        child.document.getElementById('buyerId').value = $buyerId;
+                        child.document.getElementById('sellerId').value = $sellerId;
+                        child.document.getElementById('price').value = $price;
+                        child.document.getElementById('rentDefaultPrice').value = $rentDefaultPrice;
+                        child.document.getElementById('rentDayPrice').value = $rentDayPrice;
+                    }
+                    
+                    });
                 }
 
 
@@ -165,7 +210,7 @@
         <div>
             <div class="MainInfoContainer">
                 <div class="PriceSpanContainer">
-                    <p class="PostWriterIdP" th:text="${post.postWriterId}">작성자 아이디</p>
+                    <p class="PostWriterIdP" th:text="${post.postWriterId}">작성자 닉네임</p>
                     <p class="PostSubtitleP" th:text="${post.postSubtitle}">제목가나다라마바사아자차카</p>
                     <p><span id="PostPriceSpan" th:text="${post.postPrice}">13,000</span><span>원</span></p>
 
