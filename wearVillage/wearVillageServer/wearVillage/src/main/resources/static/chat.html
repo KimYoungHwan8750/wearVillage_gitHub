@@ -10,16 +10,30 @@
     type="image/x-icon"
     href="img/img_wearVillageLogo.png"
     />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no,maximum-scale=0">
 
     </head>
-    <body>
+    <body >
+
+
     <!-- <div class="chat_content" layout:fragment="content"> -->
     <link layout:fragmnet="css" rel="stylesheet" href="css/chat.css">
 
     <script src="https://cdn.jsdelivr.net/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
-    <div class ="chat_msgArea_outZone">
+
+    <div class ="chat_msgArea_outZone chatBody" >
+        <div class="chat_modal">
+            <div class="chat_modalRootContainer">
+            <div class="chat_modalContainer"></div>
+                <div class="chat_modalCloseBtn">
+                    <div class="verticalLine"></div>
+                    <div class="horizontalLine"></div>
+                </div>
+
+            </div>
+        </div>
         <div class="chat_topContent">
             <div class="chat_topContent_details">
                 <div class="chat_topContent_item1"></div>
@@ -47,11 +61,11 @@
 
     <div class="chat_bottomContent">
             <div class="chat_bottom_nav">
-                <img class="chat_bottom_nav_img" src="../img/img_mapIcon.png" alt="">
-                <input id = "chat_imageInput" type="file" accept="image/*" style="display: none">
+                <img class="chat_bottom_nav_img chat_mapBtn" src="../img/img_mapIcon.png" alt="">
+                <input id = "chat_imageInput" class="chat_imgBtn" type="file" accept="image/*" style="display: none">
                 <label for="chat_imageInput" style="padding-top: 4px;"><img class="chat_bottom_nav_img" src="../img/img_photoIcon.png" alt=""></label>
 
-                <img class="chat_bottom_nav_img" src="../img/img_postIcon.png" alt="">
+                <img class="chat_bottom_nav_img chat_postBtn" src="../img/img_postIcon.png" alt="">
 
         <!-- <img src="img/img_wearVillageMypage.png" alt="">
         <img src="img/img_wearVillageLogo.png" alt=""> -->
@@ -59,9 +73,8 @@
     <textarea name="" spellcheck="false" id="msg" cols="30" rows="4" maxlength="500"></textarea>
     <button id="button-send" type="button" value="보내기">전송</button>
     </div>
-
     </div>
-    
+
 
 <!-- 
     <div class="diveloperZone">
@@ -80,13 +93,102 @@
     let $th_postRentDayPrice = '[[${postRentDayPrice}]]';
     let $th_postThumbnailUrl = '[[${postThumbnailUrl}]]';
     let $th_addressee = '[[${postWriterId}]]';
-    let $th_postMapInfo = '[[${postMapInfo}]]';
-    let $th_postId = '[[${postId}]]';
+    let $th_postMapInfo = [[${postMapInfo}]];
+    let $th_postId = [[${postId}]];
     let $th_sender = '[[${myId}]]';
     let $th_theme = '[[${theme}]]';
     let $th_postUserInfo = [[${postUserInfo}]];
     let $th_myUserInfo = [[${myUserInfo}]];
 </script>
+
+    <script>
+        let $chat_modalContainer = document.querySelector(".chat_modalContainer")
+        let $chat_modalRootContainer = document.querySelector(".chat_modalRootContainer")
+        let $chat_mapBtn = document.querySelector(".chat_mapBtn");
+        let $chat_postBtn = document.querySelector(".chat_postBtn");
+        let $chat_imgBtn = document.querySelector(".chat_imgBtn");
+        let $chat_modal = document.querySelector(".chat_modal");
+        let $chat_modalCloseBtn = document.querySelector(".chat_modalCloseBtn");
+        let modalInit = $chat_modalContainer.getAttribute("style");
+        let btnInit = $chat_modalCloseBtn.getAttribute("style");
+        function resizeDetect(){
+            if(window.innerHeight>580) {
+                $chat_modalCloseBtn.style = "top:55%;"
+            } else {
+                $chat_modalCloseBtn.style = "top:0; margin-top:auto;margin-bottom:auto"
+
+            }
+        }
+        //네비게이션 메뉴 : 포스트로 이동
+        $chat_postBtn.addEventListener("click",()=>{
+            $chat_modalContainer.style.backgroundColor="rgba(0,0,0,0)";
+        let goPostBtn =document.createElement('div')
+            goPostBtn.setAttribute('style','display:inline;cursor:pointer;width:150px;height:63px;border:2px solid white;border-radius:15px;margin-top:auto;margin-bottom:auto;margin-left:auto;margin-right:auto;background-color:black;color:white;text-align:center;line-height:63px;');
+            goPostBtn.innerText="포스트로 이동";
+            goPostBtn.onclick = ()=>{
+                location.href="../viewPost2?id="+$th_postId;
+            }
+        $chat_modalContainer.append(goPostBtn)
+        $chat_modalRootContainer.style.display="flex";
+           window.addEventListener('resize',resizeDetect)
+
+
+
+        })
+        //네비게이션 메뉴 : 지도 켜기
+        $chat_mapBtn.addEventListener("click",()=>{
+            $chat_modalContainer.style.backgroundColor="white";
+            $chat_modalContainer.style="width:360px; height:380px;"
+            localStorage.setItem("MapInfo",$th_postMapInfo);
+            $chat_modalContainer.innerHTML="<object data='maps3.html' width='100%' height='100%' style='overflow: hidden'>지도 정보를 표시할 수 없습니다.</object>"
+            $chat_modalRootContainer.style.display="flex";
+        })
+
+        //네비게이션 메뉴 : 이미지 보내기
+        $chat_imgBtn.addEventListener("change",function (){
+            $chat_modalContainer.style="width:360px; height:380px;background-color:rgba(50,50,50,0.9)";
+            let createImageTag = document.createElement('img');
+            let createBlobUrl = window.URL.createObjectURL(this.files[0]);
+            createImageTag.src = createBlobUrl;
+            createImageTag.style="width:95%;height:95%;margin:auto auto;border-radius:15px;";
+
+            $chat_modalContainer.append(createImageTag);
+            $chat_modalRootContainer.style.display="flex";
+            let createPrevNextBtn = document.createElement('div')
+            createPrevNextBtn.style="position:absolute;display:flex;"
+            let createNextBtn = document.createElement('div')
+            createNextBtn.style="margin-left:190px;color:red;user-select:none;font-size:30px;cursor:pointer;";
+            createNextBtn.textContent="▶"
+            let createPrevBtn = document.createElement('div')
+            createPrevBtn.style="margin-right:190px;color:red;user-select:none;font-size:30px;cursor:pointer;";
+            createPrevBtn.textContent="◀"
+            createPrevNextBtn.append(createPrevBtn,createNextBtn);
+            window.addEventListener('resize',()=>{
+                if(window.innerHeight>580) {
+                    $chat_modalCloseBtn.style = "top:55%;"
+                } else {
+                    $chat_modalCloseBtn.style = "top:6%;"
+
+                }
+            })
+
+
+            $chat_modalContainer.append(createPrevNextBtn);
+
+        })
+
+        $chat_modalCloseBtn.addEventListener("click",()=>{
+            $chat_modalContainer.innerHTML='';
+            $chat_modalContainer.style.cssText=modalInit;
+            $chat_modalCloseBtn.style.cssText=btnInit;
+            $chat_modalRootContainer.style.display="none";
+            window.removeEventListener("resize",resizeDetect)
+
+
+        })
+        // 닫기 버튼
+
+    </script>
 <script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
 
 

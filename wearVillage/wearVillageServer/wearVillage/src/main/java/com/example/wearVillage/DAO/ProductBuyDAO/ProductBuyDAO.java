@@ -4,5 +4,4 @@ public interface ProductBuyDAO {
     int productPrice(String postId);
     int rentPrice(String postId);
 
-    void
 }

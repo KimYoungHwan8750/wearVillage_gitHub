@@ -243,6 +243,7 @@ body{
     width: 100%;
     height: 100%;
     justify-content: flex-end;
+
 }
 .chat_midContent::-webkit-scrollbar{
     width: 6px;
@@ -261,5 +262,80 @@ body{
 }
 .my_SecondChat{
     margin-right: 50px;
+}
 
+.chat_modalRootContainer{
+    position: absolute;
+    width:100%;
+    height:100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: center;
+    background-color: rgba(50,50,50,0.7);
+    z-index: 100;
+
+}
+.chatBody{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.chat_modalContainer{
+    width: 450px;
+    max-width: 450px;
+    max-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 30px;
+    background-color: white;
+}
+.chat_modalCloseBtn{
+    position: absolute;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    top:80%;
+    background-color: #222222;
+    border-radius: 50px;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+}
+.verticalLine{
+    position: absolute;
+    background-color: white;
+    width: 35px;
+    height: 5px;
+    border-radius: 10px;
+    transform: rotate(45deg);
+
+}
+.horizontalLine{
+    position: absolute;
+
+    background-color: white;
+    width: 5px;
+    height: 35px;
+    border-radius: 10px;
+    transform: rotate(45deg);
+
+
+}
+
+@media screen and (max-height: 580px) {
+    .chat_modalRootContainer{
+        flex-direction: row;
+    }
+    .chat_modalCloseBtn{
+        position: relative;
+        margin-left: 10px;
+        top:0;
+    }
 }
