@@ -1,8 +1,10 @@
 package com.example.wearVillage.DAO.ProductBuyDAO;
 
-public interface ProductBuyDAO {
-    int productPrice(String postId);
-    int rentPrice(String postId);
+import com.example.wearVillage.PostData;
 
-    void
+public interface ProductBuyDAO {
+
+    ProductBuyForm readyToTrade(ProductBuyForm productBuyForm);
+    ProductBuyForm productPrice(String tradeId);
+
 }
