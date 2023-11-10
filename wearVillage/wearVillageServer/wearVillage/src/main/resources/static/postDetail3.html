@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<meta charset="UTF-8">
+<title>상세보기</title>
+<body>
+<div layout:fragment="content">
+    <link rel="stylesheet" href="./css/PostDetail3.css">
+    <script type="module">
+        import {getModal} from "../js/postDetailModal.js";
+        getModal(document.querySelector('.PDModal'),{"top":"90%","left":"75%"})
+    </script>
+
+    <script th:inline="javascript">
+        window.onload = function(){
+
+            // div(postTextEle)에 이미지배열 추가
+            let imgUrls = [];
+            let postTextEle = document.createElement('div');
+            postTextEle.innerHTML = /*[[${post.postText}]]*/ 'default';
+
+            // div의 이미지태그를 imgUrls에 하나씩 넣는다.
+            let imgEle = postTextEle.getElementsByTagName('img');
+            for (let i = 0; i < imgEle.length; i++){
+                let imgUrl = imgEle[i].getAttribute('src');
+                imgUrls.push(imgUrl);
+            }
+
+            //이미지배열에 이미지 넣기
+            let $imgContainer = document.getElementById('imgContainer');
+            for (let j = 0; j < imgUrls.length; j++){
+                let imgTag = document.createElement('img');
+                imgTag.setAttribute('src',imgUrls[j]);
+            }
+
+            let $ThumbMain = document.getElementById('ThumbMain');
+            if(imgEle.length > 0){
+                $ThumbMain.src = imgEle[0].src;
+            }
+
+            $ThumbMain.addEventListener('animationend', function() {
+                this.style.animation = '';
+            });
+
+            let imgIndex = 0;
+            setInterval(function(){
+                imgIndex = (imgIndex + 1) % imgUrls.length;
+                $ThumbMain.src = imgUrls[imgIndex];
+                $ThumbMain.style.animation="fadein 1.5s"
+            }, 3000);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            // maps3 관련 코드
+            const $maps3 = document.getElementById('maps3_container');
+            $maps3.innerHTML = '<object width="768px;" height="450px;" type="text/html" data="maps3.html"></object>';
+            let postMaps3Info = /*[[${post.postMapInfo}]]*/ 'default';
+            localStorage.setItem('MapInfo', postMaps3Info);
+        });
+    </script>
+    <form th:object ="${post}" class = "postFormData" action="/chat" method= "post" style = "display: none;">
+        <input th:value="${Id}" name="sellerId" >
+        <input th:field="*{postId}" name="postId">
+        <input th:field="*{postSubtitle}">
+        <input th:field="*{postPrice}" name="price">
+        <input th:field="*{postRentDefaultPrice}" name="rentDefaultPrice">
+        <input th:field="*{postRentDayPrice}" name="rentDayPrice">
+        <input th:field="*{postMapInfo}">
+        <input name = "theme" value="${theme}">
+        <input name = "postThumbnailUrl" th:value="${postThumbnailUrl}">
+        <input name = "myId" th:value="${session.id}">
+        <!-- <button class="submit_btn"></button> -->
+    </form>
+    <div class="PostDetailWrapper">
+        <div class="PDModal">
+
+            <div>
+
+                <!--채팅 로직 스크립트-->
+                <script>
+                    const $postDetail_chat_button = document.querySelector(".modal_Item4");
+                    const $postFormData = document.querySelector(".postFormData");
+
+                    async function goChat(){
+                        console.log(user_status);
+                        let thumbnailUrl = document.querySelector('input[name="postThumbnailUrl"]');
+                        let myId = document.querySelector('input[name="myId"]');
+                        let theme = document.querySelector('input[name="theme"]');
+                        let $post_writer_id=document.querySelector('input[name="postWriterId"]')
+                        theme.value = user_status['theme']||'';
+                        <!--                thumbnailUrl.value=imageElements[0].src||'';-->
+                        myId.value=user_status['nickname'];
+                        if(myId.value==$post_writer_id.value){
+                            var _width = '800';
+                            var _height = '1000';
+                            var _left = Math.ceil(( window.screen.width - _width )/2);
+                            var _top = Math.ceil(( window.screen.height - _height )/2);
+                            window.open("/chatroomlist","채팅창",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
+                        } else {
+                            console.log("채팅2 콘솔")
+                            let goChat_firstStep = await fetch("/userInfo",{method:"post"});
+                            goChat_firstStep.json().then(res=>
+                                $postFormData.submit()
+                            )}
+                    }
+                </script>
+                <!--삭제 로직-->
+            </div>
+            <script th:inline="javascript">
+                function letDelete(){
+                    let $num = window.location.search;
+                    $num = $num.replace(/[^0-9]/g,'');
+                    console.log($num);
+                    if(confirm("정말 삭제하시겠습니까?")){
+                        globalThis.location.href=`/delete/viewPost2?id=${$num}`;
+                        alert("삭제되었습니다.");
+                    } else {
+                        alert("취소하겠습니다.");
+                        return;
+                    }
+                }
+
+                function letUpdate(){
+                    let $num = window.location.search;
+                    $num = $num.replace(/[^0-9]/g,'');
+                    console.log($num);
+                    if(confirm("수정하시겠습니까?")){
+                        globalThis.location.href=`/edit/${$num}`;
+                    } else {
+                        alert("취소하겠습니다.");
+                        return;
+                    }
+                }
+
+                function buyCall(){
+
+                    <!--로컬스토리지에 채팅에 필요한 정보를 담는다.-->
+
+                    let $buyerName = /*[[${session.nickname}]]*/ 'default';
+                    let $sellerName = /*[[${post.postWriterId}]]*/ 'default';
+                    let $pid = /*[[${post.postId}]]*/ 'default';
+                    let $mapInfo = /*[[${post.postMapInfo}]]*/ 'default';
+
+                    localStorage.setItem("$buyerName",$buyerName);
+                    localStorage.setItem("$sellerName",$sellerName);
+                    localStorage.setItem("$pid",$pid);
+                    localStorage.setItem("$mapInfo",$mapInfo);
+
+                    <!-- 구매 폼 전송에 필요한 정보를 담는다.-->
+
+                    let $frm = document.querySelector('.postFormData');
+                    let formData = new FormData();
+                    formData.append("tradeId",1);
+                    formData.append("buyerId",$frm.myId.value);
+                    formData.append("sellerId",$frm.sellerId.value);
+                    formData.append("price",$frm.postPrice.value);
+                    formData.append("rentDefaultPrice",$frm.postRentDefaultPrice.value);
+                    formData.append("rentDayPrice",$frm.postRentDayPrice.value);
+                    formData.append("postId",$frm.postId.value);
+
+                    <!-- 페치 보내고 팝업창 열어서 정보 전달한다.-->
+
+                    let url = `/buyCall`;
+                    let option = {
+                        method : 'POST',
+                        body : formData,
+                    };
+                    fetch(url,option).then(res=>res.json()).then(res=>{
+                        console.log(res);
+                        console.log(res['tradeId']);
+                        let $tradeId = res['tradeId'];
+                        console.log($tradeId);
+                        let $postId = res['postId'];
+                        let $buyerId = res['buyerId'];
+                        let $sellerId = res['sellerId'];
+                        let $price = res['price'];
+                        let $rentDefaultPrice = res['rentDefaultPrice'];
+                        let $rentDayPrice = res['rentDayPrice'];
+                        let $tradeDate = res['tradeDate'];
+                        window.name = "parent";
+                        var _width = '800';
+                        var _height = '700';
+                        var _left = Math.ceil(( window.screen.width - _width )/2);
+                        var _top = Math.ceil(( window.screen.height - _height )/2);
+                        child = window.open("productControllPannel.html","구매,대여",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
+                        child.onload = function(){
+                            child.document.getElementById('tradeId').value = $tradeId;
+                            child.document.getElementById('postId').value = $postId;
+                            child.document.getElementById('buyerId').value = $buyerId;
+                            child.document.getElementById('sellerId').value = $sellerId;
+                            child.document.getElementById('price').value = $price;
+                            child.document.getElementById('rentDefaultPrice').value = $rentDefaultPrice;
+                            child.document.getElementById('rentDayPrice').value = $rentDayPrice;
+                        }
+
+                    });
+                }
+
+
+            </script>
+        </div>
+        <div>
+            <div class="MainImgContainer">
+                <img src="" alt="" style="max-width:100%; border-radius: 15px; border:2px solid rgba(0,0,0,0.2);" id="ThumbMain">
+                <div id="imgContainer">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="MainInfoContainer">
+                <div class="PriceSpanContainer">
+                    <p class="PostWriterIdP" th:text="${post.postWriterId}">작성자 닉네임</p>
+                    <p class="PostSubtitleP" th:text="${post.postSubtitle}">제목가나다라마바사아자차카</p>
+                    <p><span id="PostPriceSpan" th:text="${post.postPrice}">13,000</span><span>원</span></p>
+
+                </div>
+                <div class="MainInfoIconContainer">
+                    <div class="PostDetailHeart">
+                        <label for="PostDetailCheckbox">
+                            <input type="checkbox" id="PostDetailCheckbox" hidden>
+                            <svg t="1689815540548" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2271"><path d="M742.4 101.12A249.6 249.6 0 0 0 512 256a249.6 249.6 0 0 0-230.72-154.88C143.68 101.12 32 238.4 32 376.32c0 301.44 416 546.56 480 546.56s480-245.12 480-546.56c0-137.92-111.68-275.2-249.6-275.2z" fill="#231F20" p-id="2272" id="heart"></path></svg>
+                            <span></span>
+                        </label>
+                    </div>
+                    <div>
+                        <img src="./img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
+                    </div>
+                </div>
+            </div>
+            <div class="SubInfoContainer">
+                <div>
+                    <span>제품정보</span>
+                </div>
+                <div>
+                    <!-- <span th:text="${post.postTagTop}"><button th:text="${post.postTagTop}" disabled></button></span>
+                    <span th:text="${post.postTagMiddle}"><button th:text="${postTagMiddle}" disabled></button></span> -->
+                    <span><button th:text="${post.postTagTop}" disabled></button></span>
+                    <span><button th:text="${post.postTagMiddle}" disabled></button></span>
+                </div>
+                <div th:if="${post.postRentDefaultPrice}">
+                    <span>대여료</span>
+                    <!-- <span th:text="${post.postRentDefaultPrice}"><button th:text="${post.postRentDefaultPrice}" disabled></button></span> -->
+                    <span><button th:text="${post.postRentDefaultPrice}" disabled></button></span>
+                    <span>원</span>
+                </div>
+                <div th:if="${post.postRentDayPrice}">
+                    <span>일일요금</span>
+                    <!-- <span th:text="${post.postRentDayPrice}"><button th:text="${post.postRentDayPrice}"></button></span> -->
+                    <span><button th:text="${post.postRentDayPrice}" disabled></button></span>
+                    <span>원</span>
+                </div>
+            </div>
+        </div>
+        <div class="PostTextWrapperDiv">
+            <div class="PostTextContainer" th:utext="${post.postText}">
+                <img src="./img/sampleSub2.jpg" alt="" style="max-width:100%;">
+                <span></span>
+            </div>
+        </div>
+        <!--        <div style="margin-top:40px;">-->
+        <!--            <div class="PostMapInfoSpan">-->
+        <!--                <p>거래 가능 지역</p>-->
+        <!--            </div>-->
+        <!--            <div class="PostMapInfo" id="maps3_container">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        채팅 히든 인풋 -->
+
+    </div>
+</div>
+<!--채팅-->
+
+</body>
+</html>
