@@ -40,6 +40,7 @@ public class Controller {
     private final Repository_USER_INFO rep_user_info;
 
 
+
     @Autowired
     public Controller(JdbcTemplate jdbcTemplate, Repository_USER_INFO rep_user_info) {
         this.jdbcTemplate = jdbcTemplate;
@@ -179,8 +180,10 @@ public class Controller {
         String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
         PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
 
+        String Id = rep_user_info.findByNICKNAME(postData.getPostWriterId()).getID();
         ModelAndView modelAndView = new ModelAndView("PostDetail3");
         modelAndView.addObject("post", postData);
+        modelAndView.addObject("Id",Id);
         USER_INFO user_info = rep_user_info.findByNICKNAME(postData.getPostWriterId());
         modelAndView.addObject("profileimg", "/profileimg?fileName="+user_info.getPROFILEIMG());
 

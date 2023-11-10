@@ -3,12 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="./js/vanillajs-datepicker/dist/css/datepicker.min.css">
+
     <script>
-        window.opener.window.close();
+        function buyFunction(){
+            let $frm = document.getElementById('hiddenValueForm');
+            if(confirm("구매를 확정지으시겠습니까?")){
+                $frm.submit();
+            } else {
+                return;
+            }
+        }
+
+        function rentFunction(){
+            let $frm = document.getElementById('hiddenValueForm');
+            //TODO 대여로직
+        }
     </script>
 </head>
 <body>
-    <button>구매</button>
-    <button>대여</button>
+    <form action="/tradeCall" method="POST" id="hiddenValueForm">
+        <input type="hidden" id="tradeId" name="tradeId">
+        <input type="hidden" id="postId" name="postId">
+        <input type="hidden" id="buyerId" name="buyerId">
+        <input type="hidden" id="sellerId" name="sellerId">
+        <input type="hidden" id="price" name="price">
+        <input type="hidden" id="rentDefaultPrice" name="rentDefaultPrice">
+        <input type="hidden" id="rentDayPrice" name="rentDayPrice">
+        <input type="button" value="구매하기" onclick="buyFunction()">
+        <input type="button" value="대여하기" onclick="rentFunction()">
+    </form>
+
+    <div id="daterange">
+        <label for="start">대여 시작일자</label>
+        <input type="text" id="start">
+        <label for="end">대여 종료일자</label>
+        <input type="text" id="end">
+    </div>
+
+    <script src="./js/vanillajs-datepicker/dist/js/datepicker-full.min.js"></script>
+    <script>
+        const daterange = document.getElementById('daterange');
+        new DateRangePicker(daterange);
+    </script>
 </body>
 </html>

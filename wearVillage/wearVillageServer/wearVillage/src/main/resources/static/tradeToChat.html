@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function(){
+                if(confirm("채팅창으로 이동하시겠습니까?")){
+                $buyerName = localStorage.getItem("$buyerName");
+                $sellerName = localStorage.getItem("$sellerName");
+                $pid = localStorage.getItem("$pid");
+                $mapInfo = localStorage.getItem("$mapInfo");
+
+                $frmInput1 = document.getElementById('buyerName');
+                $frmInput2 = document.getElementById('sellerName');
+                $frmInput3 = document.getElementById('pid');
+                $frmInput4 = document.getElementById('mapInfo');
+                $frmInput1.value = $buyerName;
+                $frmInput2.value = $sellerName;
+                $frmInput3.value = $pid;
+                $frmInput4.value = $mapInfo;
+
+                let $frm = document.getElementById('gotoChat');
+                $frm.submit();
+
+            } else {
+                console.log("어쩔티비");
+            }
+        }
+        
+        
+    </script>
+</head>
+<body>
+
+    <form action="/chat" method="POST" id="gotoChat">
+        <input type="hidden" value="" id="buyerName" name="">
+        <input type="hidden" value="" id="sellerName" name="postWriterId">
+        <input type="hidden" value="" id="pid" name="postId">
+        <input type="hidden" value="" id="mapInfo" name="postMapInfo">
+    </form>
+</body>
+</html>
