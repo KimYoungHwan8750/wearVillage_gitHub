@@ -15,4 +15,5 @@ public interface ProductBuyDAO {
 
     int tradeFinal(ProductFinalForm productFinalForm);
 
+    void checkPerDay(ProductFinalForm productFinalForm);
 }

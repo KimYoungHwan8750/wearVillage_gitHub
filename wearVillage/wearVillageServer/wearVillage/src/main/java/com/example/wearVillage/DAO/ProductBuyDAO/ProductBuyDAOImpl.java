@@ -215,4 +215,9 @@ public class ProductBuyDAOImpl implements ProductBuyDAO {
         log.info("a={}",a);
         return a;
     }
+
+    @Override
+    public void checkPerDay(ProductFinalForm productFinalForm) {
+
+    }
 }
