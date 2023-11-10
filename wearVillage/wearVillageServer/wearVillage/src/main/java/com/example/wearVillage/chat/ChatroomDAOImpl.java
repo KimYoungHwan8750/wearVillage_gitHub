@@ -95,6 +95,7 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                 chatEntity.setSENDER(rs.getString("SENDER"));
                 chatEntity.setADDRESSEE(rs.getString("ADDRESSEE"));
                 chatEntity.setMESSAGE(rs.getString("MESSAGE"));
+                chatEntity.setCHAT_MIME(rs.getString("CHAT_MIME"));
                 return chatEntity;
             }
         }, new Object[]{member1, member1, member2, member2, chatroom});
@@ -105,7 +106,8 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                                              m.getMESSAGE(),
                                              m.getCHATROOM(),
                                              m.getCHAT_DATE(),
-                                             m.getCHAT_ROOM_ID())
+                                             m.getCHAT_ROOM_ID(),
+                                             m.getCHAT_MIME())
                                              ).toList();
         return chatdto;
     }

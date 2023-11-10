@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -208,8 +209,9 @@ public class post_Controller {
             header.add("Content-type", Files.probeContentType(file.toPath()));
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info("로컬 or 서버 이미지 다른 경로 참조 중");
         }
+
         return result;
     }
     @GetMapping("/profileimg")
@@ -224,7 +226,7 @@ public class post_Controller {
             header.add("Content-type", Files.probeContentType(file.toPath()));
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.info("로컬 or 서버 프로필 이미지 다른 경로 참조 중");
         }
         return result;
     }

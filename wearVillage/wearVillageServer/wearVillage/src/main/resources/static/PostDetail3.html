@@ -149,7 +149,7 @@
                         method : 'POST',
                         body : formData,
                     };
-                    fetch(url,option).then(res=>console.log(res)).then(res=>res.json());
+                    fetch(url,option).then(res=>res.text()).then(res=>console.log(res));
                 }
 
 

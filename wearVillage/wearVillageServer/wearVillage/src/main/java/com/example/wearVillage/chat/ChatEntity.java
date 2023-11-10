@@ -32,6 +32,8 @@ public class ChatEntity {
     private Timestamp CHAT_DATE;
     @Column(name="CHAT_ROOM_ID")
     private Integer CHAT_ROOM_ID;
+    @Column(name="CHAT_MIME")
+    private String CHAT_MIME;
 
     public ChatEntity(ChatDTO chatdto){
         this.SENDER = chatdto.getSENDER();
@@ -41,5 +43,6 @@ public class ChatEntity {
         this.CHAT_DATE = chatdto.getCHAT_DATE();
         this.MESSAGE= chatdto.getMESSAGE();
         this.CHAT_ROOM_ID = chatdto.getCHAT_ROOM_ID();
+        this.CHAT_MIME = chatdto.getCHAT_MIME();
     }
 }
