@@ -43,8 +43,19 @@
 
     <script src="./js/vanillajs-datepicker/dist/js/datepicker-full.min.js"></script>
     <script>
+        var date = new Date();
+        let year = date.getFullYear();
+        let mon = date.getMonth()+1;
+        let today = date.getDate();
         const daterange = document.getElementById('daterange');
-        new DateRangePicker(daterange);
+        new DateRangePicker(daterange, {
+            format: 'yyyy년 mm월 dd일',
+            minDate: `${year}-${mon}-${today}`,
+            i18n: {
+                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                shortDayNames: ['일', '월', '화', '수', '목', '금', '토']
+            }
+        });
     </script>
 </body>
 </html>
