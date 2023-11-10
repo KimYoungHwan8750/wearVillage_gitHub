@@ -70,7 +70,7 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
     // console.log(chatMessage);
     // console.log("date:"+date);
     // console.log("date.getMinutes()"+date.getMinutes());
-
+    console.log(chatMessage)
     if (JSON.parse($th_sender) == chatMessage['sender']) {
         // RIGHT
         let historydate= new Date(chatMessage['chat_DATE']);
@@ -230,10 +230,11 @@ $msg.addEventListener('keydown',()=>{
 
 document.addEventListener('DOMContentLoaded', function() {
 
+
     $msg.addEventListener('keydown',(evt)=>{
         let $msg_notEnter_notWordSpace = $msg.value.replace(/\n*/g,'').replace(/\s*/g,"");
         if(evt.key=='Enter'&&$msg_notEnter_notWordSpace!=''&&evt.shiftKey==false){
-            send();
+            send(encodeURIComponent($msg.value).replace(/[']/g,escape),"text");
         }
 
     })
@@ -246,16 +247,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let sendButton = document.getElementById("button-send");
     sendButton.addEventListener("click", function (e) {
-        send();
+        send(encodeURIComponent($msg.value).replace(/[']/g,escape),"text");
     });
 
-    function send() {
+    function send(content,mime) {
         let sendMessage={
             "sender":JSON.parse($th_sender),
             "addressee":JSON.parse($th_addressee),
-            "message":encodeURIComponent($msg.value).replace(/[']/g,escape),
+            "message":content,
             "chatroom":JSON.parse($th_postId)
         }
+
+        switch (mime) {
+            case "text":
+                sendMessage
+                break;
+            case "image":
+
+        }
+
         //채팅방이 있는지 조회하고 없으면 생성하고 있으면 채팅 동작
         if(!createChatroomFlag){
             fetch("/createChatroom",
@@ -265,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     body:JSON.stringify({
                         "MEMBER1":JSON.parse($th_sender),
                         "MEMBER2":JSON.parse($th_addressee),
-                        "POST_ID":JSON.parse($th_postId)
+                        "POST_ID":JSON.parse($th_postId),
                     })
                 }
             ).then(res=>res.json())
