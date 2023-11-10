@@ -5,6 +5,37 @@
     <title>Title</title>
     <link rel="stylesheet" href="./js/vanillajs-datepicker/dist/css/datepicker.min.css">
 
+    <style>
+        input[type="text" i] {
+            width:140px;
+            height:28px;
+            font-size:16px;
+            margin:5px;
+            text-align:center;
+            font-weight:bold;
+            caret-color:transparent;
+        }
+
+        input[type="text" i]::placeholder {
+            color:rgba(0,0,0,0.2);
+            font-style: italic;
+        }
+
+        p {
+            text-align:center;
+            width:140px;
+        }
+
+
+        label {
+            font-size:16px;
+            width:140px;
+            height:34px;
+            display:flex;
+            flex-direction:row;
+            justify-content: center;
+        }
+    </style>
     <script>
         function buyFunction(){
             let $frm = document.getElementById('hiddenValueForm');
@@ -16,8 +47,38 @@
         }
 
         function rentFunction(){
-            let $frm = document.getElementById('hiddenValueForm');
-            //TODO 대여로직
+            // 모달로직
+        }
+
+        function rentFunction2(){
+            let $frm = document.getElementById('hiddenRentValueForm');
+            if(confirm("대여를 신청하시겠습니까?")){
+            let $rentStartDay = document.getElementById('start');
+            let $rentFinishDay = document.getElementById('end');
+            let originStartVal = document.getElementById('start').value;
+            let originFinishVal = document.getElementById('end').value;
+            if($rentStartDay.value==""){
+                alert("대여일자가 선택되지 않았습니다. 선택해주세요.")
+                return false;
+            }
+            // 숫자만
+            let regexp = /[^0-9]/g;
+            rentStartDayVal = $rentStartDay.value.replace(regexp,"");
+            rentFinishDayVal = $rentFinishDay.value.replace(regexp,"");
+            console.log(rentStartDayVal);
+            console.log(rentFinishDayVal);
+            if(rentStartDayVal==rentFinishDayVal){
+                alert("당일 대여 후 당일 반납은 불가능합니다.")
+                return false;
+            }
+            $rentStartDay.value = rentStartDayVal;
+            $rentFinishDay.value = rentFinishDayVal;
+                $frm.submit();
+            } else {
+                $rentStartDay.value = originStartVal;
+                $rentFinishDay.value = originFinishVal;
+                return;
+            }
         }
     </script>
 </head>
@@ -35,10 +96,20 @@
     </form>
 
     <div id="daterange">
-        <label for="start">대여 시작일자</label>
-        <input type="text" id="start">
-        <label for="end">대여 종료일자</label>
-        <input type="text" id="end">
+        <form action="/rentCall" method="POST" id="hiddenRentValueForm">
+            <p><label for="start">대여 시작일자</label>
+            <input type="text" id="start" readonly placeholder="대여 시작일자" name="rentStartDay"></p>
+            <p><label for="end">대여 종료일자</label>
+            <input type="text" id="end" readonly placeholder="대여 종료일자" name="rentFinishDay"></p>
+            <input type="hidden" id="RtradeId" name="tradeId">
+            <input type="hidden" id="RpostId" name="postId">
+            <input type="hidden" id="RbuyerId" name="buyerId">
+            <input type="hidden" id="RsellerId" name="sellerId">
+            <input type="hidden" id="Rprice" name="price">
+            <input type="hidden" id="RrentDefaultPrice" name="rentDefaultPrice">
+            <input type="hidden" id="RrentDayPrice" name="rentDayPrice">
+            <input type="button" value="대여신청" onclick="rentFunction2()">
+        </form>
     </div>
 
     <script src="./js/vanillajs-datepicker/dist/js/datepicker-full.min.js"></script>
@@ -51,6 +122,8 @@
         new DateRangePicker(daterange, {
             format: 'yyyy년 mm월 dd일',
             minDate: `${year}-${mon}-${today}`,
+            autohide : true,
+            todayHighlight: true,
             i18n: {
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                 shortDayNames: ['일', '월', '화', '수', '목', '금', '토']

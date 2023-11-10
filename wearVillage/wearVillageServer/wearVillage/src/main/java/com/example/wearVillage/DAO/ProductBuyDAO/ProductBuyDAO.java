@@ -11,4 +11,8 @@ public interface ProductBuyDAO {
 
     String trade(ProductBuyForm productBuyForm);
 
+    String trade2(ProductRentForm productRentForm);
+
+    int tradeFinal(ProductFinalForm productFinalForm);
+
 }

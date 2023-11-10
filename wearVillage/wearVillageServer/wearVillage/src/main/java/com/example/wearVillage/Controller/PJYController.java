@@ -2,12 +2,17 @@ package com.example.wearVillage.Controller;
 
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.example.wearVillage.DAO.ProductBuyDAO.ProductBuyDAO;
 import com.example.wearVillage.DAO.ProductBuyDAO.ProductBuyForm;
+import com.example.wearVillage.DAO.ProductBuyDAO.ProductFinalForm;
+import com.example.wearVillage.DAO.ProductBuyDAO.ProductRentForm;
 import com.example.wearVillage.DAO.findIDPW.FindIdForm;
 import com.example.wearVillage.DAO.findIDPW.FindPwForm;
 import com.example.wearVillage.DAO.findIDPW.FindSVC;
@@ -385,6 +390,7 @@ public class PJYController {
     @PostMapping("/tradeCall")
     public ModelAndView tradeCall(ProductBuyForm productBuyForm){
         ModelAndView mav = new ModelAndView();
+        log.info("pbF={}",productBuyForm);
         String result = productBuyDAO.trade(productBuyForm);
         if(result.equals("구매 완료")){
             log.info("구매완료");
@@ -392,6 +398,52 @@ public class PJYController {
             mav.setViewName("tradeToChat");
         }else{
             log.info("구매실패");
+        }
+        return mav;
+    }
+
+    @PostMapping("/rentCall")
+    public ModelAndView rentCall(ProductRentForm productRentForm){
+        ModelAndView mav = new ModelAndView();
+        log.info("pf={}",productRentForm);
+        String result = productBuyDAO.trade2(productRentForm);
+        int a = Integer.valueOf(productRentForm.getRentFinishDay());
+        log.info("a={}",a);
+        String finalDay = String.valueOf(a + 3);
+        log.info("int finalDay={}",finalDay);
+
+//      middleMiliage를 구하기 위한 형변환
+        String regprice = productRentForm.getPrice().replaceAll("[^0-9]","");
+        int price = Integer.valueOf(regprice);
+
+        String regRentDefaultPrice = productRentForm.getRentDefaultPrice().replaceAll("[^0-9]","");
+        int rentDefaultPrice = Integer.valueOf(regRentDefaultPrice);
+
+        String regRentDayPrice = productRentForm.getRentDayPrice().replaceAll("[^0-9]","");
+        int rentDayPrice = Integer.valueOf(regRentDayPrice);
+
+        String rentStartDay = productRentForm.getRentStartDay();
+        String rentFinishDay = productRentForm.getRentFinishDay();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate dateA = LocalDate.parse(rentStartDay, formatter);
+        LocalDate dateB = LocalDate.parse(rentFinishDay, formatter);
+        long rentDays = ChronoUnit.DAYS.between(dateA, dateB);
+
+        String middleMiliage = String.valueOf(price - (rentDefaultPrice + (rentDayPrice * rentDays)));
+        log.info("string middleMiliage = {}",middleMiliage);
+
+        if(result.equals("대여 완료")){
+            log.info("대여완료");
+//            파이널폼 생성
+            ProductFinalForm productFinalForm = new ProductFinalForm(productRentForm,middleMiliage,finalDay);
+            int finalResult = productBuyDAO.tradeFinal(productFinalForm);
+            log.info("final={}",finalResult);
+
+
+            mav.addObject("productInfo",productRentForm);
+            mav.setViewName("tradeToChat");
+        } else {
+            log.info("대여실패");
         }
         return mav;
     }
