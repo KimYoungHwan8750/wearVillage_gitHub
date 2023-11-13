@@ -195,7 +195,7 @@ public class Controller {
         PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
 
         String Id = rep_user_info.findByNICKNAME(postData.getPostWriterId()).getID();
-        ModelAndView modelAndView = new ModelAndView("PostDetail3");
+        ModelAndView modelAndView = new ModelAndView("postDetail3");
         modelAndView.addObject("post", postData);
         modelAndView.addObject("Id",Id);
         USER_INFO user_info = rep_user_info.findByNICKNAME(postData.getPostWriterId());

@@ -26,7 +26,7 @@ public class KYHFileUploader {
 
             for (MultipartFile file : files) {
                 String p = File.separator;
-                File imgFile = new File("C:\\Users\\seoye\\OneDrive\\바탕 화면\\영환이 작업 폴더\\프로젝트 폴더\\wearVillage_gitHub\\wearVillage\\wearVillageServer\\wearVillage\\src\\main\\resources\\static\\img\\test\\", UUID.randomUUID() + "_" + file.getOriginalFilename());
+                File imgFile = new File("home"+File.separator+"ubuntu"+File.separator+"upload"+File.separator, UUID.randomUUID() + "_" + file.getOriginalFilename());
                 file.transferTo(imgFile);
 
                 filePath.add(new ResponseEntity<>(imgFile.getPath(), HttpStatus.OK));

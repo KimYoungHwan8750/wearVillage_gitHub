@@ -396,6 +396,7 @@ public class PJYController {
             mav.setViewName("tradeToChat");
         } else {
             log.info("구매실패");
+            mav.setViewName("postDetail3");
         }
         return mav;
     }

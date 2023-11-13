@@ -2,11 +2,10 @@
 <html
   xmlns:th="https://www.thymeleaf.org"
   xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layouts/default}">
+  layout:decorate="~{layouts/default}">
   <body>
     <div layout:fragment="content" class="th_main_content">
-      <link layout:fragment="css" rel="stylesheet" href="./css/myPage.css" />
-      <link rel="stylesheet" href="css/myPage.css">
+      <link layout:fragment="css" rel="stylesheet" href="../css/myPage.css" />
       <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
       <script th:inline="javascript">
@@ -81,10 +80,14 @@
             <div class="myPageProfileImageContainer">
               <img
                 id="myPageProfileImageId"
-                src="./img/기본프사.jpg"
+                src="../img/기본프사.jpg"
                 th:src="${'/profileimg?fileName='+session.profileimg}"
                 alt=""
               />
+              <script>
+                console.log(document.querySelector("#myPageProfileImageId").src);
+                console.log(document.querySelector("#myPageProfileImageId").src+"myPageProfileImageId SRC값");
+              </script>
             </div>
             <p id="successMsg"></p>
             <div class="myPageProfileImageDiv">
@@ -97,7 +100,7 @@
 
                           let $defaultImageBtn = document.querySelector('.myPageProfileSelectBtn2');
                             $defaultImageBtn.addEventListener('click', () => {
-                              myPageProfileImageId.src="./img/기본프사.jpg"
+                              myPageProfileImageId.src="../img/기본프사.jpg"
                               let abc = '2023%2F10%2F17%2FdefaultImg.jpg'
                               let abcd = encodeURIComponent(abc);
                                 fetch('/update/profileImg?url='+abcd)
@@ -483,7 +486,7 @@
 
 
     </div>
-    <script layout:fragment="javascript" rel="javascript" src="js/myPage.js"></script>
+    <script layout:fragment="javascript" rel="javascript" src="../js/myPage.js"></script>
   </body>
 
 </html>

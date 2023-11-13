@@ -2,11 +2,9 @@
 <html xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
-<meta charset="UTF-8">
-<title>상세보기</title>
-<body>
+
 <div layout:fragment="content">
-    <link rel="stylesheet" href="./css/PostDetail3.css">
+    <link rel="stylesheet" href="../css/PostDetail3.css">
     <script type="module">
         import {getModal} from "../js/postDetailModal.js";
         getModal(document.querySelector('.PDModal'),{"top":"90%","left":"75%"})
@@ -67,22 +65,17 @@
         <input th:field="*{postRentDefaultPrice}" name="rentDefaultPrice">
         <input th:field="*{postRentDayPrice}" name="rentDayPrice">
         <input th:field="*{postMapInfo}">
-<<<<<<< HEAD
         <input th:field="*{postWriterId}" type="text">
-=======
         <input th:field="*{postWriterId}">
->>>>>>> 200e0a0cab23f6e3774fc6ea8159ad4bf7e6baba
         <input name = "theme" value="${theme}">
         <input name = "postThumbnailUrl" th:value="${postThumbnailUrl}">
         <input name = "myId" th:value="${session.id}">
-        <!-- <button class="submit_btn"></button> -->
     </form>
     <div class="PostDetailWrapper">
         <div class="PDModal">
 
             <div>
 
-                <!--채팅 로직 스크립트-->
                 <script>
                     const $postDetail_chat_button = document.querySelector(".modal_Item4");
                     const $postFormData = document.querySelector(".postFormData");
@@ -94,7 +87,6 @@
                         let theme = document.querySelector('input[name="theme"]');
                         let $post_writer_id=document.querySelector('input[name="postWriterId"]')
                         theme.value = user_status['theme']||'';
-                        <!--                thumbnailUrl.value=imageElements[0].src||'';-->
                         myId.value=user_status['nickname'];
                         if(myId.value==$post_writer_id.value){
                             var _width = '800';
@@ -110,7 +102,6 @@
                             )}
                     }
                 </script>
-                <!--삭제 로직-->
             </div>
             <script th:inline="javascript">
                 function letDelete(){
@@ -140,8 +131,6 @@
 
                 function buyCall(){
 
-                    <!--로컬스토리지에 채팅에 필요한 정보를 담는다.-->
-
                     let $buyerName = /*[[${session.nickname}]]*/ 'default';
                     let $sellerName = /*[[${post.postWriterId}]]*/ 'default';
                     let $pid = /*[[${post.postId}]]*/ 'default';
@@ -152,7 +141,6 @@
                     localStorage.setItem("$pid",$pid);
                     localStorage.setItem("$mapInfo",$mapInfo);
 
-                    <!-- 구매 폼 전송에 필요한 정보를 담는다.-->
 
                     let $frm = document.querySelector('.postFormData');
                     let formData = new FormData();
@@ -164,7 +152,6 @@
                     formData.append("rentDayPrice",$frm.postRentDayPrice.value);
                     formData.append("postId",$frm.postId.value);
 
-                    <!-- 페치 보내고 팝업창 열어서 정보 전달한다.-->
 
                     let url = `/buyCall`;
                     let option = {
@@ -238,7 +225,7 @@
                         </label>
                     </div>
                     <div>
-                        <img src="./img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
+                        <img src="../img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
                     </div>
                 </div>
             </div>
@@ -247,20 +234,16 @@
                     <span>제품정보</span>
                 </div>
                 <div>
-                    <!-- <span th:text="${post.postTagTop}"><button th:text="${post.postTagTop}" disabled></button></span>
-                    <span th:text="${post.postTagMiddle}"><button th:text="${postTagMiddle}" disabled></button></span> -->
                     <span><button th:text="${post.postTagTop}" disabled></button></span>
                     <span><button th:text="${post.postTagMiddle}" disabled></button></span>
                 </div>
                 <div th:if="${post.postRentDefaultPrice}">
                     <span>대여료</span>
-                    <!-- <span th:text="${post.postRentDefaultPrice}"><button th:text="${post.postRentDefaultPrice}" disabled></button></span> -->
                     <span><button th:text="${post.postRentDefaultPrice}" disabled></button></span>
                     <span>원</span>
                 </div>
                 <div th:if="${post.postRentDayPrice}">
                     <span>일일요금</span>
-                    <!-- <span th:text="${post.postRentDayPrice}"><button th:text="${post.postRentDayPrice}"></button></span> -->
                     <span><button th:text="${post.postRentDayPrice}" disabled></button></span>
                     <span>원</span>
                 </div>
@@ -268,22 +251,20 @@
         </div>
         <div class="PostTextWrapperDiv">
             <div class="PostTextContainer" th:utext="${post.postText}">
-                <img src="./img/sampleSub2.jpg" alt="" style="max-width:100%;">
+                <img src="../img/sampleSub2.jpg" alt="" style="max-width:100%;">
                 <span></span>
             </div>
         </div>
-        <!--        <div style="margin-top:40px;">-->
-        <!--            <div class="PostMapInfoSpan">-->
-        <!--                <p>거래 가능 지역</p>-->
-        <!--            </div>-->
-        <!--            <div class="PostMapInfo" id="maps3_container">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        채팅 히든 인풋 -->
+                <div style="margin-top:40px;">
+                    <div class="PostMapInfoSpan">
+                        <p>거래 가능 지역</p>
+                    </div>
+                    <div class="PostMapInfo" id="maps3_container">
+                    </div>
+                </div>
+                채팅 히든 인풋
 
     </div>
 </div>
-<!--채팅-->
 
-</body>
 </html>

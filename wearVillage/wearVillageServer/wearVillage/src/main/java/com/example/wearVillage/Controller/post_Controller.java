@@ -214,9 +214,12 @@ public class post_Controller {
 
         return result;
     }
+
+    @ResponseBody
     @GetMapping("/profileimg")
-    public ResponseEntity<byte[]> getProfileImage(String fileName) {
-        File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/profileImage/") + fileName);
+    public ResponseEntity<byte[]> getProfileImage(String fileName) throws UnsupportedEncodingException {
+        log.info("profileimg={}입니다!!",fileName);
+        File file = new File((local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/profileImage/") + fileName);
         //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
         //
         ResponseEntity<byte[]> result = null;
