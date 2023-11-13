@@ -185,6 +185,7 @@
                         var _top = Math.ceil(( window.screen.height - _height )/2);
                         child = window.open("productControllPannel.html","구매,대여",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
                         child.onload = function(){
+
                             child.document.getElementById('tradeId').value = $tradeId;
                             child.document.getElementById('postId').value = $postId;
                             child.document.getElementById('buyerId').value = $buyerId;
@@ -192,6 +193,14 @@
                             child.document.getElementById('price').value = $price;
                             child.document.getElementById('rentDefaultPrice').value = $rentDefaultPrice;
                             child.document.getElementById('rentDayPrice').value = $rentDayPrice;
+
+                            child.document.getElementById('RtradeId').value = $tradeId;
+                            child.document.getElementById('RpostId').value = $postId;
+                            child.document.getElementById('RbuyerId').value = $buyerId;
+                            child.document.getElementById('RsellerId').value = $sellerId;
+                            child.document.getElementById('Rprice').value = $price;
+                            child.document.getElementById('RrentDefaultPrice').value = $rentDefaultPrice;
+                            child.document.getElementById('RrentDayPrice').value = $rentDayPrice;
                         }
 
                     });
