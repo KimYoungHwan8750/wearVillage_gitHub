@@ -1,0 +1,96 @@
+.FAQlist_container * {
+  margin: 0;
+  /* outline: 1px solid red; */
+}
+
+.FAQlist_container .FAQlist_title a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  height: 40px;
+}
+
+.FAQlist_container {
+  display: grid;
+  grid-template-areas: "FAQlist_l_gap FAQlist_main FAQlist_r_gap";
+  grid-template-columns: 1fr 768px 1fr;
+}
+
+.FAQlist_top_line {
+  outline: 1px solid black;
+  margin-top: 20px;
+}
+
+.FAQlist_l_gap {
+  grid-area: FAQlist_l_gap;
+}
+
+.FAQlist_r_gap {
+  grid-area: FAQlist_r_gap;
+}
+
+.FAQlist_main {
+  grid-area: FAQlist_main;
+}
+
+.FAQlist_top {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.FAQlist_all_list {
+  /* outline: 3px solid rgb(204, 204, 204); */
+  height: 600px;
+}
+
+.FAQlist_itme {
+  display: flex;
+}
+
+.FAQlist_main_title {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  height: 50px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: rgb(255, 175, 175);
+  /* outline: 2px solid rgb(204, 204, 204); */
+}
+
+.FAQlist_main_num {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  height: 50px;
+  font-weight: bold;
+  padding-right: 20px;
+  color: #ffffff;
+  /* outline: 2px solid rgb(204, 204, 204); */
+  background-color: rgb(255, 175, 175);
+}
+
+.FAQlist_num {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  height: 50px;
+  padding-right: 20px;
+  /* outline: 2px solid rgb(204, 204, 204); */
+  /* background-color: rgb(234, 234, 234); */
+}
+
+.FAQlist_title {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  height: 50px;
+  /* background-color: rgb(255, 255, 255); */
+  /* outline: 2px solid rgb(204, 204, 204); */
+}
+.FAQlist_line{
+  outline: 1px solid rgba(252, 126, 126, 0.8);
+}

@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  /* outline: 1px solid red; */
+}
+
+.askdetail_container .askdetail_title a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  /* height: 40px; */
+}
+
+.askdetail_container {
+  display: grid;
+  grid-template-areas: "askdetail_l_gap askdetail_main askdetail_r_gap";
+  grid-template-columns: 1fr 768px 1fr;
+}
+
+.askdetail_top_line {
+  outline: 1px solid black;
+}
+
+.askdetail_l_gap {
+  grid-area: askdetail_l_gap;
+}
+
+.askdetail_r_gap {
+  grid-area: askdetail_r_gap;
+}
+
+.askdetail_main {
+  grid-area: askdetail_main;
+}
+
+.askdetail_line{
+  margin-bottom: 20px;
+}
+.askdetail_top {
+  margin-top: 60px;
+  margin-bottom: 20px;
+
+}
+.askdetail_top_line {
+  outline: 1px solid rgba(252, 126, 126, 0.8);
+}
+.askdetail_mid_line{
+  outline: 1px solid rgba(252, 126, 126, 0.8);
+}
+.askdetail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+}
+.answer{
+  margin-top: 20px;
+}
+.askdetail_menu{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.askdetail_deleteBtn{
+  height: 40px;
+  border: none;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.askdetail_deleteBtn:hover{
+  text-decoration: underline;
+}
+.askdetail_listBtn{
+  width: 100px;
+  height: 50px;
+}
+.blank1 {
+    width: 20px;
+    height: 20px;
+}

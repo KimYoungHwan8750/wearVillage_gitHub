@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+
+<body>
+  <div layout:fragment="content">
+    <link layout:fragment="css" rel="stylesheet" href="/css/FAQ.css">
+    <link layout:fragment="css" rel="stylesheet" href="/css/wearVillageBtn.css">
+    <!-- 왼쪽 공백 -->
+    <div class="asklist_l_gap"></div>
+    <!-- 메인 faqObject -->
+    <div class="FAQ_container">
+      <div class="FAQ_main">
+        <h2 class="FAQ_top" th:text="${faqObject.title}">제목</h2>
+        <div class="FAQ_top_line"></div>
+        <br>
+        <div class="FAQ">
+          <div class="FAQ_answer" th:text="${faqObject.body}">답변</div>
+        </div>
+        <div class="askdetail_menu">
+          <button class="askdetail_top wearVillageBtn askdetail_listBtn"
+                  onclick="window.location.href='/FAQlist';">문의 목록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 오른쪽 공백 -->
+  <div class="asklist_r_gap"></div>
+
+
+  </div>
+
+
+</body>
+
+</html>

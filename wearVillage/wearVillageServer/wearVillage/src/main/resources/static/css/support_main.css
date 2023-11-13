@@ -1,0 +1,105 @@
+*{
+  margin: 0;
+}
+.supportMain_container a {
+  text-decoration: none;
+  color: black;
+}
+
+.supportMain_container {
+  display: grid;
+  grid-template-areas: ". supportMain_main .";
+  grid-template-columns: 1fr 768px 1fr;
+}
+
+.supportMain_l_gap {
+  grid-area: supportMain_l_gap;
+}
+
+.supportMain_r_gap {
+  grid-area: supportMain_r_gap;
+}
+
+.supportMain_main {
+  grid-area: supportMain_main;
+}
+.supportMain_container img{
+  width: 100px;
+  height: 100px;
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.support_img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+}
+.supportMain_top{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.supportMain_mid{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.supportMain_btn{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  gap: 50px;
+}
+.supportMain_ask_btn{
+  background-color: rgba(255, 255, 255, 0.589);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px; height: 150px;
+  margin-bottom: 10px;
+  outline: 3px solid rgba(252, 126, 126, 0.5);
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.supportMain_ask_btn:hover{
+  box-shadow: 5px 5px 20px #a1a1a1;
+  outline: 3px solid rgba(252, 126, 126, 0.8);
+}
+.supportMain_btn_name{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.supportMain_title{
+  font-size: 22px;
+  font-weight: bold;
+}
+.supportMain_line{
+  margin-top: 50px;
+  margin-bottom: 80px;
+  outline: 1px solid rgba(252, 126, 126, 0.8);
+}
+.supportMain_bottom{
+  display: flex;
+  justify-content: space-around;
+}
+.supportMain_idfind{
+  border: 25px;
+}
+.askimg:hover{
+  
+}

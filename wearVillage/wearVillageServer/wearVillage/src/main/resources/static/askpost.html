@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+    <html xmlns:th="https://www.thymeleaf.org"
+    xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/default}">
+
+<body>
+        <div layout:fragment="content">
+         <link layout:fragment="css" rel="stylesheet" href="/css/askpost.css">
+         <link layout:fragment="css" rel="stylesheet" href="/css/wearVillageBtn.css">
+            <!-- 왼쪽공백 -->
+  <div class="askpost_l_gap"></div>
+  <!-- 메인 -->
+  <form action="http://localhost:8090/askwrite" method="post" >
+    <div class="askpost_container">
+      <div class="askpost_main">
+        <h2 class="askpost_title" style="font-size: 25px;font-weight: bold;">1:1 문의하기</h2>
+        <div class="askpost_line"></div>
+        <br>
+
+        <!-- 문의유형 선택 -->
+        <label class="askpost_ask_type askpost_stitle" for="inquiryType">* 문의 유형 </label>
+        <select class="askpost_input2 inputStyle" id="inquiryType" name="gubun">
+          <option value="" disabled selected>선택하세요</option>
+          <option value="payment">결제 문의</option>
+          <option value="general">일반 문의</option>
+          <option value="bug">버그 신고</option>
+          <option value="user">유저 신고</option>
+          <option value="feedback">기능 추가 요청</option>
+          <option value="etc">기타 문의</option>
+        </select>
+        <br>
+        <!-- 문의유형 선택 에러 -->
+        <span class="askpost_error" id="inquiryTypeError"></span>
+        <br>
+        <!-- 제목 and 사진첨부 -->
+        <div class="askpost_title_and_file askpost_stitle askpost_Mtop">
+          <label for="titleInput">* 제목 </label>
+          <input type="text" class="askpost_input1 inputStyle" id="titleInput" value="" name="title">
+
+          <!-- <label for="photoInput">사진 첨부 <input type="file" id="photoInput" multiple="multiple"></label> -->
+        </div>
+        <!-- 제목에러 -->
+        <span class="askpost_error" id="titleError"></span>
+        <br>
+        <!-- 문의내용 입력 -->
+        <label for="contentInput">
+          <p class="askpost_stitle askpost_Mtop">* 문의 내용</p></label>
+          <br>
+          <textarea class="askpost_subject inputStyle askpost_stitle" id="contentInput" value="" name="body"></textarea>
+
+        <span class="askpost_error" id="contentError"></span>
+        <br>
+        <br>
+        <!-- 이메일, 전화번호 입력 -->
+        <div class="askpost_mail_num askpost_stitle">
+          <label for="emailInput">* 이메일 주소 <input class="askpost_input2 inputStyle" placeholder="example@gmail.com"
+                                                  type="email"  id="emailInput" value="" name="email"></label>
+          <div class="askpost_end_line askpost_stitle">
+            <div class="askpost_checkbox">
+              <label class=" askpost_agree">(필수)개인정보 수집 동의
+                <input type="checkbox" id="agreeCheckbox"></label>
+              <span class="askpost_error checkbox_error" id="agreeError"></span>
+            </div>
+            <div class="ask">
+              <button class="askpost_ask_btn wearVillageBtn" id="submitButton" onclick="validateForm()">문의하기</button>
+            </div>
+          </div>
+          <!-- <label for="phoneInput">(선택)휴대폰 번호 <input class="askpost_input2" placeholder="01012345678" type="text" oninput="hypenTel(this)"
+              id="phoneInput" maxlength="13"></label> -->
+        </div>
+        <!-- 이메일 에러 -->
+        <span class="askpost_error email_error" id="emailError"></span>
+
+      </div>
+
+    </div>
+  </form>
+  <!-- 오른쪽공백 -->
+  <div class="askpost_r_gap"></div>
+        
+
+
+</div>
+
+</body>
+</html>
