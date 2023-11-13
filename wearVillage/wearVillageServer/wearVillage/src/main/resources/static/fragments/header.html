@@ -4,10 +4,10 @@
 
 <div th:fragment="header" class="header_fragment">
 
-        <link layout:fragment="css" rel="stylesheet" href="/css/header.css">
+        <link layout:fragment="css" rel="stylesheet" href="../css/header.css">
 
 <section class="sign_section">
-    <a class = "header_login_link" href="/login"><img class = "header_login_img"
+    <a class = "header_login_link" href="../login"><img class = "header_login_img"
             style="position:relative;
                top:1px;
                left:3px;
@@ -47,9 +47,9 @@
     </div>
     <div class="headerItem2 pc">
         <div class="header_menu header_logo">
-            <div class="header_rectangle" style ="'background-image: url(img/img_header_tablet_menu_icon.png); background-size: cover;">
+            <div class="header_rectangle" style ="'background-image: url(../img/img_header_tablet_menu_icon.png); background-size: cover;">
             </div>
-            <img src="/img/img_wearVillageLogo.png" alt="">
+            <img src="../img/img_wearVillageLogo.png" alt="">
             <div class ="header_logo_id"><a href="/">wearVillage</a></div>
         </div>
         <div class="header_menu"><a href="/posts">구매/대여</a></div>
@@ -62,10 +62,10 @@
   
     <div class="headerItem3"></div>
 </section>
-    <form action="/search/${query}" th:method="get" id="searchForm">
+    <form action="../search/${query}" th:method="get" id="searchForm">
         <div class="header_searchArea">
             <input class="header_searchText" type="text" placeholder="검색어를 입력해주세요" >
-            <img class="searchImageBtn" src="/img/magnifier.png" style="width:15px; height:15px; padding-right:20px;" onclick="submitSearch()">
+            <img class="searchImageBtn" src="../img/magnifier.png" style="width:15px; height:15px; padding-right:20px;" onclick="submitSearch()">
         </div>
     </form>
 
@@ -79,7 +79,7 @@
 
         function submitSearch() {
             let query = document.querySelector('.header_searchText').value;
-            window.location.href='/search/'+encodeURIComponent(query);
+            window.location.href='../search/'+encodeURIComponent(query);
         }
     </script>
 <script layout:fragment="script" src="/js/header.js"></script>
