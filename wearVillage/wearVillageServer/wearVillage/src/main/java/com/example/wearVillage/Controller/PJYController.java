@@ -446,8 +446,8 @@ public class PJYController {
     }
 
     @Bean
-//    @Scheduled(fixedDelay = 86400000) // 하루마다 체크한다.
-    @Scheduled(fixedDelay = 20000)
+    @Scheduled(fixedDelay = 86400000) // 하루마다 체크한다.
+//    @Scheduled(fixedDelay = 20000)
     public void check() {
         //DB를 긁어와서 data에 List를 저장
         List<RentData> data = productBuyDAO.checkPerDay();

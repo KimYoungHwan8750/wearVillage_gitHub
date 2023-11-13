@@ -85,10 +85,9 @@ public class ProductBuyDAOImpl implements ProductBuyDAO {
         try {
             int miliage = template.queryForObject(sql.toString(), param, int.class);
             return miliage;
-        } catch (DataException e) {
+        } catch (NumberFormatException | EmptyResultDataAccessException e) {
             return -1;
         }
-
     }
 
     @Override
@@ -96,6 +95,11 @@ public class ProductBuyDAOImpl implements ProductBuyDAO {
 
         int buyerMiliage = howMuchMiliage(productBuyForm.getBuyerId());
         int sellerMiliage = howMuchMiliage(productBuyForm.getSellerId());
+        if(buyerMiliage==-1){
+            return "오류가 발생했습니다. 다시 로그인 해주세요.";
+        } else if (sellerMiliage==-1){
+            return "오류가 발생했습니다. 다시 로그인 해주세요.";
+        }
 
         String regprice = productBuyForm.getPrice().replaceAll("[^0-9]","");
         int price = Integer.valueOf(regprice);
