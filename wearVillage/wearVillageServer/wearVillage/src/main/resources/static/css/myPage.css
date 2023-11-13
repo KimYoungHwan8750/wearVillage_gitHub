@@ -894,3 +894,42 @@ input[type="password"]:focus {
 }
 
 /* 결제끝 */
+
+/* 모달3 */
+
+#myPageModalContainer3.hidden {
+  display: none;
+}
+
+#myPageModalCloseButton3 {
+  cursor: pointer;
+}
+
+#myPageModalContainer3 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#myPageModalContent3 {
+  position: absolute;
+  background-color: #ffffff;
+  width: 330px;
+  height: 260px;
+  padding: 15px;
+}
+
+#myPageModalContent3 {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border-radius:10px;
+    background-color: white;
+    border:2px solid #ff7a7a;
+}

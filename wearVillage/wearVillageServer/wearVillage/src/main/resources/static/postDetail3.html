@@ -67,7 +67,11 @@
         <input th:field="*{postRentDefaultPrice}" name="rentDefaultPrice">
         <input th:field="*{postRentDayPrice}" name="rentDayPrice">
         <input th:field="*{postMapInfo}">
+<<<<<<< HEAD
         <input th:field="*{postWriterId}" type="text">
+=======
+        <input th:field="*{postWriterId}">
+>>>>>>> 200e0a0cab23f6e3774fc6ea8159ad4bf7e6baba
         <input name = "theme" value="${theme}">
         <input name = "postThumbnailUrl" th:value="${postThumbnailUrl}">
         <input name = "myId" th:value="${session.id}">
@@ -180,8 +184,8 @@
                         let $rentDayPrice = res['rentDayPrice'];
                         let $tradeDate = res['tradeDate'];
                         window.name = "parent";
-                        var _width = '800';
-                        var _height = '700';
+                        var _width = '700';
+                        var _height = '800';
                         var _left = Math.ceil(( window.screen.width - _width )/2);
                         var _top = Math.ceil(( window.screen.height - _height )/2);
                         child = window.open("productControllPannel.html","구매,대여",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);

@@ -7,7 +7,7 @@
 
     <style>
         input[type="text" i] {
-            width:140px;
+            width:125px;
             height:28px;
             font-size:16px;
             margin:5px;
@@ -34,6 +34,58 @@
             display:flex;
             flex-direction:row;
             justify-content: center;
+            align-items:center;
+        }
+
+        #myPageModalContainer.hidden {
+          display: none;
+        }
+
+        #myPageModalCloseButton {
+          cursor: pointer;
+        }
+
+        #myPageModalContainer {
+          width: 100%;
+          height: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #daterange {
+          position: absolute;
+          background-color: #ffffff;
+          width: 330px;
+          height: 360px;
+          padding: 15px;
+        }
+
+        #daterange {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            border-radius:10px;
+            background-color: white;
+            border:2px solid #ff7a7a;
+        }
+
+        #hiddenRentValueForm {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+
+        #hiddenRentValueForm p {
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            margin-left:auto;
+            margin-right:auto;
         }
     </style>
     <script>
@@ -44,10 +96,6 @@
             } else {
                 return;
             }
-        }
-
-        function rentFunction(){
-            // 모달로직
         }
 
         function rentFunction2(){
@@ -81,6 +129,70 @@
             }
         }
     </script>
+    <style>
+        #hiddenValueForm {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            width:700px;
+            height:800px;
+        }
+
+        #buyButton {
+              width: 150px;
+              height: 40px;
+              background-color: #ff7a7a;
+              color: white;
+              border: none;
+              outline: none;
+              border-radius: 10px;
+              font-weight: bold;
+              font-size: 20px;
+              margin:10px;
+              cursor:pointer;
+        }
+
+        #myPageModalOnButton {
+              width: 150px;
+              height: 40px;
+              background-color: #ff7a7a;
+              color: white;
+              border: none;
+              outline: none;
+              border-radius: 10px;
+              font-weight: bold;
+              font-size: 20px;
+              margin:10px;
+              cursor:pointer;
+        }
+
+        #rentButton {
+              width: 150px;
+              height: 40px;
+              background-color: #ff7a7a;
+              color: white;
+              border: none;
+              outline: none;
+              border-radius: 10px;
+              font-weight: bold;
+              font-size: 20px;
+              margin:10px;
+              cursor:pointer;
+        }
+
+        #myPageModalCloseButton {
+            width: 97px;
+          border-radius: 10px;
+          border: none;
+          outline: none;
+          font-size: 18px;
+
+          background-color: #f5f5f5;
+          color: #7b7b7b;
+          margin-left:auto;
+          margin-right:auto;
+        }
+    </style>
 </head>
 <body>
     <form action="/tradeCall" method="POST" id="hiddenValueForm">
@@ -91,26 +203,42 @@
         <input type="hidden" id="price" name="price">
         <input type="hidden" id="rentDefaultPrice" name="rentDefaultPrice">
         <input type="hidden" id="rentDayPrice" name="rentDayPrice">
-        <input type="button" value="구매하기" onclick="buyFunction()">
-        <input type="button" value="대여하기" onclick="rentFunction()">
+        <input type="button" value="구매하기" onclick="buyFunction()" id="buyButton">
+        <input type="button" value="대여하기" id="myPageModalOnButton">
     </form>
 
-    <div id="daterange">
-        <form action="/rentCall" method="POST" id="hiddenRentValueForm">
-            <p><label for="start">대여 시작일자</label>
-            <input type="text" id="start" readonly placeholder="대여 시작일자" name="rentStartDay"></p>
-            <p><label for="end">대여 종료일자</label>
-            <input type="text" id="end" readonly placeholder="대여 종료일자" name="rentFinishDay"></p>
-            <input type="hidden" id="RtradeId" name="tradeId">
-            <input type="hidden" id="RpostId" name="postId">
-            <input type="hidden" id="RbuyerId" name="buyerId">
-            <input type="hidden" id="RsellerId" name="sellerId">
-            <input type="hidden" id="Rprice" name="price">
-            <input type="hidden" id="RrentDefaultPrice" name="rentDefaultPrice">
-            <input type="hidden" id="RrentDayPrice" name="rentDayPrice">
-            <input type="button" value="대여신청" onclick="rentFunction2()">
-        </form>
+    <div id="myPageModalContainer" class="hidden">
+        <div id="daterange">
+            <form action="/rentCall" method="POST" id="hiddenRentValueForm">
+                <p><label for="start">대여 시작일자</label>
+                <input type="text" id="start" readonly placeholder="대여 시작일자" name="rentStartDay"></p>
+                <p><label for="end">대여 종료일자</label>
+                <input type="text" id="end" readonly placeholder="대여 종료일자" name="rentFinishDay"></p>
+                <input type="hidden" id="RtradeId" name="tradeId">
+                <input type="hidden" id="RpostId" name="postId">
+                <input type="hidden" id="RbuyerId" name="buyerId">
+                <input type="hidden" id="RsellerId" name="sellerId">
+                <input type="hidden" id="Rprice" name="price">
+                <input type="hidden" id="RrentDefaultPrice" name="rentDefaultPrice">
+                <input type="hidden" id="RrentDayPrice" name="rentDayPrice">
+                <input type="button" value="대여신청" onclick="rentFunction2()" id="rentButton">
+                <input type="button" id="myPageModalCloseButton" value="취소하기">
+            </form>
+        </div>
     </div>
+    <script>
+            let modalOpenButton = document.getElementById('myPageModalOnButton');
+            let modalCloseButton = document.getElementById('myPageModalCloseButton');
+            let modal = document.getElementById('myPageModalContainer');
+
+            modalOpenButton.addEventListener('click',()=>{
+              modal.classList.remove('hidden');
+            })
+            modalCloseButton.addEventListener('click',()=>{
+              modal.classList.add('hidden');
+            })
+
+    </script>
 
     <script src="./js/vanillajs-datepicker/dist/js/datepicker-full.min.js"></script>
     <script>

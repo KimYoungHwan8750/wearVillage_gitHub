@@ -72,27 +72,6 @@ layout:decorate="~{layouts/default}">
 
         updateVisibility();
       </script>
-      <script type="module">
-        const $input = document.querySelector('#posting_price_id');
-        const $input2 = document.querySelector('#posting_rent_price_id');
-        const $input3 = document.querySelector('#posting_rent_price2_id');
-
-        function handleInput(e) {
-          let value = e.target.value;
-          value = Number(value.replaceAll(',', ''));
-          if (isNaN(value)) {
-            alert('숫자만 입력해주세요!');
-            e.target.value = '';
-          } else {
-            const formatValue = value.toLocaleString('ko-KR');
-            e.target.value = formatValue;
-          }
-        }
-
-        $input.addEventListener('keyup', handleInput);
-        $input2.addEventListener('keyup', handleInput);
-        $input3.addEventListener('keyup', handleInput);
-      </script>
       <div style="    height: 170px;
     display: flex;
     flex-direction: column;
@@ -177,6 +156,7 @@ layout:decorate="~{layouts/default}">
                     class="posting_price_box"
                     value=""
                     placeholder="가격을 입력해주세요"
+                    oninput="regexFunction()"
             />
             <label for="posting_price_id" style="font-size: 16px">원</label>
           </div>
@@ -190,6 +170,7 @@ layout:decorate="~{layouts/default}">
                     class="posting_rent_price_box"
                     value=""
                     placeholder="기본 요금"
+                    oninput="regexFunction()"
             />
             <label for="posting_rent_price_id" style="font-size: 16px"
             >원+</label
@@ -200,6 +181,7 @@ layout:decorate="~{layouts/default}">
                     class="posting_rent_price2_box"
                     value=""
                     placeholder="일일 요금"
+                    oninput="regexFunction()"
             />
             <label for="posting_rent_price2_id" stlye="font-size: 16px"
             >원</label
@@ -1012,6 +994,15 @@ layout:decorate="~{layouts/default}">
       });
     }
   </script>
+      <script>
+      function regexFunction(e){
+        var value = event.target.value;
+        value = value.replace(/[^0-9]/g,''); // 숫자가 아닌 문자 제거
+        value = value.substring(0, 8); // 숫자 8자리 제한
+        value = value.replace(/,/g, ''); // 기존에 입력된 쉼표 제거
+        event.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+      </script>
   </div>
 </body>
 </html>
