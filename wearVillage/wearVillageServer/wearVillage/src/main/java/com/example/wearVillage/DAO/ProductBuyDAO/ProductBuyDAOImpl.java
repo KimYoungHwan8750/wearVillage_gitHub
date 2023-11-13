@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -217,7 +218,98 @@ public class ProductBuyDAOImpl implements ProductBuyDAO {
     }
 
     @Override
-    public void checkPerDay(ProductFinalForm productFinalForm) {
+    public List<RentData> checkPerDay() {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select * from rent_return_check ");
 
+        List<RentData> data = template.query(sql.toString(),new BeanPropertyRowMapper<>(RentData.class));
+        log.info("data={}",data);
+        return data;
+    }
+
+    @Override
+    public String checkFinalDay(String tid) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select FINALDAY from trade_final_check ");
+        sql.append( "where tradeId = :tradeId ");
+
+        Map<String,String> param = Map.of("tradeId",tid);
+
+        String finalDay = template.queryForObject(sql.toString(),param,String.class);
+        return finalDay;
+    }
+
+    @Override
+    public String getMiddleMiliage(String tid) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select middleMiliage from trade_final_check ");
+        sql.append( "where tradeId = :tradeId ");
+
+        Map<String,String> param = Map.of("tradeId",tid);
+        String middleMiliage = template.queryForObject(sql.toString(),param,String.class);
+        return middleMiliage;
+    }
+
+    @Override
+    public String whoIsSeller(String tid) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select sellerId from rent_return_check ");
+        sql.append( "where tradeId = :tradeId ");
+
+        Map<String,String> param = Map.of("tradeId",tid);
+
+        String sellerId = template.queryForObject(sql.toString(),param,String.class);
+
+        return sellerId;
+    }
+
+    @Override
+    public String whoIsBuyer(String tid) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select buyerId from rent_return_check ");
+        sql.append( "where tradeId = :tradeId ");
+
+        Map<String,String> param = Map.of("tradeId",tid);
+
+        String buyerId = template.queryForObject(sql.toString(),param,String.class);
+        return buyerId;
+    }
+
+    @Override
+    public int returnMiliage(String id, int miliage) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("update user_wallet set miliage = (miliage + :miliage) ");
+        sql.append( "where id = :id ");
+
+        Map<String,Object> param = Map.of("id",id,"miliage",miliage);
+
+        int updatedRow = template.update(sql.toString(),param);
+        log.info("마일리지 수정 updatedRow = {}",updatedRow);
+        return updatedRow;
+    }
+
+    @Override
+    public int completeTrade(String tradeId) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("update rent_return_check set returnCheck = '2' ");
+        sql.append( "where tradeId = :tradeId ");
+
+        Map<String,String> param = Map.of("tradeId",tradeId);
+
+        int updatedRow = template.update(sql.toString(),param);
+        log.info("거래완료 updatedRow = {}",updatedRow);
+        return updatedRow;
+    }
+
+    @Override
+    public void sellerCompleteTrade(String tradeId) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("update rent_return_check set returnCheck = '1' ");
+        sql.append( "where tradeId = :tradeId ");
+
+        Map<String,String> param = Map.of("tradeId",tradeId);
+
+        int updatedRow = template.update(sql.toString(),param);
+        log.info("대여 반환 완료={}",updatedRow);
     }
 }

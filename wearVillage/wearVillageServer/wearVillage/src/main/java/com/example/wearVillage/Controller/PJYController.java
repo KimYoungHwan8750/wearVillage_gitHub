@@ -2,17 +2,14 @@ package com.example.wearVillage.Controller;
 
 
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.logging.SimpleFormatter;
 
-import com.example.wearVillage.DAO.ProductBuyDAO.ProductBuyDAO;
-import com.example.wearVillage.DAO.ProductBuyDAO.ProductBuyForm;
-import com.example.wearVillage.DAO.ProductBuyDAO.ProductFinalForm;
-import com.example.wearVillage.DAO.ProductBuyDAO.ProductRentForm;
+import com.example.wearVillage.DAO.ProductBuyDAO.*;
 import com.example.wearVillage.DAO.findIDPW.FindIdForm;
 import com.example.wearVillage.DAO.findIDPW.FindPwForm;
 import com.example.wearVillage.DAO.findIDPW.FindSVC;
@@ -28,14 +25,18 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.regex.qual.Regex;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,7 +57,8 @@ public class PJYController {
     private final FindSVC findSVC;
     private final UpdateEntityRepository updateEntityRepository;
     private final ProductBuyDAO productBuyDAO;
-//DAO - > SVC 수정필
+
+    //DAO - > SVC 수정필
     @GetMapping("/posts")
     public ModelAndView listPosts(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "16") int size,
@@ -78,7 +80,7 @@ public class PJYController {
         if (postTagMiddle != null) {
             sqlBuilder.append(" WHERE POST_TAG_MIDDLE=:postTagMiddle");
             params.put("postTagMiddle", postTagMiddle);
-        } else if(postTagTop!=null){
+        } else if (postTagTop != null) {
             sqlBuilder.append(" WHERE POST_TAG_TOP=:postTagTop");
             params.put("postTagTop", postTagTop);
         }
@@ -104,72 +106,68 @@ public class PJYController {
             }
         }
 
-        String countSql="SELECT COUNT(*) FROM POSTING_TABLE";
-        if(postTagMiddle!=null){
-            countSql+=" WHERE POST_TAG_MIDDLE=:postTagMiddle";
-        }else if(postTagTop!=null){
-            countSql+=" WHERE POST_TAG_TOP=:postTagTop";
+        String countSql = "SELECT COUNT(*) FROM POSTING_TABLE";
+        if (postTagMiddle != null) {
+            countSql += " WHERE POST_TAG_MIDDLE=:postTagMiddle";
+        } else if (postTagTop != null) {
+            countSql += " WHERE POST_TAG_TOP=:postTagTop";
         }
-        Integer totalPosts=namedParameterJdbcTemplate.queryForObject(countSql,params,Integer.class);
+        Integer totalPosts = namedParameterJdbcTemplate.queryForObject(countSql, params, Integer.class);
 
         int totalPages;
 
-        if(totalPosts % size ==0)
-            totalPages=totalPosts/size;
+        if (totalPosts % size == 0)
+            totalPages = totalPosts / size;
         else
-            totalPages=totalPosts/size+1;
+            totalPages = totalPosts / size + 1;
 
-        ModelAndView modelAndView=new ModelAndView ("items_buy");
-        modelAndView.addObject ("posts",posts);
+        ModelAndView modelAndView = new ModelAndView("items_buy");
+        modelAndView.addObject("posts", posts);
 
-        modelAndView.addObject ("currentPage",page);
-        modelAndView.addObject ("totalPages",totalPages);
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("totalPages", totalPages);
 
         return modelAndView;
     }
 
 
-
-
-
-
     @GetMapping("/mail/send")
-    public String mail(){
+    public String mail() {
         return "memberjoin.html";
     }
 
     @ResponseBody
     @PostMapping("/mail/send")
     public String sendMail(HttpSession session, GmailDto gmailDto) throws MessagingException {
-        int gmailAuthCode = emailService.sendMimeMessage(gmailDto,session);
-        session.setAttribute("gmailAuthCode",gmailAuthCode);
+        int gmailAuthCode = emailService.sendMimeMessage(gmailDto, session);
+        session.setAttribute("gmailAuthCode", gmailAuthCode);
         session.setMaxInactiveInterval(1 * 60);
-        log.info("메일 송신 완료, 번호={}",gmailAuthCode);
+        log.info("메일 송신 완료, 번호={}", gmailAuthCode);
         return "memberjoin.html";
     }
 
     @ResponseBody
     @PostMapping("/verify")
-    public Map<String, Boolean> verify(HttpSession session, @RequestBody Map<String, String> payload){
+    public Map<String, Boolean> verify(HttpSession session, @RequestBody Map<String, String> payload) {
         Integer sessionAuthCode = (Integer) session.getAttribute("authCode");
 
         Map<String, Boolean> response = new HashMap<>();
 
-        if(sessionAuthCode != null && sessionAuthCode.equals(Integer.parseInt(payload.get("authCode")))){
+        if (sessionAuthCode != null && sessionAuthCode.equals(Integer.parseInt(payload.get("authCode")))) {
             log.info("메일 인증 성공");
-            response.put("success",true);
+            response.put("success", true);
         } else {
             log.info("메일 인증 실패");
-            response.put("success",false);
+            response.put("success", false);
         }
         return response;
     }
 //    삭제
 
     @GetMapping("/delete/viewPost2")
-    public String deleteById(@RequestParam Long id){
+    public String deleteById(@RequestParam Long id) {
         int deletedRow = deleteSVC.deleteById(id);
-        log.info("요청보냄. id={}",id);
+        log.info("요청보냄. id={}", id);
         return "redirect:/posts";
     }
 
@@ -202,13 +200,13 @@ public class PJYController {
 //        }
 //    }
     @GetMapping("/edit/{id}")
-    public String editPost(@PathVariable("id") Long id, Model model,HttpSession session) {
+    public String editPost(@PathVariable("id") Long id, Model model, HttpSession session) {
         // 게시글 조회
-        if(session.getAttribute("email")!=null) {
+        if (session.getAttribute("email") != null) {
             String selectQuery = "SELECT * FROM POSTING_TABLE WHERE POST_ID = ?";
             PostData postData = jdbcTemplate.queryForObject(selectQuery, new BeanPropertyRowMapper<>(PostData.class), id);
             model.addAttribute("postData", postData);
-            model.addAttribute("editMode","edit");
+            model.addAttribute("editMode", "edit");
             return "posting.html";  // 수정 폼 페이지 반환
         } else {
             return "redirect:/login";
@@ -247,13 +245,13 @@ public class PJYController {
             updateEntityRepository.save(postData);
             return "수정 성공!";
         } catch (Exception e) {
-            log.error("에러내용={}",e.getMessage());
+            log.error("에러내용={}", e.getMessage());
             return "수정 실패.";
         }
     }
 
     @GetMapping("/search/{query}")
-    public ModelAndView searchQuery(@PathVariable String query, ModelAndView mav, PostData postData){
+    public ModelAndView searchQuery(@PathVariable String query, ModelAndView mav, PostData postData) {
         mav.setViewName("searchedPosting");
 
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
@@ -264,8 +262,8 @@ public class PJYController {
         sql.append("      or Post_Tag_Top like :query ");
         sql.append("      or Post_Tag_Middle like :query ");
 
-        Map<String,Object>param = new HashMap<>();
-        param.put("query","%"+query+"%");
+        Map<String, Object> param = new HashMap<>();
+        param.put("query", "%" + query + "%");
 
         RowMapper<PostData> mapper = new BeanPropertyRowMapper<>(PostData.class);
 
@@ -283,10 +281,9 @@ public class PJYController {
             }
         }
 
-        mav.addObject("searchedPost",searchedPost);
-        mav.addObject("postData",postData);
-        log.info("검색결과={}",searchedPost);
-
+        mav.addObject("searchedPost", searchedPost);
+        mav.addObject("postData", postData);
+        log.info("검색결과={}", searchedPost);
 
 
         return mav;
@@ -294,23 +291,23 @@ public class PJYController {
 
     //아이디 찾기
     @GetMapping("/login/findId")
-    public ModelAndView findId(){
+    public ModelAndView findId() {
         ModelAndView mav = new ModelAndView("findId");
 
         return mav;
     }
 
     @PostMapping("/login/findId")
-    public ModelAndView findIdByEmail(FindIdForm findIdForm){
+    public ModelAndView findIdByEmail(FindIdForm findIdForm) {
         ModelAndView mav = new ModelAndView("findedId");
         String findedId = findSVC.findId(findIdForm.getEmail());
-        mav.addObject("findedId",findedId);
+        mav.addObject("findedId", findedId);
         return mav;
     }
 
     //비밀번호 찾기
     @GetMapping("/login/findPw")
-    public ModelAndView findPw(){
+    public ModelAndView findPw() {
         ModelAndView mav = new ModelAndView("findPw");
 
         return mav;
@@ -318,55 +315,55 @@ public class PJYController {
 
 
     @PostMapping("/login/findPw")
-    public ModelAndView findPwByIdAndEmail(HttpSession session,FindPwForm findPwForm){
+    public ModelAndView findPwByIdAndEmail(HttpSession session, FindPwForm findPwForm) {
         ModelAndView mav = new ModelAndView("findPwAuth");
-        String AuthCode = findSVC.findPwByIdAndPw(findPwForm.getId(),findPwForm.getEmail());
+        String AuthCode = findSVC.findPwByIdAndPw(findPwForm.getId(), findPwForm.getEmail());
         //조회에 실패한 경우
-        if(AuthCode == "조회 실패"){
+        if (AuthCode == "조회 실패") {
             mav.setViewName("findPw");
-            mav.addObject("errMessage","회원 정보를 찾을수 없습니다.");
+            mav.addObject("errMessage", "회원 정보를 찾을수 없습니다.");
             return mav;
             //메일 발송이 불가능한 경우
-        } else if(AuthCode == "메일 발송 불가능"){
+        } else if (AuthCode == "메일 발송 불가능") {
             mav.setViewName("findPw");
-            mav.addObject("errMessage","현재 메일 서비스가 불가능합니다.");
+            mav.addObject("errMessage", "현재 메일 서비스가 불가능합니다.");
             return mav;
             //메일 발송
         } else {
-            session.setAttribute("id",findPwForm.getId());
-            session.setAttribute("email",findPwForm.getEmail());
-            session.setAttribute("AuthCode",AuthCode);
+            session.setAttribute("id", findPwForm.getId());
+            session.setAttribute("email", findPwForm.getEmail());
+            session.setAttribute("AuthCode", AuthCode);
             return mav;
         }
     }
 
     @PostMapping("/login/tempPw")
-    public ModelAndView setTempPw(HttpSession session,NewPwForm newPwForm){
+    public ModelAndView setTempPw(HttpSession session, NewPwForm newPwForm) {
         ModelAndView mav = new ModelAndView("findPwAuth");
         GmailDto dto = new GmailDto();
         dto.setAddress(newPwForm.getEmail());
         try {
-            String tempPw = Integer.toString(emailService.sendPwMail(dto,session));
+            String tempPw = Integer.toString(emailService.sendPwMail(dto, session));
             findSVC.setTempPw(newPwForm.getEmail(), newPwForm.getId(), tempPw);
-            mav.addObject("resultSubtitle","임시 비밀번호 발급 성공");
-            mav.addObject("resultMsg","임시 비밀번호 발급 성공에 성공했습니다. 메일을 확인해주세요.");
-            mav.addObject("status",1);
+            mav.addObject("resultSubtitle", "임시 비밀번호 발급 성공");
+            mav.addObject("resultMsg", "임시 비밀번호 발급 성공에 성공했습니다. 메일을 확인해주세요.");
+            mav.addObject("status", 1);
             return mav;
         } catch (MessagingException e) {
-            mav.addObject("resultSubtitle","임시 비밀번호 발급 실패");
-            mav.addObject("resultMsg","임시 비밀번호 발급 실패했습니다. 한번더 확인해주세요.");
-            mav.addObject("status",1);
+            mav.addObject("resultSubtitle", "임시 비밀번호 발급 실패");
+            mav.addObject("resultMsg", "임시 비밀번호 발급 실패했습니다. 한번더 확인해주세요.");
+            mav.addObject("status", 1);
             return mav;
         }
     }
 
     @ResponseBody
     @PostMapping("/buyCall")
-    public ProductBuyForm buyCall(@ModelAttribute ProductBuyForm productBuyForm){
-        log.info("pF={}",productBuyForm);
+    public ProductBuyForm buyCall(@ModelAttribute ProductBuyForm productBuyForm) {
+        log.info("pF={}", productBuyForm);
         ProductBuyForm madeForm = productBuyDAO.readyToTrade(productBuyForm);
-        log.info("madeForm = {}",madeForm);
-        if(madeForm.getBuyerId().isEmpty()){
+        log.info("madeForm = {}", madeForm);
+        if (madeForm.getBuyerId().isEmpty()) {
             return null;
         } else {
             log.info("madeForm탐");
@@ -375,51 +372,52 @@ public class PJYController {
     }
 
     @GetMapping("/product")
-    public String buyProduct(Model model,HttpSession session){
+    public String buyProduct(Model model, HttpSession session) {
         log.info("buy들옴");
         Object madeForm = model.getAttribute("madeForm");
-        log.info("madeForm = {}",madeForm);
-        if(madeForm == null){
+        log.info("madeForm = {}", madeForm);
+        if (madeForm == null) {
             return "error/404";
-        } else{
-            session.setAttribute("madeForm",madeForm);
+        } else {
+            session.setAttribute("madeForm", madeForm);
             return "productControllPannel";
         }
     }
 
     @PostMapping("/tradeCall")
-    public ModelAndView tradeCall(ProductBuyForm productBuyForm){
+    public ModelAndView tradeCall(ProductBuyForm productBuyForm) {
         ModelAndView mav = new ModelAndView();
-        log.info("pbF={}",productBuyForm);
+        log.info("pbF={}", productBuyForm);
         String result = productBuyDAO.trade(productBuyForm);
-        if(result.equals("구매 완료")){
+        if (result.equals("구매 완료")) {
             log.info("구매완료");
-            mav.addObject("productInfo",productBuyForm);
+            //TODO 구매신청메세지
+            mav.addObject("productInfo", productBuyForm);
             mav.setViewName("tradeToChat");
-        }else{
+        } else {
             log.info("구매실패");
         }
         return mav;
     }
 
     @PostMapping("/rentCall")
-    public ModelAndView rentCall(ProductRentForm productRentForm){
+    public ModelAndView rentCall(ProductRentForm productRentForm) {
         ModelAndView mav = new ModelAndView();
-        log.info("pf={}",productRentForm);
+        log.info("pf={}", productRentForm);
         String result = productBuyDAO.trade2(productRentForm);
         int a = Integer.valueOf(productRentForm.getRentFinishDay());
-        log.info("a={}",a);
+        log.info("a={}", a);
         String finalDay = String.valueOf(a + 3);
-        log.info("int finalDay={}",finalDay);
+        log.info("int finalDay={}", finalDay);
 
 //      middleMiliage를 구하기 위한 형변환
-        String regprice = productRentForm.getPrice().replaceAll("[^0-9]","");
+        String regprice = productRentForm.getPrice().replaceAll("[^0-9]", "");
         int price = Integer.valueOf(regprice);
 
-        String regRentDefaultPrice = productRentForm.getRentDefaultPrice().replaceAll("[^0-9]","");
+        String regRentDefaultPrice = productRentForm.getRentDefaultPrice().replaceAll("[^0-9]", "");
         int rentDefaultPrice = Integer.valueOf(regRentDefaultPrice);
 
-        String regRentDayPrice = productRentForm.getRentDayPrice().replaceAll("[^0-9]","");
+        String regRentDayPrice = productRentForm.getRentDayPrice().replaceAll("[^0-9]", "");
         int rentDayPrice = Integer.valueOf(regRentDayPrice);
 
         String rentStartDay = productRentForm.getRentStartDay();
@@ -430,20 +428,92 @@ public class PJYController {
         long rentDays = ChronoUnit.DAYS.between(dateA, dateB);
 
         String middleMiliage = String.valueOf(price - (rentDefaultPrice + (rentDayPrice * rentDays)));
-        log.info("string middleMiliage = {}",middleMiliage);
+        log.info("string middleMiliage = {}", middleMiliage);
 
-        if(result.equals("대여 완료")){
+        if (result.equals("대여 완료")) {
+            //TODO 대여신청메세지
             log.info("대여완료");
 //            파이널폼 생성
-            ProductFinalForm productFinalForm = new ProductFinalForm(productRentForm,middleMiliage,finalDay);
+            ProductFinalForm productFinalForm = new ProductFinalForm(productRentForm, middleMiliage, finalDay);
             int finalResult = productBuyDAO.tradeFinal(productFinalForm);
-            log.info("final={}",finalResult);
-
-
-            mav.addObject("productInfo",productRentForm);
+            log.info("final={}", finalResult);
+            mav.addObject("productInfo", productRentForm);
             mav.setViewName("tradeToChat");
         } else {
             log.info("대여실패");
+        }
+        return mav;
+    }
+
+    @Bean
+//    @Scheduled(fixedDelay = 86400000) // 하루마다 체크한다.
+    @Scheduled(fixedDelay = 20000)
+    public void check() {
+        //DB를 긁어와서 data에 List를 저장
+        List<RentData> data = productBuyDAO.checkPerDay();
+        //List를 이용해서 rent_check 0과 1구별하여 반납이 안된 대여글 조회
+        Iterator<RentData> iterData = data.iterator();
+        while (iterData.hasNext()) {
+            RentData element = iterData.next();
+            String isRent = element.getReturnCheck();
+            //rent_Check 값이 0(false)일때
+            if (isRent.equals("0")) {
+                //rent_Check가 0(false)이면서 finalDay를 초과한경우
+                //middleMiliage를 회수하여 판매자에게 줘야한다.
+
+                //오늘 날짜 String으로
+                Date today = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+                String formattedToday = formatter.format(today);
+
+                //날짜들 int로
+                String thisFinalDay = productBuyDAO.checkFinalDay(element.getTradeId());
+                int intToday = Integer.valueOf(formattedToday);
+                int intFinDay = Integer.valueOf(thisFinalDay);
+
+                //finalDay 초과시
+                if (intToday > intFinDay) {
+                    log.info("tid {}의 대여 날짜 초과. middleMiliage를 회수하여 판매자에게 준다.", element.getTradeId());
+                    //tid의 중립 마일리지 조회
+                    String middleMiliage = productBuyDAO.getMiddleMiliage(element.getTradeId());
+                    //중립마일리지 int로
+                    int intMiliage = Integer.valueOf(middleMiliage);
+                    //판매자 조회
+                    String sellerId = productBuyDAO.whoIsSeller(element.getTradeId());
+                    //마일리지 반환
+                    productBuyDAO.returnMiliage(sellerId, intMiliage);
+                    //rent_Check to 2(거래종료)
+                    productBuyDAO.completeTrade(element.getTradeId());
+                }
+            } else if (isRent.equals("1")) {
+                //rent_Check 값이 1(true)일때
+                //구매자는 middleMiliage를 돌려받아야한다.
+                //tid의 중립 마일리지 조회
+                String middleMiliage = productBuyDAO.getMiddleMiliage(element.getTradeId());
+                //중립마일리지 int로
+                int intMiliage = Integer.valueOf(middleMiliage);
+                //구매자 조회
+                String buyerId = productBuyDAO.whoIsBuyer(element.getTradeId());
+                //마일리지 반환
+                productBuyDAO.returnMiliage(buyerId, intMiliage);
+                //rent_Check to 2(거래종료)
+                productBuyDAO.completeTrade(element.getTradeId());
+            }
+        }
+    }
+
+    @GetMapping("/rentComplete/{tid}")
+    public ModelAndView rentComplete(@PathVariable String tid,HttpSession session){
+        ModelAndView mav = new ModelAndView("myPage");
+        log.info("rentComplete들어옴");
+        String sid = (String) session.getAttribute("id");
+        log.info("sid={}",sid);
+        String sellerId = productBuyDAO.whoIsSeller(tid);
+        log.info("sellerId={}",sellerId);
+        if(sid.equals(sellerId)){
+            productBuyDAO.sellerCompleteTrade(tid);
+        } else {
+            mav.addObject("sessionErrMessage","에러가 발생했습니다.");
         }
         return mav;
     }
