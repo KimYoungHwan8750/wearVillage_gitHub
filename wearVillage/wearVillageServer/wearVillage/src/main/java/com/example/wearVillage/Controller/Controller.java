@@ -55,6 +55,7 @@ public class Controller {
 
     //로그인에 성공할 시 메인화면으로 이동
     @PostMapping(value = "/login_createSession")
+    @ResponseBody
     public String loginSession(@RequestBody Map<String,String> map,HttpSession session) {
         String email = map.get("email");
         USER_INFO user_info = rep_user_info.findByEMAIL(email).get(0);
@@ -68,7 +69,7 @@ public class Controller {
         session.setAttribute("birth",user_info.getBIRTH());
         log.info((String) session.getAttribute("nickname")+"님이 로그인하셨습니다.");
 
-        return "redirect:/";
+        return "";
     }
 
     /**

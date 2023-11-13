@@ -1,3 +1,5 @@
+// import me from "vanillajs-datepicker/locales/me";
+
 let chat_check = false;
 let user_status=null;
 //첫 채팅을 쳤을 때 채팅방이 있으면 채팅 진행, 없으면 채팅방 생성
@@ -19,13 +21,105 @@ let beforeChatisMyChat_right = null;
 let firstchat_left= true;
 let firstchat_right= true;
 let kyhtest=null;
+
+function mimeConverter(displayElement,data,mime){
+    let result;
+    switch (mime){
+        case "json": result = JSON.parse(decodeURIComponent(data));
+            for (let resultElement of result) {
+                //ImgList 갯수별 CSS 적용을 위한 태그
+                let createImgListClass;
+                let createAlbumImgClass;
+                switch (result.length) {
+            case
+                1
+            :
+            createAlbumImgClass="ImgListItem1";
+            createImgListClass="ImgList1";
+                break;
+            case
+                2
+            :
+                createAlbumImgClass="ImgListItem2";
+                createImgListClass="ImgList2"
+                break;
+            case
+                3
+            :
+                createAlbumImgClass="ImgListItem3";
+                createImgListClass="ImgList3"
+                break;
+
+            case
+                4
+            :
+                createAlbumImgClass="ImgListItem4";
+                createImgListClass="ImgList4"
+                break;
+            case 5:
+                createAlbumImgClass="ImgListItem5";
+                createImgListClass="ImgList5";
+            }
+                // 경로 정보를 담고 있다.
+                console.log(resultElement);
+                console.log("resultElement 정보");
+                let albumImg = document.createElement('img');
+                albumImg.classList.add("ImgListItem",createAlbumImgClass)
+                albumImg.src = "img\\test\\23d06450-2d11-447c-83bc-7a6f070eb6b1_sampleSub2.jpg";
+                displayElement.append(albumImg)
+                displayElement.classList.add("ImgList",createImgListClass);
+                displayElement.style.background="none";
+                // fetch("img\\test\\de1b152d-6cbe-4105-b340-9ea3557dcd6a_img_cleanChicken.png")
+                //     .then(res=>res.blob())
+                //     .then(res=>{
+                //         console.log(res);
+                //         console.log(res+"블롭정보");
+                //         albumImg.src = URL.createObjectURL(res);displayElement.append(albumImg)
+                //     })
+                // fetch("img\\test\\de1b152d-6cbe-4105-b340-9ea3557dcd6a_img_cleanChicken.png")
+                //     .then(res=>res.blob())
+                //     .then(res=>{
+                //         console.log(res);
+                //         console.log(res+"블롭정보");
+                //         albumImg.src = URL.createObjectURL(res);displayElement.append(albumImg)
+                //     })
+
+                // file1.readAsDataURL("http://localhost:8090/img/1.jpg");
+                // file1.onload=()=>{
+                //     albumImg.src = window.URL.createObjectURL(this.result);
+                //
+                //
+                // }
+
+
+            }
+            break;
+        case "text":
+            displayElement.innerText=decodeURIComponent(data);
+
+            break;
+        case "audio": break;
+        default :
+            displayElement.innerText=decodeURIComponent(data)
+            break;
+    }
+
+}
 /*디자인 관련 스크립트*/
+let sendMessage={
+    "sender":JSON.parse($th_sender),
+    "addressee":JSON.parse($th_addressee),
+    "chatroom":JSON.parse($th_postId)
+}
+websocket = new SockJS("http://localhost:8090/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
+
 
 const $chat_noticeClose = document.querySelector('.chat_noticeClose');
 const $chat_notice = document.querySelector('.chat_notice');
 const $chat_notice_content = document.querySelector('.chat_notice_content');
 setTimeout(()=>{
     $chat_notice.setAttribute('style','transition:all 2s ease-in; opacity:0;');
+    setTimeout(()=>{$chat_notice.style.display = "none"},2000)
 },4000)
 function dateFormater(inputDate){
     let amOrPm = '';
@@ -71,11 +165,11 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
     // console.log("date:"+date);
     // console.log("date.getMinutes()"+date.getMinutes());
     console.log(chatMessage)
+
     if (JSON.parse($th_sender) == chatMessage['sender']) {
         // RIGHT
         let historydate= new Date(chatMessage['chat_DATE']);
         kyhtest=chatMessage['chat_DATE'];
-        console.log(chatMessage['chat_DATE']+"날짜")
         //div태그 생성
         let div = document.createElement('div');
         //div태그에 chat_myTextBox 클래스 부여
@@ -84,6 +178,7 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         let display_userChat = document.createElement('span');
         //span태그 생성
         let display_chatTime = document.createElement('span');
+
         //display_userChat에 chat_Text와 chat_myText클래스 부여
         display_chatTime.classList.add('chat_displayTime');
         display_userChat.classList.add('chat_Text','chat_myText');
@@ -98,11 +193,11 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         // display_profileImg.setAttribute('src','/profileimg?fileName='+$th_myUserInfo);
         // display_profileImg.classList.add("chat_profileImg");
         if(whoChatBeforeFromHistory_right==false){
-            display_userChat.innerText = decodeURIComponent(chatMessage['message']);
+            mimeConverter(display_userChat,chatMessage['message'],chatMessage['chat_MIME']);
             div.append(display_chatTime,display_userChat);
 
         } else {
-            display_userChat.innerText = decodeURIComponent(chatMessage['message']);
+            mimeConverter(display_userChat,chatMessage['message'],chatMessage['chat_MIME']);
             div.append(display_chatTime,display_userChat);
 
 
@@ -143,7 +238,8 @@ JSON.parse($th_chatHistory).forEach(chatMessage => {
         // } else {
         //     display_chatTime.innerText = dateFormater(historydate);
         // }
-        display_userChat.innerText = decodeURIComponent(chatMessage['message']);
+        mimeConverter(display_userChat,chatMessage['message'],chatMessage['chat_MIME']);
+
 
         // 메세지 입력
         if(whoChatBeforeFromHistory_left==false){
@@ -183,7 +279,9 @@ document.querySelectorAll('.chat_myTextBox').forEach(e=> {
             display_profileImg.setAttribute('src','/profileimg?fileName='+$th_myUserInfo);
             display_profileImg.classList.add("chat_profileImg");
             if(e.childElementCount===2) {
-                e.appendChild(display_profileImg);
+                e.classList.add("my_FirstChat")
+                e.appendChild(document.createElement('div'))
+                // e.appendChild(display_profileImg);
             }
         }
 
@@ -228,7 +326,6 @@ $msg.addEventListener('keydown',()=>{
 
 })
 
-document.addEventListener('DOMContentLoaded', function() {
 
 
     $msg.addEventListener('keydown',(evt)=>{
@@ -239,7 +336,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
-    websocket = new SockJS("http://localhost:8090/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
     websocket.onmessage = onMessage;
     websocket.onopen = onOpen;
     websocket.onclose = onClose;
@@ -251,20 +347,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function send(content,mime) {
-        let sendMessage={
-            "sender":JSON.parse($th_sender),
-            "addressee":JSON.parse($th_addressee),
-            "message":content,
-            "chatroom":JSON.parse($th_postId)
-        }
+        sendMessage.message = content;
+        sendMessage.mime=mime;
+        console.log("-----")
+        console.log(content)
+        console.log(mime)
+        console.log(sendMessage)
+        console.log("-----")
 
-        switch (mime) {
-            case "text":
-                sendMessage
-                break;
-            case "image":
 
-        }
+        // switch (mime) {
+        //     case "text":
+        //         sendMessage
+        //         break;
+        //     case "image":
+        //
+        // }
 
         //채팅방이 있는지 조회하고 없으면 생성하고 있으면 채팅 동작
         if(!createChatroomFlag){
@@ -328,17 +426,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // websocket.send(str);arC
         console.log("입장함")
     }
-
     function onMessage(msg) {
         let data = JSON.parse(msg.data);
         let sender = data['sender'];
         let addressee = data['addressee'];
         let message = data['message'];
-        console.log(sender + "//" + $th_sender);
-        console.log("이런형태의 데이터가 왔다.");
-        console.log(data);
-        console.log("msg");
-        console.log(msg);
+        let mime = data['mime'];
+
         //현재 게시글 번호가 같고, 허락된 채팅 멤버간의 텍스트 표출
 
         //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
@@ -367,13 +461,14 @@ document.addEventListener('DOMContentLoaded', function() {
             display_userChat.classList.add('chat_Text','chat_myText');
             // 메세지 입력
             if(whoChatBeforeFromHistory_right==false){
-                display_userChat.innerText = decodeURIComponent(message);
+                mimeConverter(display_userChat,chatMessage['message'],chatMessage['mime']);
+
                 div.classList.add("firstMessage");
                 div.append(display_chatTime,display_userChat,display_profileImg);
 
 
             } else {
-                display_userChat.innerText = decodeURIComponent(message);
+                mimeConverter(display_userChat,message,mime);
                 div.append(display_chatTime,display_userChat);
                 div.classList.add("my_SecondChat")
 
@@ -417,12 +512,12 @@ document.addEventListener('DOMContentLoaded', function() {
             display_chatTime.innerText=dateFormater(new Date());
 
             if(whoChatBeforeFromHistory_left==false){
-                display_userChat.innerText = decodeURIComponent(message);
+                mimeConverter(display_userChat,message,mime);
                 div.classList.add("firstMessage");
                 div.append(display_profileImg,display_userChat,display_chatTime);
 
             } else {
-                display_userChat.innerText = decodeURIComponent(message);
+                mimeConverter(display_userChat,message,mime);
                 div.classList.add("target_SecondChat");
                 div.append(display_userChat,display_chatTime);
 
@@ -452,6 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 if(e.childElementCount===2){
                     e.classList.add("my_SecondChat")
+                    e.classList.add("my_SecondChatVirtualClass")
                 }
                 if(e.previousElementSibling==null||!e.previousElementSibling.classList.contains("chat_myTextBox")||e.previousElementSibling.classList.contains("chat_myTextBox")&&e.previousElementSibling.firstChild.textContent!==e.firstChild.textContent){
                     let display_profileImg = document.createElement('img');
@@ -459,7 +555,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     display_profileImg.classList.add("chat_profileImg");
                     if(e.childElementCount===2) {
                         e.classList.remove("my_SecondChat");
-                        e.appendChild(display_profileImg);
+                        e.appendChild(document.createElement('div'))
+
+                        // e.appendChild(display_profileImg);
 
 
                     }
@@ -497,4 +595,3 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         )
     }
-});

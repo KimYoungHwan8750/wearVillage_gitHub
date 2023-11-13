@@ -83,23 +83,25 @@
     <button type="button" id = "button-join">접속하기</button>
     <input type="text" id="username" placeholder="닉네임">
 </div> -->
+    <script th:inline="javascript">
 
-<script th:inline="javascript">
-    
-    let $th_chatHistory = '[[${chat_history}]]';
-    let $th_postSubtitle = '[[${postSubtitle}]]';
-    let $th_postPrice = '[[${postPrice}]]';
-    let $th_postRentDefaultPrice ='[[${postRentDefaultPrice}]]';
-    let $th_postRentDayPrice = '[[${postRentDayPrice}]]';
-    let $th_postThumbnailUrl = '[[${postThumbnailUrl}]]';
-    let $th_addressee = '[[${postWriterId}]]';
-    let $th_postMapInfo = [[${postMapInfo}]];
-    let $th_postId = [[${postId}]];
-    let $th_sender = '[[${myId}]]';
-    let $th_theme = '[[${theme}]]';
-    let $th_postUserInfo = [[${postUserInfo}]];
-    let $th_myUserInfo = [[${myUserInfo}]];
-</script>
+        let $th_chatHistory = '[[${chat_history}]]';
+        let $th_postSubtitle = '[[${postSubtitle}]]';
+        let $th_postPrice = '[[${postPrice}]]';
+        let $th_postRentDefaultPrice ='[[${postRentDefaultPrice}]]';
+        let $th_postRentDayPrice = '[[${postRentDayPrice}]]';
+        let $th_postThumbnailUrl = '[[${postThumbnailUrl}]]';
+        let $th_addressee = '[[${postWriterId}]]';
+        let $th_postMapInfo = [[${postMapInfo}]];
+        let $th_postId = [[${postId}]];
+        let $th_sender = '[[${myId}]]';
+        let $th_theme = '[[${theme}]]';
+        let $th_postUserInfo = [[${postUserInfo}]];
+        let $th_myUserInfo = [[${myUserInfo}]];
+    </script>
+    <script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
+
+
 
     <script>
         let $chat_modalContainer = document.querySelector(".chat_modalContainer")
@@ -112,6 +114,7 @@
         let modalInit = $chat_modalContainer.getAttribute("style");
         let btnInit = $chat_modalCloseBtn.getAttribute("style");
         let imgUrlArr=[];
+
 
         function resizeDetect(){
             if(window.innerHeight>580) {
@@ -195,11 +198,11 @@
 
 
             function uploadChatImg(){
+
                 let files = [];
                 let form = new FormData();
                 let $chat_imageInput = document.getElementById("chat_imageInput");
                 console.log($chat_imageInput.files.length)
-                console.log($chat_imageInput.files.size)
                 for (let i = 0; i <$chat_imageInput.files.length; i++) {
                     form.append("files",$chat_imageInput.files[i]);
 
@@ -207,8 +210,16 @@
             let url = "/chatimg";
             let options = {method:"post",body:form}
             fetch(url,options)
-                .then(res=>res.status=="ok"?console.log("성공"):console.log("실패"));
+                .then(res=>res.json())
+                .then(res=> {
+                    let imgJson = [];
+                    for (let i = 0; i < res.length; i++) {
+                        imgJson.push(res[i].body);
+                    }
+                    send(encodeURIComponent(JSON.stringify(imgJson)).replace(/[']/g,escape),"json");
 
+                    }
+                );
             }
 
 
@@ -255,19 +266,19 @@
             //닫기를 누르면 value를 초기화시킨다.
             // onchage이벤트이기 때문에 초기화를 안 시켜놓으면 같은 사진을 업로드 했을 때 이벤트리스너가 동작 안 함.
             $chat_imgBtn.value = $chat_imgBtn.getAttribute("value")
+            imgUrlArr=[];
 
             let revoke = async ()=>{await
             imgUrlArr.forEach(e=>{
                 URL.revokeObjectURL(e);
             })}
-            revoke();
+
 
 
         })
         // 닫기 버튼
 
     </script>
-<script layout:fragment="script" rel="text/javascript" src="js/chat.js"></script>
 
 
 <!-- </div> -->

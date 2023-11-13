@@ -45,7 +45,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
         String sender = jsonPayload.getString("sender");
         String addressee = jsonPayload.getString("addressee");
         String chatMessage = jsonPayload.getString("message");
+        String mime = jsonPayload.getString("mime");
         int chatroom = jsonPayload.getInt("chatroom");
+        log.info("MIME={}",mime);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         ChatDTO chatDto = ChatDTO.builder()
                 .CHAT_NUM(chatSVC.maxNumUserChat())
@@ -54,6 +56,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
                 .MESSAGE(chatMessage)
                 .CHATROOM(chatroom)
                 .CHAT_DATE(null)
+                .CHAT_MIME(mime)
                 .CHAT_ROOM_ID(chatSVC.searchChatroom(sender,addressee,chatroom).getCHAT_ROOM_ID())
                 .build();
         ChatEntity chatEntity = new ChatEntity(chatDto);
