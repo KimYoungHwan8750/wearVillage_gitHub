@@ -29,6 +29,10 @@
                             </div>
                         </div>
                         <div class="memberjoin_dp_main">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
                             <div class="memberjoin_input">
                                 <input type="text" class="memberjoin_bar" id="id_box" placeholder="" 
                                 onblur="id_check();javascript:duplicate_check=false;" name="userId">
@@ -112,16 +116,16 @@
                                 <!-- 닉네임 -->
                                 <input type="text" class="memberjoin_bar" id="nickname_box" placeholder=""
                                     onblur="nickname_check();javascript:duplicate_check=false;" name="userNickname">
-                                <label class="memberjoin_ex" for="name">닉네임</label>
+                                <label class="memberjoin_ex" for="nickname_box">닉네임</label>
                             </div>
                         </div>
                         <p class="memberjoin_info memberjoinError" id="nickname_text">&nbsp</p>
                         <div class="memberjoin_dp_main">
                             <!-- 생일 -->
                             <div class="memberjoin_input">
-                                <input type="number" class="memberjoin_bar form-control" id="birthday" maxlength="8"
+                                <input type="number" class="memberjoin_bar form-control" id="birthday" maxlength="4"
                                     oninput="numberMaxLength(this);" placeholder=''>
-                                <label class="memberjoin_ex" for="birthday">생년월일 YYYYMMDD</label>
+                                <label class="memberjoin_ex" for="birthday">생일 MMDD</label>
                             </div>
                         </div>
                         <p id="memberjoin_birth_error" class="memberjoinError">&nbsp</p>
@@ -208,7 +212,7 @@
 </div>
                         <div class="memberjoin_next_btn memberjoin_btn3">
                             <button class="memberjoin_btn wearVillageBtn" onclick="prevSlide()">이전</button>
-                            <button type="button" id="memberjoin_lastbtn"
+                            <button type="button" id="memberjoin_lastbtn" onclick="create_user()"
                                 class="noto_bold memberjoin_btn wearVillageBtn">
                                 완료
                             </button>

@@ -53,29 +53,14 @@ let profileimg;
 function gendercheck() {
   return document.querySelector('input[name="gender"]:checked').value;
 }
-
-let $memberjoin_lastbtn = document.getElementById("memberjoin_lastbtn");
-$memberjoin_lastbtn.addEventListener("click", create_user);
 function create_user() {
-  console.log("유저 생성 이벤트1")
   id_check();
-  console.log("유저 생성 이벤트 ID")
-
   pw_check();
-  console.log("유저 생성 이벤트 PW")
-
   email_check();
-  console.log("유저 생성 이벤트 EMAIL")
-
   nickname_check();
-  console.log("유저 생성 이벤트 NICKNAME")
-
   birth_check();
-  console.log("유저 생성 이벤트BIRTH")
-
   let dataForm;
   if(profileimg!=null){
-    console.log("유저 생성 IF 1")
   dataForm = {
     "ID": id_box.value,
     "PW": pw_box.value,
@@ -87,8 +72,6 @@ function create_user() {
     "THEME": gendercheck(),
   };
 } else {
-    console.log("유저 생성 IF 2")
-
   dataForm = {
     "ID": id_box.value,
     "PW": pw_box.value,
@@ -107,15 +90,11 @@ function create_user() {
     email_check() &&
     duplicate_check == true
   ) {
-    console.log("fetch")
-
     fetch('/finished_signUp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dataForm),
-    }).then(res=>res.text()).then(res=>{    console.log("유저 생성 이벤트2"); res==='ok'?location.href='/':alert("회원가입에 실패했습니다.\n자세한 사항은 고객센터에 문의해주세요.");
-
-    });
+    }).then(res=>res.text()).then(res=>res=='ok'?location.href='/':alert("회원가입에 실패했습니다.\n자세한 사항은 고객센터에 문의해주세요."));
   }
 };
 //   function create_user() {
@@ -445,18 +424,14 @@ function birth_check() {
   // 입력된 값이 숫자인지 확인합니다.
   if (!isNaN(birthValue)) {
     // 입력된 값이 숫자일 때, 길이가 8자리인지 확인합니다.
-    if (birthValue.length === 8) {
-      const year = parseInt(birthValue.substring(0, 4), 10);
-      const month = parseInt(birthValue.substring(4, 6), 10);
-      const day = parseInt(birthValue.substring(6, 8), 10);
+    if (birthValue.length === 4) {
+      const month = parseInt(birthValue.substring(0, 2), 10);
+      const day = parseInt(birthValue.substring(2, 4), 10);
 
       // 날짜가 유효한지 확인합니다.
       const birthDate =
-        !isNaN(year) &&
         !isNaN(month) &&
         !isNaN(day) &&
-        year >= 1950 &&
-        year <= 2030 &&
         month >= 1 &&
         month <= 12 &&
         day >= 1 &&

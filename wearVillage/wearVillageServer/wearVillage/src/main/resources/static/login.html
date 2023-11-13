@@ -105,19 +105,11 @@
 </div>
     <script>
         function popupFindId(){
-            var _width = '480';
-            var _height = '275';
-            var _left = Math.ceil(( window.screen.width - _width )/2);
-            var _top = Math.ceil(( window.screen.height - _height )/2);
-                window.open("/login/findId","아이디 찾기",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
+            window.open("/login/findId","아이디 찾기","width=500, height=500");
         };
 
         function popupFindPw(){
-            var _width = '480';
-            var _height = '275';
-            var _left = Math.ceil(( window.screen.width - _width )/2);
-            var _top = Math.ceil(( window.screen.height - _height )/2);
-                window.open("/login/findPw","비밀번호 찾기",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
+            window.open("/login/findPw","비밀번호 찾기","width=500, height=500");
         };
     </script>
 <script>
@@ -195,9 +187,14 @@
                         Kakao.API.request({
                             url: '/v2/user/me',
                             success: function (response) {
+                            console.log("kakao 로그인 정보")
+                            console.log(response)
                                 const kakaoEmail = response["kakao_account"]["email"];
                                 const kakao_profile_img = response["properties"]["profile_image"];
-                                kakaoJson = { email: kakaoEmail, profile_img: kakao_profile_img };
+                                const kakaoName = response["properties"]["nickname"];
+                                const kakaoBirth = response["kakao_account"]["birthday"];
+                                const kakaoGender = response["kakao_account"]["gender"];
+                                kakaoJson = { email: kakaoEmail, profile_image: kakao_profile_img, nickname: kakaoName, gender: kakaoGender, birth: kakaoBirth};
                                 fetch("/use_api",{
                                     headers:{"Content-Type":"application/json"},
                                     method:"post",
@@ -207,7 +204,7 @@
                                 .then(res=>
                                 {
                                     if(res==false){
-                                        sendPost("/createUser", kakaoJson);
+                                         sendPost("/createUserAPI", kakaoJson);
                                     } else if(res==true){
                                         $.ajax({
                                 url: "/login_createSession",

@@ -50,8 +50,7 @@ body{
     height:40px;
     border-radius:20px;
     border:1px solid #939393;
-    margin-right:5px;
-    margin-left:5px;
+    margin-right:10px;
 
 }
 
@@ -205,15 +204,15 @@ body{
 }
 .chat_targetTextBox{
     display: flex;
-    padding-left: 5px;
+    padding-left: 15px;
 }
 .chat_Text{
     border-radius: 8px;
     margin-top:5px;
     margin-bottom: 5px;
     padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     max-width: 50%;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -225,31 +224,37 @@ body{
 
 }
 /* 흠 */
+.target_FirstChat>.chat_targetText{
+
+}
 .my_FirstChat::after{
     content:"";
     position:relative;
     top:8px;
     right:3px;
-
     border-top:10px solid rgb(198 205 240);
     border-right:10px solid transparent;
 
 }
 .my_SecondChat>.chat_myText{
-    background-color: rgb(233 235 251);
+    background-color: rgb(198 205 240);
 
 }
 .chat_targetText{
     background-color: rgb(248 199 199);
-    border:1px solid #ababab;
 }
 .target_FirstChat::before{
     content:"";
-    border-top:15px solid rgb(248 199 199);
-    border-left:15px solid transparent;
+    position:relative;
+    max-width:0px;
+    max-height:0px;
+    left:55px;
+    top:10px;
+    border-top:10px solid rgb(248 199 199);
+    border-left:10px solid transparent;
 }
 .target_SecondChat>.chat_targetText{
-    background-color: rgb(255 235 235);
+    background-color: rgb(248 199 199);
 
 }
 .chat_msgArea{
@@ -273,7 +278,7 @@ body{
     margin: auto 5px 5px;
 }
 .target_SecondChat{
-    margin-left: 50px;
+    margin-left: 62px;
 }
 .my_SecondChat{
     margin-right: 10px;
@@ -343,8 +348,15 @@ body{
 
 
 }
+.my_FirstChatMargin{
+    margin-right:0;
+}
+.target_FirstChatMargin{
+    margin-left:52px;
+}
 .ImgList{
     display: grid;
+    width:250px;
     /*grid-auto-rows:80px;*/
     /*grid-template-columns: 80px 80px 80px;*/
     grid-gap: 1px;
@@ -355,23 +367,18 @@ body{
 }
 .ImgList1{
     grid-template-columns: 244px;
-    grid-auto-rows:244px;
 }
 .ImgList2{
     grid-template-columns: 121px 121px;
-    grid-auto-rows:121px;
 }
 .ImgList3{
     grid-template-columns: 80px 80px 80px;
-    grid-auto-rows:80px
 }
 .ImgList4{
     grid-template-columns: 121px 121px;
-    grid-auto-rows:121px;
 }
 .ImgList5{
     grid-template-columns: 80px 80px 80px;
-    grid-auto-rows:80px;
 }
 
 .ImgListItem{
@@ -402,6 +409,18 @@ body{
     height:80px;
 }
 
+.noTail::after{
+    content:"";
+    border:0;
+    width:10px;
+}
+.noTail::before{
+    content:"";
+
+    border:0;
+    width:10px;
+
+}
 @media screen and (max-height: 580px) {
     .chat_modalRootContainer{
         flex-direction: row;
@@ -417,8 +436,9 @@ body{
 
 @media screen and (max-width: 580px) {
     .ImgList{
+        width:130px;
         grid-template-columns: 40px 40px 40px;
-        grid-auto-rows:40px;
+
     }
     .ImgListItem{
         width: 40px;
@@ -428,29 +448,18 @@ body{
 
     .ImgList1{
         grid-template-columns: 122px;
-        grid-auto-rows:122px;
     }
     .ImgList2{
         grid-template-columns: 60px 60px;
-        grid-auto-rows:60px;
     }
     .ImgList3{
         grid-template-columns: 40px 40px 40px;
-        grid-auto-rows:40px
     }
     .ImgList4{
         grid-template-columns: 60px 60px;
-        grid-auto-rows:60px;
     }
     .ImgList5{
         grid-template-columns: 40px 40px 40px;
-        grid-auto-rows:40px;
-    }
-
-    .ImgListItem{
-        width: 40px;
-        height: 40px;
-
     }
 
     .ImgListItem1{

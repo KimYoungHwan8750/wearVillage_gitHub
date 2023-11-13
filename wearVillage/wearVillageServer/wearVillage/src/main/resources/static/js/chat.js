@@ -105,6 +105,38 @@ function mimeConverter(displayElement,data,mime){
     }
 
 }
+
+function deleteChatTailInFirstChat(){
+    let $my_FirstChat = document.querySelectorAll(".my_FirstChat");
+    let $my_SecondChat = document.querySelectorAll(".my_SecondChat");
+    let $target_FirstChat = document.querySelectorAll(".target_FirstChat");
+    let $target_SecondChat = document.querySelectorAll(".target_SecondChat");
+    $my_FirstChat.forEach(e=>
+    {if(e.children[1].classList.contains("ImgList")){
+        e.classList.remove("my_FirstChat");
+    }})
+    $my_SecondChat.forEach((e)=>{
+        {if(e.children[1].classList.contains("ImgList")){
+            e.classList.add("my_FirstChatMargin")
+        }}
+    })
+
+    $target_FirstChat.forEach(e=>
+    {if(e.children[1].classList.contains("ImgList")){
+        e.classList.remove("target_FirstChat");
+        e.classList.add("noTail")
+    }})
+
+    $target_SecondChat.forEach((e)=>{
+        {if(e.children[0].classList.contains("ImgList")){
+            e.classList.add("target_FirstChatMargin")
+            e.classList.add("noTail")
+
+        }}
+    })
+
+}
+
 /*디자인 관련 스크립트*/
 let sendMessage={
     "sender":JSON.parse($th_sender),
@@ -293,6 +325,9 @@ document.querySelectorAll('.chat_myTextBox').forEach(e=> {
 )
 
 document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
+    if(e.previousElementSibling==null||e.previousElementSibling.classList.contains("chat_myTextBox")){
+        e.classList.add("target_FirstChat")
+    }
         e.firstChild.style.display = "block";
         if (e.previousElementSibling != null && e.previousElementSibling.lastChild.textContent === e.lastChild.textContent) {
             e.previousElementSibling.lastChild.style.visibility = "hidden";
@@ -304,6 +339,8 @@ document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
         display_profileImg.classList.add("chat_profileImg");
         if(e.childElementCount===2) {
             e.prepend(display_profileImg);
+            e.classList.add("target_FirstChat")
+
         }
     }
 
@@ -315,6 +352,7 @@ document.querySelectorAll('.chat_targetTextBox').forEach(e=> {
     }
 )
 
+deleteChatTailInFirstChat();
 $msg.addEventListener('keydown',()=>{
     setTimeout(()=>{
         if($msg.value!=''){
@@ -448,7 +486,7 @@ $msg.addEventListener('keydown',()=>{
             //span태그 생성
             let display_chatTime = document.createElement('span');
             let display_profileImg = document.createElement('img');
-            display_profileImg.setAttribute('src','/profileimg?fileName='+$th_myUserInfo);
+            display_profileImg.setAttribute('src','');
             display_profileImg.classList.add("chat_profileImg");
             //display_userChat에 chat_Text와 chat_myText클래스 부여
             display_chatTime.classList.add('chat_displayTime');
@@ -461,10 +499,10 @@ $msg.addEventListener('keydown',()=>{
             display_userChat.classList.add('chat_Text','chat_myText');
             // 메세지 입력
             if(whoChatBeforeFromHistory_right==false){
-                mimeConverter(display_userChat,chatMessage['message'],chatMessage['mime']);
+                mimeConverter(display_userChat,message,mime);
 
-                div.classList.add("firstMessage");
-                div.append(display_chatTime,display_userChat,display_profileImg);
+                div.classList.add("my_FirstChat");
+                div.append(display_chatTime,display_userChat);
 
 
             } else {
@@ -513,7 +551,7 @@ $msg.addEventListener('keydown',()=>{
 
             if(whoChatBeforeFromHistory_left==false){
                 mimeConverter(display_userChat,message,mime);
-                div.classList.add("firstMessage");
+                div.classList.add("target_FirstChat");
                 div.append(display_profileImg,display_userChat,display_chatTime);
 
             } else {
@@ -547,7 +585,6 @@ $msg.addEventListener('keydown',()=>{
                 }
                 if(e.childElementCount===2){
                     e.classList.add("my_SecondChat")
-                    e.classList.add("my_SecondChatVirtualClass")
                 }
                 if(e.previousElementSibling==null||!e.previousElementSibling.classList.contains("chat_myTextBox")||e.previousElementSibling.classList.contains("chat_myTextBox")&&e.previousElementSibling.firstChild.textContent!==e.firstChild.textContent){
                     let display_profileImg = document.createElement('img');
@@ -555,6 +592,7 @@ $msg.addEventListener('keydown',()=>{
                     display_profileImg.classList.add("chat_profileImg");
                     if(e.childElementCount===2) {
                         e.classList.remove("my_SecondChat");
+                        e.classList.add("my_FirstChat")
                         e.appendChild(document.createElement('div'))
 
                         // e.appendChild(display_profileImg);
@@ -585,13 +623,14 @@ $msg.addEventListener('keydown',()=>{
                 display_profileImg.classList.add("chat_profileImg");
                 if(e.childElementCount===2) {
                     e.classList.remove("target_SecondChat");
+                    e.classList.add("target_FirstChat")
                     e.prepend(display_profileImg);
 
                 }
             }
 
-
-
             }
         )
+        deleteChatTailInFirstChat()
+
     }

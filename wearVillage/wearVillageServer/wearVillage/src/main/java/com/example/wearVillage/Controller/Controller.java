@@ -8,6 +8,7 @@ import static com.example.wearVillage.dataController.check_id.*;
 import static com.example.wearVillage.dataController.createUserToOracle.*;
 
 
+import com.example.wearVillage.DTO.CreateUserDTO;
 import com.example.wearVillage.Entity.USER_INFO;
 import com.example.wearVillage.PostData;
 
@@ -71,7 +72,19 @@ public class Controller {
 
         return "";
     }
+    //카카오api회원가입
+    @PostMapping("/createUserAPI")
+    public String data_createUserApi2(
+            @ModelAttribute CreateUserDTO createUserDTO, Model model){
+        log.info("createUserDTO 내용 : {}", createUserDTO.toString());
+        return "createUser";
+    }
+    //카카오api회원가입
+    @GetMapping("/createUserAPI")
+    public String data_createUserApi(){
 
+        return "createUser";
+    }
     /**
      *
      * @param email 이메일
