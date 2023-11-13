@@ -1,0 +1,118 @@
+.asklist_container * {
+  margin: 0;
+  /* outline: 1px solid red; */
+}
+
+.asklist_container .asklist_title a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  height: 40px;
+}
+.asklist_container {
+  display: grid;
+  grid-template-areas: "asklist_l_gap asklist_main asklist_r_gap";
+  grid-template-columns: 1fr 768px 1fr;
+}
+.asklist_top_line{
+  outline: 1px solid black;
+  margin-top: 20px;
+}
+.asklist_l_gap {
+  grid-area: asklist_l_gap;
+}
+.asklist_line {
+  outline: 1px solid rgba(252, 126, 126, 0.8);
+}
+.asklist_r_gap {
+  grid-area: asklist_r_gap;
+}
+
+.asklist_main {
+  grid-area: asklist_main;
+}
+.asklist_top{
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.asklist_all_list{
+  /* outline: 3px solid rgba(252, 126, 126, 0.8); */
+  height: 800px;
+}
+.asklist_itme{
+  display: flex;
+  
+}
+.asklist_itme .asklist_maintitle{
+  
+  font-weight: bold;
+}
+.asklist_num{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5%;
+  height: 50px;
+  padding-right: 20px;
+  
+  /* outline: 2px solid rgba(252, 126, 126, 0.8); */
+    /* background-color: rgba(255, 163, 163, 0.8); */
+}
+.asklist_main_num{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5%;
+  height: 50px;
+  padding-right: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  /* outline: 2px solid rgba(252, 126, 126, 0.8); ss*/
+    background-color: rgb(255, 175, 175);
+}
+.asklist_title{
+  display: flex;
+  align-items: center;
+  width: 80%;
+  height: 50px;
+  /* outline: 2px solid rgba(252, 126, 126, 0.8); */
+} 
+.asklist_main_title{
+  display: flex;
+  align-items: center;
+  width: 80%;
+  height: 50px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: rgb(255, 175, 175);
+  /* outline: 2px solid rgba(252, 126, 126, 0.8); */
+}
+.asklist_main_situation{
+  display: flex;
+  align-items: center;
+  width: 15%;
+  height: 50px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: rgb(255, 175, 175);
+  /* outline: 2px solid rgba(252, 126, 126, 0.8); */
+}
+.asklist_situation{
+  display: flex;
+  align-items: center;
+  width: 15%;
+  height: 50px;
+  /* outline: 2px solid rgba(252, 126, 126, 0.8); */
+}
+.test{
+border: none;
+}
+.asklist_askbtn{
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+}
+.asklist_askbtn button{
+  width: 100px;height: 50px;
+}

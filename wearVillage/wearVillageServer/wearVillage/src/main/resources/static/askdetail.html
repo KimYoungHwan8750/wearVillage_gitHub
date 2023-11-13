@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+
+
+
+<body>
+  <div layout:fragment="content">
+    <link layout:fragment="css" rel="stylesheet" href="/css/askdetail.css">
+    <link layout:fragment="css" rel="stylesheet" href="/css/wearVillageBtn.css">
+    <!-- 왼쪽 공백 -->
+    <div class="askdetail_l_gap"></div>
+    <!-- 메인 -->
+    <div class="askdetail_container">
+      <div class="askdetail_main">
+        <h2 class="askdetail_top" style="font-weight: bold;font-size: 25px;"><span th:text="${askObject.id}">XXX</span>님의 문의 내용</h2></h2>
+        <div class="askdetail_top_line"></div>
+        <h3 class="askdetail_top" th:text="${askObject.title}">제목 : 작성자의 제목 나오는 부분</h3>
+        <br>
+        <div class="askdetail">
+          <div class="body askdetail_line" th:text="${askObject.body}"></div>
+          <div class="askdetail_mid_line"></div>
+          <div class="answer askdetail_line" th:unless="${askObject.answerbody}">:: 등록된 답변이 없습니다 ::</div>
+          <div class="answer askdetail_line" th:if="${askObject.answerbody}" th:text="${askObject.answerbody}">고객센터의 답변 들어오는 부분</div>
+        </div>
+        <div class="askdetail_menu">
+          <button class="askdetail_top wearVillageBtn askdetail_listBtn" id="askDelBtn" onclick="letDelBtn();">삭제</button>
+          <div class="blank1"></div>
+          <script th:inline="javascript">
+              function letDelBtn(){
+                if(!confirm("해당 게시글을 삭제하시겠습니까?")){e.preventDefault();}
+                let $aid = /*[[${askObject.askpostid}]]*/ 'default';
+                  globalThis.location.href=`/askdelete/${$aid}`;
+              }
+          </script>
+          <button class="askdetail_top wearVillageBtn askdetail_listBtn"
+                  onclick="window.location.href='/asklist/1';">문의 목록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 오른쪽 공백 -->
+  <div class="askdetail_r_gap"></div>
+
+  </div>
+
+
+</body>
+
+</html>

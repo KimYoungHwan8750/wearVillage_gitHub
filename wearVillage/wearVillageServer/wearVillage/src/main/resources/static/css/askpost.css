@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+}
+.askpost_title{
+    margin-top: 50px;
+}
+.askpost_stitle {
+    font-size: 18px;
+}
+.askpost_agree{
+    font-size: 15px;
+}
+.askpost_Mtop{
+    margin-top: 15px;
+}
+.askpost_error {
+    color: red;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.askpost_container a {
+    text-decoration: none;
+    color: black;
+}
+
+.askpost_container {
+    display: grid;
+    grid-template-areas: "askpost_l_gap askpost_main askpost_r_gap";
+    grid-template-columns: 1fr 768px 1fr;
+    font-weight: bold;
+}
+
+.inputStyle {
+    outline: 1px solid black;
+    border-radius: 5px;
+    border: none
+}
+.inputStyle:focus{
+    outline: 3px solid rgba(252, 126, 126, 0.8);
+    border-radius: 5px;
+    border: none
+}
+.askpost_l_gap {
+    grid-area: askpost_l_gap;
+}
+
+.askpost_r_gap {
+    grid-area: askpost_r_gap;
+}
+
+.askpost_main {
+    grid-area: askpost_main;
+}
+
+/* 문의유형 */
+.askpost_ask_type {
+    width: 120px;
+    height: 25px;
+}
+
+/* 제목 and 이미지첨부 */
+/* .askpost_container .askpost_title_and_file {
+    display: flex;
+    justify-content: space-between;
+} */
+
+
+/* 문의 내용 */
+.askpost_container textarea {
+    display: flex;
+    justify-content: start;
+    width: 760px;
+    height: 300px;
+    resize: none;
+}
+
+/* 문의하기 번튼 and 정보수집체크박스 정렬 */
+.askpost_container .askpost_end_line {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+}
+
+/* 이메일 and 전화번호 정렬*/
+.askpost_container .askpost_mail_num {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 문의하기 버튼 크기 */
+.askpost_container .askpost_ask_btn {
+    height: 50px;
+    width: 100px;
+        font-size: 14px;
+}
+
+/* 체크박스 에러 위치 */
+.askpost_checkbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+}
+.askpost_subject{
+    font-size: 17px;
+}
+/* 제목 길이 */
+.askpost_input1 {
+    width: 240px;
+    height: 25px;
+    font-size: 15px;
+}
+.askpost_input2{
+    width: 200px; height: 25px;
+    font-size: 15px;
+}
+.askpost_line{
+    outline: 1px solid black;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}

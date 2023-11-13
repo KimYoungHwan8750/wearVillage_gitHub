@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+    <html xmlns:th="https://www.thymeleaf.org"
+    xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/default}">
+
+    <body> 
+        <div layout:fragment="content">
+         <link layout:fragment="css" rel="stylesheet" href="/css/asklist.css">
+         <link layout:fragment="css" rel="stylesheet" href="/css/wearVillageBtn.css">
+    <!-- 왼쪽 공백 -->
+    <div class="asklist_l_gap"></div>
+    <!-- 메인 -->
+    <div class="asklist_container">
+        <div class="asklist_main" >
+            <h2 class="asklist_top" style="font-size: 25px;font-weight: bold;"><span th:text="${session?.id}">XXX</span>님의 문의 목록</h2>
+            <div class="asklist_top_line"></div>
+            <br>
+            <div class="asklist_all_list">
+              <div class="asklist_itme asklist_list0">
+                <div class="asklist_main_num asklist_list0">번호</div> 
+                <div class="asklist_main_title asklist_list0">제목</div>
+                <div class="asklist_main_situation asklist_list0">상태</div>
+              </div>
+              <!-- 1번문의 -->
+                <div th:each="askObject : ${askObjectList}">
+
+                      <div class="asklist_itme asklist_list1">
+                        <div class="asklist_num asklist_list1"><p th:text="${askObject.askpostid}">1</p></div>
+                        <div class="asklist_title asklist_list1">
+                          <a th:href="@{/askdetail/{askpostid}(askpostid=${askObject.askpostid})}" th:text="${askObject.title}">
+                          예제 데이터 제목
+                          </a>
+                        </div>
+                        <div class="asklist_situation asklist_list1">
+                          <p th:if="${askObject.answerbody}">답변완료</p>
+                          <p th:unless="${askObject.answerbody}">처리중</p>
+                        </div>
+                      </div>
+                      <div class="asklist_line"></div><!-- 라인 -->
+                </div>
+                      <!-- 1번문의 끝 -->
+                <div>
+                    <!-- 이전 페이지 링크 -->
+                    <a th:if="${currentPage > 5}" th:href="@{/asklist/{currentPage}(currentPage=${currentPage - 5})}">이전</a>
+
+                    <!-- 페이지 번호 표시 -->
+                    <div style="display: flex; justify-content: center;">
+                        <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}" style="display: flex; justify-content: center;">
+                            <div style="border-radius: 4px; width: 35px; height: 35px; background-color: #EC5C5C; margin: 3px; margin-top: 1px; text-align: center;">
+                                <a style="line-height: 30px; color: white; text-decoration: none; display: inline-block;"
+                                   th:href="@{/asklist/{currentPage}(currentPage=${pageNum})}"
+                                   th:text="${pageNum}" th:class="${pageNum == currentPage} ? 'current'"></a>
+                            </div>
+                        </span>
+                    </div>
+
+                    <!-- 다음 페이지 링크 totalPage > (currentPage + 4)이면, 항상 존재-->
+                    <a th:if="${totalPages > (currentPage + 4)}" th:href="@{/asklist/{currentPage}(currentPage=${currentPage + 5})}">다음</a>
+                </div>
+
+                <div class="asklist_askbtn"><a href="/askpost"><button class="wearVillageBtn">문의하기</button></a></div>
+              </div>
+            </div>
+        </div>
+    <!-- 오른쪽 공백 -->
+    <div class="asklist_r_gap"></div>
+    
+
+</div>
+
+  
+</body>
+</html>

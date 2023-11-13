@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+
+<body>
+  <div layout:fragment="content">
+    <link layout:fragment="css" rel="stylesheet" href="css/support_main.css">
+    <!-- 왼쪽 공백 -->
+    <div class="supportMain_l_gap"></div>
+    <!-- 메인 -->
+    <div class="supportMain_container">
+      <div class="supportMain_main">
+       <div class="support_img"><a href="홈페이지메인"><img src="/img/img_wearVillageLogo.png" alt=""></a>
+        <h3 style="font-weight: bold;">옷빌리지 고객센터</h3></div>
+       
+    <div class="supportMain_top">
+      무엇을 도와드릴까요?
+  </div>
+    <div class="supportMain_btn">
+      <div class="supportMain_btn_name"><button class="supportMain_ask_btn" onclick="window.location.href='/FAQlist'"><img class="askimg" src="/img/FAQ_img.png" alt=""></button></a>자주 묻는 질문(FAQ)</div>
+      <div class="supportMain_btn_name"><button class="supportMain_ask_btn" onclick="window.location.href='/asklist/1'"><img class="askimg" src="/img/asklist_img.png" alt=""></button></a>1:1 문의 목록</div>
+      <div class="supportMain_btn_name"><button class="supportMain_ask_btn" onclick="window.location.href='/askpost'"><img class="askimg" src="/img/askpost.png" alt=""></button></a>1:1 문의 하기</div>
+    </div>
+    <div class="supportMain_line"></div>
+    <div class="supportMain_bottom">
+      <div class="supportMain_idfind">
+    <br>
+  </div>
+  <div class="supportMain_refund">
+    <br>
+  </div>
+</div>
+</div> 
+</div>
+    <!-- 오른쪽 공백 -->
+    <div class="supportMain_l_gap"></div>
+    <script layout:fragment="script" rel="text/javascript" src=""></script>
+
+  </div>
+
+
+</body>
+
+</html>
