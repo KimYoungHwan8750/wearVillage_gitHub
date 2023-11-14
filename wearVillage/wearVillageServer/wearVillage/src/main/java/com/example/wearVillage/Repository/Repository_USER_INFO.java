@@ -17,6 +17,7 @@ public interface Repository_USER_INFO extends JpaRepository <USER_INFO, String> 
     Boolean existsByEMAIL(String EMAIL);
     List<USER_INFO> findByIDAndPW(String ID, String PW);
     Boolean existsByID(String ID);
+    Boolean existsByNICKNAME(String Nickname);
 
 
 }

@@ -373,10 +373,38 @@ function nickname_check() {
   }
 
   if (/^.{2,20}$/.test(nickname_value_check)) {
-    nickname_text.style.color = 'rgba(0, 120, 0, 0.600)';
-    nickname_text.innerText = '올바른 닉네임 형식입니다.';
-    nextpage3 = 1;
-    return true; // 올바른 형식의 닉네임이면 true 반환
+        $.ajax({
+          url: '/checkNickname', // 클라이언트가 요청을 보낼 서버의 URL 주소
+          data: { nickname_box: nickname_box.value }, // HTTP 요청과 함께 서버로 보낼 데이터
+          type: 'post', // HTTP 요청 방식(GET, POST)
+          dataType: 'text', // 서버에서 보내줄 데이터의 타입
+          success: function (result) {
+            //중복된 닉네임이 없을 때 = result에서 false반환
+            if (result == 'false') {
+              duplicate_check = true;
+              nickname_text.style.color = 'rgba(0, 120, 0, 0.600)';
+              //수정예정(이미지 체크박스)
+              nickname_text.innerText = '생성 가능한 닉네임입니다.';
+              nextpage3 = 1;
+              //  다음페이지
+              return true;
+              //중복된 닉네임이 있을 때 = result에서 true반환
+            } else if (result == 'true') {
+              duplicate_check = false;
+              nickname_text.style.color = 'red';
+              //수정예정(이미지 체크박스)
+              nickname_text.innerText = '중복된 아이디입니다.';
+              nextpage3 = 0;
+              return false;
+            } else {
+              alert('에러!');
+              nextpage3 = 0;
+            }
+          },
+          error: function (error) {
+            alert(error);
+          },
+        });
   } else {
     nickname_text.style.color = 'rgba(180, 0, 0, 0.600)';
     nickname_text.innerText = '닉네임을 확인해주세요.';
@@ -385,6 +413,8 @@ function nickname_check() {
     return false; // 잘못된 형식의 닉네임이면 false 반환
   }
 }
+
+
 email_box.addEventListener('input', email_check);
 
 function email_check() {
@@ -395,9 +425,46 @@ function email_check() {
     email_text.style.color = 'rgba(0, 120, 0, 0.600)';
     email_text.innerText = '올바른 이메일 형식입니다.';
     nextpage6 = 1;
-    if(email_check_flag==true){
-      return true;
-    }
+
+    $.ajax({
+              url: '/checkEmail', // 클라이언트가 요청을 보낼 서버의 URL 주소
+              data: { email_box: email_box.value }, // HTTP 요청과 함께 서버로 보낼 데이터
+              type: 'post', // HTTP 요청 방식(GET, POST)
+              dataType: 'text', // 서버에서 보내줄 데이터의 타입
+              success: function (result) {
+                //중복된 이메일이 없을 때 = result에서 false반환
+                if (result == 'false') {
+                  duplicate_check = true;
+                  email_text.style.color = 'rgba(0, 120, 0, 0.600)';
+                  //수정예정(이미지 체크박스)
+                  email_text.innerText = '생성 가능한 이메일입니다.';
+                  nextpage6 = 1;
+                  //  다음페이지
+                  if(email_check_flag==true){
+                    return true;
+                  } else {
+                    return false;
+                  }
+                  //중복된 닉네임이 있을 때 = result에서 true반환
+                } else if (result == 'true') {
+                  duplicate_check = false;
+                  email_text.style.color = 'red';
+                  //수정예정(이미지 체크박스)
+                  email_text.innerText = '중복된 이메일입니다.';
+                  nextpage6 = 0;
+                  return false;
+                } else {
+                  alert('에러!');
+                  nextpage6 = 0;
+                }
+              },
+              error: function (error) {
+                alert(error);
+              },
+            });
+
+
+
   } else {
     email_text.style.color = 'rgba(180, 0, 0, 0.600)';
     email_text.innerText = '이메일을 확인해주세요.';

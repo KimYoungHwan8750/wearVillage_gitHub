@@ -2,21 +2,12 @@ package com.example.wearVillage.Controller;
 
 
 
-import static com.example.wearVillage.dataController.LoginCheck.*;
-import static com.example.wearVillage.dataController.check_email.*;
-import static com.example.wearVillage.dataController.check_id.*;
-import static com.example.wearVillage.dataController.createUserToOracle.*;
-
-
 import com.example.wearVillage.Entity.USER_INFO;
 import com.example.wearVillage.PostData;
 
 import com.example.wearVillage.Repository.Repository_USER_INFO;
-import com.example.wearVillage.status.local_or_server;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -120,6 +110,18 @@ public class Controller {
         return rep_user_info.existsByID(id_box);
     }
 
+    @PostMapping("/checkNickname")
+    @ResponseBody
+    public Boolean checkNickname(@RequestParam String nickname_box){
+        return rep_user_info.existsByNICKNAME(nickname_box);
+    }
+
+    @PostMapping("/checkEmail")
+    @ResponseBody
+    public Boolean checkEmail(@RequestParam String email_box){
+        return rep_user_info.existsByEMAIL(email_box);
+    }
+
     //아이디 비밀번호 체크 후 있을시 True반환하고 로그인 성공
     @PostMapping(value ="/Dologin")
     @ResponseBody
@@ -134,6 +136,7 @@ public class Controller {
     public String login(){
         return "login.html";
     }
+
 
     @GetMapping(value = "/items_buy")
     public String items_buy(){
