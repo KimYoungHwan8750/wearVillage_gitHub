@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.text.SimpleDateFormat;
@@ -220,8 +221,6 @@ public class post_Controller {
     public ResponseEntity<byte[]> getProfileImage(String fileName) throws UnsupportedEncodingException {
         log.info("profileimg={}입니다!!",fileName);
         File file = new File((local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/profileImage/") + fileName);
-        //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
-        //
         ResponseEntity<byte[]> result = null;
 
         try {

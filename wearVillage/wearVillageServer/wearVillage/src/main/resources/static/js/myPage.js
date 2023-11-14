@@ -63,114 +63,101 @@
         });
 }
 
+
+/**
+ * @title 프로필 이미지 수정
+ * @start 2023-11-14
+ * @end 
+ * @author 김영환
+ * @description 프로필 이미지 수정 작업
+ * @status ing
+ *
+ */
 {
-  document.querySelector('.myPageProfileSelectBtn1').addEventListener('change', function () {
-    let formData = new FormData();
-    let fileInput = document.querySelectorAll('input[name="uploadFile"');
-    let fileList = fileInput[0].files;
-    let fileObj = fileList[0];
 
-    if (!fileCheck(fileObj.name, fileObj.size)) {
-      return false;
-    }
+  let $myPageProfileImageId = document.getElementById("myPageProfileImageId");
+  fetch("/getprofileimg?userNickname="+$th_sessionNickname)
+  .then(res=>res.arrayBuffer())
+  .then(res=>
+    {
+      console.log(res);
+      console.log("res응답")
+      const fileReader = new FileReader();
+      let blob = new Blob([res],{type:"image/jpg"})
+      let url = URL.createObjectURL(blob);
+      console.log(url);
+      console.log("url 응답");
 
-    formData.append('uploadFile', fileObj);
-
-    $.ajax({
-      url: '/uploadProfileImage',
-      processData: false,
-      contentType: false,
-      data: formData,
-      type: 'POST',
-      dataType: 'json',
-      success: function (result) {
-        console.log(result);
-        showUploadImage(result);
-      },
-      error: function (result) {
-        console.log(error);
-        console.log('이미지 파일이 아닙니다.');
-      },
     });
 
-    // 레귤러익스프레션
-    let regex = new RegExp('(.*?).(jpg|png)$');
-    let maxSize = 21048576;
+}
 
-    function fileCheck(fileName, fileSize) {
-      let regex = new RegExp('(.*?).(jpg|png)$');
-      let maxSize = 21048576;
-      if (fileSize >= maxSize) {
-        alert('파일 사이즈가 너무 큽니다');
-        return false;
-      }
-      if (!regex.test(fileName)) {
-        alert('해당 종류의 파일은 업로드가 불가능합니다.');
-        return false;
-      }
-      return true;
+{
+  
+  document.querySelector('.myPageProfileSelectBtn1').addEventListener('change', async function (e) {
+    //base 블록
+    let profileImageView = document.querySelector("#myPageProfileImageId");
+    let file= e.target.files[0];
+    let blobURL = URL.createObjectURL(file)
+    let formData = new FormData();
+    let options = {method:"post",
+                  body:formData}
+    profileImageView.src = blobURL;
+    formData.append('uploadFile',file);
+    document.getElementById('successMsg').innerHTML="";
+
+    //Data URL 생성
+
+    //파일 유효성 검사. fileCheck==false일 때 조건에 부합하지 않는 걸로 판단하고 프로필 이미지 변경 작업 수행 종료
+    if(!fileCheck(file.name,file.size))
+    return false;
+    
+    //파일 저장 요청
+    fetch("/uploadProfileImage",options)
+    .then(res=>res.json())
+    .then(res=>{
+      console.log(res)
+      let filePath = `${res[0].uploadPath.replaceAll('\\','/')}/${res[0].uuid}_${res[0].fileName}`;
+      // 파일 저장 성공시 DataURL해제
+      URL.revokeObjectURL(blobURL)
+      changeProfimeImgPathInDataBase(filePath)
     }
+    );
 
-    // 이미지 받아와서 출력하기
-    function showUploadImage(uploadResultArr) {
-      let images = [];
 
-      if (!uploadResultArr || uploadResultArr.length == 0) {
-        return;
-      }
-      let uploadResult = $('#myPageProfileImageId');
-
-      let obj = uploadResultArr[0];
-      let str = '';
-      let fileCallPath =
-        obj.uploadPath.replace(/\\/g, '/') +
-        '/' +
-        obj.uuid +
-        '_' +
-        obj.fileName;
-      fileCallPath = encodeURIComponent(fileCallPath);
-      profileimg = fileCallPath;
-
-      let previewImage = document.getElementById('myPageProfileImageId');
-      // previewImage.src = '/display?fileName=' + fileCallPath;
-      previewImage.setAttribute('src', '/display?fileName=' + fileCallPath);
-      // str = "<img src='/display?fileName" + fileCallPath + "'>";
-
-      // uploadResult.append(str);
-    }
   });
 
 
 }
 
+
 {
-  let previewImage = document.getElementById('myPageProfileImageId').src;
-    window.addEventListener('domcontentloaded',()=>{
-      previewImage.addEventListener('change', (e) => {
-        let changedImg = e.target.value
-        fetch('/update/profileImg?url=' + encodeURIComponent(changedImg))
+  function changeProfimeImgPathInDataBase(Path){
+        fetch('/update/profileImg?url=' + encodeURIComponent(encodeURIComponent(Path).replace(/[']/g, escape)))
           .then(response => {
-            if (response.ok) {
-              console.log('이미지 업데이트 요청이 성공했습니다.');
-            } else {
-              console.error('이미지 업데이트 요청이 실패했습니다.');
-            }
+            console.log("프로필 사진 업데이트가 완료되었습니다.");
           })
           .catch(error => {
             console.error('요청 중 오류가 발생했습니다.', error);
           });
-        })
-    })
+        }
 }
 
+/**
+ * @endPoint 프로필 이미지 수정
+ */
 
-
-{
-  window.addEventListener('DOMContentLoaded', (event) => {
-              let uploadFileInput = document.getElementById('uploadFile');
-
-              uploadFileInput.addEventListener('change', () => {
-                  console.log("이벤트");
-              });
-          });
+// 파일 유효성 검증 로직
+function fileCheck(fileName, fileSize) {
+  let regex = new RegExp('(.*?).(jpg|png)$');
+  let maxSize = 21048576;
+  if (fileSize >= maxSize) {
+    alert('파일 사이즈가 너무 큽니다');
+    return false;
+  }
+  if (!regex.test(fileName)) {
+    alert('해당 종류의 파일은 업로드가 불가능합니다.');
+    return false;
+  }
+  return true;
 }
