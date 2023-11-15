@@ -96,6 +96,7 @@ public class profileImageController{
 //            graphic.drawImage(bo_image, 0, 0, width, height, null);
 //            ImageIO.write(bt_image, "jpg", thumbnailFile);
         } catch (Exception e) {
+            log.info("profileImageController.uploadProfileImg에서 예외 발생");
             e.printStackTrace();
         }
         // AttachImageVO 객체를 List의 요소로 추가해주기(멀티파트용)

@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0;
 }
+.userNickname{
+    font-size: 14px;
+    color: #696969;
+}
 
 .chatroomlist_header{
     position: fixed;

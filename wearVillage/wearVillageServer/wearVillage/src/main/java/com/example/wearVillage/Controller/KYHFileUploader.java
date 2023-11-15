@@ -79,9 +79,10 @@ public class KYHFileUploader {
             log.info("카피투바이트어레이 성공");
             return result;
         } catch (IOException e){
+            log.info("KYHFileUploader.getProfileImg에서 예외 발생");
             e.printStackTrace();
 
         }
-        return new byte[10];
+        return new byte[0];
     }
 }

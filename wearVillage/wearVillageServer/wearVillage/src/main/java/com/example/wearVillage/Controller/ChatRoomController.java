@@ -108,9 +108,10 @@ public class ChatRoomController {
     @GetMapping("/chatroomlist")
     public String chatroomlist(HttpSession session,Model model){
         if(session.getAttribute("email")!=null){
-
             List<ChatroomDTO_toString> copyChatroomDTO = chatSVC.loadingChatroom((String) session.getAttribute("nickname")).stream()
                     .map(m-> {
+                        String targetId;
+                        targetId=m.getMEMBER1().equals(session.getAttribute("nickname"))?m.getMEMBER2():m.getMEMBER1();
                         String msg = URLDecoder.decode(m.getRECENTLY_MSG(), StandardCharsets.UTF_8);
                         ChatroomDTO_toString chatroomDTO = new ChatroomDTO_toString();
                         LocalDateTime liveTime = LocalDateTime.now();
@@ -128,9 +129,10 @@ public class ChatRoomController {
                         chatroomDTO.setPOST_RENT_DEFAULT_PRICE(m.getPOST_RENT_DEFAULT_PRICE());
                         chatroomDTO.setPOST_RENT_DAY_PRICE(m.getPOST_RENT_DAY_PRICE());
                         chatroomDTO.setPOST_MAP_INFO(m.getPOST_MAP_INFO());
-                        chatroomDTO.setPOST_THUMBNAIL_IMG(repositoryUserInfo.findByNICKNAME(m.getPOST_WRITER_ID()).getPROFILEIMG());
+                        chatroomDTO.setPOST_THUMBNAIL_IMG(targetId);
                         return chatroomDTO;
                     }).toList();
+
             model.addAttribute("chatroomList",copyChatroomDTO);
             model.addAttribute("myId",session.getAttribute("nickname"));
 

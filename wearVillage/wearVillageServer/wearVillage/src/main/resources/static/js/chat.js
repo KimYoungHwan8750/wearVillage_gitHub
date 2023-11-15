@@ -143,7 +143,7 @@ let sendMessage={
     "addressee":JSON.parse($th_addressee),
     "chatroom":JSON.parse($th_postId)
 }
-websocket = new SockJS("https://wearvillage.store/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
+websocket = new SockJS("http://localhost:8090/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
 
 
 const $chat_noticeClose = document.querySelector('.chat_noticeClose');
