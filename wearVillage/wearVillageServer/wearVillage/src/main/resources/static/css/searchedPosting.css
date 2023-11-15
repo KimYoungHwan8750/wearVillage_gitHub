@@ -1,0 +1,69 @@
+.search_header {
+  background-color: RGB(245, 82, 82);
+  color: #fff;
+  padding: 10px;
+  bottom: 2px;
+  border-bottom: 2px;
+  margin-top: 50px;
+  text-align: center;
+  position: relative;
+  top: 3px;
+}
+
+.search_product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* 박스 크기를 padding, border를 포함한 크기로 설정 */
+}
+
+.search-results {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(201px, 1fr));
+  gap: 20px;
+}
+
+.search_container {
+  max-width: 980px;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  /* 박스 크기를 padding, border를 포함한 크기로 설정 */
+}
+
+.search_product img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.search_price {
+  color: RGB(245, 82, 82);
+}
+
+.search_img {
+  text-align: center;
+}
+
+.search_product_tag img {
+  text-align: center;
+}
+
+.tag_middle_button:disabled {
+  color: #dc4141;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid gray;
+  outline: none;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

@@ -1,33 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <style>
+
+  </style>
 </head>
+
 <body>
-    <p>제목검색결과</p>
-    <div th:each="SP : ${searchedPost}">
-        <div>글쓴이 : <div th:text="${SP.postWriterId}">글쓴이</div></div>
-        <div>제목 : <div th:text="${SP.postSubtitle}">제목</div></div>
-        <div>가격 : <div th:text="${SP.postPrice}">가격</div></div>
-        <div>대여기본금 : <div th:text="${SP.postRentDefaultPrice}">대여기본금</div></div>
-        <div>대여일일금 : <div th:text="${SP.postRentDayPrice}">대여일일금</div></div>
-        <div>대분류 : <div th:text="${SP.postTagTop}">대분류</div></div>
-        <div>중분류 : <div th:text="${SP.postTagMiddle}">중분류</div></div>
-        <div>지역 : <div th:text="${SP.postMapInfo}">지역</div></div>
-        <div>썸네일 : <img th:src="${SP.postThumbnailUrl}" alt="썸네일" style="width: 201px; height: 201px"/></div>
+  <div class="searchDisplay">
+    <div layout:fragment="content">
+      <link rel="stylesheet" href="/css/common.css" />
+      <link rel="stylesheet" href="/css/searchedPosting.css" />
+      <div class="search_header">
+      </div>
+      <div class="search_container">
+        제목으로 <span style="color: orangered;">"</span><span th:text="${searchValue}"
+          style="color: orangered;"></span><span style="color: orangered;">"</span>에 대한 검색 결과입니다.
+        <div class="search-results">
+          <div th:each="SP, iteration : ${searchedPost}">
+            <div class="search_product">
+              <div class="search_product_tag search_img">
+                <button class="tag_middle_button" disabled="true" th:text="${SP.postTagMiddle}">
+                  예시
+              </div>
+              <div class="search_img" style="width: 201px; height: 201px; outline: 1px solid grey;"><img
+                  style="width: 201px; height: 201px;" th:src="${SP.postThumbnailUrl}" alt="" /></div>
+              <div>
+                <div style="font-weight: bold; margin-bottom:10px; width: 201px; text-align: center;"
+                  th:text="${SP.postSubtitle}"></div>
+              </div>
+              <div class="search_price" style="display: flex;">
+                <span style="font-weight: bold;" class="search_price" th:text="${SP.postPrice+ '원'}"></span>
+              </div>
+            </div>
+            <!-- 매 4번째 품목마다 줄 바꿈 추가 -->
+            <th:if="${iteration.index % 4==3}">
+              <div style="clear: both;"></div>
+              </th:if>
+          </div>
+          <!-- 검색 결과가 추가로 표시될 수 있음 -->
+        </div>
+      </div>
+
+
+
+      <!-- 두 번째 컨테이너 -->
+      <div class="search_container" style="margin-top: 150px;" th:if="${categorySearchedPost != null}">
+        카테고리로 <span style="color: orangered;">"</span><span th:text="${searchValue}"
+          style="color: orangered;"></span><span style="color: orangered;">"</span>에 대한 검색 결과입니다.
+        <div class="search-results">
+          <div th:each="CSP, iteration1 : ${categorySearchedPost}">
+            <div class="search_product">
+              <div class="search_product_tag search_img">
+                <button class="tag_middle_button" disabled="true" th:text="${CSP.postTagMiddle}">
+                  예시
+                </button>
+              </div>
+              <div class="search_img" style="width: 201px; height: 201px; outline: 1px solid grey;">
+                <img th:src="${CSP.postThumbnailUrl}" style="width: 201px; height: 201px;" alt="썸네일" />
+              </div>
+              <div>
+                <div style="font-weight: bold; margin-bottom:10px; width: 201px; text-align: center;"
+                  th:text="${CSP.postSubtitle}"></div>
+              </div>
+              <div class="search_price" style="display: flex;">
+                <p style="font-weight: bold;" class="search_price" th:text="${CSP.postPrice + '원'}"></p>
+              </div>
+            </div>
+            <!-- 매 4번째 품목마다 줄 바꿈 추가 -->
+            <th:if="${iteration1.index % 4==3}">
+              <div style="clear: both;"></div>
+              </th:if>
+          </div>
+          <!-- 검색 결과가 추가로 표시될 수 있음 -->
+        </div>
+      </div>
+      <div style="margin-bottom: 150px;"></div>
     </div>
-    <p>카테고리검색결과</p>
-    <div th:each="CSP : ${categorySearchedPost}">
-        <div>글쓴이 : <div th:text="${CSP.postWriterId}">글쓴이</div></div>
-        <div>제목 : <div th:text="${CSP.postSubtitle}">제목</div></div>
-        <div>가격 : <div th:text="${CSP.postPrice}">가격</div></div>
-        <div>대여기본금 : <div th:text="${CSP.postRentDefaultPrice}">대여기본금</div></div>
-        <div>대여일일금 : <div th:text="${CSP.postRentDayPrice}">대여일일금</div></div>
-        <div>대분류 : <div th:text="${CSP.postTagTop}">대분류</div></div>
-        <div>중분류 : <div th:text="${CSP.postTagMiddle}">중분류</div></div>
-        <div>지역 : <div th:text="${CSP.postMapInfo}">지역</div></div>
-        <div>썸네일 : <img th:src="${CSP.postThumbnailUrl}" alt="썸네일" style="width: 201px; height: 201px"/></div>
-    </div>
+  </div>
 </body>
+
 </html>

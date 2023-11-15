@@ -256,9 +256,9 @@ public class PJYController {
     }
 
     @GetMapping("/search/{query}")
-    public ModelAndView searchQuery(@PathVariable String query, ModelAndView mav, PostData postData) {
+    public ModelAndView searchQuery(@PathVariable String query, ModelAndView mav, PostData postData,Model model) {
         mav.setViewName("searchedPosting");
-
+        model.addAttribute("searchValue", query);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
 
         StringBuffer sql = new StringBuffer();

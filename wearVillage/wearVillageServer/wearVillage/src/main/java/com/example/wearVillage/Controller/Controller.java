@@ -2,7 +2,7 @@ package com.example.wearVillage.Controller;
 
 
 
-<<<<<<< HEAD
+
 import static com.example.wearVillage.dataController.LoginCheck.*;
 import static com.example.wearVillage.dataController.check_email.*;
 import static com.example.wearVillage.dataController.check_id.*;
@@ -10,8 +10,6 @@ import static com.example.wearVillage.dataController.createUserToOracle.*;
 
 
 import com.example.wearVillage.DTO.CreateUserDTO;
-=======
->>>>>>> 8b8bc41eb043d4ecb6ddf33abc28a092bee8aa7e
 import com.example.wearVillage.Entity.USER_INFO;
 import com.example.wearVillage.PostData;
 
