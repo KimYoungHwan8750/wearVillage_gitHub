@@ -106,24 +106,7 @@
     <script>
         // 네이버 로그인을 위한 팝업창 생성
         function showLoginPopup(){
-                  const loginWindow = window.open('/naver', 'Naver Login', 'width=600,height=600');
-
-          // 주기적으로 팝업 창의 상태를 체크합니다.
-          const checkInterval = setInterval(function() {
-            if (loginWindow.closed) {
-              clearInterval(checkInterval); // 팝업 창이 닫혔으면 체크를 중지합니다.
-
-              // 상태 코드를 확인합니다.
-              fetch('/naverLogin?code=AUTH_CODE&state=STATE') // AUTH_CODE와 STATE는 실제 값을 사용해야 합니다.
-                .then(response => {
-                  if (response.ok) {
-                    window.location.href = '/'; // 상태 코드가 200이면 '/'로 이동합니다.
-                  } else {
-                    window.location.href = '/login'; // 상태 코드가 200이 아니면 '/login'으로 이동합니다.
-                  }
-                });
-            }
-          }, 500);
+                  globalThis.location.href='/naver';
         }
 
 
