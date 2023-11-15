@@ -60,7 +60,9 @@ fetch(`/getModal`,options)
     function openModal(){
         if(!on) {
             $nav_modal.setAttribute("style",
-                `opacity:1;
+                `
+                display:block;
+                opacity:1;
         transition:opacity 0.5s;
         top:-${$nav_modal.offsetHeight}px`);
 
@@ -88,7 +90,9 @@ fetch(`/getModal`,options)
     function tempOpenModal(){
 
             $nav_modal.setAttribute("style",
-                `opacity:1;
+                `
+                display:block;
+                opacity:1;
         transition:opacity 0.5s;
         top:-${$nav_modal.offsetHeight}px`);
 
@@ -124,6 +128,7 @@ fetch(`/getModal`,options)
         right:${right};
        
         `;
+            setTimeout(()=>{$nav_modal.setAttribute("style","")})
 
         }
     }

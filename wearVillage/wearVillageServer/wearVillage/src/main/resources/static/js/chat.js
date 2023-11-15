@@ -100,7 +100,7 @@ function mimeConverter(displayElement,data,mime){
             break;
         case "audio": break;
         default :
-            displayElement.innerText=decodeURIComponent(data)
+            displayElement.innerHTML=decodeURIComponent(data)
             break;
     }
 

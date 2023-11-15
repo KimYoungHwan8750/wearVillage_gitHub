@@ -6,11 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @org.springframework.stereotype.Repository
 public interface Repository_USER_INFO extends JpaRepository <USER_INFO, String> {
 
     List<USER_INFO> findByID(String ID);
+    Optional<USER_INFO> findAllByID(String ID);
     List<USER_INFO> findByEMAIL(String EMAIL);
     USER_INFO findByNICKNAME(String nickname);
 

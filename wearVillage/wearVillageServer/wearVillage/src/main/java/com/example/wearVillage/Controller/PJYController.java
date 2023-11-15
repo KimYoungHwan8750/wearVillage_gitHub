@@ -2,8 +2,13 @@ package com.example.wearVillage.Controller;
 
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,11 +23,16 @@ import com.example.wearVillage.DAO.findIDPW.FindSVC;
 import com.example.wearVillage.DAO.findIDPW.NewPwForm;
 import com.example.wearVillage.DeleteEvent.DeleteSVC;
 import com.example.wearVillage.DTO.GmailDto;
+import com.example.wearVillage.Entity.USER_INFO;
+import com.example.wearVillage.Repository.Repository_USER_INFO;
 import com.example.wearVillage.Service.EmailService;
 import com.example.wearVillage.UpdateEvent.UpdateEntityRepository;
 import com.example.wearVillage.UpdateEvent.UpdateEntityService;
 import com.example.wearVillage.UpdateEvent.UpdateRequest;
 import com.example.wearVillage.UpdateEvent.posting_table;
+import com.example.wearVillage.chat.ChatDTO;
+import com.example.wearVillage.chat.ChatEntity;
+import com.example.wearVillage.chat.ChatService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +72,8 @@ public class PJYController {
     private final FindSVC findSVC;
     private final UpdateEntityRepository updateEntityRepository;
     private final ProductBuyDAO productBuyDAO;
+    private final ChatService chatSVC;
+    private final Repository_USER_INFO repositoryUserInfo;
 
     //DAO - > SVC 수정필
     @GetMapping("/posts")
@@ -419,16 +431,39 @@ public class PJYController {
         }
     }
 
+    /**
+     * @implNote  2023-11-15 10:53 수정 시작
+     * @author 김영환
+     */
     @PostMapping("/tradeCall")
-    public ModelAndView tradeCall(ProductBuyForm productBuyForm) {
+    public ModelAndView tradeCall(ProductBuyForm productBuyForm, HttpSession session) throws UnsupportedEncodingException {
         ModelAndView mav = new ModelAndView();
         log.info("pbF={}", productBuyForm);
+        Optional<USER_INFO> buyer_info = repositoryUserInfo.findAllByID(session.getAttribute("id").toString());
+        Optional<USER_INFO> seller_info = repositoryUserInfo.findAllByID(productBuyForm.getSellerId());
+        String buyerId = buyer_info.orElseGet(()->{return new USER_INFO();}).getNICKNAME();
+        String sellerId = seller_info.orElseGet(()->{return new USER_INFO();}).getNICKNAME();
         String result = productBuyDAO.trade(productBuyForm);
+
         if (result.equals("구매 완료")) {
             log.info("구매완료");
             //TODO 구매신청메세지
             mav.addObject("productInfo", productBuyForm);
             mav.setViewName("tradeToChat");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            chatSVC.isThereChatroom(buyerId,sellerId,Integer.parseInt(productBuyForm.getPostId()));
+            ChatDTO chatDto = ChatDTO.builder()
+                    .CHAT_NUM(chatSVC.maxNumUserChat())
+                    .SENDER(buyerId)
+                    .ADDRESSEE(sellerId)
+                    .MESSAGE(URLEncoder.encode(("<div><div>"+buyerId+"님이 구매 신청을 하셨습니다.</div></div>"),StandardCharsets.UTF_8).replaceAll("\\+","%20"))
+                    .CHATROOM(Integer.parseInt(productBuyForm.getPostId()))
+                    .CHAT_DATE(null)
+                    .CHAT_MIME("notice")
+                    .CHAT_ROOM_ID(chatSVC.searchChatroom(buyerId,sellerId,Integer.parseInt(productBuyForm.getPostId())).getCHAT_ROOM_ID())
+                    .build();
+            ChatEntity chatEntity = new ChatEntity(chatDto);
+            chatSVC.saveChat(chatEntity);
         } else {
             log.info("구매실패");
             mav.setViewName("postDetail3");
