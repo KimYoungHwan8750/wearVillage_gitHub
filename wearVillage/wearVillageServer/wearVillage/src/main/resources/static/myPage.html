@@ -81,12 +81,11 @@
               <img
                 id="myPageProfileImageId"
                 src="../img/기본프사.jpg"
-                th:src="${'/profileimg?fileName='+session.profileimg}"
+                th:src="'../getprofileimg?userNickname='+${nickname}"
                 alt=""
               />
               <script>
-                console.log(document.querySelector("#myPageProfileImageId").src);
-                console.log(document.querySelector("#myPageProfileImageId").src+"myPageProfileImageId SRC값");
+
               </script>
             </div>
             <p id="successMsg"></p>
@@ -94,6 +93,11 @@
               <input name="uploadFile" id="uploadFile" type="file" accept="image/*" class="myPageProfileSelectBtn1">
               <label for="uploadFile">등록하기</label>
               <button class="myPageProfileSelectBtn2">기본 사진</button>
+              <script th:inline="javascript">
+                $th_sessionNickname=[[${nickname}]];
+                console.log($th_sessionNickname);
+                console.log($th_sessionNickname+"세션이름");
+              </script>
                   <script>
                     window.addEventListener('DOMContentLoaded', (event) => {
                         let uploadFileInput = document.getElementById('uploadFile');
@@ -102,8 +106,7 @@
                             $defaultImageBtn.addEventListener('click', () => {
                               myPageProfileImageId.src="../img/기본프사.jpg"
                               let abc = '2023%2F10%2F17%2FdefaultImg.jpg'
-                              let abcd = encodeURIComponent(abc);
-                                fetch('/update/profileImg?url='+abcd)
+                                fetch('/update/profileImg?url='+abc)
                                 .then(response=>{
                                   if(response.ok){
                                     console.log('기본이미지요청성공');
@@ -116,30 +119,34 @@
                                 })
                             })
 
-                        uploadFileInput.addEventListener('change', () => {
-                          document.getElementById('successMsg').innerHTML="";
-                          setTimeout(()=>{
-                          console.dir(uploadFileInput);
-                            console.log("change이벤트");
-                              let previewImage = document.getElementById('myPageProfileImageId').src;
-                              let previewImageArr = previewImage.split("=");
-                              console.log(previewImageArr[1]);
-                                fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
-                                  .then(response => {
-                                    if (response.ok) {
-                                      console.log('이미지 업데이트 요청이 성공했습니다.');
-                                      document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
-                                    } else {
-                                      console.error('이미지 업데이트 요청이 실패했습니다.');
-                                      document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
-                                    }
-                                  })
-                                  .catch(error => {
-                                    console.error('요청 중 오류가 발생했습니다.', error);
-                                    document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
-                                  });
-                                },1000)
-                          });
+
+
+
+
+                          //
+                          // setTimeout(()=>{
+                          // console.dir(uploadFileInput);
+                          //   console.log("change이벤트");
+                          //     let previewImage = document.getElementById('myPageProfileImageId').src;
+                          //     let previewImageArr = previewImage.split("=");
+                          //     console.log(previewImageArr[1]);
+                          //       fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
+                          //         .then(response => {
+                          //           if (response.ok) {
+                          //             console.log('이미지 업데이트 요청이 성공했습니다.');
+                          //             document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
+                          //           } else {
+                          //             console.error('이미지 업데이트 요청이 실패했습니다.');
+                          //             document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
+                          //           }
+                          //         })
+                          //         .catch(error => {
+                          //           console.error('요청 중 오류가 발생했습니다.', error);
+                          //           document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
+                          //         });
+                          //       },1000)
+                                //
+                     
                           });
                 </script>
             </div>

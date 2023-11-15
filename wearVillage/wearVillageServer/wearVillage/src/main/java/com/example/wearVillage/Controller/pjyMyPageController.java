@@ -19,6 +19,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +52,7 @@ public class pjyMyPageController {
 
     @GetMapping("/mypage")
     public ModelAndView myPage(ModelAndView mav, HttpSession session, USER_INFO_FORM userInfoForm, MyPageGetMiliageForm myPageGetMiliageForm,
-            @ModelAttribute ChangeUserPWForm changeUserPWForm) {
+            @ModelAttribute ChangeUserPWForm changeUserPWForm) throws UnsupportedEncodingException {
         if (session.getAttribute("email") != null) {
             String userId = (String) session.getAttribute("id");
             String nickname = (String) session.getAttribute("nickname");
@@ -68,6 +70,7 @@ public class pjyMyPageController {
             mav.addObject("kapiApiKey",kapiApiKey);
             mav.addObject("countedPost",countedPost);
             mav.addObject("userId",userId);
+            mav.addObject("nickname", URLEncoder.encode(nickname,"UTF-8"));
             mav.setViewName("myPage");
             return mav;
         } else {
@@ -80,13 +83,9 @@ public class pjyMyPageController {
     @GetMapping("/update/profileImg")
     public boolean myPageProfileUpload(@RequestParam String url, HttpSession session, Model model) {
         String Userid = (String) session.getAttribute("id");
-        log.info("UserID={}", Userid);
-        log.info("url={}", url);
         int updatedRow = ImageSVC.changeProfileImage(Userid, url);
         log.info("updatedRow={}", updatedRow);
-        session.removeAttribute("profileimg");
         log.info("url={}", url);
-        session.setAttribute("profileimg", url);
         return true;
     }
 

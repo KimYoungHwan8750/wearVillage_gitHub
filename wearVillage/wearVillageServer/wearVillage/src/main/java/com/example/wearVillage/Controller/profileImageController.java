@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,13 @@ import com.example.wearVillage.AttachImageVO;
 import com.example.wearVillage.status.local_or_server;
 
 @org.springframework.stereotype.Controller
+@Slf4j
 public class profileImageController{
 
     @PostMapping(value="/uploadProfileImage", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadProfileImage(MultipartFile uploadFile) {
         File checkfile = new File(uploadFile.getOriginalFilename());
+        log.info("파일네임= {}",checkfile);
         String type = null;
         try {
             type = Files.probeContentType(checkfile.toPath());
@@ -71,24 +74,27 @@ public class profileImageController{
         // 이름이 같다면 덮어씌워지니까 UUID포멧을 이용해 랜덤이름으로 바꾼다.
         String uuid = UUID.randomUUID().toString();
         vo.setUuid(uuid);
-        uploadFileName = uuid + "_" + uploadFileName;
 
         // 파일 위치, 파일 이름을 합친 File 객체 지정
-        File saveFile = new File(uploadPath, uploadFileName);
+        File saveFile = new File(uploadPath, uuid+"_"+uploadFileName);
+        log.info("프로필이미지 업로드 패쓰:{}",uploadPath);
 
         // 썸네일 지정하기
-        File thumbnailFile = new File(uploadPath, "_" + uploadFileName);
+//        File thumbnailFile = new File(uploadPath, "_" + uploadFileName);
         // 파일 저장하기
         try {
+            log.info("프로필 사진 업로드 성공before");
+            log.info("saveFile 정보들 =[{},{}]",saveFile.getPath(),saveFile.getName());
             uploadFile.transferTo(saveFile);
-            BufferedImage bo_image = ImageIO.read(saveFile);
-            double ratio = 1;
-            int width = (int) (bo_image.getWidth() / ratio);
-            int height = (int) (bo_image.getHeight() / ratio);
-            BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-            Graphics2D graphic = bt_image.createGraphics();
-            graphic.drawImage(bo_image, 0, 0, width, height, null);
-            ImageIO.write(bt_image, "jpg", thumbnailFile);
+            log.info("프로필 사진 업로드 성공");
+//            BufferedImage bo_image = ImageIO.read(saveFile);
+//            double ratio = 1;
+//            int width = (int) (bo_image.getWidth() / ratio);
+//            int height = (int) (bo_image.getHeight() / ratio);
+//            BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+//            Graphics2D graphic = bt_image.createGraphics();
+//            graphic.drawImage(bo_image, 0, 0, width, height, null);
+//            ImageIO.write(bt_image, "jpg", thumbnailFile);
         } catch (Exception e) {
             e.printStackTrace();
         }

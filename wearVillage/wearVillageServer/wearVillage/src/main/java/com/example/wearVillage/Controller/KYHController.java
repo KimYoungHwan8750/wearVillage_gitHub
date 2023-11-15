@@ -98,11 +98,11 @@ public class KYHController {
         return "datatest.html";
     }
     @ResponseBody
-    @PostMapping(value="/kyhtest")
-    public void kyhTest(HttpServletRequest request)
+    @GetMapping(value="/kyhTest")
+    public String kyhTest(String filePath)
     {
-        log.info(request.getQueryString());
-
+        log.info("filePath 경로 = {}",filePath);
+        return "테스트";
     }
 
 
