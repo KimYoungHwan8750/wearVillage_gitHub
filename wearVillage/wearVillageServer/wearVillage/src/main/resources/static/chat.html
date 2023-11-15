@@ -217,7 +217,7 @@
                         imgJson.push(res[i].body);
                     }
                     send(encodeURIComponent(JSON.stringify(imgJson)).replace(/[']/g,escape),"json");
-
+                    closeModal()
                     }
                 );
             }
@@ -257,7 +257,9 @@
 
 
         // 네비게이션 메뉴 : 닫기
-        $chat_modalCloseBtn.addEventListener("click",()=>{
+        $chat_modalCloseBtn.addEventListener("click",closeModal)
+
+        function closeModal(){
             $chat_modalContainer.innerHTML='';
             $chat_modalContainer.style.cssText=modalInit;
             $chat_modalCloseBtn.style.cssText=btnInit;
@@ -269,13 +271,11 @@
             imgUrlArr=[];
 
             let revoke = async ()=>{await
-            imgUrlArr.forEach(e=>{
-                URL.revokeObjectURL(e);
-            })}
-
-
-
-        })
+                imgUrlArr.forEach(e=>{
+                    URL.revokeObjectURL(e);
+                })}
+            revoke();
+        }
         // 닫기 버튼
 
     </script>

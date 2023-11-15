@@ -200,7 +200,7 @@ public class post_Controller {
      * */
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
-        File file = new File((local_or_server.status == "local" ? "c:\\upload\\" : "/home/ubuntu/upload/") + fileName);
+        File file = new File((local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/upload/") + fileName);
         //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
         //
         ResponseEntity<byte[]> result = null;

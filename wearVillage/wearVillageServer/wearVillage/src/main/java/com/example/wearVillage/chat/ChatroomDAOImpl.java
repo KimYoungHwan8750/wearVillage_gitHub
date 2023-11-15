@@ -95,8 +95,8 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                 chatEntity.setSENDER(rs.getString("SENDER"));
                 chatEntity.setADDRESSEE(rs.getString("ADDRESSEE"));
                 chatEntity.setMESSAGE(rs.getString("MESSAGE"));
-                chatEntity.setCHAT_MIME(rs.getString("CHAT_MIME"));
                 chatEntity.setCHAT_ROOM_ID(rs.getInt("CHAT_ROOM_ID"));
+                chatEntity.setCHAT_MIME(rs.getString("CHAT_MIME"));
                 return chatEntity;
             }
         }, new Object[]{member1, member1, member2, member2, chatroom});
@@ -150,6 +150,8 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                 chatroomDTO.setPOST_RENT_DEFAULT_PRICE(rs.getString("POST_RENT_DEFAULT_PRICE"));
                 chatroomDTO.setPOST_RENT_DAY_PRICE(rs.getString("POST_RENT_DAY_PRICE"));
                 chatroomDTO.setPOST_MAP_INFO(rs.getString("POST_MAP_INFO"));
+                chatroomDTO.setCHAT_MIME(rs.getString("CHAT_MIME"));
+
 //                chatroomDTO.setPOST_THUMBNAIL_IMG(rs.getString("POST_TEXT"));
                 return chatroomDTO;
             }

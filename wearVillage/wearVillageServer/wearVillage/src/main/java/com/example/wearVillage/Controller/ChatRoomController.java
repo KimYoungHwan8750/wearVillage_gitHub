@@ -64,7 +64,6 @@ public class ChatRoomController {
         Map<String,String> map = new HashMap<>();
 
         if(member1==null||member2==null){
-            chat = chatSVC.loadingChatHistory(parseInt(postId), (String) session.getAttribute("nickname"), postWriterId);
             map.put("myId",(String) session.getAttribute("nickname"));
             map.put("targetId",postWriterId);
         } else {
@@ -75,10 +74,11 @@ public class ChatRoomController {
                 map.put("myId",member2);
                 map.put("targetId",member1);
             }
-            chat = chatSVC.loadingChatHistory(parseInt(postId), map.get("myId"), map.get("targetId"));
 
         }
         try {
+            chat = chatSVC.loadingChatHistory(parseInt(postId), map.get("myId"), map.get("targetId"));
+
             model.addAttribute("chat_history", chat);
 
             model.addAttribute("postUserInfo",repositoryUserInfo.findByNICKNAME(map.get("targetId")).getPROFILEIMG());
@@ -130,6 +130,7 @@ public class ChatRoomController {
                         chatroomDTO.setPOST_RENT_DAY_PRICE(m.getPOST_RENT_DAY_PRICE());
                         chatroomDTO.setPOST_MAP_INFO(m.getPOST_MAP_INFO());
                         chatroomDTO.setPOST_THUMBNAIL_IMG(targetId);
+                        chatroomDTO.setCHAT_MIME(m.getCHAT_MIME());
                         return chatroomDTO;
                     }).toList();
 

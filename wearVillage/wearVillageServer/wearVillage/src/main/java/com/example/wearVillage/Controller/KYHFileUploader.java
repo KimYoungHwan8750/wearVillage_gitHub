@@ -36,11 +36,12 @@ public class KYHFileUploader {
     public List<ResponseEntity<String>> KYH_ChatImg(List<MultipartFile> files) throws IOException {
         List<ResponseEntity<String>> filePath = new ArrayList<>();
 
-
+        String local = "C:\\upload\\";
+        String server = "/home"+File.separator+"ubuntu"+File.separator+"upload"+File.separator;
 
             for (MultipartFile file : files) {
                 String p = File.separator;
-                File imgFile = new File("home"+File.separator+"ubuntu"+File.separator+"upload"+File.separator, UUID.randomUUID() + "_" + file.getOriginalFilename());
+                File imgFile = new File(local_or_server.status.equals("local")?local:server, UUID.randomUUID() + "_" + file.getOriginalFilename());
                 file.transferTo(imgFile);
 
                 filePath.add(new ResponseEntity<>(imgFile.getPath(), HttpStatus.OK));

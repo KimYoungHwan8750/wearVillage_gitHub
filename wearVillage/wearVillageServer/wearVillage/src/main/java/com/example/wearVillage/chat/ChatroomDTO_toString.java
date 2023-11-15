@@ -28,4 +28,6 @@ public class ChatroomDTO_toString {
     private String POST_RENT_DAY_PRICE;
     private String POST_MAP_INFO;
     private String POST_THUMBNAIL_IMG;
+    private String CHAT_MIME;
+
 }

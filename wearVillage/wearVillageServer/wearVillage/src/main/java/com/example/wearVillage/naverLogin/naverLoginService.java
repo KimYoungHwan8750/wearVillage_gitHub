@@ -33,7 +33,7 @@ public class naverLoginService implements SocialOAuthService{
     private final String NAVER_CLIENT_SECRET="OzMITofNs8";
     private final String NAVER_BASE_URL="https://nid.naver.com/oauth2.0/authorize";
     private final String NAVER_TOKEN_BASE_URL="https://nid.naver.com/oauth2.0/token";
-    private final String NAVER_CALLBACK_URL="http://localhost:8090/naverLogin";
+    private final String NAVER_CALLBACK_URL="https://wearvillage.store/naverLogin";
     @Override
     public String getRequestLoginUrl() {
         final String state = new BigInteger(130,new SecureRandom()).toString();

@@ -65,7 +65,7 @@ function mimeConverter(displayElement,data,mime){
                 console.log("resultElement 정보");
                 let albumImg = document.createElement('img');
                 albumImg.classList.add("ImgListItem",createAlbumImgClass)
-                albumImg.src = "img\\test\\23d06450-2d11-447c-83bc-7a6f070eb6b1_sampleSub2.jpg";
+                albumImg.src = resultElement;
                 displayElement.append(albumImg)
                 displayElement.classList.add("ImgList",createImgListClass);
                 displayElement.style.background="none";
@@ -100,7 +100,7 @@ function mimeConverter(displayElement,data,mime){
             break;
         case "audio": break;
         default :
-            displayElement.innerHTML=decodeURIComponent(data)
+            displayElement.innerText=decodeURIComponent(data)
             break;
     }
 
@@ -143,7 +143,7 @@ let sendMessage={
     "addressee":JSON.parse($th_addressee),
     "chatroom":JSON.parse($th_postId)
 }
-websocket = new SockJS("http://localhost:8090/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
+websocket = new SockJS("https://wearvillage.store/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
 
 
 const $chat_noticeClose = document.querySelector('.chat_noticeClose');
