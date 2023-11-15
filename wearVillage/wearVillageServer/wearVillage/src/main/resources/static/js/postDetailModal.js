@@ -57,14 +57,27 @@ function getModal(dom,size){
             function holdModal(){
 
             }
+            $nav_modal.style.display="none";
+            $nav_modal.style.opacity = "0";
+            $horizontal_line.style.transform = "none";
+            $vertical_line.style.transform = "none";
+            $plusXBtn.style = `
+        transition:background-color 0.5s;
+        background-color:rgb(255, 113, 113);
+        top:${top};
+        left:${left};
+        bottom:${bottom};
+        right:${right};
+       
+        `;
             function openModal(){
                 if(!on) {
+                    $nav_modal.style.display="block";
                     $nav_modal.setAttribute("style",
                         `
-                display:block;
                 opacity:1;
         transition:opacity 0.5s;
-        top:-${$nav_modal.offsetHeight}px`);
+        top:-${$nav_modal.offsetHeight-40}px`);
 
                     $horizontal_line.style =
                         `transform:rotate(45deg);
@@ -88,13 +101,12 @@ function getModal(dom,size){
 
             }
             function tempOpenModal(){
-
+                $nav_modal.style.display="block";
                 $nav_modal.setAttribute("style",
                     `
-                display:block;
                 opacity:1;
         transition:opacity 0.5s;
-        top:-${$nav_modal.offsetHeight}px`);
+        top:-${$nav_modal.offsetHeight-40}px`);
 
                 $horizontal_line.style =
                     `transform:rotate(45deg);
@@ -119,6 +131,7 @@ function getModal(dom,size){
                     $nav_modal.style.opacity = "0";
                     $horizontal_line.style.transform = "none";
                     $vertical_line.style.transform = "none";
+                    $nav_modal.style.display="none";
                     $plusXBtn.style = `
         transition:background-color 0.5s;
         background-color:rgb(255, 113, 113);
@@ -128,13 +141,12 @@ function getModal(dom,size){
         right:${right};
        
         `;
-                    setTimeout(()=>{$nav_modal.setAttribute("style","")})
 
                 }
             }
 
             function clickCloseModal() {
-
+                $nav_modal.style.display="none";
                 $nav_modal.style.opacity = "0";
                 $horizontal_line.style.transform = "none";
                 $vertical_line.style.transform = "none";
