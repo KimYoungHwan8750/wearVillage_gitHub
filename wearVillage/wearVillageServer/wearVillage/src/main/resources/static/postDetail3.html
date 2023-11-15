@@ -109,8 +109,15 @@
                     $num = $num.replace(/[^0-9]/g,'');
                     console.log($num);
                     if(confirm("정말 삭제하시겠습니까?")){
+                        let $sid = /*[[${session.id}]]*/ 'default';
+                        let $writerId = /*[[${Id}]]*/ 'dfeault';
+                        if($sid===$writerId){
                         globalThis.location.href=`/delete/viewPost2?id=${$num}`;
                         alert("삭제되었습니다.");
+                        } else {
+                            alert("타인의 글은 삭제가 불가능합니다!!");
+                            return;
+                        }
                     } else {
                         alert("취소하겠습니다.");
                         return;
@@ -122,7 +129,14 @@
                     $num = $num.replace(/[^0-9]/g,'');
                     console.log($num);
                     if(confirm("수정하시겠습니까?")){
-                        globalThis.location.href=`/edit/${$num}`;
+                        let $sid = /*[[${session.id}]]*/ 'default';
+                        let $writerId = /*[[${Id}]]*/ 'dfeault';
+                        if($sid===$writerId){
+                            globalThis.location.href=`/edit/${$num}`;
+                        } else {
+                            alert("타인의 글은 수정이 불가능합니다!!");
+                            return;
+                        }
                     } else {
                         alert("취소하겠습니다.");
                         return;
@@ -135,6 +149,7 @@
                     let $sellerName = /*[[${post.postWriterId}]]*/ 'default';
                     let $pid = /*[[${post.postId}]]*/ 'default';
                     let $mapInfo = /*[[${post.postMapInfo}]]*/ 'default';
+                    let $sessionBuyerId = /*[[${session.id}]]*/ 'default';
 
                     localStorage.setItem("$buyerName",$buyerName);
                     localStorage.setItem("$sellerName",$sellerName);
@@ -152,6 +167,11 @@
                     formData.append("rentDayPrice",$frm.postRentDayPrice.value);
                     formData.append("postId",$frm.postId.value);
 
+                    let $buyerId = formData.get("buyerId");
+                    if($sessionBuyerId===$buyerId){
+                        alert("본인의 물건은 구매하거나 대여할수 없습니다.")
+                        return false;
+                    }
 
                     let url = `/buyCall`;
                     let option = {
@@ -177,24 +197,24 @@
                         var _top = Math.ceil(( window.screen.height - _height )/2);
                         child = window.open("productControllPannel.html","구매,대여",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
                         child.onload = function(){
+                            setTimeout(function() {
+                                child.document.getElementById('tradeId').value = $tradeId;
+                                child.document.getElementById('postId').value = $postId;
+                                child.document.getElementById('buyerId').value = $buyerId;
+                                child.document.getElementById('sellerId').value = $sellerId;
+                                child.document.getElementById('price').value = $price;
+                                child.document.getElementById('rentDefaultPrice').value = $rentDefaultPrice;
+                                child.document.getElementById('rentDayPrice').value = $rentDayPrice;
 
-                            child.document.getElementById('tradeId').value = $tradeId;
-                            child.document.getElementById('postId').value = $postId;
-                            child.document.getElementById('buyerId').value = $buyerId;
-                            child.document.getElementById('sellerId').value = $sellerId;
-                            child.document.getElementById('price').value = $price;
-                            child.document.getElementById('rentDefaultPrice').value = $rentDefaultPrice;
-                            child.document.getElementById('rentDayPrice').value = $rentDayPrice;
-
-                            child.document.getElementById('RtradeId').value = $tradeId;
-                            child.document.getElementById('RpostId').value = $postId;
-                            child.document.getElementById('RbuyerId').value = $buyerId;
-                            child.document.getElementById('RsellerId').value = $sellerId;
-                            child.document.getElementById('Rprice').value = $price;
-                            child.document.getElementById('RrentDefaultPrice').value = $rentDefaultPrice;
-                            child.document.getElementById('RrentDayPrice').value = $rentDayPrice;
+                                child.document.getElementById('RtradeId').value = $tradeId;
+                                child.document.getElementById('RpostId').value = $postId;
+                                child.document.getElementById('RbuyerId').value = $buyerId;
+                                child.document.getElementById('RsellerId').value = $sellerId;
+                                child.document.getElementById('Rprice').value = $price;
+                                child.document.getElementById('RrentDefaultPrice').value = $rentDefaultPrice;
+                                child.document.getElementById('RrentDayPrice').value = $rentDayPrice;
+                            }, 500); // 500ms
                         }
-
                     });
                 }
 
