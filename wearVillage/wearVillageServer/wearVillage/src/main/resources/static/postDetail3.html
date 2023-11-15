@@ -167,8 +167,9 @@
                     formData.append("rentDayPrice",$frm.postRentDayPrice.value);
                     formData.append("postId",$frm.postId.value);
 
-                    let $buyerId = formData.get("buyerId");
-                    if($sessionBuyerId===$buyerId){
+                    let $sellerId = formData.get("sellerId");
+
+                    if($sessionBuyerId===$sellerId){
                         alert("본인의 물건은 구매하거나 대여할수 없습니다.")
                         return false;
                     }
@@ -213,7 +214,7 @@
                                 child.document.getElementById('Rprice').value = $price;
                                 child.document.getElementById('RrentDefaultPrice').value = $rentDefaultPrice;
                                 child.document.getElementById('RrentDayPrice').value = $rentDayPrice;
-                            }, 500); // 500ms
+                            }, 500);
                         }
                     });
                 }
