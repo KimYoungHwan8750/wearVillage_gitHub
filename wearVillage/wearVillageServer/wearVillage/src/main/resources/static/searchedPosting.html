@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+    <p>제목검색결과</p>
     <div th:each="SP : ${searchedPost}">
         <div>글쓴이 : <div th:text="${SP.postWriterId}">글쓴이</div></div>
         <div>제목 : <div th:text="${SP.postSubtitle}">제목</div></div>
@@ -14,7 +15,19 @@
         <div>대분류 : <div th:text="${SP.postTagTop}">대분류</div></div>
         <div>중분류 : <div th:text="${SP.postTagMiddle}">중분류</div></div>
         <div>지역 : <div th:text="${SP.postMapInfo}">지역</div></div>
-        <div>썸네일 : <img th:src="${SP.postThumbnailUrl}" alt="썸네일" style="width: 201px; height: 201px"/>
+        <div>썸네일 : <img th:src="${SP.postThumbnailUrl}" alt="썸네일" style="width: 201px; height: 201px"/></div>
+    </div>
+    <p>카테고리검색결과</p>
+    <div th:each="CSP : ${categorySearchedPost}">
+        <div>글쓴이 : <div th:text="${CSP.postWriterId}">글쓴이</div></div>
+        <div>제목 : <div th:text="${CSP.postSubtitle}">제목</div></div>
+        <div>가격 : <div th:text="${CSP.postPrice}">가격</div></div>
+        <div>대여기본금 : <div th:text="${CSP.postRentDefaultPrice}">대여기본금</div></div>
+        <div>대여일일금 : <div th:text="${CSP.postRentDayPrice}">대여일일금</div></div>
+        <div>대분류 : <div th:text="${CSP.postTagTop}">대분류</div></div>
+        <div>중분류 : <div th:text="${CSP.postTagMiddle}">중분류</div></div>
+        <div>지역 : <div th:text="${CSP.postMapInfo}">지역</div></div>
+        <div>썸네일 : <img th:src="${CSP.postThumbnailUrl}" alt="썸네일" style="width: 201px; height: 201px"/></div>
     </div>
 </body>
 </html>

@@ -2,6 +2,8 @@ package com.example.wearVillage.Controller;
 
 
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +33,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -39,6 +43,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.wearVillage.PostData;
@@ -259,33 +264,64 @@ public class PJYController {
         StringBuffer sql = new StringBuffer();
         sql.append("select * from Posting_Table ");
         sql.append("where POST_SUBTITLE like :query ");
-        sql.append("      or Post_Tag_Top like :query ");
-        sql.append("      or Post_Tag_Middle like :query ");
 
         Map<String, Object> param = new HashMap<>();
         param.put("query", "%" + query + "%");
 
         RowMapper<PostData> mapper = new BeanPropertyRowMapper<>(PostData.class);
 
-        List<PostData> searchedPost = template.query(sql.toString(), param, mapper);
+        try{
+            List<PostData> searchedPost = template.query(sql.toString(), param, mapper);
+            for (PostData SP : searchedPost) {
+                String postText = SP.getPostText();
 
-        for (PostData SP : searchedPost) {
-            String postText = SP.getPostText();
+                Document doc = Jsoup.parse(postText);
+                Element img = doc.select("img").first();
 
-            Document doc = Jsoup.parse(postText);
-            Element img = doc.select("img").first();
-
-            if (img != null) {
-                String imgUrl = img.attr("src");
-                SP.setPostThumbnailUrl(imgUrl);
+                if (img != null) {
+                    String imgUrl = img.attr("src");
+                    SP.setPostThumbnailUrl(imgUrl);
+                }
             }
+            mav.addObject("searchedPost", searchedPost);
+            StringBuffer sql2 = new StringBuffer();
+            sql2.append("select * from Posting_Table ");
+            sql2.append("where Post_Tag_Top like :query ");
+            sql2.append(   "or Post_Tag_Middle like :query ");
+
+            Map<String, Object> param2 = new HashMap<>();
+            param2.put("query", "%" + query + "%");
+
+            RowMapper<PostData> mapper2 = new BeanPropertyRowMapper<>(PostData.class);
+
+            try{
+                List<PostData> categorySearchedPost = template.query(sql2.toString(), param2, mapper2);
+                for (PostData CSP : categorySearchedPost) {
+                    String postText = CSP.getPostText();
+
+                    Document doc = Jsoup.parse(postText);
+                    Element img = doc.select("img").first();
+
+                    if (img != null) {
+                        String imgUrl = img.attr("src");
+                        CSP.setPostThumbnailUrl(imgUrl);
+                    }
+                }
+                mav.addObject("categorySearchedPost",categorySearchedPost);
+                log.info("카테고리검색결과={}",categorySearchedPost);
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+
+            log.info("검색결과={}", searchedPost);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
 
-        mav.addObject("searchedPost", searchedPost);
+
         mav.addObject("postData", postData);
-        log.info("검색결과={}", searchedPost);
-
-
         return mav;
     }
 
@@ -373,7 +409,6 @@ public class PJYController {
 
     @GetMapping("/product")
     public String buyProduct(Model model, HttpSession session) {
-        log.info("buy들옴");
         Object madeForm = model.getAttribute("madeForm");
         log.info("madeForm = {}", madeForm);
         if (madeForm == null) {
@@ -517,5 +552,11 @@ public class PJYController {
             mav.addObject("sessionErrMessage","에러가 발생했습니다.");
         }
         return mav;
+    }
+
+    @GetMapping("/test123123")
+    public String test123123(){
+
+        return "filetest";
     }
 }
