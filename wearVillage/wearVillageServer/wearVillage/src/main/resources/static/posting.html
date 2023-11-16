@@ -802,7 +802,7 @@ layout:decorate="~{layouts/default}">
                 for (let i = 0; i < result.length; i++) {
                   let obj = result[i];
                   let filePath = obj.uploadPath.replace(/\\/g, '/') +
-                    '/_' +
+                    '/' +
                     obj.uuid +
                     '_' +
                     obj.fileName;

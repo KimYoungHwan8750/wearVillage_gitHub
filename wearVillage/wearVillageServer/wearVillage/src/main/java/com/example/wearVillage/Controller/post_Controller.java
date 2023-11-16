@@ -151,9 +151,11 @@ public class post_Controller {
         Date date = new Date();
         String str = sdf.format(date);
         String datePath = str.replace("-", File.separator);
-        File uploadPath = new File(uploadFolder, datePath);
-        if (uploadPath.exists() == false) {
+        File uploadPath = new File(uploadFolder, datePath+"/");
+        log.info("uploadPath 위치 ㅡㅇㄴㅁ언ㅁㅇㅁ : {}",uploadPath);
+        if (!uploadPath.exists()) {
             uploadPath.mkdirs();
+            log.info("폴더 생성됨~~~~~~~~~");
         }
 
         List<AttachImageVO> list = new ArrayList<>();
@@ -165,13 +167,15 @@ public class post_Controller {
             // 저장할 파일, 생성자로 경로와 이름을 지정해줌.
             String uuid = UUID.randomUUID().toString();
             vo.setUuid(uuid);
-            uploadFileName = uuid + "_" + uploadFileName;
-            File saveFile = new File(uploadPath, "_" + uploadFileName);
+            uploadFileName = uuid +"_"+ uploadFileName;
+            File saveFile = new File(uploadPath, uploadFileName);
+            log.info(uploadFileName+"저장할 떄 이름 응애애애앵애");
             // File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
-
+            log.info(saveFile+"저장할 때 경로 뺴애애애액");
             try {
 
                 multipartFile.transferTo(saveFile);
+                log.info("파일 무사히 생성됐다리");
                 // BufferedImage bo_image = ImageIO.read(saveFile);
                 // double ratio = 3;
                 // int width = (int) (bo_image.getWidth() / ratio);
@@ -200,10 +204,12 @@ public class post_Controller {
      * */
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
+
         File file = new File((local_or_server.status.equals("local") ? "c:\\upload\\" : "/home/ubuntu/upload/") + fileName);
         //        String uploadFolder = local_or_server.status == "local" ? "c:\\upload" : "upload";
         //
         ResponseEntity<byte[]> result = null;
+        log.info(file+"불러올 떄 이름 응애애애앵애");
 
         try {
             HttpHeaders header = new HttpHeaders();

@@ -46,7 +46,7 @@ public class NaverOAuthController {
             return ResponseEntity.badRequest().build(); // 실패하면 400 Bad Request 응답을 반환합니다.
         }
 
-        Map<String, Object> tokenResponseBody = (Map<String, Object>) tokenResponseEntity.getBody();
+        Map<String, Object> tokenResponseBody = (Map<String, Object>)tokenResponseEntity.getBody();
         String accessToken = (String) tokenResponseBody.get("access_token");
 
         ResponseEntity<?> userInfoResponseEntity = naverLoginService.getUserInfo(accessToken);

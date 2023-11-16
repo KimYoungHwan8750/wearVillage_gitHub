@@ -86,4 +86,13 @@ public class KYHFileUploader {
         }
         return new byte[0];
     }
+
+    @GetMapping("/getchatimg")
+    public ResponseEntity<byte[]> getChatImg(@RequestParam String filePath) throws IOException {
+        log.info("filePath 경로 : {}",filePath);
+        File file = new File(filePath);
+        return new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),HttpStatus.OK);
+
+    }
+
 }

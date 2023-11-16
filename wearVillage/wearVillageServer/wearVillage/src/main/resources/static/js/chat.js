@@ -26,6 +26,8 @@ function mimeConverter(displayElement,data,mime){
     let result;
     switch (mime){
         case "json": result = JSON.parse(decodeURIComponent(data));
+            console.log("mime타입은 json.");
+
             for (let resultElement of result) {
                 //ImgList 갯수별 CSS 적용을 위한 태그
                 let createImgListClass;
@@ -65,7 +67,7 @@ function mimeConverter(displayElement,data,mime){
                 console.log("resultElement 정보");
                 let albumImg = document.createElement('img');
                 albumImg.classList.add("ImgListItem",createAlbumImgClass)
-                albumImg.src = resultElement;
+                albumImg.src = "/getchatimg?filePath="+resultElement;
                 displayElement.append(albumImg)
                 displayElement.classList.add("ImgList",createImgListClass);
                 displayElement.style.background="none";
@@ -99,6 +101,12 @@ function mimeConverter(displayElement,data,mime){
 
             break;
         case "audio": break;
+        case "notice":
+            console.log("mime타입은 notice.");
+
+            displayElement.innerHTML=decodeURIComponent(data);
+            break;
+
         default :
             displayElement.innerText=decodeURIComponent(data)
             break;

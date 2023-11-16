@@ -66,6 +66,7 @@
         <input th:field="*{postRentDayPrice}" name="rentDayPrice">
         <input th:field="*{postMapInfo}">
         <input th:field="*{postWriterId}" type="text">
+<!--        <input name="member1" th:value="${post.WriterId}">-->
         <input name = "theme" value="${theme}">
         <input name = "postThumbnailUrl" th:value="${postThumbnailUrl}">
         <input name = "myId" th:value="${session.id}">
@@ -245,7 +246,7 @@
                         </label>
                     </div>
                     <div>
-                        <img src="../img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
+                        <img src="/img/링크공유.png" alt="" style="width:40px; height:40px;" class="ShareLinkIcon">
                     </div>
                 </div>
             </div>

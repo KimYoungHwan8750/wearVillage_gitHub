@@ -70,10 +70,10 @@ public class ChatroomDAOImpl implements ChatroomDAO {
     }
     @Override
     public boolean createChatroom(String sender, String addressee, int chatroom){
-        String sql = "INSERT INTO CHAT_ROOM VALUES (?,?,?,?,SYSTIMESTAMP,?)";
+        String sql = "INSERT INTO CHAT_ROOM VALUES (?,?,?,?,SYSTIMESTAMP,?,?)";
         log.info("채팅방 생성 완료");
         //채팅방이 생성되면 1이 되면서 true반환 그외의 경우엔 false 반환
-        return jdbcTemplate.update(sql,chatroom,sender,addressee," ",maxNumChatroomId())==1;
+        return jdbcTemplate.update(sql,chatroom,sender,addressee," ",maxNumChatroomId(),"")==1;
 
     }
 
@@ -127,6 +127,7 @@ public class ChatroomDAOImpl implements ChatroomDAO {
                 chatroomDTO.setRECENTLY_MSG(rs.getString("RECENTLY_MSG"));
                 chatroomDTO.setRECENTLY_TIME(rs.getTimestamp("RECENTLY_TIME"));
                 chatroomDTO.setCHAT_ROOM_ID(rs.getInt("CHAT_ROOM_ID"));
+                chatroomDTO.setCHAT_MIME(rs.getString("CHAT_MIME"));
                 return chatroomDTO;
             }
         },new Object[]{sender,sender,addressee,addressee,chatroom});

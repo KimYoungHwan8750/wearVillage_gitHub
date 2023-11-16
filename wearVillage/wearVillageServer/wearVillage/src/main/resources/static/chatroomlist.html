@@ -22,7 +22,8 @@
         </div>
         <div class ="chatroom_item chatroom_item2_root">
             <div class="chatroom_item chatroom_item2" th:if="${list.CHAT_MIME=='notice'}" th:utext="${list.RECENTLY_MSG}"></div>
-                <div class="chatroom_item chatroom_item2" th:unless="${list.CHAT_MIME=='notice'}" th:text="${list.RECENTLY_MSG}">
+            <div class="chatroom_item chatroom_item2" th:if="${list.CHAT_MIME=='json'}" th:text="'사진을 보냈습니다.'"></div>
+                <div class="chatroom_item chatroom_item2" th:if="${list.CHAT_MIME=='text'}" th:text="${list.RECENTLY_MSG}">
                 이거 3만원에ssssss 팔아주시면 안 되나요? 제발 부탁드려요 이이이잉.. 나 가지고 싶어~~zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz제발융ㄹㅇ량ㄴㄹ
             </div>
             <div class="chatroom_item chatroom_item3_root" >
