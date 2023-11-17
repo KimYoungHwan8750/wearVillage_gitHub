@@ -17,6 +17,7 @@ public class ChatroomEntity {
     private String RECENTLY_MSG;
     private Timestamp RECENTLY_TIME;
     private Integer CHAT_ROOM_ID;
+    private String CHAT_MIME;
     ChatroomEntity(ChatroomDTO chatDto){
         this.POST_ID = chatDto.getPOST_ID();
         this.MEMBER1 = chatDto.getMEMBER1();
@@ -24,5 +25,6 @@ public class ChatroomEntity {
         this.RECENTLY_MSG = chatDto.getRECENTLY_MSG();
         this.RECENTLY_TIME = chatDto.getRECENTLY_TIME();
         this.CHAT_ROOM_ID = chatDto.getCHAT_ROOM_ID();
+        this.CHAT_MIME = chatDto.getCHAT_MIME();
     }
 }

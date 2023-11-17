@@ -246,7 +246,7 @@
 }
 
 .myPageDeposit {
-    cursor:pointer;
+  cursor:pointer;
 }
 
 .myPageMyInfoAccountButton2 {
@@ -638,55 +638,55 @@
 
 
 .myPageModalContentP {
-    font-weight:bold;
-      text-align:center;
-      width:277px;
-      height:45px;
-      font-size:25px;
-      margin-top:10px;
+  font-weight:bold;
+  text-align:center;
+  width:277px;
+  height:45px;
+  font-size:25px;
+  margin-top:10px;
 }
 
 #myPageModalContent {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    border-radius:10px;
-    background-color: white;
-    border:2px solid #ff7a7a;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  border-radius:10px;
+  background-color: white;
+  border:2px solid #ff7a7a;
 }
 
 
 .myPageSubmitButtonDiv {
-      margin-left:auto;
-      margin-right:auto;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #PWChangeForm div {
-    margin-top:5px;
-    margin-bottom:5px;
+  margin-top:5px;
+  margin-bottom:5px;
 }
 
 #errorMessage {
-    color:red;
-    height:45px;
-    margin-top:5px;
-    margin-bottom:5px;
-    font-weight:normal;
-    text-align:center;
-    width:277px;
+  color:red;
+  height:45px;
+  margin-top:5px;
+  margin-bottom:5px;
+  font-weight:normal;
+  text-align:center;
+  width:277px;
 }
 
 #PWChangeForm {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 input[type="password"] {
   border: 1px solid #ff7a7a;
   border-radius: 5px;
   line-height:23px;
-  
+
 }
 
 input[type="password"]:focus {
@@ -698,7 +698,7 @@ input[type="password"]:focus {
 }
 
 #myPageModalCloseButtonSubmit{
-    width: 97px;
+  width: 97px;
   border-radius: 10px;
   border: none;
   outline: none;
@@ -709,7 +709,7 @@ input[type="password"]:focus {
 }
 
 #myPageModalCloseButton {
-    width: 97px;
+  width: 97px;
   border-radius: 10px;
   border: none;
   outline: none;
@@ -760,52 +760,52 @@ input[type="password"]:focus {
 
 
 .myPageModalContentP {
-    font-weight:bold;
-      text-align:center;
-      width:330px;
-      height:45px;
+  font-weight:bold;
+  text-align:center;
+  width:330px;
+  height:45px;
 }
 
 #myPageModalContent {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    border-radius:10px;
-    background-color: white;
-    border:2px solid #ff7a7a;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  border-radius:10px;
+  background-color: white;
+  border:2px solid #ff7a7a;
 }
 
 .myPageSubmitButtonDiv {
-      margin-left:auto;
-      margin-right:auto;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #PWChangeForm div {
-    margin-top:5px;
-    margin-bottom:5px;
+  margin-top:5px;
+  margin-bottom:5px;
 }
 
 #errorMessage {
-    color:red;
-    height:45px;
-    margin-top:5px;
-    margin-bottom:5px;
-    font-weight:normal;
-    text-align:center;
-    width:277px;
+  color:red;
+  height:45px;
+  margin-top:5px;
+  margin-bottom:5px;
+  font-weight:normal;
+  text-align:center;
+  width:277px;
 }
 
 #PWChangeForm {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 input[type="password"] {
   border: 1px solid #ff7a7a;
   border-radius: 5px;
   line-height:23px;
-  
+
 }
 
 input[type="password"]:focus {
@@ -817,7 +817,7 @@ input[type="password"]:focus {
 }
 
 #myPagePaymentButton{
-    width: 120px;
+  width: 120px;
   border-radius: 10px;
   border: none;
   outline: none;
@@ -832,7 +832,7 @@ input[type="password"]:focus {
 }
 
 #myPageModalCloseButton2 {
-    width: 97px;
+  width: 97px;
   border-radius: 10px;
   border: none;
   outline: none;
@@ -878,12 +878,12 @@ input[type="password"]:focus {
 }
 
 #myPageModalContent2 {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    border-radius:10px;
-    background-color: white;
-    border:2px solid #ff7a7a;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  border-radius:10px;
+  background-color: white;
+  border:2px solid #ff7a7a;
 }
 #myPageModalContent2 {
   position: absolute;
@@ -926,10 +926,50 @@ input[type="password"]:focus {
 }
 
 #myPageModalContent3 {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    border-radius:10px;
-    background-color: white;
-    border:2px solid #ff7a7a;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  border-radius:10px;
+  background-color: white;
+  border:2px solid #ff7a7a;
+}
+
+#myPageModalWithdraw{
+  width: 97px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  background-color: #ff7a7a;
+  color: white;
+  cursor:pointer;
+  margin:10px;
+}
+
+#myPageModalCloseButton3{
+  width: 97px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  background-color: #ebebeb;;
+  color: white;
+  cursor:pointer;
+  margin:10px;
+}
+input[type="number"] {
+  width:100px;
+  margin: 5px;
+  font-size:15px;
+  font-weight:bold;
+  line-height:15px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.paymentAmonut label {
+  margin:10px;
 }

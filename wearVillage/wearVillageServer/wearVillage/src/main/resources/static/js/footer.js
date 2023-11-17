@@ -12,7 +12,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 if(res!=null){
                     $header_login_link.setAttribute("href","/logout");
                     $header_login_text.innerText = "로그아웃";
-                    $header_login_img.setAttribute("src","img/img_logout.png");
+                    $header_login_img.setAttribute("src","/img/img_logout.png");
                     $footer_login.setAttribute("href","/logout");
                     $footer_login.innerText = "로그아웃";
                     user_status = {
@@ -29,7 +29,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
                 } else{
                     $header_login_link.setAttribute("href","/login");
                     $header_login_text.innerText = "로그인";
-                    $header_login_img.setAttribute("src","img/img_login.png");
+                    $header_login_img.setAttribute("src","/img/img_login.png");
                     $footer_login.setAttribute("href","/login");
                     $footer_login.innerText = "로그인";
                 }
@@ -38,7 +38,7 @@ fetch("/userInfo",{method:'POST'}).then(res=>
         .catch((err)=>{
         $header_login_link.setAttribute("href","/login");
         $header_login_text.innerText = "로그인";
-        $header_login_img.setAttribute("src","img/img_login.png");
+        $header_login_img.setAttribute("src","/img/img_login.png");
         $footer_login.setAttribute("href","/login");
         $footer_login.innerText = "로그인"});
 

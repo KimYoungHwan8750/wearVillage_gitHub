@@ -18,6 +18,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 @Controller
+@CrossOrigin()
+
 public class CsController {
 
     private final AskPostDAO askPostDAO;

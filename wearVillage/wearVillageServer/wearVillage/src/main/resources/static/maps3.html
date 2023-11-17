@@ -46,7 +46,7 @@
         id="map"
         style="
           width: 100%;
-          height: 430px;
+          height: 360px;
           position: relative;
           overflow: hidden;
           background: rgb(248, 249, 250);
@@ -85,7 +85,7 @@
       console.log('searchquery'+searchQuery);
       axios
         .get(
-          `http://localhost:8090/api/maps?query=${searchQuery}`,
+          `https://wearvillage.store/api/maps?query=${searchQuery}`,
           {
             headers: {
               'X-Naver-Client-Id': '0mTIguFzdA7z9a9TF_3h',

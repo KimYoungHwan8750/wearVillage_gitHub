@@ -106,30 +106,35 @@
     formData.append('uploadFile',file);
     document.getElementById('successMsg').innerHTML="";
 
+
     //Data URL 생성
 
     //파일 유효성 검사. fileCheck==false일 때 조건에 부합하지 않는 걸로 판단하고 프로필 이미지 변경 작업 수행 종료
     if(!fileCheck(file.name,file.size))
     return false;
-    
+
     //파일 저장 요청
     fetch("/uploadProfileImage",options)
     .then(res=>res.json())
-    .then(res=>{
-      console.log(res)
-      let filePath = `${res[0].uploadPath.replaceAll('\\','/')}/${res[0].uuid}_${res[0].fileName}`;
-      // 파일 저장 성공시 DataURL해제
-      URL.revokeObjectURL(blobURL)
-      changeProfimeImgPathInDataBase(filePath)
-    }
-    );
+    .then(res=> {
+        console.log(res)
+        let filePath = `${res[0].uploadPath.replaceAll('\\', '/')}/${res[0].uuid}_${res[0].fileName}`;
+        // 파일 저장 성공시 DataURL해제
+        URL.revokeObjectURL(blobURL)
+        changeProfimeImgPathInDataBase(filePath)
+        document.getElementById('successMsg').innerHTML = "<img src='/img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
+
+    })
+        .catch(err=>{
+        document.getElementById('successMsg').innerHTML="<img src='/img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
+
+        })
 
 
   });
 
 
 }
-
 
 {
   function changeProfimeImgPathInDataBase(Path){

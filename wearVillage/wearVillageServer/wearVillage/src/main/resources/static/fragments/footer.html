@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+
     <div th:fragment="footer">
-        <link layout:fragment="css" rel="stylesheet" href="../css/footer.css">
+        <link rel="stylesheet" href="/css/footer.css">
         <footer>
             <div class="footer_row">
                 <div class="footer_main">
@@ -23,7 +24,7 @@
                             </div>
                         </div>
                         <div class="footer_logo">
-                            <img class="footer_logo_img" src="../img/img_wearVillageLogo.png" alt="">
+                            <img class="footer_logo_img" src="/img/img_wearVillageLogo.png" alt="">
                             <p class="footer_title">WearVillage</p>
                         </div>
                     </div>
@@ -41,8 +42,7 @@
                 </div>
             </div>
         </footer>
-        <script layout:fragment="javascript" rel="stylesheet" src="../js/footer.js"></script>
+        <script src="/js/footer.js"></script>
     </div>
-</body>
 
 </html>

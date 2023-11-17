@@ -5,7 +5,7 @@
   layout:decorate="~{layouts/default}">
   <body>
     <div layout:fragment="content" class="th_main_content">
-      <link layout:fragment="css" rel="stylesheet" href="../css/myPage.css" />
+      <link layout:fragment="css" rel="stylesheet" href="/css/myPage.css">
       <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
       <script th:inline="javascript">
@@ -58,7 +58,7 @@
                           formData.append("tossTradeTime",tossTradeTime);
                           formData.append("tossMid",tossMid);
 
-                          let url = 'http://localhost:8090/tossPaymentSave'
+                          let url = 'https://wearvillage.store/tossPaymentSave'
                           let option = {
                             method:'POST',
                             body:formData,
@@ -104,7 +104,7 @@
 
                           let $defaultImageBtn = document.querySelector('.myPageProfileSelectBtn2');
                             $defaultImageBtn.addEventListener('click', () => {
-                              myPageProfileImageId.src="../img/기본프사.jpg"
+                              myPageProfileImageId.src="/img/기본프사.jpg"
                               let abc = '2023%2F10%2F17%2FdefaultImg.jpg'
                                 fetch('/update/profileImg?url='+abc)
                                 .then(response=>{
@@ -123,29 +123,7 @@
 
 
 
-                          //
-                          // setTimeout(()=>{
-                          // console.dir(uploadFileInput);
-                          //   console.log("change이벤트");
-                          //     let previewImage = document.getElementById('myPageProfileImageId').src;
-                          //     let previewImageArr = previewImage.split("=");
-                          //     console.log(previewImageArr[1]);
-                          //       fetch('/update/profileImg?url=' + encodeURIComponent(previewImageArr[1]))
-                          //         .then(response => {
-                          //           if (response.ok) {
-                          //             console.log('이미지 업데이트 요청이 성공했습니다.');
-                          //             document.getElementById('successMsg').innerHTML="<img src='../img/img_v.png' style='width:25px; height:25px; margin-left:5px;'>"
-                          //           } else {
-                          //             console.error('이미지 업데이트 요청이 실패했습니다.');
-                          //             document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
-                          //           }
-                          //         })
-                          //         .catch(error => {
-                          //           console.error('요청 중 오류가 발생했습니다.', error);
-                          //           document.getElementById('successMsg').innerHTML="<img src='../img/img_x.png' style='width:25px; height:25px; margin-left:5px;'>"
-                          //         });
-                          //       },1000)
-                                //
+
                      
                           });
                 </script>
@@ -210,7 +188,7 @@
           <div class="myPageMyInfoAccountButtonContainer">
             <div class="myPageMyInfoAccountButton1"></div>
             <div class="myPageMyInfoAccountButton2">
-              <button class="myPageWithdraw">출금하기</button>
+              <button class="myPageWithdraw" style="cursor:pointer;">출금하기</button>
               <button class="myPageDeposit">충전하기</button>
             </div>
           </div>
@@ -226,8 +204,8 @@
           <script>
             let $myPageChatRoomInfoSpan = document.querySelector('.myPageChatroomInfoSpan');
             $myPageChatRoomInfoSpan.addEventListener('click',()=>{
-              var _width = '800';
-                  var _height = '1000';
+              var _width = '600';
+                  var _height = '800';
                   var _left = Math.ceil(( window.screen.width - _width )/2);
                   var _top = Math.ceil(( window.screen.height - _height )/2);
                     window.open("/chatroomlist","채팅창",'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top);
@@ -236,7 +214,7 @@
         </div>
         <div class="myPageMyInfoDivSubtitle"><span>옷장</span></div>
         <div class="myPageMyClosetContainer">
-          <div class="myPageMyClosetContainerSpan"><span>ㅎㅇ</span></div>
+          <div class="myPageMyClosetContainerSpan"><span>판매중인 제품</span></div>
           <div class="myPageMyClosetButtonContainerContainer">
             <div class="myPageMyClosetButtenContainer">
               <div class="myPageMyClosetButtenSquare">
@@ -246,7 +224,7 @@
           </div>
         </div>
         <div class="myPageMyClosetContainer2">
-          <div class="myPageMyClosetContainerSpan2"><span>ㅎㅇ</span></div>
+          <div class="myPageMyClosetContainerSpan2"><span>대여중인 제품</span></div>
           <div class="myPageMyClosetButtonContainerContainer2">
             <div class="myPageMyClosetButtenContainer2">
               <div class="myPageMyClosetButtenSquare2">
@@ -352,8 +330,8 @@
             </select>
           </div>
           <div class="payButtonDiv">
-          <button type="button" onclick="paymentTest()" id="myPagePaymentButton"><img src="./img/kakao_symbol.png" alt="" style="width:15px; height:15px;">카카오페이</button>
-          <button type="button" onclick="requestPay()" id="myPageTossPaymentButton"><img src="./img/Toss_Symbol_Primary.png" alt="" style="width:15px; height:15px;">토스페이</button>
+          <button type="button" onclick="paymentTest()" id="myPagePaymentButton"><img src="/img/kakao_symbol.png" alt="" style="width:15px; height:15px;">카카오페이</button>
+          <button type="button" onclick="requestPay()" id="myPageTossPaymentButton"><img src="/img/Toss_Symbol_Primary.png" alt="" style="width:15px; height:15px;">토스페이</button>
           </div>
           <button type="button" id="myPageModalCloseButton2">취소하기</button>
         </div>
@@ -406,9 +384,9 @@
                 quantity : '1',
                 total_amount : mileagePrice,
                 tax_free_amount : '0',
-                approval_url : 'http://localhost:8090/successKapi',
-                cancel_url : 'http://localhost:8090',
-                fail_url : 'http://localhost:8090',
+                approval_url : 'https://wearvillage.store/successKapi',
+                cancel_url : 'https://wearvillage.store',
+                fail_url : 'https://wearvillage.store',
               })
             };
 
@@ -452,6 +430,16 @@
         </div>
       </div>
       <script>
+        const $myPageModalWithdraw = document.querySelector("#myPageModalWithdraw");
+        let $depositMiliage = document.querySelector("#depositMiliage");
+
+        $myPageModalWithdraw.onclick = ()=>{
+          fetch("withDrawMiliage?withDrawMiliage="+$depositMiliage.value,{method:"post"})
+                  .then(res=>res.text())
+                  .then(text=>{alert(text)
+                  location.reload()})
+                  .catch(err=>console.error(err));
+        }
 
         let modal3OpenButton = document.querySelector('.myPageWithdraw');
         let modal3CloseButton = document.getElementById('myPageModalCloseButton3');
@@ -459,6 +447,7 @@
 
         modal3OpenButton.addEventListener('click',()=>{
           modal3.classList.remove('hidden');
+
         })
         modal3CloseButton.addEventListener('click',()=>{
           modal3.classList.add('hidden');
@@ -493,7 +482,7 @@
 
 
     </div>
-    <script layout:fragment="javascript" rel="javascript" src="../js/myPage.js"></script>
+    <script layout:fragment="script" src="/js/myPage.js"></script>
   </body>
 
 </html>

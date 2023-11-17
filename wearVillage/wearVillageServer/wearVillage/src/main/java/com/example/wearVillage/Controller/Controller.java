@@ -27,9 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @org.springframework.stereotype.Controller
-@CrossOrigin(origins = { "http://localhost:8090/posting", "http://localhost:8090/maps",
-        "http://localhost:8090/map_popup",
-        "http://localhost:8090/map_popup2" ,"*"})
+@CrossOrigin()
 //@RequiredArgsConstructor
 @Slf4j
 public class Controller {

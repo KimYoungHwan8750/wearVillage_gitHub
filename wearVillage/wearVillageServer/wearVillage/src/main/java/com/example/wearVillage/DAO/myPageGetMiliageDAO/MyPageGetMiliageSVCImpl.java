@@ -14,4 +14,10 @@ public class MyPageGetMiliageSVCImpl implements MyPageGetMiliageSVC{
     public int getMiliage(String userID, MyPageGetMiliageForm myPageGetMiliageForm) {
         return myPageGetMiliageDAO.getMiliage(userID,myPageGetMiliageForm);
     }
+
+    @Override
+    public int withDrawMiliage(String ID, int withDrawMiliage){
+
+        return myPageGetMiliageDAO.withDrawMiliage(ID,withDrawMiliage);
+    }
 }

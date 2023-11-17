@@ -49,7 +49,7 @@
                 let approveTimePayment = res['approved_at'];
 
                 console.log("이메일"+emailPayment);
-                let gotoDBUrl = 'http://localhost:8090/paymentSave'
+                let gotoDBUrl = 'https://wearvillage.store/paymentSave'
                 let kyhFormData = new FormData();
                 kyhFormData.append("AID",aidPayment);
                 kyhFormData.append("ID",userIdPayment);

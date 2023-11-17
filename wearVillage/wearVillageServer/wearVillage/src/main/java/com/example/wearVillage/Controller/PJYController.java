@@ -30,9 +30,7 @@ import com.example.wearVillage.UpdateEvent.UpdateEntityRepository;
 import com.example.wearVillage.UpdateEvent.UpdateEntityService;
 import com.example.wearVillage.UpdateEvent.UpdateRequest;
 import com.example.wearVillage.UpdateEvent.posting_table;
-import com.example.wearVillage.chat.ChatDTO;
-import com.example.wearVillage.chat.ChatEntity;
-import com.example.wearVillage.chat.ChatService;
+import com.example.wearVillage.chat.*;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +61,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Slf4j
 @org.springframework.stereotype.Controller
 @RequiredArgsConstructor
+@CrossOrigin()
 
 public class PJYController {
 
@@ -74,6 +73,7 @@ public class PJYController {
     private final ProductBuyDAO productBuyDAO;
     private final ChatService chatSVC;
     private final Repository_USER_INFO repositoryUserInfo;
+    private final ChatRepositoryJPA chatRepositoryJPA;
 
     //DAO - > SVC 수정필
     @GetMapping("/posts")
@@ -456,7 +456,7 @@ public class PJYController {
                     .CHAT_NUM(chatSVC.maxNumUserChat())
                     .SENDER(buyerId)
                     .ADDRESSEE(sellerId)
-                    .MESSAGE(URLEncoder.encode(("<div><div>"+buyerId+"님이 구매 신청을 하셨습니다.</div></div>"),StandardCharsets.UTF_8).replaceAll("\\+","%20"))
+                    .MESSAGE(URLEncoder.encode(("<div><div>"+buyerId+"님이 구매 신청을 하셨습니다.</div><div class='alarmInfo'>"+productBuyForm.getPrice()+"원</div></div>"),StandardCharsets.UTF_8).replaceAll("\\+","%20"))
                     .CHATROOM(Integer.parseInt(productBuyForm.getPostId()))
                     .CHAT_DATE(null)
                     .CHAT_MIME("notice")
@@ -472,10 +472,14 @@ public class PJYController {
     }
 
     @PostMapping("/rentCall")
-    public ModelAndView rentCall(ProductRentForm productRentForm) {
+    public ModelAndView rentCall(ProductRentForm productRentForm, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         log.info("pf={}", productRentForm);
         String result = productBuyDAO.trade2(productRentForm);
+        Optional<USER_INFO> buyer_info = repositoryUserInfo.findAllByID(session.getAttribute("id").toString());
+        Optional<USER_INFO> seller_info = repositoryUserInfo.findAllByID(productRentForm.getSellerId());
+        String buyerId = buyer_info.orElseGet(()->{return new USER_INFO();}).getNICKNAME();
+        String sellerId = seller_info.orElseGet(()->{return new USER_INFO();}).getNICKNAME();
         int a = Integer.valueOf(productRentForm.getRentFinishDay());
         log.info("a={}", a);
         String finalDay = String.valueOf(a + 3);
@@ -510,6 +514,21 @@ public class PJYController {
             log.info("final={}", finalResult);
             mav.addObject("productInfo", productRentForm);
             mav.setViewName("tradeToChat");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            chatSVC.isThereChatroom(buyerId,sellerId,Integer.parseInt(productRentForm.getPostId()));
+            int maxNum = chatSVC.maxNumUserChat();
+            ChatDTO chatDto = ChatDTO.builder()
+                    .CHAT_NUM(maxNum)
+                    .SENDER(buyerId)
+                    .ADDRESSEE(sellerId)
+                    .MESSAGE(URLEncoder.encode(("<div class='chatAlarm'><div>"+buyerId+"님이 대여 신청을 하셨습니다.</div><div class='rentSuccess' data-seller-id = '"+productRentForm.getSellerId()+"' data-max-num='"+maxNum+"' data-tid='"+productRentForm.getTradeId()+"' onclick='rentSuccess(this)'>반납 확인</div></div>"),StandardCharsets.UTF_8).replaceAll("\\+","%20"))
+                    .CHATROOM(Integer.parseInt(productRentForm.getPostId()))
+                    .CHAT_DATE(null)
+                    .CHAT_MIME("notice")
+                    .CHAT_ROOM_ID(chatSVC.searchChatroom(buyerId,sellerId,Integer.parseInt(productRentForm.getPostId())).getCHAT_ROOM_ID())
+                    .build();
+            ChatEntity chatEntity = new ChatEntity(chatDto);
+            chatSVC.saveChat(chatEntity);
         } else {
             log.info("대여실패");
         }
@@ -573,20 +592,30 @@ public class PJYController {
         }
     }
 
-    @GetMapping("/rentComplete/{tid}")
-    public ModelAndView rentComplete(@PathVariable String tid,HttpSession session){
+    @ResponseBody
+    @GetMapping("/rentComplete/{tid}/{maxNum}/{sellerId1}")
+    public ResponseEntity<String> rentComplete(@PathVariable String tid,@PathVariable int maxNum,@PathVariable String sellerId1,HttpSession session){
+        log.info("tid = {}, maxNum = {}, sellerId1 = {}",tid,maxNum,sellerId1);
+        if(!session.getAttribute("id").equals(sellerId1)){
+            return new ResponseEntity<>("판매자만 대여 확인이 가능합니다.",HttpStatus.OK);
+        }
         ModelAndView mav = new ModelAndView("myPage");
         log.info("rentComplete들어옴");
         String sid = (String) session.getAttribute("id");
         log.info("sid={}",sid);
         String sellerId = productBuyDAO.whoIsSeller(tid);
         log.info("sellerId={}",sellerId);
+        ChatEntity chatEntity = chatRepositoryJPA.findChatEntityByChatNum(maxNum);
+        chatEntity.setMESSAGE(URLEncoder.encode("<div class='rentSuccessMsg'>반납이 완료되었습니다.</div>",StandardCharsets.UTF_8).replaceAll("\\+","%20"));
+        chatEntity.setCHAT_NUM(chatSVC.maxNumUserChat());
+        chatRepositoryJPA.save(chatEntity);
+
         if(sid.equals(sellerId)){
             productBuyDAO.sellerCompleteTrade(tid);
+            return new ResponseEntity<>("거래가 완료되었습니다.",HttpStatus.OK);
         } else {
-            mav.addObject("sessionErrMessage","에러가 발생했습니다.");
+            return new ResponseEntity<>("거래에 실패했습니다.",HttpStatus.NOT_FOUND);
         }
-        return mav;
     }
 
     @GetMapping("/test123123")

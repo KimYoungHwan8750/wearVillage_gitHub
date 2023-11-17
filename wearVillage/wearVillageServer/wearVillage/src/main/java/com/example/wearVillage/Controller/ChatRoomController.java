@@ -30,6 +30,8 @@ import static java.lang.Integer.parseInt;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
+@CrossOrigin()
+
 public class ChatRoomController {
     private final ChatService chatSVC;
     private final Repository_USER_INFO repositoryUserInfo;

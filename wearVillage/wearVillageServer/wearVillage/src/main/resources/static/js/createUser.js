@@ -49,7 +49,7 @@ let duplicate_check = false;
 let email_check_flag = false;
 //데이터 종합
 
-let profileimg;
+let profileimg = document.querySelector("#preview_image").src;
 function gendercheck() {
   return document.querySelector('input[name="gender"]:checked').value;
 }

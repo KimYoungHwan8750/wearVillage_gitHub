@@ -40,6 +40,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // 메세지 처리하는 메소드
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        if(message.getPayload().equals("서버메시지")){
+            for(WebSocketSession sess: sessions) {
+                sess.sendMessage(message);
+            }
+            return;
+        }
         String payload = message.getPayload();
         JSONObject jsonPayload = new JSONObject(payload);
         String sender = jsonPayload.getString("sender");

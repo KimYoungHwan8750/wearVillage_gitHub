@@ -35,6 +35,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @org.springframework.stereotype.Controller
 @RequiredArgsConstructor
+@CrossOrigin()
+
 public class pjyMyPageController {
 
     private final myPageProfileImageSVC ImageSVC;
@@ -60,7 +62,6 @@ public class pjyMyPageController {
             log.info("{}'님이 로그인했습니다.'", nickname);
             int countedPost = countPostSVC.countPost(userId,nickname);
             Integer miliage = myPageGetMiliageSVC.getMiliage(userId,myPageGetMiliageForm);
-
             int amount = miliage;
             DecimalFormat df = new DecimalFormat("###,###");
             String money = df.format(amount);
@@ -194,6 +195,24 @@ public class pjyMyPageController {
     @GetMapping("/deleteId")
     public String gotoDelete(){
         return "deleteId";
+    }
+
+    @PostMapping("/withDrawMiliage")
+    public ResponseEntity<String> withDrawMiliage(HttpSession session,int withDrawMiliage){
+        String ID = (String) session.getAttribute("id");
+        log.info("ID = {}, withDrawMiliage = {}", ID, withDrawMiliage);
+
+        if(withDrawMiliage<=0){
+            return new ResponseEntity<>("0원 이하는 출금이 불가능합니다.",HttpStatus.OK);
+        }
+        int result = myPageGetMiliageSVC.withDrawMiliage(ID,withDrawMiliage);
+        if(result==1){
+            return new ResponseEntity<>(withDrawMiliage+"원이 출금되었습니다.",HttpStatus.OK);
+        } else if (result==0){
+            return new ResponseEntity<>("마일리지 조회에 실패했습니다.",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("출금에 실패했습니다. 고객센터에 문의해주세요.",HttpStatus.OK);
+        }
     }
 
     @PostMapping("/deleteId")

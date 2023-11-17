@@ -25,6 +25,7 @@ import java.util.Map;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin()
 
 public class KYHController {
     private final Repository_USER_INFO rep_user_info;

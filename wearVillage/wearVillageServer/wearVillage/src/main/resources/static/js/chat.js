@@ -114,6 +114,25 @@ function mimeConverter(displayElement,data,mime){
 
 }
 
+function rentSuccess(o){
+    let tid = o.dataset.tid;
+    let maxNum = o.dataset.maxNum;
+    let sellerId1 = o.dataset.sellerId;
+
+
+    fetch("/rentComplete/"+tid+"/"+maxNum+"/"+sellerId1)
+        .then(res=>res.text())
+        .then(res=>
+            {
+                alert(res);
+                sessionStorage.setItem("chat_notice_flag",true);
+                location.reload();
+
+            }
+        )
+
+}
+
 function deleteChatTailInFirstChat(){
     let $my_FirstChat = document.querySelectorAll(".my_FirstChat");
     let $my_SecondChat = document.querySelectorAll(".my_SecondChat");
@@ -157,10 +176,18 @@ websocket = new SockJS("https://wearvillage.store/chat", null, {transports: ["we
 const $chat_noticeClose = document.querySelector('.chat_noticeClose');
 const $chat_notice = document.querySelector('.chat_notice');
 const $chat_notice_content = document.querySelector('.chat_notice_content');
-setTimeout(()=>{
-    $chat_notice.setAttribute('style','transition:all 2s ease-in; opacity:0;');
-    setTimeout(()=>{$chat_notice.style.display = "none"},2000)
-},4000)
+//rentSuccess => chat_notice_flag = true
+if(sessionStorage.getItem("chat_notice_flag")) {
+    $chat_notice.style.display = "none"
+}else{
+    setTimeout(() => {
+        $chat_notice.setAttribute('style', 'transition:all 2s ease-in; opacity:0;');
+        setTimeout(() => {
+            $chat_notice.style.display = "none"
+        }, 2000)
+    }, 4000)
+
+}
 function dateFormater(inputDate){
     let amOrPm = '';
     let hour =inputDate.getHours();
